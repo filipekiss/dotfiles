@@ -57,7 +57,8 @@ if [[ ! -d "$HOME/.zprezto" ]]; then
   git clone --recursive https://github.com/filipekiss/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
   setopt EXTENDED_GLOB
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/; do
+  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+    echo "${CRED}Linking ${rcfile} to ${ZDOTDIR:-$HOME}/.${rcfile:t}"
     ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
   done
 else
