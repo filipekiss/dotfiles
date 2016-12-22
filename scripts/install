@@ -1,0 +1,65 @@
+#!/bin/bash
+
+#ask for sudo upfront
+sudo -v
+
+#keep-alive for sudo
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+cd $HOME
+#xcode-select may throw an error if already installed.
+xcode-select --install
+
+#colors used for formatting
+
+CBLACK='\033[0;30m'
+CRED='\033[0;31m'
+CGREEN='\033[0;32m'
+CYELLOW='\033[0;33m'
+CBLUE='\033[0;34m'
+CMAGENTA='\033[0;35m'
+CCYAN='\033[0;36m'
+CLIGHT_GRAY='\033[0;37m'
+CDARK_GRAY='\033[0;90m'
+CLIGHT_RED='\033[0;91m'
+CLIGHT_GREEN='\033[0;92m'
+CLIGHT_YELLOW='\033[0;93m'
+CLIGHT_BLUE='\033[0;94m'
+CLIGHT_MAGENTA='\033[0;95m'
+CLIGHT_CYAN='\033[0;96m'
+CWHITE='\033[0;97m'
+NC='\033[0m'
+
+#install homebrew if missing
+if ! command -v brew >/dev/null; then
+  echo -e "${CGREEN}------------------------------------------------------------${NC}"
+  echo -e "${CGREEN}====== Installing Homebrew =================================${NC}"
+  echo -e "${CGREEN}------------------------------------------------------------${NC}"
+  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+#clone dotfiles if missing
+if [[ ! -d "$HOME/.dotfiles" ]]; then
+  echo -e "${CGREEN}------------------------------------------------------------${NC}"
+  echo -e "${CGREEN}====== Cloning dotfiles ====================================${NC}"
+  echo -e "${CGREEN}------------------------------------------------------------${NC}"
+  mkdir "$HOME/.dotfiles"
+  git clone --recursive https://github.com/filipekiss/dotfiles.git "$HOME/.dotfiles"
+else
+  cd $HOME/.dotfiles && git pull origin master
+fi
+
+#clone prezto if missing
+if [[ ! -d "$HOME/.zprezto" ]]; then
+  echo -e "${CGREEN}------------------------------------------------------------${NC}"
+  echo -e "${CGREEN}====== Cloning Prezto =================================${NC}"
+  echo -e "${CGREEN}------------------------------------------------------------${NC}"
+  git clone --recursive https://github.com/filipekiss/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+  setopt EXTENDED_GLOB
+  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/; do
+    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+  done
+else
+  cd $HOME/.zprezto && git reset --hard origin/master && git submodule update --init --recursive
+fi
