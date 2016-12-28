@@ -36,6 +36,7 @@ if ! command -v brew >/dev/null; then
   echo -e "${CGREEN}====== Installing Homebrew =================================${NC}"
   echo -e "${CGREEN}------------------------------------------------------------${NC}"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew install stow
 fi
 
 #clone dotfiles if missing

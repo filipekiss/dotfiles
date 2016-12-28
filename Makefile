@@ -9,4 +9,10 @@ homebrew: homebrew/Brewfile
 install:
 	@./scripts/install
 
-.PHONY: install homebrew
+symlink:
+	@echo "Stowing files to $(HOME)"
+	@stow --ignore ".DS_Store" --target="$(HOME)" --dir="$(HOME)/.dotfiles" \
+		git
+
+
+.PHONY: homebrew install symlink
