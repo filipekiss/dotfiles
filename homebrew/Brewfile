@@ -1,0 +1,51 @@
+# vim:ft=ruby:
+#Change this to your preferred location. Mine sits on a secondary drive.
+cask_args appdir: '/Volumes/PlatformOne/Applications'
+
+tap 'homebrew/bundle'
+tap 'homebrew/dupes'
+tap 'homebrew/php'
+tap 'caskroom/cask'
+tap 'caskroom/fonts'
+tap 'caskroom/versions'
+
+brew 'git'
+brew 'python'
+brew 'python3'
+brew 'nvm'
+brew 'coreutils'
+brew 'curl'
+brew 'htop'
+brew 'keybase'
+brew 'mas'
+brew 'php56'
+brew 'php71'
+brew 'nginx'
+brew 'rbenv'
+brew 'tldr'
+brew 'tree'
+brew 'vim', args: ['with-python2', 'with-override-system-vi']
+brew 'wget'
+brew 'z'
+brew 'zsh'
+
+cask 'atom'
+cask 'aerial'
+cask 'cleanmymac'
+cask 'dropbox'
+cask 'firefox'
+cask 'iterm2'
+cask 'launchbar'
+cask 'polymail'
+cask 'quicklook-json'
+cask 'spectacle'
+cask 'transmission'
+cask 'ubersicht'
+cask 'whatsapp'
+
+
+
+mas '1Password', id: 443987910
+mas 'Telegram', id: 747648890
+mas 'Tweetbot', id: 557168941
+mas 'Sip', id: 507257563
