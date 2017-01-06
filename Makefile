@@ -12,7 +12,8 @@ install:
 symlink:
 	@echo "Stowing files to $(HOME)"
 	@stow --ignore ".DS_Store" --target="$(HOME)" --dir="$(HOME)/.dotfiles" \
-		git
+		git \
+		zsh
 
 
 .PHONY: homebrew install symlink
