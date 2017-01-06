@@ -10,6 +10,8 @@ tap 'caskroom/fonts'
 tap 'caskroom/versions'
 
 brew 'git'
+brew 'git-flow-avh'
+brew 'ssh-copy-id'
 brew 'python'
 brew 'python3'
 brew 'nvm'
