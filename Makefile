@@ -13,6 +13,8 @@ symlink:
 	@echo "Stowing files to $(HOME)"
 	@stow --ignore ".DS_Store" --target="$(HOME)" --dir="$(HOME)/.dotfiles" \
 		git \
+		dig \
+		atom \
 		zsh
 
 
