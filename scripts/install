@@ -6,21 +6,9 @@ if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 
 DOTFILES_DIR="$HOME/.dotfiles"
 
-_log_random_color
-
-_log_border
-_log_line ' ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ '
-_log_line ' ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝ '
-_log_line ' ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗ '
-_log_line ' ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║ '
-_log_line ' ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║ '
-_log_line ' ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ '
-_log_line
-_log_line ' This needs improvement* '
-_log_border
 
 
-cd $HOME
+cd $DOTFILES_DIR
 
 homebrew() {
   #install homebrew if missing
@@ -36,13 +24,13 @@ homebrew() {
 
 dotfiles(){
   #clone dotfiles if missing
-  if [[ ! -d "$HOME/.dotfiles" ]]; then
+  if [[ ! -d "$DOTFILES_DIR" ]]; then
     log_success "Cloning filipekiss/dotfiles"
-    mkdir "$HOME/.dotfiles"
-    git clone --recursive https://github.com/filipekiss/dotfiles.git "$HOME/.dotfiles"
+    mkdir "$DOTFILES_DIR"
+    git clone --recursive https://github.com/filipekiss/dotfiles.git "$DOTFILES_DIR"
   else
     log_success "Updating filipekiss/dotfiles"
-    cd $HOME/.dotfiles && \
+    cd $DOTFILES_DIR && \
     git pull origin master && \
     git stash && \
     git checkout master && \
@@ -52,6 +40,38 @@ dotfiles(){
     git stash pop
   fi
 }
+
+LOG_COLOR=$WHITE
+
+_log_border
+_log_line ' ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ '
+_log_line ' ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝ '
+_log_line ' ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗ '
+_log_line ' ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║ '
+_log_line ' ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║ '
+_log_line ' ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ '
+_log_line
+_log_line ' This needs improvement* '
+
+DOTFILES_GIT_INFO_COMMIT=$(git log -n 1 --pretty=format:'%C(yellow)commit:  %h')
+DOTFILES_GIT_INFO_DATE=$(git log -n 1 --pretty=format:'%C(red)date:    %ad' --date=short)
+DOTFILES_GIT_INFO_AUTHOR=$(git log -n 1 --pretty=format:'%C(cyan)author:  %an')
+DOTFILES_GIT_INFO_MESSAGE=$(git log -n 1 --pretty=format:'%C(green)message: %s')
+
+_log_line
+_log_line
+_log_pad 10
+_log_line "${PURPLE}Last Commit Info:${LOG_COLOR}"
+_reset_log_padding
+_log_line
+_log_pad 10
+_log_line "$DOTFILES_GIT_INFO_COMMIT${LOG_COLOR}"
+_log_line "$DOTFILES_GIT_INFO_DATE${LOG_COLOR}"
+_log_line "$DOTFILES_GIT_INFO_AUTHOR${LOG_COLOR}"
+_log_line "$DOTFILES_GIT_INFO_MESSAGE${LOG_COLOR}"
+_reset_log_padding
+_log_border
+
 
 dotfiles()
 homebrew()

@@ -3,7 +3,7 @@
 tput sgr0
 
 RED=$(tput setaf 1)
-ORANGE=$(tput setaf 3)
+YELLOW=$(tput setaf 3)
 GREEN=$(tput setaf 2)
 PURPLE=$(tput setaf 5)
 BLUE=$(tput setaf 4)
@@ -59,11 +59,11 @@ _log_line() {
 }
 
 log_error() {
-  log_message "$1" $COLORS["RED"] "FAIL"
+  log_message "$1" $RED "FAIL"
 }
 
 log_success() {
-  log_message "$1" $COLORS["GREEN"] "OK"
+  log_message "$1" $GREEN "OK"
 }
 
 
@@ -81,5 +81,5 @@ _log_set_color() {
 
 _log_random_color() {
     RAND_COLOR=$(( ( RANDOM % 7 )  + 1 ))
-    LOG_COLOR=$(tput setaf $RAND_COLOR) 
+    LOG_COLOR=$(tput setaf $RAND_COLOR)
 }
