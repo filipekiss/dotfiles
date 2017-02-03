@@ -40,3 +40,5 @@
   'alt-shift-right': 'editor:select-to-next-subword-boundary'
   'alt-left': 'editor:move-to-previous-subword-boundary'
   'alt-shift-left': 'editor:select-to-previous-subword-boundary'
+  'ctrl-shift-left': 'editor:select-to-beginning-of-line'
+  'ctrl-shift-right': 'editor:select-to-end-of-line'
