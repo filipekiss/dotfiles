@@ -1,0 +1,85 @@
+#!/bin/bash
+
+tput sgr0
+
+RED=$(tput setaf 1)
+ORANGE=$(tput setaf 3)
+GREEN=$(tput setaf 2)
+PURPLE=$(tput setaf 5)
+BLUE=$(tput setaf 4)
+WHITE=$(tput setaf 7)
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+
+log_message() {
+  local MSG="$1"
+  local COLOR="$2"
+  local STATUS="$3"
+
+  [[ -z $COLOR && -n $LOG_COLOR ]] && COLOR=$LOG_COLOR
+  [[ -z $COLOR && -z $LOG_COLOR ]] && COLOR=$COLORS["BLUE"]
+
+  _log_border "$COLOR"
+  _log_line "$MSG" "$COLOR" "$STATUS"
+  _log_border "$COLOR"
+}
+
+_log_border() {
+  local COLOR="$1"
+  local COLS=$(($(tput cols) - 2))
+
+  [[ -z $COLOR && -n $LOG_COLOR ]] && COLOR=$LOG_COLOR
+
+  printf "${COLOR}+%*s+${RESET}" "$COLS" | tr ' ' '-'
+}
+
+_log_line() {
+  local MSG="$1"
+  local COLOR="$2"
+  local STATUS="$3"
+  local PADDING_ADJUST="$4"
+
+  [[ -z $LOG_PADDING ]] && LOG_PADDING=0
+
+  LOG_PADDING_BKP="$LOG_PADDING"
+
+  [[ -n $STATUS ]] && STATUS="[${STATUS}]"
+
+  [[ -z $COLOR && -n $LOG_COLOR ]] && COLOR=$LOG_COLOR
+
+  [[ $PADDING_ADJUST ]] && LOG_PADDING=$PADDING_ADJUST
+
+  LOG_PADDING=$((2 - $LOG_PADDING))
+
+  let COL=$(tput cols)-$LOG_PADDING-${#MSG}+${#RESET}
+
+  printf "%s%${COL}s" "$COLOR| $MSG" "${STATUS}|$RESET"
+
+  LOG_PADDING=$LOG_PADDING_BKP
+}
+
+log_error() {
+  log_message "$1" $COLORS["RED"] "FAIL"
+}
+
+log_success() {
+  log_message "$1" $COLORS["GREEN"] "OK"
+}
+
+
+_log_pad() {
+  [[ -n $1 ]] && LOG_PADDING="$1"
+}
+
+_reset_log_padding() {
+  LOG_PADDING=0
+}
+
+_log_set_color() {
+  [[ -n "$1" ]] && LOG_COLOR=$1
+}
+
+_log_random_color() {
+    RAND_COLOR=$(( ( RANDOM % 7 )  + 1 ))
+    LOG_COLOR=$(tput setaf $RAND_COLOR) 
+}

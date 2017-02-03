@@ -1,67 +1,63 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
-#ask for sudo upfront
-sudo -v
+DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+. "${DIR}/utils/log"
 
-#keep-alive for sudo
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+DOTFILES_DIR="$HOME/.dotfiles"
+
+_log_random_color
+
+_log_border
+_log_line ' ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ '
+_log_line ' ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝ '
+_log_line ' ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗ '
+_log_line ' ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║ '
+_log_line ' ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║ '
+_log_line ' ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ '
+_log_line
+_log_line ' This needs improvement* '
+_log_border
+
 
 cd $HOME
-#xcode-select may throw an error if already installed.
-xcode-select --install
 
-#colors used for formatting
-
-CBLACK='\033[0;30m'
-CRED='\033[0;31m'
-CGREEN='\033[0;32m'
-CYELLOW='\033[0;33m'
-CBLUE='\033[0;34m'
-CMAGENTA='\033[0;35m'
-CCYAN='\033[0;36m'
-CLIGHT_GRAY='\033[0;37m'
-CDARK_GRAY='\033[0;90m'
-CLIGHT_RED='\033[0;91m'
-CLIGHT_GREEN='\033[0;92m'
-CLIGHT_YELLOW='\033[0;93m'
-CLIGHT_BLUE='\033[0;94m'
-CLIGHT_MAGENTA='\033[0;95m'
-CLIGHT_CYAN='\033[0;96m'
-CWHITE='\033[0;97m'
-NC='\033[0m'
-
-#install homebrew if missing
-if ! command -v brew >/dev/null; then
-  echo -e "${CGREEN}------------------------------------------------------------${NC}"
-  echo -e "${CGREEN}====== Installing Homebrew =================================${NC}"
-  echo -e "${CGREEN}------------------------------------------------------------${NC}"
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+homebrew() {
+  #install homebrew if missing
+  if ! command -v brew >/dev/null; then
+    log_success "Installing Homebrew"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    log_success "Homebrew already installed"
+  fi
+  log_success "Brewing Stow"
   brew install stow
-fi
+}
 
-#clone dotfiles if missing
-if [[ ! -d "$HOME/.dotfiles" ]]; then
-  echo -e "${CGREEN}------------------------------------------------------------${NC}"
-  echo -e "${CGREEN}====== Cloning dotfiles ====================================${NC}"
-  echo -e "${CGREEN}------------------------------------------------------------${NC}"
-  mkdir "$HOME/.dotfiles"
-  git clone --recursive https://github.com/filipekiss/dotfiles.git "$HOME/.dotfiles"
-else
-  cd $HOME/.dotfiles && git pull origin master
-fi
+dotfiles(){
+  #clone dotfiles if missing
+  if [[ ! -d "$HOME/.dotfiles" ]]; then
+    log_success "Cloning filipekiss/dotfiles"
+    mkdir "$HOME/.dotfiles"
+    git clone --recursive https://github.com/filipekiss/dotfiles.git "$HOME/.dotfiles"
+  else
+    log_success "Updating filipekiss/dotfiles"
+    cd $HOME/.dotfiles && \
+    git pull origin master && \
+    git stash && \
+    git checkout master && \
+    git reset --hard origin/master && \
+    git submodule update --init --recursive && \
+    git checkout - && \
+    git stash pop
+  fi
+}
 
-#clone prezto if missing
-if [[ ! -d "$HOME/.zprezto" ]]; then
-  echo -e "${CGREEN}------------------------------------------------------------${NC}"
-  echo -e "${CGREEN}====== Cloning Prezto =================================${NC}"
-  echo -e "${CGREEN}------------------------------------------------------------${NC}"
-  git clone --recursive https://github.com/filipekiss/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+dotfiles()
+homebrew()
 
-  setopt EXTENDED_GLOB
-  for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-    echo "${CRED}Linking ${rcfile} to ${ZDOTDIR:-$HOME}/.${rcfile:t}"
-    ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-  done
-else
-  cd $HOME/.zprezto && git reset --hard origin/master && git submodule update --init --recursive
-fi
+_log_random_color
+
+_log_border
+_log_line '*This always needs improvement'
+_log_border
