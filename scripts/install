@@ -15,11 +15,9 @@ homebrew() {
   if ! command -v brew >/dev/null; then
     log_success "Installing Homebrew"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  else
-    log_success "Homebrew already installed"
+    log_success "Brewing Stow"
+    brew install stow
   fi
-  log_success "Brewing Stow"
-  brew install stow
 }
 
 dotfiles(){
@@ -31,8 +29,8 @@ dotfiles(){
   else
     log_success "Updating filipekiss/dotfiles"
     cd $DOTFILES_DIR && \
-    git pull origin master && \
     git stash && \
+    git pull origin master && \
     git checkout master && \
     git reset --hard origin/master && \
     git submodule update --init --recursive && \
@@ -73,8 +71,8 @@ _reset_log_padding
 _log_border
 
 
-dotfiles()
-homebrew()
+dotfiles
+homebrew
 
 _log_random_color
 
