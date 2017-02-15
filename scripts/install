@@ -71,8 +71,8 @@ _reset_log_padding
 _log_border
 
 
-dotfiles
-homebrew
+#dotfiles
+#homebrew
 
 _log_random_color
 
