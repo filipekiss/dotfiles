@@ -15,4 +15,4 @@ source "${DIR}/log"
 #
 # DIR="${BASH_SOURCE%/*}"
 # if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
-# source "utils/utils"
+# source "${DIR}/utils/utils"
