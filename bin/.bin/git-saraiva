@@ -7,13 +7,6 @@ source "${DIR}/utils/utils"
 create_branch_from_ticket() {
   local TICKET="$1"
 
-  [[ -z ${TICKET} || ! $(is_ticket_valid "$TICKET") ]] && ok=0 || ok=1
-  while [ $ok = 0 ]
-  do
-    e_inline "Please, inform the ticket code (ex: SS-1234): "
-    read -r TICKET_INPUT
-    [[ $(is_ticket_valid "${TICKET_INPUT}")  ]] && ok=1 && TICKET=${TICKET_INPUT} || e_error "Please, fill in the ticket following the pattern SS-1234"
-  done
   e_info "Creating branch ${PURPLE}${TICKET}${WHITE} from ${PURPLE}master${RESET}"
   git branch ${TICKET} && \
   e_info "Switching to branch ${TICKET}"
@@ -32,9 +25,17 @@ is_ticket_valid() {
 go_to_branch() {
   local TICKET="$1"
 
+  [[ -z ${TICKET} || ! $(is_ticket_valid "$TICKET") ]] && ok=0 || ok=1
+  while [ $ok = 0 ]
+  do
+    e_inline "Please, inform the ticket code (ex: SS-1234): "
+    read -r TICKET_INPUT
+    [[ $(is_ticket_valid "${TICKET_INPUT}")  ]] && ok=1 && TICKET=${TICKET_INPUT} || e_error "Please, fill in the ticket following the pattern SS-1234"
+  done
+
   local BRANCH_EXISTS=$(git rev-parse --verify ${TICKET} 2> /dev/null)
 
-  [[ ${BRANCH_EXISTS} ]] && e_success "Branch found: ${PURPLE}${TICKET}" & git checkout "${TICKET}" || create_branch_from_ticket "${TICKET}"
+  [[ ${BRANCH_EXISTS} ]] && e_success "Branch found: ${PURPLE}${TICKET}" && git checkout "${TICKET}" || create_branch_from_ticket "${TICKET}"
 }
 
 main() {
