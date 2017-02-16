@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+NO="NO"
+YES="YES"
+OSX="OSX"
+UBUNTU="UBUNTU"
+
+IS_OSX="${NO}"
+IS_UBUNTU="${NO}"
+
+[[ ${OSTYPE} =~ ^darwin ]] && IS_OSX="${YES}" && OSNAME="${OSX}"
+[[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && IS_UBUNTU="${YES}" && OSNAME="${UBUNTU}"

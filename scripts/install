@@ -2,29 +2,17 @@
 
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
-. "${DIR}/utils/log"
+source "${DIR}/utils/utils"
 
 DOTFILES_DIR="$HOME/.dotfiles"
 __REPO_NAME="filipekiss/dotfiles"
 __REPO_URL="https://github.com/filipekiss/dotfiles.git"
-
-
-NO="NO"
-YES="YES"
-OSX="OSX"
-UBUNTU="UBUNTU"
-
-IS_OSX="${NO}"
-IS_UBUNTU="${NO}"
 
 HAS_RUBY=$(type -P ruby)
 HAS_CURL=$(type -P curl)
 HAS_GIT=$(type -P git)
 HAS_STOW=$(type -P stow)
 HAS_BREW=$(type -P brew)
-
-[[ ${OSTYPE} =~ ^darwin ]] && IS_OSX="${YES}" && OSNAME="${OSX}"
-[[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && IS_UBUNTU="${YES}" && OSNAME="${UBUNTU}"
 
 check_dependencies() {
   e_header "Checking system dependencies"

@@ -1,27 +1,24 @@
-all: homebrew
-
-homebrew_setup:
-	@./homebrew/setup.sh
-
-homebrew:
-	@brew update
-	@brew bundle --file=~/.dotfiles/homebrew/Brewfile
-	@brew cleanup
-	@brew doctor
+all: install
 
 install:
 	@./scripts/install
 
+homebrew_setup:
+	@./homebrew/setup.sh
+
+osx:
+	@./scripts/symlink
+	@./scripts/osx
+
+
 symlink:
-	@echo "Stowing files to $(HOME)"
-	@stow --ignore ".DS_Store" --target="$(HOME)" --dir="$(HOME)/.dotfiles" \
-		git \
-		dig \
-		atom \
-		zsh
+	@./scripts/symlink
 
 apt_setup:
 	@./apt/ppa.sh
 
+ubuntu:
+	@./scripts/symlink
+	@./apt/install.sh
 
-.PHONY: homebrew install symlink apt
+.PHONY: osx install symlink apt

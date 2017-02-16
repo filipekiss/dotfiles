@@ -2,12 +2,13 @@
 
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
-. "${DIR}/../scripts/utils/log"
+. "${DIR}/../scripts/utils/utils"
 
 install_ppa() {
     local __PPA=(
       "git-core/ppa"
       "webupd8team/terminix"
+      "ondrej/php"
     )
 
     sudo -v
