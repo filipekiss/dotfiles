@@ -11,6 +11,8 @@ __REPO_URL="https://github.com/filipekiss/dotfiles.git"
 
 NO="NO"
 YES="YES"
+OSX="OSX"
+UBUNTU="UBUNTU"
 
 IS_OSX="${NO}"
 IS_UBUNTU="${NO}"
@@ -21,8 +23,8 @@ HAS_GIT=$(type -P git)
 HAS_STOW=$(type -P stow)
 HAS_BREW=$(type -P brew)
 
-[[ ${OSTYPE} =~ ^darwin ]] && IS_OSX="${YES}"
-[[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && IS_UBUNTU="${YES}"
+[[ ${OSTYPE} =~ ^darwin ]] && IS_OSX="${YES}" && OSNAME="${OSX}"
+[[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && IS_UBUNTU="${YES}" && OSNAME="${UBUNTU}"
 
 check_dependencies() {
   e_header "Checking system dependencies"
@@ -43,15 +45,6 @@ check_dependencies() {
   fi
   [[ $ERRORS_FOUND -gt 0 ]] && e_error "Cannot continue installation. Check errors above and then try again." && exit 1;
   e_success "Everything seems ok."
-}
-
-homebrew() {
-  e_header "Installing Homebrew"
-  [[ ${IS_OSX} == "${NO}" ]]  && e_warning "Not OSX. Skipping homebrew..." && return 0
-  #install homebrew if missing
-  if [[ ! $HAS_BREW ]]; then
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" && e_success "Homebrew Installed"
-  fi
 }
 
 stow() {
@@ -83,16 +76,19 @@ dotfiles(){
     e_info "Updating ${__REPO_NAME}"
     cd $DOTFILES_DIR && \
     e_info "Stashing local changes..." && \
-    git stash && \
+    git add . > /dev/null 2>&1 && \
+    git stash > /dev/null 2>&1 && \
     e_info "Pulling updates from origin..." && \
-    git pull origin master && \
-    git checkout master && \
-    git reset --hard origin/master && \
+    git pull origin master > /dev/null 2>&1 && \
+    e_info "Checking out master"
+    git checkout master > /dev/null 2>&1 && \
+    git reset --hard origin/master > /dev/null 2>&1 && \
     e_info "Updating submodules..." && \
-    git submodule update --init --recursive && \
-    git checkout - && \
+    git submodule update --init --recursive > /dev/null 2>&1 && \
+    e_info "Returning to your branch"
+    git checkout - > /dev/null 2>&1 && \
     e_info "Applying stashed changes..." && \
-    git stash pop && \
+    git stash pop > /dev/null 2>&1 && \
     e_success "${__REPO_NAME} updated"
   fi
 }
@@ -171,6 +167,19 @@ setup_git() {
   [[ ${DOTFILES_MANAGED:-"false"} != "true" ]] && e_warning "This gitconfig is not managed by the script" || e_info "This gitconfig is managed by the script"
 }
 
+welcome_message() {
+  e_header "Last steps"
+  SUPRESS_TIMESTAMP=true
+  case "$1" in
+    "${OSX}" )
+      e_info "Run \`make osx\` to install things listed on ./homebrew/Brewfile"
+      ;;
+    "${UBUNTU}" )
+      e_info "Run \`make ubuntu\` to install things listed on ./apt/install.sh"
+      ;;
+  esac
+}
+
 clear
 
 __LOG_COLOR_HEADER=$WHITE
@@ -200,8 +209,10 @@ e_line
 SUPRESS_TIMESTAMP=""
 
 check_dependencies
-homebrew
+[[ ${IS_OSX} == ${YES} ]] && make homebrew_setup
+[[ ${IS_UBUNTU} == ${YES} ]] && make apt_setup
 stow
 install_git
 setup_git
 dotfiles
+welcome_message ${OSNAME}

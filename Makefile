@@ -1,6 +1,9 @@
 all: homebrew
 
-homebrew: homebrew/Brewfile
+homebrew_setup:
+	@./homebrew/setup.sh
+
+homebrew:
 	@brew update
 	@brew bundle --file=~/.dotfiles/homebrew/Brewfile
 	@brew cleanup
@@ -17,5 +20,8 @@ symlink:
 		atom \
 		zsh
 
+apt_setup:
+	@./apt/ppa.sh
 
-.PHONY: homebrew install symlink
+
+.PHONY: homebrew install symlink apt
