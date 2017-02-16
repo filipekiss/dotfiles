@@ -5,77 +5,203 @@ if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 . "${DIR}/utils/log"
 
 DOTFILES_DIR="$HOME/.dotfiles"
+__REPO_NAME="filipekiss/dotfiles"
+__REPO_URL="https://github.com/filipekiss/dotfiles.git"
 
 
+NO="NO"
+YES="YES"
 
-cd $DOTFILES_DIR
+IS_OSX="${NO}"
+IS_UBUNTU="${NO}"
+
+HAS_RUBY=$(type -P ruby)
+HAS_CURL=$(type -P curl)
+HAS_GIT=$(type -P git)
+HAS_STOW=$(type -P stow)
+HAS_BREW=$(type -P brew)
+
+[[ ${OSTYPE} =~ ^darwin ]] && IS_OSX="${YES}"
+[[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] && IS_UBUNTU="${YES}"
+
+check_dependencies() {
+  e_header "Checking system dependencies"
+  ERRORS_FOUND=0
+  if [[ ${IS_OSX} = ${YES} ]]; then
+    if [[ ${HAS_RUBY} ]]; then
+      e_success "Ruby found at ${HAS_RUBY}"
+    else
+      e_error "Ruby not found. Install before proceeding"
+      ERRORS_FOUND=$((${ERRORS_FOUND} + 1))
+    fi
+    if [[ ${HAS_CURL} ]]; then
+      e_success "cURL found at ${HAS_CURL}"
+    else
+      e_error "Curl not found. Install before proceeding"
+      ERRORS_FOUND=$((${ERRORS_FOUND} + 1))
+    fi
+  fi
+  [[ $ERRORS_FOUND -gt 0 ]] && e_error "Cannot continue installation. Check errors above and then try again." && exit 1;
+  e_success "Everything seems ok."
+}
 
 homebrew() {
+  e_header "Installing Homebrew"
+  [[ ${IS_OSX} == "${NO}" ]]  && e_warning "Not OSX. Skipping homebrew..." && return 0
   #install homebrew if missing
-  if ! command -v brew >/dev/null; then
-    log_success "Installing Homebrew"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    log_success "Brewing Stow"
-    brew install stow
+  if [[ ! $HAS_BREW ]]; then
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" && e_success "Homebrew Installed"
   fi
+}
+
+stow() {
+  HAS_STOW=$(type -P stow)
+  e_header "Checking for Stow"
+  if [[ ! ${HAS_STOW} ]]; then
+    if [[ ${IS_OSX} == ${YES} ]]; then
+      e_header "Brewing Stow"
+      brew install stow
+    elif [[ ${IS_UBUNTU} == ${YES} ]]; then
+      e_header "Installing Stow"
+      sudo apt-get install stow
+    fi
+  fi
+  HAS_STOW=$(type -P stow)
+  [[ ${HAS_STOW} ]] && e_success "Stow found at ${HAS_STOW}"
 }
 
 dotfiles(){
   #clone dotfiles if missing
+  e_header "Checking dotfiles"
   if [[ ! -d "$DOTFILES_DIR" ]]; then
-    log_success "Cloning filipekiss/dotfiles"
+    e_info "$DOTFILES_DIR doesn't exists. Let's clone!"
     mkdir "$DOTFILES_DIR"
-    git clone --recursive https://github.com/filipekiss/dotfiles.git "$DOTFILES_DIR"
+
+    git clone --recursive ${__REPO_URL} "$DOTFILES_DIR" && \
+    e_success "${__REPO_NAME} cloned"
   else
-    log_success "Updating filipekiss/dotfiles"
+    e_info "Updating ${__REPO_NAME}"
     cd $DOTFILES_DIR && \
+    e_info "Stashing local changes..." && \
     git stash && \
+    e_info "Pulling updates from origin..." && \
     git pull origin master && \
     git checkout master && \
     git reset --hard origin/master && \
+    e_info "Updating submodules..." && \
     git submodule update --init --recursive && \
     git checkout - && \
-    git stash pop
+    e_info "Applying stashed changes..." && \
+    git stash pop && \
+    e_success "${__REPO_NAME} updated"
   fi
 }
 
-LOG_COLOR=$WHITE
+install_git() {
+  e_header "Checking for git"
+  HAS_GIT="$(type -P git)"
+  if [[ ! ${HAS_GIT} ]]; then
+    #is is OSX
+    if [[ ${IS_OSX} == ${YES} ]]; then
+      #if brew is not installed yet, install it
+      if [[ ! "$(type -P brew)" ]]; then
+        homebrew
+      fi
+      #after brew is installed, install git
+      if [[ "$(type -P brew)" ]]; then
+        e_header "Updating Homebrew"
+        brew update && e_success "Homebrew updated" || error "Error when updating homebrew"
+        e_header "Installing Git"
+        brew install git && e_success "Git installed" || e_error "Error when installing git"
+      fi
+    fi
+    #if is Ubuntu
+    if [[ ${IS_UBUNTU} == ${YES} ]]; then
+      e_header "Installing Git"
+      sudo apt-get update && e_success "apt updated"
+      sudo apt-get -qq install git-core && e_success "Git installed" || e_error "Error when installing git"
+    fi
+  fi
+  #try Checking for git again
+  HAS_GIT="$(type -P git)"
+  # If Git isn't installed by now, something exploded. We gots to quit!
+  if [[ ! ${HAS_GIT} ]]; then
+    e_error "Git should be installed. It isn't. Aborting."
+    exit 1
+  fi
+  e_success "Git found at ${HAS_GIT}"
+}
 
-_log_border
-_log_line ' ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ '
-_log_line ' ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝ '
-_log_line ' ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗ '
-_log_line ' ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║ '
-_log_line ' ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║ '
-_log_line ' ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ '
-_log_line
-_log_line ' This needs improvement* '
+setup_git() {
+  e_header "Checking git configuration"
+  GIT_EMAIL=$(${HAS_GIT} config --global --get user.email)
+  GIT_NAME=$(${HAS_GIT} config --global --get user.name)
+  if [[ ! ${GIT_EMAIL} ]]; then
+    GIT_NAME=""
+    #there's no git email configured. Assume it's a brand new machine
+    ok=0
+    while [ $ok = 0 ]
+    do
+      e_inline "What's your Git Author Name?" "${PURPLE}" "${LOG_STATUS_INFO}"
+      read -r GIT_NAME
+      if [[ -z ${GIT_NAME}  ]]; then
+        e_error "Please, fill in your author name"
+      else
+        ok=1
+        ${HAS_GIT} config --global user.name "${GIT_NAME}"
+      fi
+    done
+    #ask for e-mail
+    ok=0
+    while [ $ok = 0 ]
+    do
+      e_inline "What's your Git Author E-Mail?" "${PURPLE}" "${LOG_STATUS_INFO}"
+      read -r GIT_EMAIL
+      if [[ -z ${GIT_EMAIL}  ]]; then
+        e_error "Please, fill in your author e-mail"
+      else
+        ok=1
+        ${HAS_GIT} config --global user.name "${GIT_EMAIL}"
+      fi
+    done
+  fi
+  e_info "Git Author: ${GIT_NAME}"
+  e_info "Git E-mail: ${GIT_EMAIL}"
+  DOTFILES_MANAGED=$(${HAS_GIT} config --global --get dotfiles.managed)
+  [[ ${DOTFILES_MANAGED:-"false"} != "true" ]] && e_warning "This gitconfig is not managed by the script" || e_info "This gitconfig is managed by the script"
+}
 
+clear
+
+__LOG_COLOR_HEADER=$WHITE
+__LOG_COLOR_LINE=$BLUE
+SUPRESS_TIMESTAMP=true
+
+e_line
+e_line " ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ " "${BOLD}${WHITE}"
+e_line " ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝ " "${BOLD}${WHITE}"
+e_line " ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗ " "${BOLD}${WHITE}"
+e_line " ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║ " "${BOLD}${WHITE}"
+e_line " ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║ " "${BOLD}${WHITE}"
+e_line " ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ " "${BOLD}${WHITE}"
+e_line
 DOTFILES_GIT_INFO_COMMIT=$(git log -n 1 --pretty=format:'%C(yellow)commit:  %h')
 DOTFILES_GIT_INFO_DATE=$(git log -n 1 --pretty=format:'%C(red)date:    %ad' --date=short)
 DOTFILES_GIT_INFO_AUTHOR=$(git log -n 1 --pretty=format:'%C(cyan)author:  %an')
 DOTFILES_GIT_INFO_MESSAGE=$(git log -n 1 --pretty=format:'%C(green)message: %s')
 
-_log_line
-_log_line
-_log_pad 10
-_log_line "${PURPLE}Last Commit Info:${LOG_COLOR}"
-_reset_log_padding
-_log_line
-_log_pad 10
-_log_line "$DOTFILES_GIT_INFO_COMMIT${LOG_COLOR}"
-_log_line "$DOTFILES_GIT_INFO_DATE${LOG_COLOR}"
-_log_line "$DOTFILES_GIT_INFO_AUTHOR${LOG_COLOR}"
-_log_line "$DOTFILES_GIT_INFO_MESSAGE${LOG_COLOR}"
-_reset_log_padding
-_log_border
+e_header "Last Commit Info"
+e_info "$DOTFILES_GIT_INFO_COMMIT${LOG_COLOR}"
+e_info "$DOTFILES_GIT_INFO_DATE${LOG_COLOR}"
+e_info "$DOTFILES_GIT_INFO_AUTHOR${LOG_COLOR}"
+e_info "$DOTFILES_GIT_INFO_MESSAGE${LOG_COLOR}"
+e_line
 
+SUPRESS_TIMESTAMP=""
 
-#dotfiles
-#homebrew
-
-_log_random_color
-
-_log_border
-_log_line '*This always needs improvement'
-_log_border
+check_dependencies
+homebrew
+stow
+install_git
+setup_git
+dotfiles

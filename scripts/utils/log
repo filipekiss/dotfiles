@@ -11,78 +11,60 @@ WHITE=$(tput setaf 7)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 
-log_message() {
+LOG_STATUS_SUCCESS="✔"
+LOG_STATUS_ERROR="✖"
+LOG_STATUS_INFO="➜"
+
+e_header()   {
+  local MSG="$1"
+  local COLOR="$2"
+
+  [[ -z $COLOR ]] && COLOR="${BLUE}"
+  [[ -n $__LOG_COLOR_HEADER ]] && COLOR="${__LOG_COLOR_HEADER}"
+
+  SUPRESS_TIMESTAMP_BKP=${SUPRESS_TIMESTAMP}
+  SUPRESS_TIMESTAMP=true
+
+  e_line
+  e_line "== ${MSG} ==" "${BOLD}${COLOR}" "" "${BOLD}${COLOR}"
+
+  SUPRESS_TIMESTAMP=${SUPRESS_TIMESTAMP_BKP}
+}
+
+e_line() {
   local MSG="$1"
   local COLOR="$2"
   local STATUS="$3"
+  local STATUS_COLOR="$4"
+  local LINE_BREAK="$5"
+  local TIMESTAMP="["$(date "+%d-%m-%Y %H:%M:%S")"]"
 
-  [[ -z $COLOR && -n $LOG_COLOR ]] && COLOR=$LOG_COLOR
-  [[ -z $COLOR && -z $LOG_COLOR ]] && COLOR=$BLUE
+  [[ -n $__LOG_COLOR_LINE && -z "${COLOR}" ]] && COLOR="${__LOG_COLOR_LINE}"
+  [[ -z $COLOR ]] && COLOR="${BLUE}"
+  [[ -z $STATUS ]] && STATUS=" "
+  [[ -z $STATUS_COLOR ]] && STATUS_COLOR=${PURPLE}
+  [[ ${LINE_BREAK:-true} != false ]] && LINE_BREAK="\n" || LINE_BREAK=""
+  [[ $SUPRESS_TIMESTAMP || -z $MSG ]] && TIMESTAMP=""
 
-  _log_border "$COLOR"
-  _log_line "$MSG" "$COLOR" "$STATUS"
-  _log_border "$COLOR"
+  printf "${STATUS_COLOR}${TIMESTAMP} %s${RESET} ${COLOR}%s${RESET}${LINE_BREAK}" "${STATUS}" "${MSG}"
 }
 
-_log_border() {
-  local COLOR="$1"
-  local COLS=$(tput cols)
-
-  [[ -z $COLOR && -n $LOG_COLOR ]] && COLOR=$LOG_COLOR
-
-  printf "${COLOR}%*s${RESET}" "$COLS" | tr ' ' '#'
+e_success() {
+  e_line "$1" "${GREEN}" "${LOG_STATUS_SUCCESS}" "${GREEN}"
 }
 
-_log_line() {
-  local MSG="$1"
-  local COLOR="$2"
-  local STATUS="$3"
-
-  [[ -z $LOG_PADDING ]] && LOG_PADDING=0
-
-  LOG_PADDING_BKP="$LOG_PADDING"
-
-  [[ -n $STATUS ]] && STATUS="[${STATUS}]"
-
-  [[ -z $COLOR && -n $LOG_COLOR ]] && COLOR=$LOG_COLOR
-
-  [[ $PADDING_ADJUST ]] && LOG_PADDING=$PADDING_ADJUST
-
-  LOG_PADDING=$((2 - $LOG_PADDING))
-
-  let COL=$(tput cols)-$LOG_PADDING-${#MSG}+${#RESET}
-
-  printf "%s%${COL}s" "$COLOR# $MSG" "${STATUS}#$RESET"
-
-  LOG_PADDING=$LOG_PADDING_BKP
+e_error() {
+  e_line "$1" "${RED}" "${LOG_STATUS_ERROR}" "${RED}"
 }
 
-log_error() {
-  log_message "$1" $RED "FAIL"
+e_info() {
+  e_line "$1" "${WHITE}" "${LOG_STATUS_INFO}" "${BLUE}"
 }
 
-log_success() {
-  log_message "$1" $GREEN "OK"
+e_warning() {
+  e_line "$1" "${YELLOW}" "${LOG_STATUS_INFO}" "${BOLD}${RED}"
 }
 
-log_info() {
-  log_message "$1" $BLUE
-}
-
-
-_log_pad() {
-  [[ -n $1 ]] && LOG_PADDING="$1"
-}
-
-_reset_log_padding() {
-  LOG_PADDING=0
-}
-
-_log_set_color() {
-  [[ -n "$1" ]] && LOG_COLOR=$1
-}
-
-_log_random_color() {
-    RAND_COLOR=$(( ( RANDOM % 7 )  + 1 ))
-    LOG_COLOR=$(tput setaf $RAND_COLOR)
+e_inline() {
+  e_line "$1" "$2" "$3" "$4" false
 }
