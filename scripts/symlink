@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 stow --ignore ".DS_Store" --target="$HOME" --dir="$HOME/.dotfiles" \
+  bin \
   git \
   dig \
   atom \
