@@ -11,6 +11,7 @@ install_apt_packages() {
       "terminix"
       "php5.6 php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml"
       "mysql-server"
+      "spotify-client"
   )
 
   sudo -v

@@ -17,8 +17,8 @@ symlink:
 apt_setup:
 	@./apt/ppa.sh
 
-ubuntu:
+ubuntu: apt_setup
 	@./scripts/symlink
 	@./apt/install.sh
 
-.PHONY: osx install symlink apt
+.PHONY: all install homebrew_setup osx symlink apt_setup ubuntu
