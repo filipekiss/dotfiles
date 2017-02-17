@@ -23,7 +23,7 @@ install_apt_packages() {
   sudo apt-get update > /dev/null 2>&1 && e_success "Done!"
   for __package in ${__APT[@]}; do
     e_info "Installing ${__package}"
-    sudo apt-get -y install "${__package}" > /dev/null 2>&1 && e_success "${__package} successfully installed" || e_error "Error installing ${__package}"
+    sudo apt-get -y install "${__package}" && e_success "${__package} successfully installed" || e_error "Error installing ${__package}"
   done;
 }
 
