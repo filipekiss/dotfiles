@@ -2,6 +2,24 @@
 
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+
+#check if utils exists and download it if it doesn't
+if [[ ! -f ${DIR}/utils/utils ]]; then
+	DIR=/tmp/dotfiles
+	echo "$(tput setaf 3) ⚠ $(tput setaf 4)Util scripts not found. Downloading from github to ${DIR}$(tput sgr0)"
+	mkdir -p ${DIR}/utils
+	cd ${DIR}/utils
+	SCRIPTS=(
+		log
+		os
+		utils
+	)
+	for SCRIPT in ${SCRIPTS[@]}; do
+		SCRIPT_URL="https://raw.githubusercontent.com/filipekiss/dotfiles/master/scripts/utils/${SCRIPT}"
+		curl -o "${SCRIPT}" "${SCRIPT_URL}" 
+	done;
+fi
+
 source "${DIR}/utils/utils"
 
 DOTFILES_DIR="$HOME/.dotfiles"
@@ -79,6 +97,7 @@ dotfiles(){
     git stash pop > /dev/null 2>&1 && \
     e_success "${__REPO_NAME} updated"
   fi
+cd ${DOTFILES_DIR}
 }
 
 install_git() {
@@ -197,10 +216,11 @@ e_line
 SUPRESS_TIMESTAMP=""
 
 check_dependencies
-[[ ${IS_OSX} == ${YES} ]] && make homebrew_setup
-[[ ${IS_UBUNTU} == ${YES} ]] && make apt_setup
-stow
 install_git
 setup_git
 dotfiles
+[[ ${IS_OSX} == ${YES} ]] && make homebrew_setup
+[[ ${IS_UBUNTU} == ${YES} ]] && make apt_setup
+stow
 welcome_message ${OSNAME}
+
