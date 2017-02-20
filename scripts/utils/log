@@ -46,7 +46,7 @@ e_line() {
   [[ ${LINE_BREAK:-true} != false ]] && LINE_BREAK="\n" || LINE_BREAK=""
   [[ $SUPRESS_TIMESTAMP || -z $MSG ]] && TIMESTAMP=""
 
-  printf "${STATUS_COLOR}%s${RESET} ${COLOR}%s${RESET}${LINE_BREAK}" "${STATUS}" "${MSG}"
+  printf "${STATUS_COLOR} %s${RESET} ${COLOR}%s${RESET}${LINE_BREAK}" "${STATUS}" "${MSG}"
 }
 
 e_success() {
@@ -73,7 +73,7 @@ e_check() {
   local STATUS="$1" #0 is ok, anything else is not-ok. This is exit status friendly
   local SUCCESS_MESSAGE="$2"
   local ERROR_MESSAGE="$3"
-  [[ $STATUS ]] && e_error "$ERROR_MESSAGE" || e_success "$SUCCESS_MESSAGE"
+  [[ $STATUS ]] && e_success "$SUCCESS_MESSAGE" || e_error "$ERROR_MESSAGE"
 }
 
 e_start_spinner() {
