@@ -54,7 +54,9 @@ e_success() {
 }
 
 e_error() {
-  e_line "$1" "${RED}" "${LOG_STATUS_ERROR}" "${RED}"
+  MSG="$1"
+  [[ -z $MSG ]] && MSG="Something went wrong"
+  e_line "$MSG" "${RED}" "${LOG_STATUS_ERROR}" "${RED}"
 }
 
 e_info() {
@@ -70,31 +72,25 @@ e_inline() {
 }
 
 e_start_spinner() {
-  E_SPINNER_START_MESSAGE=""
-  [[ "$1" ]] && E_SPINNER_START_MESSAGE="$1"
-  [[ "$2" ]] && E_SPINNER_END_MESSAGE="$2"
-  [[ $E_SPINNER_START_MESSAGE ]] && e_inline "$E_SPINNER_START_MESSAGE" "${WHITE}" "${LOG_STATUS_INFO}" "${BLUE}"
   e_spinner &
   E_SPINNER_PID=$!
   disown $E_SPINNER_PID #make sure bash doesn't freak out when we kill the spinner
 }
 
 e_spinner() {
-  local i sp n
-  sp='/-\|'
-  n=${#sp}
+  local spinner=""
+  local counter=""
   while sleep 0.1; do
-      local temp=${sp#?}
-      printf " [%c]  " "$sp"
-      local sp=$temp${sp%"$temp"}
-      printf "\b\b\b\b\b\b"
+    local size=$(($(tput cols) - ${#counter}))
+    spinner+="▓"
+    printf "\r${BLUE}%s${WHITE}%s" "$counter" "$spinner"
+    [ ${#spinner} -eq $size ] && spinner="" && e_reset_line && counter+="▓"
   done
 }
 
 e_stop_spinner() {
   kill $E_SPINNER_PID &> /dev/null
-  [[ $E_SPINNER_START_MESSAGE ]] && printf "    \b\b\b\b"
-  [[ $E_SPINNER_END_MESSAGE ]] && e_reset_line && e_inline "$E_SPINNER_END_MESSAGE" "${WHITE}" "${LOG_STATUS_INFO}" "${BLUE}"
+  e_reset_line
   printf "\n"
 }
 
