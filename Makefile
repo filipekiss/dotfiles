@@ -12,6 +12,7 @@ osx:
 
 
 symlink:
+	@./scripts/backup-config
 	@./scripts/symlink
 
 apt_setup:

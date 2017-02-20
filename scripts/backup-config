@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+DIR="${BASH_SOURCE%/*}"
+if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
+source "${DIR}/utils/utils"
+
+DOTFILES_BACKUP_DIR="$HOME/.dotfiles_backup/"$(date "+%Y%m%d%H%M%S")
+CONFIG_LOCATION="$HOME/.dotfiles/config"
+STOW_FOLDERS=$(find config/* -mindepth 1 -maxdepth 1 -type d)
+STOW_FILES=$(find config/* -mindepth 1 -maxdepth 1 -type f)
+
+e_header "Backing up config files"
+e_info "Creating backup dir at ${DOTFILES_BACKUP_DIR}"
+mkdir -p ${DOTFILES_BACKUP_DIR}
+
+#backup stow folders first
+for FOLDER in $STOW_FOLDERS; do
+  FOLDER=$(basename $FOLDER)
+  mv "${HOME}/${FOLDER}" "${DOTFILES_BACKUP_DIR}/${FOLDER}" 1>/dev/null
+  RETVAL=$?
+  e_check $RETVAL "${FOLDER} backed up" "Error backing up ${FOLDER}."
+done
+
+#backup stow files
+for FILE in $STOW_FILES; do
+  FILE=$(basename $FILE)
+  mv "${HOME}/${FILE}" "${DOTFILES_BACKUP_DIR}/${FILE}" 1>/dev/null
+  RETVAL=$?
+  e_check $RETVAL "${FILE} backed up" "Error backing up ${FILE}"
+done
