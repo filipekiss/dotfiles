@@ -68,3 +68,23 @@ e_warning() {
 e_inline() {
   e_line "$1" "$2" "$3" "$4" false
 }
+
+e_start_spinner() {
+  e_spinner &
+  E_SPINNER_PID=$!
+  disown $E_SPINNER_PID #make sure bash doesn't freak out when we kill the spinner
+}
+
+e_spinner() {
+  local i sp n
+  sp='/-\|'
+  n=${#sp}
+  printf ' '
+  while sleep 0.1; do
+      printf "%s \b\b" "${sp:i++%n:1}"
+  done
+}
+
+e_stop_spinner() {
+  kill $E_SPINNER_PID &> /dev/null
+}

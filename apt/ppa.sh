@@ -18,7 +18,9 @@ install_ppa() {
     local __PPA=(
       "git-core/ppa"
       "webupd8team/terminix"
+      "webupd8team/atom"
       "ondrej/php"
+      "gnome-terminator"
     )
 
     e_header "Adding PPA"
@@ -31,7 +33,10 @@ install_ppa() {
     done;
     if [[ ${ADDED_PPA} -gt 0 ]]; then
       e_info "Updating apt-get"
-      sudo apt-get update > /dev/null 2>&1 && e_success "Done!"
+      e_start_spinner
+      sudo apt-get update > /dev/null 2>&1
+      e_stop_spinner
+      e_success "Done!"
     else
       e_info "No PPA addeds. No updated needed for now..."
     fi
