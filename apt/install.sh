@@ -9,6 +9,8 @@ if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
 install_apt_packages() {
   local __APT=(
       "terminix"
+      "terminator"
+      "atom"
       "php5.6 php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml"
       "mysql-server"
       "spotify-client"
@@ -20,7 +22,10 @@ install_apt_packages() {
 
   e_header "Installing packages"
   e_info "Updating apt-get"
-  sudo apt-get update > /dev/null 2>&1 && e_success "Done!"
+  e_start_spinner
+  sudo apt-get update > /dev/null 2>&1
+  e_stop_spinner
+  e_success "Done!"
   for __package in ${__APT[@]}; do
     e_info "Installing ${__package}"
     sudo apt-get -y install "${__package}" && e_success "${__package} successfully installed" || e_error "Error installing ${__package}"
