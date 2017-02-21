@@ -2,3 +2,5 @@
   core:
     telemetryConsent: "limited"
   editor: {}
+  "exception-reporting":
+    userId: "8afa7f4b-8a7d-413f-b704-992e53aef4a7"
