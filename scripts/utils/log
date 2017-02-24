@@ -22,13 +22,8 @@ e_header()   {
   [[ -z $COLOR ]] && COLOR="${BLUE}"
   [[ -n $__LOG_COLOR_HEADER ]] && COLOR="${__LOG_COLOR_HEADER}"
 
-  SUPRESS_TIMESTAMP_BKP=${SUPRESS_TIMESTAMP}
-  SUPRESS_TIMESTAMP=true
-
-  e_line
+    e_line
   e_line "== ${MSG} ==" "${BOLD}${COLOR}" "" "${BOLD}${COLOR}"
-
-  SUPRESS_TIMESTAMP=${SUPRESS_TIMESTAMP_BKP}
 }
 
 e_line() {
@@ -37,14 +32,12 @@ e_line() {
   local STATUS="$3"
   local STATUS_COLOR="$4"
   local LINE_BREAK="$5"
-  local TIMESTAMP="["$(date "+%d-%m-%Y %H:%M:%S")"]"
 
   [[ -n $__LOG_COLOR_LINE && -z "${COLOR}" ]] && COLOR="${__LOG_COLOR_LINE}"
   [[ -z $COLOR ]] && COLOR="${BLUE}"
   [[ -z $STATUS ]] && STATUS=" "
   [[ -z $STATUS_COLOR ]] && STATUS_COLOR=${PURPLE}
   [[ ${LINE_BREAK:-true} != false ]] && LINE_BREAK="\n" || LINE_BREAK=""
-  [[ $SUPRESS_TIMESTAMP || -z $MSG ]] && TIMESTAMP=""
 
   printf "${STATUS_COLOR} %s${RESET} ${COLOR}%s${RESET}${LINE_BREAK}" "${STATUS}" "${MSG}"
 }
@@ -73,7 +66,7 @@ e_check() {
   local STATUS="$1" #0 is ok, anything else is not-ok. This is exit status friendly
   local SUCCESS_MESSAGE="$2"
   local ERROR_MESSAGE="$3"
-  [[ $STATUS ]] && e_success "$SUCCESS_MESSAGE" || e_error "$ERROR_MESSAGE"
+  [[ ${STATUS} -eq 0 ]] && e_success "$SUCCESS_MESSAGE" || e_error "$ERROR_MESSAGE"
 }
 
 e_start_spinner() {
