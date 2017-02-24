@@ -1,4 +1,9 @@
 "*":
   core:
     telemetryConsent: "limited"
-  editor: {}
+  editor:
+    scrollPastEnd: true
+    showIndentGuide: true
+    showInvisibles: true
+  whitespace:
+    ensureSingleTrailingNewline: false
