@@ -14,6 +14,14 @@ install_spotify_repo() {
  [[ $ADD_REPOSITORY ]] && e_success "Spotify Repository Added" || $(e_error "Error adding Spotify Repository" && exit 1)
 }
 
+install_enpass_repo() {
+  e_header "Adding Enpass PPA"
+  e_info "Adding Repository"
+  echo "deb http://repo.sinew.in/ stable main" | sudo tee /etc/apt/sources.list.d/enpass.list
+  e_info "Adding Key"
+  wget -O - https://dl.sinew.in/keys/enpass-linux.key | sudo apt-key add -
+}
+
 install_ppa() {
     local __PPA=(
       "git-core/ppa"
@@ -21,6 +29,7 @@ install_ppa() {
       "webupd8team/atom"
       "ondrej/php"
       "gnome-terminator"
+      "jonathonf/pepperflashplugin-nonfree"
     )
 
     e_header "Adding PPA"
@@ -49,3 +58,4 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 install_ppa
 install_spotify_repo
+install_enpass_repo

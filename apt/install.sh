@@ -11,10 +11,13 @@ install_apt_packages() {
       "terminix"
       "terminator"
       "atom"
-      "php5.6 php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml"
+      "enpass"
       "mysql-server"
+      "php5.6 php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml"
       "spotify-client"
       "zsh"
+      "pepperflashplugin-nonfree"
+      "browser-plugin-freshplayer-pepperflash"
   )
 
   sudo -v
