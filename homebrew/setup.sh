@@ -2,7 +2,7 @@
 
 DIR="${BASH_SOURCE%/*}"
 if [[ ! -d "$DIR" ]]; then DIR="$PWD"; fi
-source "${DIR}/utils/utils"
+source "${DIR}/../scripts/utils/utils"
 
 homebrew() {
   e_header "Installing Homebrew"

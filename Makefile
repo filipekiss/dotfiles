@@ -6,8 +6,7 @@ install:
 homebrew_setup:
 	@./homebrew/setup.sh
 
-osx:
-	@./scripts/symlink
+osx: symlink
 	@./scripts/osx
 
 
@@ -18,8 +17,7 @@ symlink:
 apt_setup:
 	@./apt/ppa.sh
 
-ubuntu: apt_setup
-	@./scripts/symlink
+ubuntu: apt_setup symlink
 	@./apt/install.sh
 
 .PHONY: all install homebrew_setup osx symlink apt_setup ubuntu

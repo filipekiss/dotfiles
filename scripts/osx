@@ -6,7 +6,12 @@ source "${DIR}/utils/utils"
 
 [[ ${IS_OSX} == ${NO} ]] && e_error "Oops.This is not OS X." && exit 1;
 
+BREWFILE="${HOME}/.dotfiles/homebrew/Brewfile"
+
+e_info "Updating Homebrew"
 brew update
-brew bundle --file=~/.dotfiles/homebrew/Brewfile
+e_info "Installing brewfile $BREWFILE"
+brew bundle --file=$BREWFILE
+e_info "Post-Install Clean-up"
 brew cleanup
 brew doctor

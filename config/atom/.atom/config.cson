@@ -5,5 +5,7 @@
     scrollPastEnd: true
     showIndentGuide: true
     showInvisibles: true
+  "exception-reporting":
+    userId: "cb961030-69be-40b5-b3ac-708fbd783d1a"
   whitespace:
     ensureSingleTrailingNewline: false
