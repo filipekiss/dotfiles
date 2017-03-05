@@ -20,5 +20,6 @@ stow --ignore ".DS_Store" --target="$HOME" --dir="$HOME/.dotfiles/config" \
   git \
   dig \
   atom \
+  curl \
   zsh
 e_check $? "Stow ran successfully" "Something went wrong when stowing files, see errors above"

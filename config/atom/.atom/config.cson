@@ -1,11 +1,20 @@
 "*":
+  "atom-beautify":
+    general:
+      _analyticsUserId: "19822e23-301f-437b-a35f-d7c28de3db90"
   core:
     telemetryConsent: "limited"
+    themes: [
+      "nord-atom-ui"
+      "nord-atom-syntax"
+    ]
   editor:
     scrollPastEnd: true
     showIndentGuide: true
     showInvisibles: true
   "exception-reporting":
     userId: "cb961030-69be-40b5-b3ac-708fbd783d1a"
+  "nord-atom-ui":
+    darkerFormFocusEffect: true
   whitespace:
     ensureSingleTrailingNewline: false
