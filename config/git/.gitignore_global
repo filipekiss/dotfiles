@@ -4,6 +4,7 @@ Thumbs.db
 
 #My global ignore pattern
 __*.*
+___*
 
 #Ignore .ctags
 .tags

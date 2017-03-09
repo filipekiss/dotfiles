@@ -16,5 +16,14 @@
     userId: "cb961030-69be-40b5-b3ac-708fbd783d1a"
   "nord-atom-ui":
     darkerFormFocusEffect: true
+  "tree-view":
+    autoReveal: true
+    hideIgnoredNames: true
+    squashDirectoryNames: true
+  welcome:
+    showOnStartup: false
   whitespace:
     ensureSingleTrailingNewline: false
+  zentabs:
+    neverCloseNew: true
+    neverCloseUnsaved: true
