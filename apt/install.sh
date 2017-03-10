@@ -12,8 +12,6 @@ install_apt_packages() {
       "terminator"
       "atom"
       "enpass"
-      "mysql-server"
-      "php5.6 php5.6-mbstring php5.6-mcrypt php5.6-mysql php5.6-xml"
       "spotify-client"
       "zsh"
       "pepperflashplugin-nonfree"
