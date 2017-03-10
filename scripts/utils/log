@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 tput sgr0
 
@@ -16,30 +16,13 @@ LOG_STATUS_ERROR="✖"
 LOG_STATUS_INFO="➜"
 
 e_header()   {
-  local MSG="$1"
-  local COLOR="$2"
-
-  [[ -z $COLOR ]] && COLOR="${BLUE}"
-  [[ -n $__LOG_COLOR_HEADER ]] && COLOR="${__LOG_COLOR_HEADER}"
-
-    e_line
-  e_line "== ${MSG} ==" "${BOLD}${COLOR}" "" "${BOLD}${COLOR}"
+  e_line
+  e_line "${1} ==" "${BOLD}" "==" "${BOLD}"
 }
 
 e_line() {
-  local MSG="$1"
-  local COLOR="$2"
-  local STATUS="$3"
-  local STATUS_COLOR="$4"
-  local LINE_BREAK="$5"
-
-  [[ -n $__LOG_COLOR_LINE && -z "${COLOR}" ]] && COLOR="${__LOG_COLOR_LINE}"
-  [[ -z $COLOR ]] && COLOR="${BLUE}"
-  [[ -z $STATUS ]] && STATUS=" "
-  [[ -z $STATUS_COLOR ]] && STATUS_COLOR=${PURPLE}
-  [[ ${LINE_BREAK:-true} != false ]] && LINE_BREAK="\n" || LINE_BREAK=""
-
-  printf "${STATUS_COLOR} %s${RESET} ${COLOR}%s${RESET}${LINE_BREAK}" "${STATUS}" "${MSG}"
+  [[ $LINE_BREAK != "" ]] && LINE_BREAK="\n"
+  printf "${4} %b${RESET} ${2}%b${RESET}${LINE_BREAK}" "${3}" "${1}"
 }
 
 e_success() {
@@ -51,48 +34,40 @@ e_error() {
 }
 
 e_info() {
-  e_line "$1" "${WHITE}" "${LOG_STATUS_INFO}" "${BLUE}"
-}
-
-e_warning() {
-  e_line "$1" "${YELLOW}" "${LOG_STATUS_INFO}" "${BOLD}${RED}"
-}
-
-e_inline() {
-  e_line "$1" "$2" "$3" "$4" false
-}
-
-e_check() {
-  local STATUS="$1" #0 is ok, anything else is not-ok. This is exit status friendly
-  local SUCCESS_MESSAGE="$2"
-  local ERROR_MESSAGE="$3"
-  [[ ${STATUS} -eq 0 ]] && e_success "$SUCCESS_MESSAGE" || e_error "$ERROR_MESSAGE"
-}
-
-e_start_spinner() {
-  e_spinner &
-  E_SPINNER_PID=$!
-  disown $E_SPINNER_PID #make sure bash doesn't freak out when we kill the spinner
-}
-
-e_spinner() {
-  local spinner=""
-  local counter=""
-  while sleep 0.1; do
-    local size=$(($(tput cols) - ${#counter}))
-    spinner+="▓"
-    printf "\r${BLUE}%s${WHITE}%s" "$counter" "$spinner"
-    [ ${#spinner} -eq $size ] && spinner="" && e_reset_line && counter+="▓"
-  done
-}
-
-e_stop_spinner() {
-  kill $E_SPINNER_PID &> /dev/null
-  e_reset_line
-  printf "\n"
+  e_line "$1" "" "${LOG_STATUS_INFO}" "${BLUE}"
 }
 
 e_reset_line() {
   local COLS=$(tput cols)
   printf "\r" && printf "%${COLS}s\r"
+  LINE_BREAK="\n"
 }
+
+e_set_inline() {
+  LINE_BREAK=""
+}
+
+e_spinner() {
+  local spinstr='|/-\'
+  while sleep 0.1; do
+    e_reset_line
+    local temp=${spinstr#?}
+    printf " ${BLUE}%c${RESET} ${2}%b${RESET}" "$spinstr" "${1}"
+    local spinstr=$temp${spinstr%"$temp"}
+  done
+}
+
+e_activity() {
+  local MESSAGE="$1"
+  e_spinner "$MESSAGE" &
+  E_SPINNER_PID=$!
+  disown $E_SPINNER_PID #make sure bash doesn't freak out when we kill the spinner
+}
+
+e_activity_end() {
+  kill $E_SPINNER_PID &> /dev/null
+  e_reset_line
+}
+
+
+LINE_BREAK="\n"
