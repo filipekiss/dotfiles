@@ -1,7 +1,0 @@
-#ignore non config atom and apm files
-.apm
-blob-store
-compile-cache
-recovery
-storage
-nohup.out
