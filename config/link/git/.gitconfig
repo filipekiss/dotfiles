@@ -1,0 +1,89 @@
+[include]
+	path = ~/.gitconfig.local
+
+[alias]
+	a = add -v
+	all = add -v .
+	ap = add -p
+	assume = update-index --assume-unchanged
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+	br = branch
+	branch-name = rev-parse --abbrev-ref HEAD
+	ci = commit
+	co = checkout
+	conflict = diff --name-only --diff-filter=U
+	current = "!git branch-name"
+	diffc = diff --cached
+	dw = diff --color-words
+	feature = flow feature
+	full-status = status --porcelain --untracked-files=all
+	gr = log --graph --full-history --all --color --decorate
+	hotfix = flow hotfix
+	ignore = "!addToIgnore() { echo $1 >> .gitignore; }; addToIgnore"
+	ignored = ls-files --others -i --exclude-standard
+	last = log --pretty=format:'%s' --abbrev-commit -1
+	latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	nb = "!f() { echo 'Creating branch from '$(git latest-tag); git checkout -b $1 $(git latest-tag); }; f";
+	ncluderelease = flow release
+	nmg = branch --no-merged
+	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+	patch = add -v -p
+	pr = pull-request -b
+	ps = push -u origin HEAD
+	purr = pull --rebase
+	st = status -sb
+	support = flow support
+	tags = tag -l
+	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+	unassume = update-index --no-assume-unchanged
+	unstage = reset HEAD
+	update-commit = "!git a . && git ci --amend --no-edit"
+	update-submodules = "!git submodule -q foreach git pull -q origin master"
+	van = add -vAn
+	wipe = !git reset --hard HEAD && git clean -fd
+	zap = checkout --
+
+[push]
+	default = current
+
+[core]
+	excludesfile = ~/.gitignore_global
+	filemode = false
+	mergeoptions = --no-edit
+	untrackedCache = true
+	editor = $EDITOR
+
+[color]
+	diff = auto
+	interactive = auto
+	ui = true
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow
+  frag = magenta
+  old = red strike
+  new = green italic
+  whitespace = red reverse
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = red
+
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+
+[branch]
+	autosetuprebase = always
+
+[dotfiles]
+	managed = true

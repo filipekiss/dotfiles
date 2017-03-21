@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+# Log functions
+tput sgr0
+
+RED=$(tput setaf 1)
+YELLOW=$(tput setaf 3)
+GREEN=$(tput setaf 2)
+PURPLE=$(tput setaf 5)
+BLUE=$(tput setaf 4)
+WHITE=$(tput setaf 7)
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+
+LOG_STATUS_SUCCESS="✔"
+LOG_STATUS_ERROR="✖"
+LOG_STATUS_INFO="➜"
+
+e_header()   { e_line && e_line "${1} ==" "${BOLD}" "==" "${BOLD}"; }
+e_line() { [[ $LINE_BREAK != "" ]] && LINE_BREAK="\n"; printf "${4} %b${RESET} ${2}%b${RESET}${LINE_BREAK}" "${3}" "${1}"; }
+e_success() { e_line "$1" "${GREEN}" "${LOG_STATUS_SUCCESS}" "${GREEN}"; }
+e_error() { e_line "$1" "${RED}" "${LOG_STATUS_ERROR}" "${RED}"; }
+e_info() { e_line "$1" "" "${LOG_STATUS_INFO}" "${BLUE}"; }
+e_reset_line() { local COLS=$(tput cols); printf "\r" && printf "%${COLS}s\r"; LINE_BREAK="\n"; }
+e_set_inline() { LINE_BREAK=""; }
+e_spinner() { local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'; while sleep 0.1; do e_reset_line; local temp=${spinstr#?}; printf " ${YELLOW}%s${RESET} ${2}%b${RESET}" "${spinstr:0:1}" "${1}"; local spinstr=$temp${spinstr%"$temp"}; done; }
+e_activity() { local MESSAGE="$1"; e_spinner "$MESSAGE" & E_SPINNER_PID=$!; disown $E_SPINNER_PID; }
+e_activity_end() { kill $E_SPINNER_PID &> /dev/null; e_reset_line; }
+LINE_BREAK="\n"
+# // Log functions
+
+[[ "$1" == "source" ]] || e_header "Dotfiles Filipe Kiss"
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+e_info "Usage: $(basename "$0")"
+e_info "See the README for documentation."
+e_info "https://github.com/filipekiss/dotfiles"
+e_info "Copyright (c) 2017 Filipe Kiss"
+e_info "Licensed under the MIT license."
+e_line
+exit; fi
+
+###########################################
+# GENERAL PURPOSE EXPORTED VARS / FUNCTIONS
+###########################################
+
+# Where the magic happens.
+export DOTFILES=~/.dotfiles
+
+# For testing.
+function assert() {
+  local success modes equals actual expected
+  modes=(e_error e_success); equals=("!=" "=="); expected="$1"; shift
+  actual="$("$@")"
+  [[ "$actual" == "$expected" ]] && success=1 || success=0
+  ${modes[success]} "\"$actual\" ${equals[success]} \"$expected\""
+}
+
+# Test if the dotfiles script is currently
+function is_dotfiles_running() {
+  [[ "$DOTFILES_SCRIPT_RUNNING" ]] || return 1
+}
+
+# Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
+function is_dotfiles_bin() {
+  [[ "$(basename $0 2>/dev/null)" == dotfiles ]] || return 1
+}
+
+# OS detection
+function is_osx() {
+  [[ "$OSTYPE" =~ ^darwin ]] || return 1
+}
+function is_ubuntu() {
+  [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
+}
+function is_ubuntu_desktop() {
+  dpkg -l ubuntu-desktop >/dev/null 2>&1 || return 1
+}
+
+function get_os() {
+  for os in osx ubuntu ubuntu_desktop; do
+    is_$os; [[ $? == ${1:-0} ]] && echo $os
+  done
+}
+
+# Remove an entry from $PATH
+# Based on http://stackoverflow.com/a/2108540/142339
+function path_remove() {
+  local arg path
+  path=":$PATH:"
+  for arg in "$@"; do path="${path//:$arg:/:}"; done
+  path="${path%:}"
+  path="${path#:}"
+  echo "$path"
+}
+
+
+
+# Array mapper. Calls map_fn for each item ($1) and index ($2) in array.
+# Usage: array_map array_name map_fn
+function array_map() {
+  local __arr
+  eval __arr=\("\${$1[@]}"\); shift
+  for i in "${!__arr[@]}"; do
+    "$@" "${__arr[i]}" $i
+  done
+}
+
+# Print out bash array for debugging purposes
+function array_print() { array_map $1 __array_print; }
+function __array_print() { echo "$2 <$1>"; }
+
+# Array filter. Calls map_fn for each item ($1) and index ($2) in array.
+# Returns filtered array containing array values.
+# Usage: array_filter array_name filter_fn
+function array_filter() { __array_filter 1 "$@"; }
+# Returns filtered array containing array indices.
+# Usage: array_filter_i array_name filter_fn
+function array_filter_i() { __array_filter 0 "$@"; }
+
+function __array_filter() {
+  local __arr __mode __output
+  __mode=$1; shift
+  eval __arr=\("\${$1[@]}"\); shift
+  for i in "${!__arr[@]}"; do
+    [[ "$__mode" == 1 ]] && __output="${__arr[i]}" || __output=$i
+    "$@" "${__arr[i]}" $i >/dev/null && echo "$__output"
+  done
+}
+
+# Given strings containing space-delimited words A and B, "setdiff A B" will
+# return all words in A that do not exist in B. Arrays in bash are insane
+# (and not in a good way).
+# From http://stackoverflow.com/a/1617303/142339
+function setdiff() {
+  local debug skip a b
+  if [[ "$1" == 1 ]]; then debug=1; shift; fi
+  if [[ "$1" ]]; then
+    local setdiff_new setdiff_cur setdiff_out
+    setdiff_new=($1); setdiff_cur=($2)
+  fi
+  setdiff_out=()
+  for a in "${setdiff_new[@]}"; do
+    skip=
+    for b in "${setdiff_cur[@]}"; do
+      [[ "$a" == "$b" ]] && skip=1 && break
+    done
+    [[ "$skip" ]] || setdiff_out=("${setdiff_out[@]}" "$a")
+  done
+  [[ "$debug" ]] && for a in setdiff_new setdiff_cur setdiff_out; do
+    echo "$a ($(eval echo "\${#$a[*]}")) $(eval echo "\${$a[*]}")" 1>&2
+  done
+  [[ "$1" ]] && echo "${setdiff_out[@]}"
+}
+
+# If this file was being sourced, exit now.
+[[ "$1" == "source" ]] && return
+
+# Ensure Xcode is installed
+if [[ ! "$(type -P gcc)" ]] && is_osx; then
+  e_error "XCode or the Command Line Tools for XCode must be installed first."
+  exit 1
+fi
+
+# If Git is not installed, install it (Ubuntu only, since Git comes standard
+# with recent XCode or CLT)
+if [[ ! "$(type -P git)" ]] && is_ubuntu; then
+  e_info "Installing Git"
+  sudo apt-get -qq install git-core
+fi
+
+# If Git isn't installed by now, something exploded. We gots to quit!
+if [[ ! "$(type -P git)" ]]; then
+  e_error "Git should be installed. It isn't. Aborting."
+  exit 1
+fi
+
+# Initialize.
+if [[ ! -d $DOTFILES ]]; then
+  # Dotfiles directory doesn't exist? Clone it!
+  e_header "Downloading dotfiles"
+  git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
+    git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git $DOTFILES
+  cd $DOTFILES
+elif [[ "$1" != "restart" ]]; then
+  # Make sure we have the latest files.
+  e_header "Updating dotfiles"
+  cd $DOTFILES
+  prev_head="$(git rev-parse HEAD)"
+  git pull
+  git submodule update --init --recursive --quiet
+  if [[ "$(git rev-parse HEAD)" != "$prev_head" ]]; then
+    if is_dotfiles_bin; then
+      e_header "Changes detected, restarting script"
+      exec "$0" restart
+    else
+      e_header "Changes detected, please re-run script"
+      exit
+    fi
+  fi
+fi
+
+# Add binaries into the path
+[[ -d $DOTFILES/bin ]] && export PATH=$DOTFILES/bin:$PATH
