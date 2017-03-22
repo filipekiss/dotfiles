@@ -31,12 +31,12 @@ LINE_BREAK="\n"
 [[ "$1" == "source" ]] || e_header "Dotfiles Filipe Kiss"
 
 if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-e_info "Usage: $(basename "$0")"
-e_info "See the README for documentation."
-e_info "https://github.com/filipekiss/dotfiles"
-e_info "Copyright (c) 2017 Filipe Kiss"
-e_info "Licensed under the MIT license."
-e_line
+  e_info "Usage: $(basename "$0")"
+  e_info "See the README for documentation."
+  e_info "https://github.com/filipekiss/dotfiles"
+  e_info "Copyright (c) 2017 Filipe Kiss"
+  e_info "Licensed under the MIT license."
+  e_line
 exit; fi
 
 ###########################################
@@ -72,6 +72,7 @@ function is_osx() {
 function is_ubuntu() {
   [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
 }
+
 function is_ubuntu_desktop() {
   dpkg -l ubuntu-desktop >/dev/null 2>&1 || return 1
 }
@@ -80,6 +81,20 @@ function get_os() {
   for os in osx ubuntu ubuntu_desktop; do
     is_$os; [[ $? == ${1:-0} ]] && echo $os
   done
+}
+
+function cleanup {
+  unset DOTFILES_SCRIPT_RUNNING
+}
+
+function show_script_info() {
+    DOTFILES_SCRIPT_RUNNING=1
+    trap cleanup EXIT
+    [[ -d $DOTFILES ]] && local dotfiles_exists="${GREEN}${LOG_STATUS_SUCCESS}${RESET}" || local dotfiles_exists="${RED}${LOG_STATUS_ERROR}${RESET}"
+    [[ $(is_dotfiles_bin) ]] && local is_binary="${GREEN}${LOG_STATUS_SUCCESS}${RESET}" || local is_binary="${RED}${LOG_STATUS_ERROR}${RESET}"
+    e_info "Detected OS: $(get_os)"
+    e_info "Dotfiles Folder Exists: ${DOTFILES} ${dotfiles_exists}"
+    e_info "Is Running as Binary: ${is_binary}"
 }
 
 # Remove an entry from $PATH
@@ -155,49 +170,132 @@ function setdiff() {
 # If this file was being sourced, exit now.
 [[ "$1" == "source" ]] && return
 
-# Ensure Xcode is installed
-if [[ ! "$(type -P gcc)" ]] && is_osx; then
-  e_error "XCode or the Command Line Tools for XCode must be installed first."
-  exit 1
-fi
+########################
+# INSTALLATION FUNCTIONS
+########################
 
-# If Git is not installed, install it (Ubuntu only, since Git comes standard
-# with recent XCode or CLT)
-if [[ ! "$(type -P git)" ]] && is_ubuntu; then
-  e_info "Installing Git"
-  sudo apt-get -qq install git-core
-fi
+function validate_gcc() {
+  # Ensure Xcode is installed
+  if [[ ! "$(type -P gcc)" ]] && is_osx; then
+    e_error "XCode or the Command Line Tools for XCode must be installed first."
+    exit 1
+  fi
+}
 
-# If Git isn't installed by now, something exploded. We gots to quit!
-if [[ ! "$(type -P git)" ]]; then
-  e_error "Git should be installed. It isn't. Aborting."
-  exit 1
-fi
+function validate_git() {
+  # If Git is not installed, install it (Ubuntu only, since Git comes standard
+  # with recent XCode or CLT)
+  if [[ ! "$(type -P git)" ]] && is_ubuntu; then
+    e_info "Installing Git"
+    sudo apt-get -qq install git-core
+  fi
+  # If Git isn't installed by now, something exploded. We gots to quit!
+  if [[ ! "$(type -P git)" ]]; then
+    e_error "Git should be installed. It isn't. Aborting."
+    exit 1
+  fi
+}
 
-# Initialize.
-if [[ ! -d $DOTFILES ]]; then
-  # Dotfiles directory doesn't exist? Clone it!
-  e_header "Downloading dotfiles"
-  git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
-    git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git $DOTFILES
-  cd $DOTFILES
-elif [[ "$1" != "restart" ]]; then
-  # Make sure we have the latest files.
-  e_header "Updating dotfiles"
-  cd $DOTFILES
-  prev_head="$(git rev-parse HEAD)"
-  git pull
-  git submodule update --init --recursive --quiet
-  if [[ "$(git rev-parse HEAD)" != "$prev_head" ]]; then
-    if is_dotfiles_bin; then
-      e_header "Changes detected, restarting script"
-      exec "$0" restart
-    else
-      e_header "Changes detected, please re-run script"
-      exit
+function install_dotfiles() {
+  # Initialize.
+  if [[ ! -d $DOTFILES ]]; then
+    # Dotfiles directory doesn't exist? Clone it!
+    e_header "Downloading dotfiles:${DOTFILES_GH_BRANCH:-master}"
+    git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
+      git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git $DOTFILES
+    cd $DOTFILES
+  elif [[ "$1" != "restart" ]]; then
+    # Make sure we have the latest files.
+    e_header "Updating dotfiles"
+    cd $DOTFILES
+    prev_head="$(git rev-parse HEAD)"
+    git pull
+    git submodule update --init --recursive --quiet
+    if [[ "$(git rev-parse HEAD)" != "$prev_head" ]]; then
+      if is_dotfiles_bin; then
+        e_header "Changes detected, restarting script"
+        exec "$0" restart
+      else
+        e_header "Changes detected, please re-run script"
+        exit
+      fi
     fi
   fi
-fi
+}
 
-# Add binaries into the path
-[[ -d $DOTFILES/bin ]] && export PATH=$DOTFILES/bin:$PATH
+function update_path() {
+  # Add binaries into the path
+  [[ -d $DOTFILES/bin ]] && export PATH=$DOTFILES/bin:$PATH
+}
+
+function prepare_for_backup() {
+  # If backups are needed, this is where they'll go.
+  DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
+  backup=
+}
+
+function show_backup_message() {
+  # Alert if backups were made.
+  if [[ "$backup" ]]; then
+    e_info "\nBackups were moved to ~/${DOTFILES_BACKUP_DIR#$HOME/}"
+  fi
+}
+
+function prepare_link() {
+  local folders=$(find $DOTFILES/config/link/* -maxdepth 1 -mindepth 1 -type d)
+  local files=$(find $DOTFILES/config/link/* -maxdepth 1 -mindepth 1 -type f)
+  echo $folders
+  echo $files
+  for folder in $folders; do
+    backup_stuff $folder
+    make_folder $folder
+  done
+  for file in $files; do
+    backup_stuff $file
+  done
+}
+
+function backup_stuff() {
+  local DEST
+  local TARGET="$1"
+  e_info "Preparing ${TARGET}..."
+  TARGET=$(basename $TARGET)
+  DEST="${HOME}/${TARGET}"
+  [[ -e ${DEST} ]] && mv "${HOME}/${TARGET}" "${DOTFILES_BACKUP_DIR}/${TARGET}" 1>/dev/null 2>&1 && e_success "${TARGET} backed up" && backup="1"
+}
+
+function make_folder() {
+  local FOLDER=$1
+  FOLDER=$(basename $FOLDER)
+  [[ -e "${HOME}/${FOLDER}" ]] && e_info "${FOLDER} already exists. Skipping..." && return
+  mkdir -p "${HOME}/${FOLDER}" && e_success "${FOLDER} created"
+}
+
+function setup_git_config() {
+  local GIT_USER GIT_EMAIL
+  GIT_USER=$(git config --global user.name)
+  GIT_EMAIL=$(git config --global user.email)
+  [[ ${GIT_USER} == "" ]] && e_set_inline && e_info "What name do you wish to use to sign your commits? " && read GIT_USER
+  [[ ${GIT_EMAIL} == "" ]] && e_set_inline && e_info "What e-mail do you wish to use to sign your commits? " && read GIT_EMAIL
+  e_reset_line
+  if [[ ${GIT_USER:-} != "" ]]; then
+    git config --global user.name "${GIT_USER}"
+  fi
+  if [[ ${GIT_EMAIL:-} != "" ]]; then
+    git config --global user.email "${GIT_EMAIL}"
+  fi
+}
+################################
+# RUN OUR FUNCTIONS IN ORDER   #
+################################
+show_script_info
+validate_gcc
+validate_git
+update_path
+prepare_for_backup
+install_dotfiles
+setup_git_config
+prepare_link
+show_backup_message
+# all done!
+e_success "${RESET}All done!"
