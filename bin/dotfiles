@@ -220,13 +220,13 @@ function validate_git() {
 function install_dotfiles() {
   # Initialize.
   local prev_head current_head
-  prev_head="$(git rev-parse HEAD)"
   if [[ ! -d "$DOTFILES" ]]; then
     e_info "$DOTFILES doesn't exists."
     mkdir "$DOTFILES"
     git clone --recursive git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && \
     e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles cloned"
   elif [[ "$1" != "restart" ]]; then
+    prev_head="$(git rev-parse HEAD)"
     e_info "Updating ${DOTFILES_GH_USER:-filipekiss}/dotfiles"
     cd $DOTFILES && \
     e_info "Stashing local changes..." && \
@@ -244,14 +244,16 @@ function install_dotfiles() {
     e_info "Applying stashed changes..." && \
     git stash pop > /dev/null 2>&1 && \
     e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles updated"
-    current_head="$(git rev-parse HEAD)"
-    if [[ $current_head != $prev_head ]]; then
-      if is_dotfiles_bin; then
-        e_info "Changes detected, restarting script"
-        exec "$0" restart
-      else
-        e_info "Changes detected, please re-run script"
-        exit
+    if [[ "$1" != "restart" ]]; then
+      current_head="$(git rev-parse HEAD)"
+      if [[ $current_head != $prev_head ]]; then
+        if is_dotfiles_bin; then
+          e_info "Changes detected, restarting script"
+          exec "$0" restart
+        else
+          e_info "Changes detected, please re-run script"
+          exit
+        fi
       fi
     fi
   fi
@@ -272,7 +274,7 @@ function prepare_for_backup() {
 function show_backup_message() {
   # Alert if backups were made.
   if [[ "$backup" ]]; then
-    e_info "Backups were moved to ~/${DOTFILES_BACKUP_DIR#$HOME/}"
+    e_info "Backups were moved to ${BLUE}~/${DOTFILES_BACKUP_DIR#$HOME/}${RESET}"
   fi
 }
 
