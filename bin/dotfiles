@@ -30,15 +30,6 @@ LINE_BREAK="\n"
 
 [[ "$1" == "source" ]] || e_header "Dotfiles Filipe Kiss"
 
-if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-  e_info "Usage: $(basename "$0")"
-  e_info "See the README for documentation."
-  e_info "https://github.com/filipekiss/dotfiles"
-  e_info "Copyright (c) 2017 Filipe Kiss"
-  e_info "Licensed under the MIT license."
-  e_line
-exit; fi
-
 ###########################################
 # GENERAL PURPOSE EXPORTED VARS / FUNCTIONS
 ###########################################
@@ -81,20 +72,6 @@ function get_os() {
   for os in osx ubuntu ubuntu_desktop; do
     is_$os; [[ $? == ${1:-0} ]] && echo $os
   done
-}
-
-function cleanup {
-  unset DOTFILES_SCRIPT_RUNNING
-}
-
-function show_script_info() {
-    DOTFILES_SCRIPT_RUNNING=1
-    trap cleanup EXIT
-    [[ -d $DOTFILES ]] && local dotfiles_exists="${GREEN}${LOG_STATUS_SUCCESS}${RESET}" || local dotfiles_exists="${RED}${LOG_STATUS_ERROR}${RESET}"
-    [[ $(is_dotfiles_bin) ]] && local is_binary="${GREEN}${LOG_STATUS_SUCCESS}${RESET}" || local is_binary="${RED}${LOG_STATUS_ERROR}${RESET}"
-    e_info "Detected OS: $(get_os)"
-    e_info "Dotfiles Folder Exists: ${DOTFILES} ${dotfiles_exists}"
-    e_info "Is Running as Binary: ${is_binary}"
 }
 
 # Remove an entry from $PATH
@@ -173,6 +150,50 @@ function setdiff() {
 ########################
 # INSTALLATION FUNCTIONS
 ########################
+function show_script_header() {
+  e_line
+  e_line " ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ " "${BOLD}${WHITE}"
+  e_line " ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝ " "${BOLD}${WHITE}"
+  e_line " ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗ " "${BOLD}${WHITE}"
+  e_line " ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║ " "${BOLD}${WHITE}"
+  e_line " ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║ " "${BOLD}${WHITE}"
+  e_line " ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ " "${BOLD}${WHITE}"
+  e_line
+}
+
+function cleanup {
+  unset DOTFILES_SCRIPT_RUNNING
+}
+
+function show_script_info() {
+    DOTFILES_SCRIPT_RUNNING=1
+    trap cleanup EXIT
+    [[ -d $DOTFILES ]] && local dotfiles_exists="${GREEN}${LOG_STATUS_SUCCESS}${RESET}" || local dotfiles_exists="${RED}${LOG_STATUS_ERROR}${RESET}"
+    [[ $(is_dotfiles_bin) ]] && local is_binary="${GREEN}${LOG_STATUS_SUCCESS} Yes${RESET}" || local is_binary="${RED}${LOG_STATUS_ERROR} No${RESET}"
+    if [[ -d "${DOTFILES}/.git" ]]; then
+      cd $DOTFILES
+      show_git_info
+    fi
+    e_info "Detected OS: $(get_os)"
+    e_info "Dotfiles Folder Exists: ${dotfiles_exists} ${DOTFILES}"
+    e_info "Is Running as Binary from Path: ${is_binary}"
+    e_line
+}
+
+function show_git_info() {
+  DOTFILES_GIT_INFO_COMMIT=$(git log -n 1 --pretty=format:'%C(yellow)commit:  %h')
+  DOTFILES_GIT_INFO_DATE=$(git log -n 1 --pretty=format:'%C(red)date:    %ad' --date=short)
+  DOTFILES_GIT_INFO_AUTHOR=$(git log -n 1 --pretty=format:'%C(cyan)author:  %an')
+  DOTFILES_GIT_INFO_MESSAGE=$(git log -n 1 --pretty=format:'%C(green)message: %s')
+
+  e_header "Last Commit Info"
+  e_info "$DOTFILES_GIT_INFO_COMMIT${LOG_COLOR}"
+  e_info "$DOTFILES_GIT_INFO_DATE${LOG_COLOR}"
+  e_info "$DOTFILES_GIT_INFO_AUTHOR${LOG_COLOR}"
+  e_info "$DOTFILES_GIT_INFO_MESSAGE${LOG_COLOR}"
+  e_line
+}
+
 
 function validate_gcc() {
   # Ensure Xcode is installed
@@ -198,29 +219,43 @@ function validate_git() {
 
 function install_dotfiles() {
   # Initialize.
-  if [[ ! -d $DOTFILES ]]; then
-    # Dotfiles directory doesn't exist? Clone it!
-    e_header "Downloading dotfiles:${DOTFILES_GH_BRANCH:-master}"
-    git clone --branch ${DOTFILES_GH_BRANCH:-master} --recursive \
-      git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git $DOTFILES
-    cd $DOTFILES
+  local prev_head current_head
+  prev_head="$(git rev-parse HEAD)"
+  if [[ ! -d "$DOTFILES" ]]; then
+    e_info "$DOTFILES doesn't exists."
+    mkdir "$DOTFILES"
+    git clone --recursive git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && \
+    e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles cloned"
   elif [[ "$1" != "restart" ]]; then
-    # Make sure we have the latest files.
-    e_header "Updating dotfiles"
-    cd $DOTFILES
-    prev_head="$(git rev-parse HEAD)"
-    git pull
-    git submodule update --init --recursive --quiet
-    if [[ "$(git rev-parse HEAD)" != "$prev_head" ]]; then
+    e_info "Updating ${DOTFILES_GH_USER:-filipekiss}/dotfiles"
+    cd $DOTFILES && \
+    e_info "Stashing local changes..." && \
+    git add . > /dev/null 2>&1 && \
+    git stash > /dev/null 2>&1 && \
+    e_info "Pulling updates from origin/${DOTFILES_GH_BRANCH:-master}..." && \
+    git pull origin ${DOTFILES_GH_BRANCH:-master} > /dev/null 2>&1 && \
+    e_info "Checking out ${DOTFILES_GH_BRANCH:-master}"
+    git checkout ${DOTFILES_GH_BRANCH:-master} > /dev/null 2>&1 && \
+    git reset --hard origin/${DOTFILES_GH_BRANCH:-master} > /dev/null 2>&1 && \
+    e_info "Updating submodules..." && \
+    git submodule update --init --recursive > /dev/null 2>&1 && \
+    e_info "Returning to your branch"
+    git checkout - > /dev/null 2>&1 && \
+    e_info "Applying stashed changes..." && \
+    git stash pop > /dev/null 2>&1 && \
+    e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles updated"
+    current_head="$(git rev-parse HEAD)"
+    if [[ $current_head != $prev_head ]]; then
       if is_dotfiles_bin; then
-        e_header "Changes detected, restarting script"
+        e_info "Changes detected, restarting script"
         exec "$0" restart
       else
-        e_header "Changes detected, please re-run script"
+        e_info "Changes detected, please re-run script"
         exit
       fi
     fi
   fi
+  cd ${DOTFILES}
 }
 
 function update_path() {
@@ -231,19 +266,19 @@ function update_path() {
 function prepare_for_backup() {
   # If backups are needed, this is where they'll go.
   DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
-  backup=
+  backup=""
 }
 
 function show_backup_message() {
   # Alert if backups were made.
   if [[ "$backup" ]]; then
-    e_info "\nBackups were moved to ~/${DOTFILES_BACKUP_DIR#$HOME/}"
+    e_info "Backups were moved to ~/${DOTFILES_BACKUP_DIR#$HOME/}"
   fi
 }
 
 function prepare_link() {
-  local folders=$(find $DOTFILES/config/link/* -maxdepth 1 -mindepth 1 -type d)
-  local files=$(find $DOTFILES/config/link/* -maxdepth 1 -mindepth 1 -type f)
+  local folders=$(find $DOTFILES/config/* -maxdepth 1 -mindepth 1 -type d)
+  local files=$(find $DOTFILES/config/* -maxdepth 1 -mindepth 1 -type f)
   echo $folders
   echo $files
   for folder in $folders; do
@@ -285,17 +320,31 @@ function setup_git_config() {
     git config --global user.email "${GIT_EMAIL}"
   fi
 }
-################################
-# RUN OUR FUNCTIONS IN ORDER   #
-################################
-show_script_info
-validate_gcc
-validate_git
-update_path
-prepare_for_backup
-install_dotfiles
-setup_git_config
-prepare_link
-show_backup_message
-# all done!
-e_success "${RESET}All done!"
+
+
+function main() {
+  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    e_info "Usage: $(basename "$0")"
+    e_info "See the README for documentation."
+    e_info "https://github.com/filipekiss/dotfiles"
+    e_info "Copyright (c) 2017 Filipe Kiss"
+    e_info "Licensed under the MIT license."
+    e_line
+    show_script_info
+  exit; fi
+
+  show_script_header
+  show_script_info
+  validate_gcc
+  validate_git
+  update_path
+  prepare_for_backup
+  install_dotfiles
+  prepare_link
+  setup_git_config
+  show_backup_message
+  # all done!
+  e_success "${RESET}All done!"
+}
+
+main "$1"
