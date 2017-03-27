@@ -281,8 +281,6 @@ function show_backup_message() {
 function prepare_link() {
   local folders=$(find $DOTFILES/config/* -maxdepth 1 -mindepth 1 -type d)
   local files=$(find $DOTFILES/config/* -maxdepth 1 -mindepth 1 -type f)
-  echo $folders
-  echo $files
   for folder in $folders; do
     backup_stuff $folder
     make_folder $folder
