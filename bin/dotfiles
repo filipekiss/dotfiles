@@ -279,9 +279,10 @@ function show_backup_message() {
   fi
 }
 
-function prepare_link() {
+function link_config() {
   local folders=$(find $DOTFILES/config/* -maxdepth 1 -mindepth 1 -type d)
   local files=$(find $DOTFILES/config/* -maxdepth 1 -mindepth 1 -type f)
+  local stow_paths=$(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d -printf "%f\n")
   for folder in $folders; do
     backup_stuff $folder
     make_folder $folder
@@ -289,6 +290,17 @@ function prepare_link() {
   for file in $files; do
     backup_stuff $file
   done
+  for stow_path in $stow_paths; do
+    do_stow "${stow_path}"
+  done;
+}
+
+function do_stow() {
+  local stow_path="$1"
+  if [[ -d "${DOTFILES}/config/${stow_path}" ]]; then
+    e_info "Stowing ${YELLOW}${stow_path}${RESET}"
+    stow --ignore ".DS_Store" --target="$HOME" --dir="${DOTFILES}/config" $stow_path
+  fi
 }
 
 function backup_stuff() {
@@ -298,8 +310,6 @@ function backup_stuff() {
   TARGET=$(basename $TARGET)
   DEST="${HOME}/${TARGET}"
   [[ -e ${DEST} ]] && mv "${DEST}" "${DOTFILES_BACKUP_DIR}/${TARGET}" && e_success "${TARGET} backed up" && backup="1"
-
-
 }
 
 function make_folder() {
@@ -343,7 +353,7 @@ function main() {
   update_path
   prepare_for_backup
   install_dotfiles
-  prepare_link
+  link_config
   setup_git_config
   show_backup_message
   # all done!
