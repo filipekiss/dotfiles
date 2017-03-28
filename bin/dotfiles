@@ -269,6 +269,7 @@ function prepare_for_backup() {
   # If backups are needed, this is where they'll go.
   DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%Y_%m_%d-%H_%M_%S")/"
   backup=""
+  [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
 }
 
 function show_backup_message() {
