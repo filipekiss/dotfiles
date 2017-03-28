@@ -297,7 +297,9 @@ function backup_stuff() {
   e_info "Preparing ${TARGET}..."
   TARGET=$(basename $TARGET)
   DEST="${HOME}/${TARGET}"
-  [[ -e ${DEST} ]] && mv "${HOME}/${TARGET}" "${DOTFILES_BACKUP_DIR}/${TARGET}" 1>/dev/null 2>&1 && e_success "${TARGET} backed up" && backup="1"
+  [[ -e ${DEST} ]] && mv "${DEST}" "${DOTFILES_BACKUP_DIR}/${TARGET}" && e_success "${TARGET} backed up" && backup="1"
+
+
 }
 
 function make_folder() {
