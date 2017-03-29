@@ -1,0 +1,4 @@
+#!/bin/sh
+
+echo "${@} was give eXecution permission"
+exec chmod +x "$@"

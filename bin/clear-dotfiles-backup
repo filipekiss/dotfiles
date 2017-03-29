@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+
+# Check for our dotfiles binary and exit if it doen't exists
+HAS_DOTFILES_BIN=$(command -v dotfiles)
+[[ ${HAS_DOTFILES_BIN} = "" ]] && echo "nope" && exit 0
+
+# Source our functions
+source ${HAS_DOTFILES_BIN} "source"
+
+# Delete backup folders
+for backup_folder in $(ls ${DOTFILES}_backups/); do
+  rm -rf ${DOTFILES}$backup_folder && e_info "$backup_folder ${RED}deleted";
+done
