@@ -21,6 +21,25 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "zimframework/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_ROOT/repos/zimframework/zim ~/.zim"
 
 ###############################
+# Zim Modules
+###############################
+
+zmodules=(
+  directory
+  environment
+  history
+  meta
+  input
+  utility
+  spectrum
+  syntax-highlighting
+  history-substring-search
+  prompt
+  completion
+)
+
+zhighlighters=(main brackets pattern cursor root)
+###############################
 # Install missing modules
 ###############################
 
