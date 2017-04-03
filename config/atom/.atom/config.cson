@@ -1,1 +1,20 @@
-{}
+"*":
+  core:
+    telemetryConsent: "limited"
+    themes: [
+      "nord-atom-ui"
+      "nord-atom-syntax"
+    ]
+  "nord-atom-ui":
+    darkerFormFocusEffect: true
+  "relative-numbers":
+    showAbsoluteNumbers: true
+  "vim-mode-plus":
+    highlightSearch: true
+    stayOnDelete: true
+    stayOnTransformString: true
+    stayOnYank: true
+  welcome:
+    showOnStartup: false
+  whitespace:
+    ensureSingleTrailingNewline: false
