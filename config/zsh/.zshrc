@@ -38,6 +38,9 @@ zmodules=(
   completion
 )
 
+zprompt_theme='steeef'
+ztermtitle="%n@%m:%~"
+zdouble_dot_expand="true"
 zhighlighters=(main brackets pattern cursor root)
 ###############################
 # Install missing modules
