@@ -309,6 +309,7 @@ function backup_stuff() {
   e_info "Preparing ${TARGET}..."
   TARGET=$(basename $TARGET)
   DEST="${HOME}/${TARGET}"
+  e_info ${DEST}
   [[ -f ${DEST} ]] && mv "${DEST}" "${DOTFILES_BACKUP_DIR}/${TARGET}" && e_success "${TARGET} backed up" && backup="1"
   [[ -d ${DEST} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}/${TARGET} && mv "${DEST}/*" "${DOTFILES_BACKUP_DIR}/${TARGET}" && e_success "${TARGET} backed up" && backup="1"
 }
