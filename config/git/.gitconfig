@@ -50,6 +50,8 @@
 	van = add -vAn
 	wipe = !git reset --hard HEAD && git clean -fd
 	zap = checkout --
+	recommit = commit --amend --no-edit
+	rci = "!git recommit"
 
 [push]
 	default = current
