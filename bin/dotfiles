@@ -169,7 +169,7 @@ function show_script_info() {
     DOTFILES_SCRIPT_RUNNING=1
     trap cleanup EXIT
     [[ -d $DOTFILES ]] && local dotfiles_exists="${GREEN}${LOG_STATUS_SUCCESS}${RESET}" || local dotfiles_exists="${RED}${LOG_STATUS_ERROR}${RESET}"
-    [[ $(is_dotfiles_bin) ]] && local is_binary="${GREEN}${LOG_STATUS_SUCCESS} Yes${RESET}" || local is_binary="${RED}${LOG_STATUS_ERROR} No${RESET}"
+    [[ is_dotfiles_bin ]] && local is_binary="${GREEN}${LOG_STATUS_SUCCESS} Yes${RESET}" || local is_binary="${RED}${LOG_STATUS_ERROR} No${RESET}"
     if [[ -d "${DOTFILES}/.git" ]]; then
       cd $DOTFILES
       show_git_info
