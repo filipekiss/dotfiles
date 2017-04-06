@@ -280,14 +280,16 @@ function show_backup_message() {
 }
 
 function link_config() {
-  local folders=$(find $DOTFILES/config/* -maxdepth 1 -mindepth 1 -type d)
-  local files=$(find $DOTFILES/config/* -maxdepth 1 -mindepth 1 -type f)
+  local files=$(find $DOTFILES/config/ -mindepth 2 -type f -printf "%p\n")
+  local folders=$(find $DOTFILES/config -mindepth 1 -type d -printf "%p\n")
   local stow_paths=$(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d -printf "%f\n")
   for folder in $folders; do
-    backup_stuff $folder
-    make_folder $folder
+    folder=${folder#$DOTFILES/*/*/}
+    [[ $folder = *"$DOTFILES"* ]] && continue #skip this config if it has no subfolder
+    make_folder "${HOME}/${folder}"
   done
   for file in $files; do
+    file=${file#${DOTFILES}/*/*/}
     backup_stuff $file
   done
   for stow_path in $stow_paths; do
@@ -307,18 +309,20 @@ function backup_stuff() {
   local DEST
   local TARGET="$1"
   e_info "Preparing ${TARGET}..."
-  TARGET=$(basename $TARGET)
-  DEST="${HOME}/${TARGET}"
-  e_info ${DEST}
-  [[ -f ${DEST} ]] && mv "${DEST}" "${DOTFILES_BACKUP_DIR}/${TARGET}" && e_success "${TARGET} backed up" && backup="1"
-  [[ -d ${DEST} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}/${TARGET} && mv "${DEST}/*" "${DOTFILES_BACKUP_DIR}/${TARGET}" && e_success "${TARGET} backed up" && backup="1"
+  SOURCE="${HOME}/${TARGET}"
+  DEST="${DOTFILES_BACKUP_DIR}/${TARGET}"
+  if [[ ${TARGET} != $(basename ${TARGET}) ]]; then
+    #this config file is located in a subfolder.
+    make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
+  fi
+  e_info ${SOURCE}
+  [[ -f ${SOURCE} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
 }
 
 function make_folder() {
   local FOLDER=$1
-  FOLDER=$(basename $FOLDER)
-  [[ -e "${HOME}/${FOLDER}" ]] && e_info "${FOLDER} already exists. Skipping..." && return
-  mkdir -p "${HOME}/${FOLDER}" && e_success "${FOLDER} created"
+  [[ -e "${FOLDER}" ]] && e_info "${FOLDER} already exists. Skipping..." && return
+  mkdir -p "${FOLDER}" && e_success "${FOLDER} created"
 }
 
 function setup_git_config() {
