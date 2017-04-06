@@ -316,7 +316,7 @@ function backup_stuff() {
     make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
   fi
   e_info ${SOURCE}
-  [[ -f ${SOURCE} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
+  [[ -f ${SOURCE} ]] && cp -r "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
 }
 
 function make_folder() {
