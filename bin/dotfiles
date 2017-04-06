@@ -281,17 +281,20 @@ function show_backup_message() {
 
 function link_config() {
   local files=$(find $DOTFILES/config/ -mindepth 2 -type f -printf "%p\n")
-  local folders=$(find $DOTFILES/config -mindepth 1 -type d -printf "%p\n")
   local stow_paths=$(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d -printf "%f\n")
-  for folder in $folders; do
+  local managed_folders=$(find ~/.dotfiles/config/* -mindepth 1 -type d -printf "%p\n")
+
+  for folder in $managed_folders; do
     folder=${folder#$DOTFILES/*/*/}
     [[ $folder = *"$DOTFILES"* ]] && continue #skip this config if it has no subfolder
     make_folder "${HOME}/${folder}"
   done
+
   for file in $files; do
     file=${file#${DOTFILES}/*/*/}
     backup_stuff $file
   done
+
   for stow_path in $stow_paths; do
     do_stow "${stow_path}"
   done;
@@ -316,7 +319,7 @@ function backup_stuff() {
     make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
   fi
   e_info ${SOURCE}
-  [[ -f ${SOURCE} ]] && cp -r "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
+  [[ -f ${SOURCE} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
 }
 
 function make_folder() {
