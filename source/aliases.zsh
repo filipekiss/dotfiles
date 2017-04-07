@@ -4,6 +4,7 @@ alias cp="${aliases[cp]:-cp} -i"
 alias ll="${aliases[ll]:-ll} -v"
 alias ln="${aliases[ln]:-ln} -i"
 alias ls="${aliases[ls]:-ls} -v"
+alias la="${aliases[la]:-ls} -la"
 alias mkdir="${aliases[mkdir]:-mkdir} -p"
 alias mv="${aliases[mv]:-mv} -i"
 alias phplint='find . -name "*.php" -exec php -l {} \; | grep "error"'
@@ -36,4 +37,6 @@ alias -g LSN=$'| awk \'{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) *2^(
 
 # Daily useful stuff
 alias ll="type tree >/dev/null && tree -da -L 1 || l -d .*/ */ "
+alias lf="type tree >/dev/null && tree --dirsfirst -FL 1 | grep -v /$ || ls -la"
+alias la="type tree >/dev/null && tree --dirsfirst -FL 1 || ls -la"
 alias lc="ls -AlCF "
