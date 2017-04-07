@@ -42,6 +42,7 @@ zprompt_theme='steeef'
 ztermtitle="%n@%m:%~"
 zdouble_dot_expand="true"
 zhighlighters=(main brackets pattern cursor root)
+
 ###############################
 # Install missing modules
 ###############################
@@ -59,3 +60,14 @@ zplug load
 HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
+
+
+#####################################
+# Source config and aliases and stuff
+#####################################
+DOTFILES_BIN=$(which dotfiles)
+if [[ $DOTFILES_BIN ]]; then
+  source $DOTFILES_BIN "source"
+  for config ($DOTFILES/config/zsh/config/*.zsh) source $config
+  for func ($CONFIG/config/zsh/config/functions/*.zsh) source $func
+fi
