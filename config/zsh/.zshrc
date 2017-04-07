@@ -68,6 +68,6 @@ SAVEHIST=$HISTSIZE
 DOTFILES_BIN=$(which dotfiles)
 if [[ $DOTFILES_BIN ]]; then
   source $DOTFILES_BIN "source"
-  for config ($DOTFILES/config/zsh/config/*.zsh) source $config
-  for func ($CONFIG/config/zsh/config/functions/*.zsh) source $func
+  for config ($DOTFILES/source/*.zsh) source $config
+  for func ($CONFIG/source/functions/*.zsh) source $func
 fi
