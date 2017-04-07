@@ -23,8 +23,8 @@ e_info() { e_line "$1" "" "${LOG_STATUS_INFO}" "${BLUE}"; }
 e_reset_line() { local COLS=$(tput cols); printf "\r" && printf "%${COLS}s\r"; LINE_BREAK="\n"; }
 e_set_inline() { LINE_BREAK=""; }
 e_spinner() { local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'; while sleep 0.1; do e_reset_line; local temp=${spinstr#?}; printf " ${YELLOW}%s${RESET} ${2}%b${RESET}" "${spinstr:0:1}" "${1}"; local spinstr=$temp${spinstr%"$temp"}; done; }
-e_activity() { local MESSAGE="$1"; e_spinner "$MESSAGE" & E_SPINNER_PID=$!; disown $E_SPINNER_PID; }
-e_activity_end() { kill $E_SPINNER_PID &> /dev/null; e_reset_line; }
+e_activity() { local MESSAGE="$1"; SPINNER_MESSAGE="$1"; e_spinner "$MESSAGE" & E_SPINNER_PID=$! 2> /dev/null; disown $E_SPINNER_PID > /dev/null 2>&1; }
+e_activity_end() { kill $E_SPINNER_PID > /dev/null 2>&1; e_reset_line; [[ ! -z $SPINNER_MESSAGE ]] && e_info $SPINNER_MESSAGE; }
 LINE_BREAK="\n"
 # // Log functions
 
@@ -37,6 +37,14 @@ LINE_BREAK="\n"
 # Where the magic happens.
 export DOTFILES=~/.dotfiles
 
+#simple function to test if we have access to other functions
+function has_dotfiles_function() {
+  echo "" || return 1
+}
+
+function yes_no(){
+  eval "$@" > /dev/null 2>&1 && echo "yes" || echo "no"
+}
 # For testing.
 function assert() {
   local success modes equals actual expected
@@ -167,7 +175,7 @@ function cleanup {
 
 function show_script_info() {
     DOTFILES_SCRIPT_RUNNING=1
-    trap cleanup EXIT
+    trap cleanup EXIT INT
     [[ -d $DOTFILES ]] && local dotfiles_exists="${GREEN}${LOG_STATUS_SUCCESS}${RESET}" || local dotfiles_exists="${RED}${LOG_STATUS_ERROR}${RESET}"
     [[ is_dotfiles_bin ]] && local is_binary="${GREEN}${LOG_STATUS_SUCCESS} Yes${RESET}" || local is_binary="${RED}${LOG_STATUS_ERROR} No${RESET}"
     if [[ -d "${DOTFILES}/.git" ]]; then
