@@ -69,5 +69,5 @@ DOTFILES_BIN=$(which dotfiles)
 if [[ $DOTFILES_BIN ]]; then
   source $DOTFILES_BIN "source"
   for config ($DOTFILES/source/*.zsh) source $config
-  for func ($CONFIG/source/functions/*.zsh) source $func
+  for func ($DOTFILES/source/functions/*.zsh) source $func
 fi
