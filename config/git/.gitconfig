@@ -96,3 +96,5 @@
 
 [dotfiles]
 	managed = true
+[init]
+	templatedir = ~/.git_template
