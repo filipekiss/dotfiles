@@ -32,7 +32,7 @@ function install_from_apt() {
     update_apt
   fi
   e_activity "$package not found. Installing..."
-  sudo apt-get install $package > /dev/null 2>&1
+  sudo apt-get install -y $package > /dev/null 2>&1
   RETVAL=$?
   e_activity_end
   [[ $RETVAL -eq 0 ]] && e_success "Done. ${RESET}${package} installed" || e_error "Error installing $package"
