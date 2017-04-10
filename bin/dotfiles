@@ -316,6 +316,13 @@ function do_stow() {
   fi
 }
 
+function install_stuff() {
+  local installation=$(ls ${DOTFILES}/install/*.zsh)
+  for install in $installation; do
+    source $install
+  done
+}
+
 function backup_stuff() {
   local DEST
   local TARGET="$1"
@@ -372,6 +379,7 @@ function main() {
   install_dotfiles
   link_config
   setup_git_config
+  install_stuff
   show_backup_message
   # all done!
   e_success "${RESET}All done!"
