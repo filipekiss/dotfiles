@@ -225,6 +225,18 @@ function validate_git() {
   fi
 }
 
+function validate_stow() {
+  if [[ ! "$(type -P stow)" ]] && is_ubuntu; then
+    e_info "Installing Stow"
+    sudo apt-get -qq install stow
+  fi
+  # If Stow isn't installed by now, something exploded. We gots to quit!
+  if [[ ! "$(type -P stow)" ]]; then
+    e_error "Stow should be installed. It isn't. Aborting."
+    exit 1
+  fi
+}
+
 function install_dotfiles() {
   # Initialize.
   local prev_head current_head
@@ -376,6 +388,7 @@ function main() {
   show_script_info
   validate_gcc
   validate_git
+  validate_stow
   update_path
   prepare_folders
   install_dotfiles
