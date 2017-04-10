@@ -265,6 +265,8 @@ function install_dotfiles() {
       fi
     fi
   fi
+  # Create caches folder if not exists
+  mkdir -p ${CACHES_DIR}
   cd ${DOTFILES}
 }
 
@@ -278,8 +280,6 @@ function prepare_folders() {
   DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%Y_%m_%d-%H_%M_%S")"
   backup=""
   [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
-  CACHES_DIR="${DOTFILES}/caches"
-  [[ ! -e ${CACHES_DIR} ]] && mkdir -p ${CACHES_DIR}
 }
 
 function show_backup_message() {
