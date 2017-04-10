@@ -81,7 +81,7 @@ unset setdiff_new setdiff_cur setdiff_out
 if (( ${#apt_keys[@]} > 0 )); then
   e_header "Adding APT keys (${#apt_keys[@]})"
   for key in "${apt_keys[@]}"; do
-    e_arrow "$key"
+    e_info "$key"
     if [[ "$key" =~ -- ]]; then
       sudo apt-key adv $key
     else
@@ -101,10 +101,10 @@ if (( ${#source_i[@]} > 0 )); then
     source_file=${apt_source_files[i]}
     source_text=${apt_source_texts[i]}
     if [[ "$source_text" =~ ppa: ]]; then
-      e_arrow "$source_text"
+      e_info "$source_text"
       sudo add-apt-repository -y $source_text
     else
-      e_arrow "$source_file"
+      e_info "$source_file"
       sudo sh -c "echo '$source_text' > /etc/apt/sources.list.d/$source_file.list"
     fi
   done
@@ -128,7 +128,7 @@ apt_packages=($(setdiff "${apt_packages[*]}" "$installed_apt_packages"))
 if (( ${#apt_packages[@]} > 0 )); then
   e_header "Installing APT packages (${#apt_packages[@]})"
   for package in "${apt_packages[@]}"; do
-    e_arrow "$package"
+    e_info "$package"
     [[ "$(type -t preinstall_$package)" == function ]] && preinstall_$package
     sudo apt-get -qq install "$package" && \
     [[ "$(type -t postinstall_$package)" == function ]] && postinstall_$package
@@ -144,7 +144,7 @@ if (( ${#deb_installed_i[@]} > 0 )); then
   mkdir -p "$installers_path"
   e_header "Installing debs (${#deb_installed_i[@]})"
   for i in "${deb_installed_i[@]}"; do
-    e_arrow "${deb_installed[i]}"
+    e_info "${deb_installed[i]}"
     deb="${deb_sources[i]}"
     [[ "$(type -t "$deb")" == function ]] && deb="$($deb)"
     installer_file="$installers_path/$(echo "$deb" | sed 's#.*/##')"
