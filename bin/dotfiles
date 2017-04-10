@@ -277,10 +277,14 @@ function install_dotfiles() {
       fi
     fi
   fi
-  # Create caches folder if not exists
-  mkdir -p ${CACHES_DIR}
   cd ${DOTFILES}
 }
+ function prepare_caches() {
+  # Create caches folder if not exists
+  CACHES_DIR=${DOTFILES}/caches
+  mkdir -p ${CACHES_DIR}
+  touch ${CACHES_DIR}/apt_keys
+ }
 
 function update_path() {
   # Add binaries into the path
@@ -392,6 +396,7 @@ function main() {
   update_path
   prepare_folders
   install_dotfiles
+  prepare_caches
   link_config
   setup_git_config
   install_stuff
