@@ -385,6 +385,7 @@ function main() {
   show_backup_message
   # all done!
   e_success "${RESET}All done!"
+  e_info "You may need to change your shell to zsh. Try ${PURPLE}chsh -s $(which zsh)${RESET}"
 }
 
 main "$1"

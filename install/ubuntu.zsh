@@ -31,6 +31,7 @@ apt_packages+=(
   htop
   tree
   vim
+  zsh
 )
 
 
