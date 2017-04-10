@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+! has_dotfiles_function > /dev/null 2>&1 && [[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
+! has_dotfiles_function > /dev/null 2>&1 && echo "Something went wrong. Try again" && exit 1
+
+function main() {
+  local config="$1"
+  shift
+  local files="$@"
+  e_header "Dotfiles Config Manager"
+  if [[ -z $config || -z $files ]]; then
+    e_info "USAGE: config <config name> <files...>"
+    e_line
+    exit 1
+  fi
+  local config_location=${DOTFILES}/config/${config}
+  if [[ ! -e ${config_location} ]]; then
+    e_info "Creating config at ${config_location}"
+  fi
+  for file in ${files}; do
+    if [[ -L ${file} ]]; then
+      local realfile=$(realpath -e $file)
+      e_info "${PURPLE}$(basename ${file})${RESET} is a symbolic link to ${PURPLE}${realfile}${RESET}."
+      file=$realfile
+    fi
+    local finalname=${file#${config_location}/}
+    finalname=${finalname#${HOME}/}
+    local source=${HOME}/${finalname}
+    local dest=${config_location}/${finalname}
+    if [[ -e ${dest} ]]; then
+      e_info "The file ${PURPLE}$(basename ${file})${RESET} already exists at ${YELLOW}${dest}${RESET}. ${RED}Skipping...${RESET}"
+      continue
+    fi
+    e_info "Copying ${PURPLE}$(basename ${file})${RESET} to ${YELLOW}${config}${RESET}"
+    mv ${source} ${dest}
+    e_info "Linking ${PURPLE}$(basename ${file})${RESET} back from ${YELLOW}${config}${RESET}"
+    ln -sf ${dest} ${source}
+  done
+}
+
+
+main $@
