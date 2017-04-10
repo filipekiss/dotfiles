@@ -30,6 +30,7 @@ apt_packages+=(
   git-core
   htop
   tree
+  unity-tweak-tool
   vim
   zsh
 )
