@@ -1,0 +1,7 @@
+```
+wget -qO- https://raw.githubusercontent.com/filipekiss/dotfiles/master/bin/dotfiles | bash
+```
+
+```
+curl -fsSL  https://raw.githubusercontent.com/filipekiss/dotfiles/master/bin/dotfiles | bash
+```
