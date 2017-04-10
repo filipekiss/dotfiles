@@ -1,4 +1,13 @@
 "*":
+  "atom-beautify":
+    general:
+      _analyticsUserId: "edb049ec-dd75-4bb4-988a-aeba1d632c5c"
+      beautifyEntireFileOnSave: false
+      muteUnsupportedLanguageErrors: true
+    html:
+      brace_style: "expand"
+      end_with_newline: true
+      indent_inner_html: true
   core:
     telemetryConsent: "limited"
     themes: [
@@ -14,6 +23,7 @@
     stayOnDelete: true
     stayOnTransformString: true
     stayOnYank: true
+    useClipboardAsDefaultRegister: true
   welcome:
     showOnStartup: false
   whitespace:
