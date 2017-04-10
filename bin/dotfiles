@@ -273,11 +273,13 @@ function update_path() {
   [[ -d $DOTFILES/bin ]] && export PATH=$DOTFILES/bin:$PATH
 }
 
-function prepare_for_backup() {
+function prepare_folders() {
   # If backups are needed, this is where they'll go.
   DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%Y_%m_%d-%H_%M_%S")"
   backup=""
   [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
+  CACHES_DIR="${DOTFILES}/caches"
+  [[ ! -e ${CACHES_DIR} ]] && mkdir -p ${CACHES_DIR}
 }
 
 function show_backup_message() {
@@ -375,7 +377,7 @@ function main() {
   validate_gcc
   validate_git
   update_path
-  prepare_for_backup
+  prepare_folders
   install_dotfiles
   link_config
   setup_git_config
