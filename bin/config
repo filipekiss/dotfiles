@@ -27,10 +27,13 @@ function main() {
     finalname=${finalname#${HOME}/}
     local source=${HOME}/${finalname}
     local dest=${config_location}/${finalname}
+    local fileonly=$(basename ${file})
+    local dest_folder=${dest%$fileonly}
     if [[ -e ${dest} ]]; then
       e_info "The file ${PURPLE}$(basename ${file})${RESET} already exists at ${YELLOW}${dest}${RESET}. ${RED}Skipping...${RESET}"
       continue
     fi
+    mkdir -p ${dest_folder}
     e_info "Copying ${PURPLE}$(basename ${file})${RESET} to ${YELLOW}${config}${RESET}"
     mv ${source} ${dest}
     e_info "Linking ${PURPLE}$(basename ${file})${RESET} back from ${YELLOW}${config}${RESET}"
