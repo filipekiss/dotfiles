@@ -3,6 +3,8 @@
 ! has_dotfiles_function > /dev/null 2>&1 && echo "Something went wrong. Try again" && exit 1
 is_ubuntu || return 1
 
+[[ -e /usr/share/robomongo/ ]] && return 1
+
 e_info "Downloading RoboMongo"
 cd /tmp
 wget -O - https://download.robomongo.org/1.0.0-rc1/linux/robomongo-1.0.0-rc1-linux-x86_64-496f5c2.tar.gz > robomongo.tar.gz

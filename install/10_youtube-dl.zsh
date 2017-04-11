@@ -3,8 +3,8 @@
 ! has_dotfiles_function > /dev/null 2>&1 && echo "Something went wrong. Try again" && exit 1
 is_ubuntu || return 1
 
-if [[ ! "$(type -P youtube-dl)" ]]; then
-  e_info "Installing latest version for youtube-dl"
-  sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-  sudo chmod a+rx /usr/local/bin/youtube-dl
-fi
+[[ "$(type -P youtube-dl)" ]] && return 1
+
+e_info "Installing latest version for youtube-dl"
+sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+sudo chmod a+rx /usr/local/bin/youtube-dl

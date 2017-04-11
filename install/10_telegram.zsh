@@ -3,6 +3,8 @@
 ! has_dotfiles_function > /dev/null 2>&1 && echo "Something went wrong. Try again" && exit 1
 is_ubuntu || return 1
 
+[[ -e /usr/share/telegram ]] && return 1
+
 e_info "Downloading Telegram Client"
 cd /tmp
 wget -O - https://tdesktop.com/linux > tsetup.tar.gz
