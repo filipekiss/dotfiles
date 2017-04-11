@@ -374,6 +374,8 @@ function setup_git_config() {
   if [[ ${GIT_EMAIL:-} != "" ]]; then
     git config --global user.email "${GIT_EMAIL}"
   fi
+  cd $DOTFILES
+  git remote set-url origin git@github.com:filipekiss/dotfiles.git
 }
 
 
