@@ -25,6 +25,7 @@ function add_ppa() {
 
 # Misc.
 apt_packages+=(
+  atom
   build-essential
   curl
   git-core
@@ -37,6 +38,7 @@ apt_packages+=(
 )
 
 add_ppa ppa:git-core/ppa
+add_ppa ppa:webupd8tem/atom
 
 if is_ubuntu_desktop; then
   # https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
@@ -44,12 +46,6 @@ if is_ubuntu_desktop; then
   apt_source_files+=(docker)
   apt_source_texts+=("deb https://apt.dockerproject.org/repo ubuntu-${release_name} main")
   apt_packages+=(docker-engine)
-
-  # http://www.omgubuntu.co.uk/2016/06/install-latest-arc-gtk-theme-ubuntu-16-04
-  apt_keys+=(http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key)
-  apt_source_files+=(arc-theme)
-  apt_source_texts+=("deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /")
-  apt_packages+=(arc-theme)
 
   # https://www.ubuntuupdates.org/ppa/google_chrome
   apt_keys+=(https://dl-ssl.google.com/linux/linux_signing_key.pub)
@@ -67,9 +63,11 @@ fi
 function other_stuff() {
   e_info "Adding user to docker group"
   sudo usermod -aG docker $(whoami)
-  e_info "Installing latest version for youtube-dl"
-  sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-  sudo chmod a+rx /usr/local/bin/youtube-dl
+  if [[ ! "$(type -P youtube-dl)" ]]; then
+    e_info "Installing latest version for youtube-dl"
+    sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
+    sudo chmod a+rx /usr/local/bin/youtube-dl
+  fi
 }
 
 ####################
