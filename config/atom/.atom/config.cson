@@ -9,6 +9,19 @@
       end_with_newline: true
       indent_inner_html: true
   core:
+    ignoredNames: [
+      ".git"
+      ".hg"
+      ".svn"
+      ".DS_Store"
+      "._*"
+      "Thumbs.db"
+      "desktop.ini"
+      ".sass-cache"
+      "node_modules"
+      ".tags"
+      ".TAGS"
+    ]
     telemetryConsent: "limited"
     themes: [
       "nord-atom-ui"
@@ -18,6 +31,8 @@
     darkerFormFocusEffect: true
   "relative-numbers":
     showAbsoluteNumbers: true
+  "tree-view":
+    hideIgnoredNames: true
   "vim-mode-plus":
     highlightSearch: true
     stayOnDelete: true
