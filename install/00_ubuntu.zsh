@@ -26,6 +26,7 @@ function add_ppa() {
 # Misc.
 apt_packages+=(
   atom
+  arc-theme
   build-essential
   curl
   git-core
@@ -63,11 +64,6 @@ fi
 function other_stuff() {
   e_info "Adding user to docker group"
   sudo usermod -aG docker $(whoami)
-  if [[ ! "$(type -P youtube-dl)" ]]; then
-    e_info "Installing latest version for youtube-dl"
-    sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
-    sudo chmod a+rx /usr/local/bin/youtube-dl
-  fi
 }
 
 ####################
