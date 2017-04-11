@@ -43,3 +43,4 @@
     showOnStartup: false
   whitespace:
     ensureSingleTrailingNewline: false
+    removeTrailingWhitespace: false
