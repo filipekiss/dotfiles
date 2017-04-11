@@ -38,7 +38,7 @@ apt_packages+=(
 )
 
 add_ppa ppa:git-core/ppa
-add_ppa ppa:webupd8tem/atom
+add_ppa ppa:webupd8team/atom
 
 if is_ubuntu_desktop; then
   # https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
