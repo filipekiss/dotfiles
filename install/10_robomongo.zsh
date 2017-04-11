@@ -19,7 +19,7 @@ tar -xvf robomongo.tar.gz
 cd ./robomongo-*
 
 e_info "Copying new files..."
-cp -r * /usr/share/robomongo
+sudo cp -r * /usr/share/robomongo
 user=$(whoami)
 sudo chown -R $user:$user /usr/share/robomongo/.
 
@@ -49,4 +49,4 @@ rm /tmp/robomongo.desktop
 rm -R /tmp/robomongo*
 
 
-e_succes "${RESET}Installation Complete!"
+e_success "${RESET}Installation Complete!"

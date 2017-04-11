@@ -8,3 +8,4 @@ is_ubuntu || return 1
 e_info "Installing latest version for youtube-dl"
 sudo wget https://yt-dl.org/downloads/latest/youtube-dl -O /usr/local/bin/youtube-dl
 sudo chmod a+rx /usr/local/bin/youtube-dl
+e_success "${RESET}All Done"

@@ -50,4 +50,4 @@ rm /tmp/telegram.desktop
 rm -R /tmp/Telegram
 
 
-e_succes "${RESET}Installation Complete!"
+e_success "${RESET}Installation Complete!"
