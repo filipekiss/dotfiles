@@ -28,6 +28,7 @@
       "nord-atom-syntax"
     ]
   editor:
+    fontSize: 13
     scrollPastEnd: true
     showIndentGuide: true
     showInvisibles: true
