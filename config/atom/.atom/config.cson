@@ -27,6 +27,11 @@
       "nord-atom-ui"
       "nord-atom-syntax"
     ]
+  editor:
+    scrollPastEnd: true
+    showIndentGuide: true
+    showInvisibles: true
+    softWrap: true
   "nord-atom-ui":
     darkerFormFocusEffect: true
   "relative-numbers":
