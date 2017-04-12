@@ -26,6 +26,7 @@ function add_ppa() {
 # Misc.
 apt_packages+=(
   atom
+  autoconf
   arc-theme
   build-essential
   curl
