@@ -36,7 +36,7 @@ alias -g G='|grep -i '
 alias -g LSN=$'| awk \'{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) *2^(8-i));if(k)printf("%0o ",k);print}\''
 
 # Daily useful stuff
-alias ll="type tree >/dev/null && tree -da -L 1 || l -d .*/ */ "
-alias lf="type tree >/dev/null && tree --dirsfirst -FL 1 | grep -v /$ || ls -la"
-alias la="type tree >/dev/null && tree --dirsfirst -FL 1 || ls -la"
+alias ll="l -d .*/ */ "
+alias lf="ls -la"
+alias la="ls -la"
 alias lc="ls -AlCF "
