@@ -21,12 +21,12 @@
 	conflict = diff --name-only --diff-filter=U
 	current = "!git branch-name"
 	diffc = diff --cached
+	discard = checkout --
 	dw = diff --color-words
 	feature = flow feature
 	full-status = status --porcelain --untracked-files=all
 	gr = log --graph --full-history --all --color --decorate
 	hotfix = flow hotfix
-	ignore = "!addToIgnore() { echo $1 >> .gitignore; }; addToIgnore"
 	ignored = ls-files --others -i --exclude-standard
 	last = log --pretty=format:'%s' --abbrev-commit -1
 	latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
@@ -39,6 +39,8 @@
 	pr = pull-request -b
 	ps = push -u origin HEAD
 	purr = pull --rebase
+	rci = "!git recommit"
+	recommit = commit --amend --no-edit
 	st = status -sb
 	support = flow support
 	tags = tag -l
@@ -49,9 +51,6 @@
 	update-submodules = "!git submodule -q foreach git pull -q origin master"
 	van = add -vAn
 	wipe = !git reset --hard HEAD && git clean -fd
-	zap = checkout --
-	recommit = commit --amend --no-edit
-	rci = "!git recommit"
 
 [push]
 	default = current
