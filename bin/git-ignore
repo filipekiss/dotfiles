@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+[[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
+
+[[ $(command -v e_info ) ]] && echo=e_info || echo=echo
+
+help_message() {
+  $echo " USAGE: git ignore <files> <to> <ignore>"
+  exit 1
+}
+
+main() {
+  ((!$#)) && help_message && exit 1
+  for file_to_ignore in "$@"; do
+    $echo "Ignored ${file_to_ignore}"
+    echo "${file_to_ignore}" >> .gitignore
+  done;
+}
+
+main $@
