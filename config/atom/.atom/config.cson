@@ -30,6 +30,8 @@
   editor:
     fontSize: 13
     scrollPastEnd: true
+    invisibles:
+      eol: "➜"
     showIndentGuide: true
     showInvisibles: true
     softWrap: true

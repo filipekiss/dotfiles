@@ -1,7 +1,7 @@
 # Ubuntu-only stuff. Abort if not Ubuntu.
 ! has_dotfiles_function > /dev/null 2>&1 && [[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
 ! has_dotfiles_function > /dev/null 2>&1 && echo "Something went wrong. Try again" && exit 1
-is_ubuntu || return 1
+is_ubuntu_desktop || return 1
 
 [[ -e /usr/share/robomongo/ ]] && return 1
 

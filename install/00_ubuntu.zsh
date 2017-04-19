@@ -25,24 +25,30 @@ function add_ppa() {
 
 # Misc.
 apt_packages+=(
-  atom
   autoconf
-  arc-theme
   build-essential
   curl
   git-core
   htop
   tree
-  unity-tweak-tool
-  terminator
   vim
   zsh
 )
 
 add_ppa ppa:git-core/ppa
-add_ppa ppa:webupd8team/atom
 
 if is_ubuntu_desktop; then
+  #install atom
+  add_ppa ppa:webupd8team/atomi
+  apt_packages+=(atom)
+
+  #install arc-theme
+  apt_packages+=(arc-theme)
+  apt_packages+=(unity-tweak-tool)
+
+  #install terminator
+  apt_packages+=(terminator)
+
   # https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
   apt_keys+=('--keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D')
   apt_source_files+=(docker)
