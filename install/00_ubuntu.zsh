@@ -39,7 +39,7 @@ add_ppa ppa:git-core/ppa
 
 if is_ubuntu_desktop; then
   #install atom
-  add_ppa ppa:webupd8team/atomi
+  add_ppa ppa:webupd8team/atom
   apt_packages+=(atom)
 
   #install arc-theme
