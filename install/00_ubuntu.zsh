@@ -69,8 +69,10 @@ if is_ubuntu_desktop; then
 fi
 
 function other_stuff() {
-  e_info "Adding user to docker group"
-  sudo usermod -aG docker $(whoami)
+  if [[ $(getent group docker ) ]]; then
+    e_info "Adding user to docker group"
+    sudo usermod -aG docker $(whoami)
+  fi
 }
 
 ####################
