@@ -1,6 +1,6 @@
 # .dotfiles
 
-![screenshot](https://raw.githubusercontent.com/filipekiss/dotfiles/master/bin/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/filipekiss/dotfiles/master/screenshot.png)
 
 ## Installation
 
