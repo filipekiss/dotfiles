@@ -25,6 +25,9 @@
       ".tags"
       ".TAGS"
     ]
+    packagesWithKeymapsDisabled: [
+      "vim-mode-plus"
+    ]
     telemetryConsent: "limited"
     themes: [
       "nord-atom-ui"
