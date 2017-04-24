@@ -1,11 +1,4 @@
 # TODO: Make proper functions files
-function mcd(){
-	if [ -z $1 ]; then;
-		echo "Usage: mcd <folderName>"
-		return 1
-	fi
-	mkdir $1 && cd $1
-}
 
 function psaux() {
 	ps aux | grep $1 | grep -v grep | awk '{print $11" "$2}'
