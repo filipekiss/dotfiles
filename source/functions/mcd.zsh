@@ -1,3 +1,4 @@
+unalias mcd 2> /dev/null
 
 function mcd(){
 	if [ -z $1 ]; then;
