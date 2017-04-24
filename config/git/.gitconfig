@@ -30,7 +30,7 @@
 	ignored = ls-files --others -i --exclude-standard
 	last = log --pretty=format:'%s' --abbrev-commit -1
 	latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
-	lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
 	nb = "!f() { echo 'Creating branch from '$(git latest-tag); git checkout -b $1 $(git latest-tag); }; f";
 	ncluderelease = flow release
 	nmg = branch --no-merged
