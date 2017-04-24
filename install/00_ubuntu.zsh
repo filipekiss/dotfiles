@@ -38,6 +38,8 @@ apt_packages+=(
 add_ppa ppa:git-core/ppa
 
 if is_ubuntu_desktop; then
+  #install xclip
+  apt_packages+=(xclip)
   #install atom
   add_ppa ppa:webupd8team/atom
   apt_packages+=(atom)
