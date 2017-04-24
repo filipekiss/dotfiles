@@ -83,9 +83,8 @@ function other_stuff() {
 
 # Add APT keys.
 keys_cache=$DOTFILES/caches/apt_keys
-IFS=$'\n' GLOBIGNORE='*' command eval 'setdiff_cur=($(<$keys_cache))'
-setdiff_new=("${apt_keys[@]}"); setdiff; apt_keys=("${setdiff_out[@]}")
-unset setdiff_new setdiff_cur setdiff_out
+current_keys=$(sort <(printf "%s\n" "${apt_keys[@]}")) # Sort all apt-keys we want to add
+apt_keys=$(comm -13 <(sort $keys_cache) <(echo $current_keys)) # Use `comm` to select only non-installed keys yet
 
 if (( ${#apt_keys[@]} > 0 )); then
   e_header "Adding APT keys (${#apt_keys[@]})"
