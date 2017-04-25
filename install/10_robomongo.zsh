@@ -3,7 +3,7 @@
 ! has_dotfiles_function > /dev/null 2>&1 && echo "Something went wrong. Try again" && exit 1
 is_ubuntu_desktop || return 1
 
-[[ -e /usr/share/robomongo/ ]] && return 1
+[[ -e /usr/share/robomongo/ ]] && return 0
 
 e_info "Downloading RoboMongo"
 cd /tmp
