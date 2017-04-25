@@ -84,18 +84,19 @@ function other_stuff() {
 
 # Add APT keys.
 keys_cache=$DOTFILES/caches/apt_keys
-current_keys=$(sort <(printf "%s\n" "${apt_keys[@]}")) # Sort all apt-keys we want to add
-apt_keys=$(comm -13 <(sort $keys_cache) <(echo $current_keys)) # Use `comm` to select only non-installed keys yet
-
+[[ ! -e $keys_cache ]] && mkdir -p $DOTFILES/caches && touch $keys_cache
+IFS=$'\n'
+apt_keys=($(comm -13 <(sort $keys_cache) <(sort <(printf "%s\n" "${apt_keys[@]}")))) # Use `comm` to select only non-installed keys yet
+unset IFS
 if (( ${#apt_keys[@]} > 0 )); then
-  e_header "Adding APT keys (${#apt_keys[@]})"
+  e_header "Adding APT keys (${#apt_keys})"
   for key in "${apt_keys[@]}"; do
     e_info "$key"
     if [[ "$key" =~ -- ]]; then
       sudo apt-key adv $key
     else
       wget -qO- $key | sudo apt-key add -
-    fi && \
+    fi
     echo "$key" >> $keys_cache
   done
 fi
