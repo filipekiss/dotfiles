@@ -1,17 +1,16 @@
-#!/usr/bin/env bash
-[[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
-
-[[ $(command -v e_info ) ]] && echo=e_info || echo=echo
+#!/usr/bin/env zsh
+(( ! $+functions[has_dotfiles_function] )) && [[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
+(( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
 
 help_message() {
-  $echo " USAGE: git ignore <files> <to> <ignore>"
+  e_info " USAGE: git ignore <files> <to> <ignore>"
   exit 1
 }
 
 main() {
   ((!$#)) && help_message && exit 1
   for file_to_ignore in "$@"; do
-    $echo "Ignored ${file_to_ignore}"
+    e_info "Ignored ${file_to_ignore}"
     echo "${file_to_ignore}" >> .gitignore
   done;
 }
