@@ -30,6 +30,7 @@ apt_packages+=(
   curl
   git-core
   htop
+  python-pip
   tree
   vim
   zsh
