@@ -226,12 +226,12 @@ function validate_git() {
 }
 
 function validate_stow() {
-  if (( $+commands[stow] )) && is_ubuntu; then
+  if (( ! $+commands[stow] )) && is_ubuntu; then
     e_info "Installing Stow"
     sudo apt-get -qq install stow
   fi
   # If Stow isn't installed by now, something exploded. We gots to quit!
-  if (( $+commands[stow] )); then
+  if (( ! $+commands[stow] )); then
     e_error "Stow should be installed. It isn't. Aborting."
     exit 1
   fi

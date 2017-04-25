@@ -68,20 +68,20 @@
 	ui = true
 
 [color "branch"]
-  current = yellow reverse
-  local = yellow
+  current = blue bold ul
+  local = yellow italic
   remote = green
 
 [color "diff"]
   meta = yellow
-  frag = magenta
+  frag = cyan
   old = red strike
-  new = green italic
-  whitespace = red reverse
+  new = green bold
+  whitespace = yellow reverse
 
 [color "status"]
-  added = yellow
-  changed = green
+  added = green bold
+  changed = blue bold
   untracked = red
 
 [color "diff-highlight"]
