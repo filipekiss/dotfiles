@@ -178,13 +178,13 @@ function show_script_info() {
     trap cleanup EXIT INT
     [[ -d $DOTFILES ]] && local dotfiles_exists="${GREEN}${LOG_STATUS_SUCCESS}${RESET}" || local dotfiles_exists="${RED}${LOG_STATUS_ERROR}${RESET}"
     [[ is_dotfiles_bin ]] && local is_binary="${GREEN}${LOG_STATUS_SUCCESS} Yes${RESET}" || local is_binary="${RED}${LOG_STATUS_ERROR} No${RESET}"
+    e_info "Detected OS: $(get_os)"
+    e_info "Dotfiles Folder Exists: ${dotfiles_exists} ${DOTFILES}"
+    e_info "Is Running as Binary from Path: ${is_binary}"
     if [[ -d "${DOTFILES}/.git" ]]; then
       cd $DOTFILES
       show_git_info
     fi
-    e_info "Detected OS: $(get_os)"
-    e_info "Dotfiles Folder Exists: ${dotfiles_exists} ${DOTFILES}"
-    e_info "Is Running as Binary from Path: ${is_binary}"
     e_line
 }
 
@@ -381,7 +381,7 @@ function setup_git_config() {
 
 function main() {
   if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-    e_info "Usage: $(basename "$0")"
+    e_info "Usage: dotfiles"
     e_info "See the README for documentation."
     e_info "https://github.com/filipekiss/dotfiles"
     e_info "Copyright (c) 2017 Filipe Kiss"
