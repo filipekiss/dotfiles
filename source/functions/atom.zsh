@@ -7,10 +7,12 @@ if (( ! $+commands[atom] )); then
   return 0
 fi
 
+ATOM_BINARY=$commands[atom]
+
 function atom {
   if [[ $# -eq 0 ]]; then
-    atom .
+    $ATOM_BINARY .
   else
-    atom "$@"
+    $ATOM_BINARY "$@"
   fi
 }
