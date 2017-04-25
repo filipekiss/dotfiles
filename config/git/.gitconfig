@@ -37,7 +37,7 @@
 	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
 	patch = add -v -p
 	pr = pull-request -b
-	ps = push -u origin HEAD
+	ps = push
 	purr = pull --rebase
 	rci = "!git recommit"
 	recommit = commit --amend --no-edit
