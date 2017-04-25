@@ -3,7 +3,7 @@
 ! has_dotfiles_function > /dev/null 2>&1 && echo "Something went wrong. Try again" && exit 1
 is_ubuntu_desktop || return 1
 
-[[ $+commands[ctags] ]] || return 0
+[[ $+commands[ctags] ]] && return 0
 
 CTAGS_REPO="https://github.com/universal-ctags/ctags.git"
 
