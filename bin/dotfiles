@@ -214,24 +214,24 @@ function validate_gcc() {
 function validate_git() {
   # If Git is not installed, install it (Ubuntu only, since Git comes standard
   # with recent XCode or CLT)
-  if [[ ! "$(type -P git)" ]] && is_ubuntu; then
+  if (( ! $+commands[git] )) && is_ubuntu; then
     e_info "Installing Git"
     sudo apt-get -qq install git-core
   fi
   # If Git isn't installed by now, something exploded. We gots to quit!
-  if [[ ! "$(type -P git)" ]]; then
+  if (( ! $+commands[git] )); then
     e_error "Git should be installed. It isn't. Aborting."
     exit 1
   fi
 }
 
 function validate_stow() {
-  if [[ ! "$(type -P stow)" ]] && is_ubuntu; then
+  if (( $+commands[stow] )) && is_ubuntu; then
     e_info "Installing Stow"
     sudo apt-get -qq install stow
   fi
   # If Stow isn't installed by now, something exploded. We gots to quit!
-  if [[ ! "$(type -P stow)" ]]; then
+  if (( $+commands[stow] )); then
     e_error "Stow should be installed. It isn't. Aborting."
     exit 1
   fi
@@ -250,19 +250,19 @@ function install_dotfiles() {
     e_info "Updating ${DOTFILES_GH_USER:-filipekiss}/dotfiles"
     cd $DOTFILES && \
     e_info "Stashing local changes..." && \
-    git add . > /dev/null 2>&1 && \
-    git stash > /dev/null 2>&1 && \
+    git add . && \
+    git stash && \
     e_info "Pulling updates from origin/${DOTFILES_GH_BRANCH:-master}..." && \
-    git pull origin ${DOTFILES_GH_BRANCH:-master} > /dev/null 2>&1 && \
+    git pull origin ${DOTFILES_GH_BRANCH:-master} && \
     e_info "Checking out ${DOTFILES_GH_BRANCH:-master}"
-    git checkout ${DOTFILES_GH_BRANCH:-master} > /dev/null 2>&1 && \
-    git reset --hard origin/${DOTFILES_GH_BRANCH:-master} > /dev/null 2>&1 && \
+    git checkout ${DOTFILES_GH_BRANCH:-master} && \
+    git reset --hard origin/${DOTFILES_GH_BRANCH:-master} && \
     e_info "Updating submodules..." && \
-    git submodule update --init --recursive > /dev/null 2>&1 && \
+    git submodule update --init --recursive && \
     e_info "Returning to your branch"
-    git checkout - > /dev/null 2>&1 && \
+    git checkout - && \
     e_info "Applying stashed changes..." && \
-    git stash pop > /dev/null 2>&1 && \
+    git stash pop && \
     e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles updated"
     if [[ "$1" != "restart" ]]; then
       current_head="$(git rev-parse HEAD)"
@@ -293,7 +293,7 @@ function update_path() {
 
 function prepare_folders() {
   # If backups are needed, this is where they'll go.
-  DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%Y_%m_%d-%H_%M_%S")"
+  DOTFILES_BACKUP_DIR="${DOTFILES}/backups/$(date "+%Y_%m_%d-%H_%M_%S")"
   backup=""
   [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
 }
