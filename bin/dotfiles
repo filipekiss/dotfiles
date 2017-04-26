@@ -65,7 +65,7 @@ function is_dotfiles_bin() {
 }
 
 # OS detection
-function is_osx() {
+function is_macos() {
   [[ "$OSTYPE" =~ ^darwin ]] || return 1
 }
 function is_ubuntu() {
@@ -205,7 +205,7 @@ function show_git_info() {
 
 function validate_gcc() {
   # Ensure Xcode is installed
-  if (( ! $+commands[gcc] )) && is_osx; then
+  if (( ! $+commands[gcc] )) && is_macos; then
     e_error "XCode or the Command Line Tools for XCode must be installed first."
     exit 1
   fi
@@ -230,7 +230,7 @@ function validate_stow() {
     e_info "Installing Stow"
     sudo apt-get -qq install stow
   fi
-  if (( ! $+commands[stow] )) && is_osx; then
+  if (( ! $+commands[stow] )) && is_macos; then
     validate_homebrew
     e_info "Installing Stow"
     brew install stow
@@ -244,7 +244,7 @@ function validate_stow() {
 }
 
 function validate_homebrew() {
-  if (( ! $+commands[brew] )) && is_osx; then
+  if (( ! $+commands[brew] )) && is_macos; then
     e_info "Installing Homebrew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
