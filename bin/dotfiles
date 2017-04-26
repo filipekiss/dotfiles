@@ -351,10 +351,7 @@ function do_stow() {
 }
 
 function install_stuff() {
-  local installation=$(ls ${DOTFILES}/install/*.zsh)
-  for install in $installation; do
-    source $install
-  done
+  for install (${DOTFILES}/install/*.zsh) source $install
 }
 
 function backup_stuff() {
