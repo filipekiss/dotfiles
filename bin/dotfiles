@@ -337,7 +337,7 @@ function link_config() {
   done
 
   for stow_path in $stow_paths; do
-    stow_path=${stow_path#$DOTFILES/*/*/}
+    stow_path=${stow_path#$DOTFILES/config/}
     do_stow "${stow_path}"
   done;
 }
