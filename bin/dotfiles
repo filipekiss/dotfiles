@@ -354,6 +354,10 @@ function install_stuff() {
   for install (${DOTFILES}/install/*.zsh) source $install
 }
 
+function postinstall_stuff() {
+  for script (${DOTFILES}/post-install/*.zsh) source $script
+}
+
 function backup_stuff() {
   local DEST
   local TARGET="$1"
@@ -415,6 +419,7 @@ function main() {
   link_config
   setup_git_config
   install_stuff
+  postinstall_stuff
   show_backup_message
   # all done!
   e_success "${RESET}All done!"
