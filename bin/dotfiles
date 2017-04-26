@@ -320,7 +320,7 @@ function show_backup_message() {
 
 function link_config() {
   IFS=$'\n'
-  local files=($(find $DOTFILES/config/ -mindepth 2 -type f))
+  local files=($(find $DOTFILES/config -mindepth 2 -type f))
   local stow_paths=($(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d))
   local managed_folders=($(find ~/.dotfiles/config/* -mindepth 1 -type d))
   unset IFS
