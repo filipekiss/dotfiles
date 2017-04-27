@@ -41,6 +41,8 @@
     showIndentGuide: true
     showInvisibles: true
     softWrap: true
+  "exception-reporting":
+    userId: "7efa3b63-1973-4123-b771-dead6e0e68a2"
   "nord-atom-ui":
     darkerFormFocusEffect: true
   "relative-numbers":
