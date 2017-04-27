@@ -83,3 +83,8 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+#
+# Custom env variables
+#
+export ATOM_PACKAGES_FILE=$DOTFILES/config/atom/.atom/my-packages

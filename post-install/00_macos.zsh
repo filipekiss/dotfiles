@@ -31,7 +31,7 @@ function update_gnupg_permissions() {
 }
 
 APM_BIN=$(which apm)
-ATOM_PACKAGES_FILE=${DOTFILES}/config/atom/.atom/my-packages
+[[ -z $ATOM_PACKAGES_FILE ]] && export ATOM_PACKAGES_FILE=$DOTFILES/config/atom/.atom/my-packages
 
 update_ssh_permissions
 update_gnupg_permissions
