@@ -28,6 +28,7 @@ brew 'rbenv'
 brew 'ssh-copy-id'
 brew 'stow'
 brew 'subliminal'
+brew 'switchaudio-osx'
 brew 'tldr'
 brew 'tree'
 brew 'unrar'
@@ -50,7 +51,7 @@ cask 'launchbar'
 cask 'polymail'
 cask 'quicklook-json'
 cask 'skype'
-cask 'spectacle'
+cask 'spotify'
 cask 'transmission'
 cask 'ubersicht'
 cask 'whatsapp'
@@ -61,3 +62,4 @@ mas '1Password', id: 443987910
 mas 'Sip', id: 507257563
 mas 'Telegram', id: 747648890
 mas 'Tweetbot', id: 557168941
+mas 'Magnet', id: 441258766
