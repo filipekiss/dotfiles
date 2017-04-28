@@ -97,3 +97,28 @@
 	managed = true
 [init]
 	templatedir = ~/.git_template
+[fetch]
+	prunt = true
+# URL shorthands
+[url "git@github.com:"]
+  insteadOf = "gh:"
+  pushInsteadOf = "github:"
+  pushInsteadOf = "git://github.com/"
+
+[url "git://github.com/"]
+  insteadOf = "github:"
+
+[url "git@gist.github.com:"]
+  insteadOf = "gst:"
+  pushInsteadOf = "gist:"
+  pushInsteadOf = "git://gist.github.com/"
+
+[url "git://gist.github.com/"]
+  insteadOf = "gist:"
+
+[url "git@github.com:filipekiss/"]
+  insteadOf = "me:"
+  pushInsteadOf = "https://github.com/filipekiss/"
+  pushInsteadOf = "http://github.com/filipekiss/"
+  pushInsteadOf = "git://github.com/filipekiss/"
+  pushInsteadOf = "me:"
