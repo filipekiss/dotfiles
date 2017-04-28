@@ -87,4 +87,4 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 #
 # Custom env variables
 #
-export ATOM_PACKAGES_FILE=$DOTFILES/config/atom/.atom/my-packages
+export ATOM_PACKAGES_FILE=$HOME/.dotfiles/config/atom/.atom/my-packages
