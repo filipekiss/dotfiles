@@ -380,16 +380,16 @@ function make_folder() {
 
 function setup_git_config() {
   local GIT_USER GIT_EMAIL
-  GIT_USER=$(git config --global user.name)
-  GIT_EMAIL=$(git config --global user.email)
+  GIT_USER=$(git config -f $HOME/.gitconfig.local user.name)
+  GIT_EMAIL=$(git config -f $HOME/.gitconfig.local user.email)
   [[ ${GIT_USER} == "" ]] && e_set_inline && e_info "What name do you wish to use to sign your commits? " && read GIT_USER
   [[ ${GIT_EMAIL} == "" ]] && e_set_inline && e_info "What e-mail do you wish to use to sign your commits? " && read GIT_EMAIL
   e_reset_line
   if [[ ${GIT_USER:-} != "" ]]; then
-    git config --global user.name "${GIT_USER}"
+    git config -f $HOME/.gitconfig.local user.name "${GIT_USER}"
   fi
   if [[ ${GIT_EMAIL:-} != "" ]]; then
-    git config --global user.email "${GIT_EMAIL}"
+    git config -f $HOME/.gitconfig.local user.email "${GIT_EMAIL}"
   fi
   cd $DOTFILES
   git remote set-url origin git@github.com:filipekiss/dotfiles.git
