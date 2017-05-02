@@ -3,6 +3,7 @@
 (( ! $+functions[has_dotfiles_function] )) && [[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
 (( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
 is_macos || return 1
+[[ -e $DOTFILES/caches/flags/macos ]] && return 1 # Don't run if the file exists
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -850,4 +851,9 @@ for app in "Activity Monitor" \
 	"iCal"; do
 	killall "${app}" &> /dev/null
 done
+
+# Create flag to prevent re-running this script all the time
+mkdir -p $DOTFILES/caches/flags
+touch $DOTFILES/caches/flags/macos
+
 e_success "${RESET}Done. Note that some of these changes require a logout/restart to take effect."
