@@ -4,5 +4,5 @@ is_macos || return 0
 
 
 function afk() {
-  open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+  /usr/bin/open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
 }
