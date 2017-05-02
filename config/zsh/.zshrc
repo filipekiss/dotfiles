@@ -18,7 +18,7 @@ source ~/.zplug/init.zsh
 ###############################
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "zimframework/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_ROOT/repos/zimframework/zim ~/.zim"
+zplug "zimframework/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eriner/zim ~/.zim"
 
 ###############################
 # Zim Modules
@@ -39,7 +39,7 @@ zmodules=(
 )
 
 zprompt_theme='steeef'
-ztermtitle="%n@%m:%~"
+ztermtitle="%n at %m in %~"
 zdouble_dot_expand="true"
 zhighlighters=(main brackets pattern cursor root)
 
