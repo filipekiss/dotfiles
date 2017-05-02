@@ -18,8 +18,7 @@ source ~/.zplug/init.zsh
 ###############################
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "zimframework/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eriner/zim ~/.zim"
-
+zplug "Eriner/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eriner/zim ~/.zim"
 
 ###############################
 # Install missing modules
