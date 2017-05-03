@@ -1,0 +1,20 @@
+# Youtube-dl default options
+
+# Set the filename to safe video title format. This will result in VIDEO_TITLE.mp4
+-o '%(title)s.%(ext)s'
+--restrict-filenames
+
+# Save video thumbnails next to video
+--write-thumbnail
+
+# Save video description to a .description file
+--write-description
+
+# output progress bar as newlines
+--newline
+
+# display progress in console title bar (useful for background downloading)
+--console-title
+
+# skip youtube dash manifest
+--youtube-skip-dash-manifest
