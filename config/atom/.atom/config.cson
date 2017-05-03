@@ -33,6 +33,10 @@
       "nord-atom-ui"
       "nord-atom-syntax"
     ]
+  docblockr:
+    extra_tags: [
+      "@author: Filipe Kiss <eu@filipekiss.com.br>"
+    ]
   editor:
     fontSize: 13
     invisibles:
