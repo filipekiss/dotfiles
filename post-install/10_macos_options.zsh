@@ -820,7 +820,16 @@ defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 
 # Bypass asking for rating
 defaults write com.crowdcafe.windowmagnet skipRatingReminder "1"
-defaults write com.crowdcafe.windowmagnet moduleDict -dict moduleName "Aerial" path "/Users/filipekiss/Library/Screen Savers/Aerial.saver" type 0
+# Set my preferred shortcuts
+defaults write com.crowdcafe.windowmagnet expandWindowCenterThirdComboKey -dict keyCode 44 modifierFlags 786432
+defaults write com.crowdcafe.windowmagnet expandWindowLeftThirdComboKey -dict keyCode 43 modifierFlags 786432
+defaults write com.crowdcafe.windowmagnet expandWindowLeftTwoThirdsComboKey -dict keyCode 41 modifierFlags 786432
+defaults write com.crowdcafe.windowmagnet expandWindowNorthEastComboKey -dict keyCode 14 modifierFlags 786432
+defaults write com.crowdcafe.windowmagnet expandWindowNorthWestComboKey -dict keyCode 13 modifierFlags 786432
+defaults write com.crowdcafe.windowmagnet expandWindowRightThirdComboKey -dict keyCode 47 modifierFlags 786432
+defaults write com.crowdcafe.windowmagnet expandWindowRightTwoThirdsComboKey -dict keyCode 39 modifierFlags 786432
+defaults write com.crowdcafe.windowmagnet expandWindowSouthEastComboKey -dict keyCode 2 modifierFlags 786432
+defaults write com.crowdcafe.windowmagnet expandWindowSouthWestComboKey -dict keyCode 1 modifierFlags 786432
 
 ###############################################################################
 # Kill affected applications                                                  #
