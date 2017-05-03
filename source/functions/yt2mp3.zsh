@@ -9,6 +9,9 @@ function yt2mp3() {
     e_info "USAGE: yt2mp3 <youtube-url>"
     return 1
   else
-    youtube-dl -t -i --extract-audio --audio-format mp3 $@
+    youtube-dl --extract-audio --audio-format mp3 -o "%(title)s.%(ext)s" --restrict-filenames $@
   fi
 }
+
+# Complete as if using youtube-dl directly
+compdef '_youtube-dl' yt2mp3
