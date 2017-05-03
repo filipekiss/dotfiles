@@ -11,6 +11,7 @@
   core:
     disabledPackages: [
       "whitespace"
+      "wrap-guide"
     ]
     ignoredNames: [
       ".git"
@@ -47,6 +48,13 @@
     softWrap: true
   "exception-reporting":
     userId: "7efa3b63-1973-4123-b771-dead6e0e68a2"
+  "multi-wrap-guide":
+    columns: [
+      72
+      80
+      100
+      120
+    ]
   "nord-atom-ui":
     darkerFormFocusEffect: true
   "relative-numbers":
