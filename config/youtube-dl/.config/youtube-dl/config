@@ -10,11 +10,11 @@
 # Save video description to a .description file
 --write-description
 
-# output progress bar as newlines
---newline
-
 # display progress in console title bar (useful for background downloading)
 --console-title
 
 # skip youtube dash manifest
 --youtube-skip-dash-manifest
+
+# format options: Download best mp4 format available or any other best if no mp4 available
+-f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'
