@@ -4,6 +4,7 @@
 is_macos || return 1
 
 function install_atom_packages() {
+  [[ ! $+commands[apm] ]] && return 0
   e_info "Installing packages from ${ATOM_PACKAGES_FILE}"
   # We use this method to just install new packages. NO updates. apm install doesn't handle this well yet
   for package ($(cat $ATOM_PACKAGES_FILE )); do
