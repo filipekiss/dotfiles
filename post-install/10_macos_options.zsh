@@ -819,11 +819,8 @@ defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
 ###############################################################################
 
 # Bypass asking for rating
-defaults write com.crowdcafe.windowmagnet lastRatedVersion "99"
-
-###############################################################################
-# Magnet.app                                                                  #
-###############################################################################
+defaults write com.crowdcafe.windowmagnet skipRatingReminder "1"
+defaults write com.crowdcafe.windowmagnet moduleDict -dict moduleName "Aerial" path "/Users/filipekiss/Library/Screen Savers/Aerial.saver" type 0
 
 ###############################################################################
 # Kill affected applications                                                  #
