@@ -280,6 +280,8 @@ function install_dotfiles() {
     if [[ "$1" != "restart" ]]; then
       current_head="$(git rev-parse HEAD)"
       if [[ $current_head != $prev_head ]]; then
+        # Remove flags so all install options will run again
+        rm -rf caches/flags
         if is_dotfiles_bin; then
           e_info "Changes detected, restarting script"
           exec "$0" restart

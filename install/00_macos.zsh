@@ -2,6 +2,7 @@
 (( ! $+functions[has_dotfiles_function] )) && [[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
 (( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
 is_macos || return 1
+[[ -e $DOTFILES/caches/flags/macos ]] && return 1 # Don't run if the file exists
 
 function validate_homebrew() {
   if (( ! $+commands[brew] )) && is_macos; then
