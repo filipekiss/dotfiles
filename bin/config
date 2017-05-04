@@ -6,20 +6,36 @@
 function main() {
   local config="$1"
   local action="config"
-  shift
-  if [[ $config == "unconfig" ]]; then
-    action="unconfig"
-    config="$1"
-    shift
-  fi
+  [[ $# -gt 0 ]] && shift
+  case $config in
+    "unconfig" )
+        action="unconfig"
+        config="$1"
+        [[ $# -gt 0 ]] && shift
+      ;;
+    "clean" )
+        action="clean"
+        config="$1"
+        [[ $# -gt 0 ]] && shift
+      ;;
+  esac
   local files=($@)
   [[ $action == "config" ]] && make_config $config $files
   [[ $action == "unconfig" ]] && undo_config $config $files
+  [[ $action == "clean" ]] && clean_config $config
+}
+
+
+function clean_config() {
+  local config_to_clean="$1"
+  local config_path
+  config_path=${DOTFILES}/config/${config_to_clean}
+  echo $config_path
 }
 
 function undo_config() {
   local config="$1"
-  shift
+  [[ $# -gt 0 ]] && shift
   local files=($@)
   local config_location=${DOTFILES}/config/${config}
   if [[ ! -e ${config_location} ]]; then
@@ -55,7 +71,7 @@ function undo_config() {
 
 function make_config() {
   local config="$1"
-  shift
+  [[ $# -gt 0 ]] && shift
   local files=($@)
   [[ -z $files ]] && e_info "USAGE: ${PURPLE}config ${YELLOW}<config> ${GREEN}<files to add>" && exit 0
   local config_location=${DOTFILES}/config/${config}
