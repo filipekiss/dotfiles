@@ -52,13 +52,13 @@ function undo_config() {
     exit 1
   fi
   if [[ -z ${files} ]]; then
-    e_info "No files specified. If you want to remove ALL config, run\n${PURPLE}find ${config_location%/} -type f -print0 | xargs -0 config unconfig ${config}"
+    e_info "No files specified. If you want to remove ALL config, run\n${PURPLE}find ${config_location%/} -type f -exec config unconfig ${config} {} \;"
     exit 0
   fi
   for file in ${files}; do
     [[ ! -e ${file} ]] && file=${config_location}/${file}
     if [[ -d ${file} ]]; then
-      e_info "This is a folder. Try\n${PURPLE}find ${file%/} -type f -print0 | xargs -0 config unconfig ${config}"
+      e_info "This is a folder. Try\n${PURPLE}find ${file%/} -type f -exec config unconfig ${config} {} \;"
       exit 0
     fi
     local finalname=${file#${config_location}/}
@@ -96,7 +96,7 @@ function make_config() {
       file=$realfile
     fi
     if [[ -d ${file} ]]; then
-      e_info "This is a folder. Try\n ${PURPLE}find ${file%/} -type f -print0 | xargs -0 config ${config}"
+      e_info "This is a folder. Try\n ${PURPLE}find ${file%/} -type f -exec config ${config} {} \;"
       exit 0
     fi
     if ! validate_path ${file}; then
