@@ -63,9 +63,17 @@
     hideIgnoredNames: true
   "vim-mode-plus":
     highlightSearch: true
+    keymapPToPutWithAutoIndent: true
     stayOnDelete: true
     stayOnTransformString: true
     stayOnYank: true
     useClipboardAsDefaultRegister: true
   welcome:
     showOnStartup: false
+  "multi-wrap-guide":
+    columns: [
+      72
+      80
+      100
+      120
+    ]
