@@ -5,14 +5,59 @@
 
 function main() {
   local config="$1"
+  local action="config"
+  shift
+  if [[ $config == "unconfig" ]]; then
+    action="unconfig"
+    config="$1"
+    shift
+  fi
+  local files=($@)
+  [[ $action == "config" ]] && make_config $config $files
+  [[ $action == "unconfig" ]] && undo_config $config $files
+}
+
+function undo_config() {
+  local config="$1"
   shift
   local files=($@)
-  e_header "Dotfiles Config Manager"
-  if [[ -z $config || -z $files ]]; then
-    e_info "USAGE: config <config name> <files...>"
-    e_line
+  local config_location=${DOTFILES}/config/${config}
+  if [[ ! -e ${config_location} ]]; then
+    e_error "Config ${config} doesn't exists. Please, check your configs and try again!"
     exit 1
   fi
+  if [[ -z ${files} ]]; then
+    e_info "No files specified. If you want to remove ALL config, run\n${PURPLE}find ${config_location%/} -type f -print0 | xargs -0 config unconfig ${config}"
+    exit 0
+  fi
+  for file in ${files}; do
+    [[ ! -e ${file} ]] && file=${config_location}/${file}
+    if [[ -d ${file} ]]; then
+      e_info "This is a folder. Try\n${PURPLE}find ${file%/} -type f -print0 | xargs -0 config unconfig ${config}"
+      exit 0
+    fi
+    local finalname=${file#${config_location}/}
+    finalname=${finalname#${HOME}/}
+    local source=${config_location}/${finalname}
+    local dest=${HOME}/${finalname}
+    local fileonly=$(basename ${file})
+    local dest_folder=${dest%$fileonly}
+    if [[ -e ${dest} ]] && [[ ! -L ${dest} ]]; then
+      e_info "The file ${PURPLE}$(basename ${file})${RESET} already exists at ${YELLOW}${dest}${RESET}. ${RED}Skipping...${RESET}"
+      continue
+    fi
+    mkdir -p ${dest_folder}
+    e_info "Moving ${PURPLE}$(basename ${file})${RESET} to ${YELLOW}${dest}${RESET}"
+    mv "${source}" "${dest}"
+  done
+  exit 0
+}
+
+function make_config() {
+  local config="$1"
+  shift
+  local files=($@)
+  [[ -z $files ]] && e_info "USAGE: ${PURPLE}config ${YELLOW}<config> ${GREEN}<files to add>" && exit 0
   local config_location=${DOTFILES}/config/${config}
   if [[ ! -e ${config_location} ]]; then
     e_info "Creating config at ${config_location}"
@@ -37,12 +82,16 @@ function main() {
       e_info "The file ${PURPLE}$(basename ${file})${RESET} already exists at ${YELLOW}${dest}${RESET}. ${RED}Skipping...${RESET}"
       continue
     fi
+    [[ ! -e ${source} ]] && e_error "${RESET}The file ${source} doesn't exists" && continue
     mkdir -p ${dest_folder}
     e_info "Copying ${PURPLE}$(basename ${file})${RESET} to ${YELLOW}${config}${RESET}"
-    mv "${source}" "${dest}"
+    cp "${source}" "${dest}"
     e_info "Linking ${PURPLE}$(basename ${file})${RESET} back from ${YELLOW}${config}${RESET}"
+    rm -f ${dest}
     ln -sf "${dest}" "${source}"
   done
+  exit 0
+
 }
 
 
