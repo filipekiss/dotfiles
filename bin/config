@@ -28,9 +28,18 @@ function main() {
 
 function clean_config() {
   local config_to_clean="$1"
+  local silent=0
+  [[ $config_to_clean == "E_SILENT" ]] && config_to_clean="" && silent=1
   local config_path
   config_path=${DOTFILES}/config/${config_to_clean}
-  echo $config_path
+  local empty_config=$(find ${config_path%/} -type d -empty)
+  if [[ -z $empty_config ]]; then
+    [[ $silent -eq 0 ]] && e_success "${RESET}Nothing to clean ${YELLOW}:)"
+    exit 0
+  fi
+  for config (${empty_config}) { rm -rf $config; e_success "${RESET}Removed ${config#${config_path}}" }
+  # Keep running clean_config until no more folders to be cleaned exists
+  clean_config "E_SILENT"
 }
 
 function undo_config() {
@@ -66,6 +75,8 @@ function undo_config() {
     e_info "Moving ${PURPLE}$(basename ${file})${RESET} to ${YELLOW}${dest}${RESET}"
     mv "${source}" "${dest}"
   done
+  e_info "Cleaning up"
+  clean_config
   exit 0
 }
 
