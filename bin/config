@@ -72,6 +72,10 @@ function make_config() {
       e_info "This is a folder. Try\n ${PURPLE}find ${file%/} -type f -print0 | xargs -0 config ${config}"
       exit 0
     fi
+    if ! validate_path ${file}; then
+      e_info "${PURPLE}config${RESET} is meant for files located below your home folder. ${file} is outside your home folder"
+      continue
+    fi
     local finalname=${file#${config_location}/}
     finalname=${finalname#${HOME}/}
     local source=${HOME}/${finalname}
@@ -87,11 +91,15 @@ function make_config() {
     e_info "Copying ${PURPLE}$(basename ${file})${RESET} to ${YELLOW}${config}${RESET}"
     cp "${source}" "${dest}"
     e_info "Linking ${PURPLE}$(basename ${file})${RESET} back from ${YELLOW}${config}${RESET}"
-    rm -f ${dest}
+    rm -f ${source}
     ln -sf "${dest}" "${source}"
   done
   exit 0
+}
 
+function validate_path() {
+  local file_path="$1"
+  [[ ${file_path#$HOME} == ${file_path} ]] && return 1 || return 0
 }
 
 
