@@ -13,7 +13,7 @@ brew 'universal-ctags', args: ['HEAD']
 brew 'ffmpeg'
 brew 'fortune'
 brew 'git-flow-avh'
-brew 'git'
+brew 'git', args: ['without-completions']
 brew 'gnupg2'
 brew 'htop'
 brew 'hub'
