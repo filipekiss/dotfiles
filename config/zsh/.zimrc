@@ -18,19 +18,13 @@ zmodules=(
   spectrum
   syntax-highlighting
   history-substring-search
-  prompt
+  ssh
   completion
 )
 
 ###################
 # MODULE SETTINGS #
 ###################
-
-###############################
-# Prompt
-###############################
-
-zprompt_theme='steeef'
 
 ###############################
 # Completion
@@ -76,4 +70,4 @@ zdouble_dot_expand="true"
 #   https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
 # For (u)rxvt, termite and gnome-terminal users,
 # removing the 'cursor' highlighter will fix the disappearing cursor problem
-zhighlighters=(main brackets pattern cursor root)
+zhighlighters=(main brackets pattern cursor)
