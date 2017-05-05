@@ -36,6 +36,12 @@ sudo pmset -a standbydelay 86400
 # Disable transparency in the menu bar and elsewhere
 defaults write com.apple.universalaccess reduceTransparency -bool true
 
+# Hide your desktop
+defaults write com.apple.finder CreateDesktop -bool false
+
+# Hide the menubar unless you hover
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+
 # Menu bar: hide the Time Machine icons
 # To view what you can hide and show just run `ls -la /System/Library/CoreServices/Menu\ Extras`
 defaults -currentHost write dontAutoLoad -array \
