@@ -7,17 +7,19 @@
 ###############################
 
 zmodules=(
+  archive
   directory
   environment
+  fasd
   git
   git-info
+  syntax-highlighting
   history
+  history-substring-search
   meta
   input
   utility
   spectrum
-  syntax-highlighting
-  history-substring-search
   ssh
   completion
 )
@@ -71,3 +73,11 @@ zdouble_dot_expand="true"
 # For (u)rxvt, termite and gnome-terminal users,
 # removing the 'cursor' highlighter will fix the disappearing cursor problem
 zhighlighters=(main brackets pattern cursor)
+
+###############################
+# SSH
+###############################
+
+# Configuration for the SSH module.
+# Add any identities (from ~/.ssh) to this list to have them loaded and cached on login.
+zssh_ids=(id_rsa)
