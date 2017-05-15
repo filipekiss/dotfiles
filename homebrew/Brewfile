@@ -10,8 +10,8 @@ tap 'universal-ctags/universal-ctags'
 brew 'coreutils'
 brew 'curl'
 brew 'universal-ctags', args: ['HEAD']
-brew 'fasd'
 brew 'ffmpeg'
+brew 'fzf'
 brew 'fortune'
 brew 'git-flow-avh'
 brew 'git', args: ['without-completions']
@@ -40,7 +40,6 @@ brew 'watch'
 brew 'wget'
 brew 'yarn'
 brew 'youtube-dl'
-brew 'z'
 brew 'zsh'
 
 cask 'atom'
