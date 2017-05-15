@@ -36,6 +36,8 @@
       "nord-atom-syntax"
     ]
   docblockr:
+    auto_add_method_tag: true
+    deep_indent: true
     extra_tags: [
       "@author: Filipe Kiss <eu@filipekiss.com.br>"
     ]
