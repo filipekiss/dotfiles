@@ -55,6 +55,9 @@
     lintPreviewTabs: false
   "linter-flake8":
     executablePath: "/usr/local/bin/flake8"
+  "linter-phpcs":
+    autoExecutableSearch: false
+    executablePath: "/usr/local/bin/phpcs"
   "linter-ui-default":
     gutterPosition: "Left"
     showDecorations: false
