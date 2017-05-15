@@ -49,6 +49,14 @@
     softWrap: true
   "exception-reporting":
     userId: "7efa3b63-1973-4123-b771-dead6e0e68a2"
+  linter:
+    lintPreviewTabs: false
+  "linter-flake8":
+    executablePath: "/usr/local/bin/flake8"
+  "linter-ui-default":
+    gutterPosition: "Left"
+    showDecorations: false
+    showPanel: true
   "markdown-preview":
     useGitHubStyle: true
   "multi-wrap-guide":
