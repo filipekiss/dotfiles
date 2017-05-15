@@ -49,6 +49,8 @@
     softWrap: true
   "exception-reporting":
     userId: "7efa3b63-1973-4123-b771-dead6e0e68a2"
+  "markdown-preview":
+    useGitHubStyle: true
   "multi-wrap-guide":
     columns: [
       72

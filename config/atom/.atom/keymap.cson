@@ -149,8 +149,8 @@
   'g J': 'vim-mode-plus:join-with-keeping-space'
   'y': 'vim-mode-plus:yank'
   'Y': 'vim-mode-plus:yank-line'
-  'P': 'vim-mode-plus:put-before'
-  'p': 'vim-mode-plus:put-after'
+  'P': 'vim-mode-plus:put-before-with-auto-indent'
+  'p': 'vim-mode-plus:put-after-with-auto-indent'
 
   # String transformation
   '~': 'vim-mode-plus:toggle-case-and-move-right'
