@@ -39,6 +39,14 @@ HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
+#####################################
+# Tools
+#####################################
+
+# Homebrew options
+export HOMEBREW_INSTALL_BADGE="🍕"
+export HOMEBREW_NO_ANALYTICS=1
+
 
 #####################################
 # Source config and aliases and stuff
