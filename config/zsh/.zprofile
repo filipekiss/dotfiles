@@ -20,8 +20,8 @@ export SPROMPT="zsh: correct %F{red}'%R'%f to %F{blue}'%r'%f [%B%Uy%u%bes, %B%Un
 # Editors
 #
 
-# Set VIM as editor or use vi if vim is not available
-(( $+commands[vim] )) && export EDITOR=vim || export EDITOR=vi
+# Set Atom as editor or use vim if atom is not available
+(( $+commands[atom] )) && export EDITOR="atom --wait" || export EDITOR=vim
 export VISUAL=$EDITOR
 export GIT_EDITOR=$EDITOR
 export PAGER='less'
