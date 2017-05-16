@@ -15,7 +15,7 @@ z() {
 }
 
 zz() {
-  cd "$(_z -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q $_last_z_args)"
+  cd "$(_z_cmd -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q ${_last_z_args:-''})"
 }
 
 
