@@ -42,8 +42,10 @@
       "@author: Filipe Kiss <eu@filipekiss.com.br>"
     ]
   editor:
-    fontSize: 13
+    fontFamily: "Fira Mono"
+    fontSize: 16
     invisibles:
+      cr: "⮐"
       eol: "➜"
     scrollPastEnd: true
     showIndentGuide: true

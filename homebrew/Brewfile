@@ -65,6 +65,9 @@ cask 'ubersicht'
 cask 'whatsapp'
 cask 'ynab'
 
+cask 'font-fira-mono'
+cask 'font-inconsolata'
+
 
 
 mas '1Password', id: 443987910
