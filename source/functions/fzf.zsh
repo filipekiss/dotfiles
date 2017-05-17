@@ -44,3 +44,24 @@ fco() {
     fzf-down --no-hscroll --reverse --ansi +m -d "\t" -n 2 -q "$*") || return
   git checkout $(echo "$target" | awk '{print $2}')
 }
+# fbr - checkout git branch
+fbr() {
+  local branches target
+  branches=$(
+    git branch --all | grep -v HEAD             |
+    sed "s/.* //"    | sed "s#remotes/[^/]*/##" |
+    sort -u          | awk '{print "\x1b[34;1mbranch\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$branches") | sed '/^$/d' |
+    fzf-down --no-hscroll --reverse --ansi +m -d "\t" -n 2 -q "$*") || return
+  git checkout $(echo "$target" | awk '{print $2}')
+}
+# ftag - checkout git tag
+ftag() {
+  local tags target
+  tags=$(git tag | awk '{print "\x1b[31;1mtag\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$tags") | sed '/^$/d' |
+    fzf-down --no-hscroll --reverse --ansi +m -d "\t" -n 2 -q "$*") || return
+  git checkout $(echo "$target" | awk '{print $2}')
+}
