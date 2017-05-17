@@ -47,6 +47,7 @@
 	update-submodules = "!git submodule -q foreach git pull -q origin master"
 	van = add -vAn
 	wipe = !git reset --hard HEAD && git clean -fd
+	me = "!git log --author=$(whoami)"
 
 [push]
 	default = current
