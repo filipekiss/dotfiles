@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+system_wide_filelist=''
+user_filelist=''
+
+if [[ -f /etc/ccdpaths ]]; then
+   system_wide_filelist=$(cdscuts_list_echo /etc/ccdpaths)
+fi
+if [[ -e ~/.ccdpaths ]]; then
+   user_filelist=$(cdscuts_list_echo ~/.ccdpaths)
+fi
+
+echo -e "$system_wide_filelist\n$user_filelist" | sed '/^\s*$/d'
