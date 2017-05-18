@@ -75,29 +75,43 @@ ftag() {
 }
 # fstash - easier way to deal with stashes
 # type fstash to get a list of your stashes
-# enter shows you the contents of the stash
+# enter applies the selected stash
 # ctrl-d shows a diff of the stash against your current HEAD
 # ctrl-b checks the stash out as a branch, for easier merging
+# ctrl-s shows you the contents of the stash
+#
+# Options available
+# FSTASH_BRANCH_PREFIX      The prefix used to created the branch from stash. Default is `stash-`
+# FSTASH_DROP_AFTER_APPLY   If true, drop stash after apply
 fstash() {
+  emulate -L sh
   local out q k sha
   while out=$(
-    git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+    git stash list --pretty="%C(yellow)%gd %C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
     fzf --ansi --no-sort --query="$q" --print-query \
-        --expect=ctrl-d,ctrl-b);
+        --expect=ctrl-d,ctrl-b,ctrl-s);
   do
-    mapfile -t out <<< "$out"
+    out=( "${(@f)out}")
     q="${out[0]}"
     k="${out[1]}"
-    sha="${out[-1]}"
+    stashLine="${out[-1]}"
+    stashIdx="${stashLine%% *}"
+    sha="${stashLine#${stashIdx}}"
     sha="${sha%% *}"
     [[ -z "$sha" ]] && continue
     if [[ "$k" == 'ctrl-d' ]]; then
       git diff $sha
     elif [[ "$k" == 'ctrl-b' ]]; then
-      git stash branch "stash-$sha" $sha
+      git stash branch "${FSTASH_BRANCH_PREFIX:-stash-}$sha" $sha
       break;
-    else
+    elif [[ "$k" == 'ctrl-s' ]]; then
       git stash show -p $sha
+    else
+      if [[ ${FSTASH_DROP_AFTER_APPLY:-0} ]]; then
+        git stash pop $stashIdx
+      else
+        git stash apply $sha
+      fi
     fi
   done
 }
