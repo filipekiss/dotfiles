@@ -12,6 +12,8 @@ ccd() {
 ccd-add () {
   [[ ! -f ~/.ccdpaths ]] && touch ~/.ccdpaths
   if ! grep -Fq "${PWD}" ~/.ccdpaths; then
-    echo "${PWD} # $*" >>! ~/.ccdpaths
+    echo "${PWD} # $*" | tee -a ~/.ccdpaths
+  else
+    grep --color=never ${PWD} ~/.ccdpaths
   fi
 }
