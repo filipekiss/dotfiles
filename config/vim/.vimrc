@@ -38,3 +38,9 @@ set hls
 
 " Pathogen setup
 execute pathogen#infect()
+
+" Ensure Proper crontab editing
+if $VIM_CRONTAB == "true"
+    set nobackup
+    set nowritebackup
+endif
