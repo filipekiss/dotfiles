@@ -18,6 +18,10 @@ function saraiva-docker() {
       e_info "Running grunt..."
       $HAS_DOCKER_COMPOSE -f $SARAIVA_COMPOSER_FILE exec grunt grunt "$@"
       ;;
+    exec )
+      e_info "Execing..."
+      $HAS_DOCKER_COMPOSE -f $SARAIVA_COMPOSER_FILE exec "$@"
+      ;;
     * )
       e_info "No action specified"
       e_info "USAGE: saraiva-docker <up|down|grunt>"
