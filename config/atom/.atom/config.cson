@@ -77,6 +77,10 @@
     silent: true
   "nord-atom-ui":
     darkerFormFocusEffect: true
+  pigments:
+    markerType: "gutter"
+    mergeColorDuplicates: true
+    sortPaletteColors: "by name"
   "relative-numbers":
     showAbsoluteNumbers: true
   "tree-view":
