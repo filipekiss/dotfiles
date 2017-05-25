@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+
+IFS=$'\n\t'
+ERROR_FOUND=false
+RED=
+NC=
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+function changed_php_files {
+    git diff --cached --name-only --diff-filter=ACMR | grep -E "\.(php|phtml)$"
+}
+
+function php_lint {
+    git show :$1 | php --syntax-check 2>&1 | grep "Parse error" | sed -e "s|in - on line |in $REPO_ROOT/$1:|"
+}
+
+function xdebug_grep {
+    git show :$1 | grep -nH xdebug_ | sed -e "s|^(standard input)|PHP XDebug Statment: $REPO_ROOT/$1|"
+}
+
+function print_error {
+    local l_file=$REPO_ROOT/$1
+    shift
+
+    if ! $ERROR_FOUND; then
+        echo -e "Found PHP parse errors:\n "
+    fi
+
+    echo $@ | sed -e "s|${l_file}|${RED}${l_file}${NC}|g"
+
+    ERROR_FOUND=true
+}
+
+function print_mesg {
+    if ! $SILENT_MODE
+    then
+        echo $@
+    fi
+}
+
+function main {
+    local errors=
+
+    if ! command -v php >/dev/null 2>&1
+    then
+        print_mesg "PHP-cli not installed. PHP lint checks will be skipped."
+        exit 0;
+    fi
+
+
+    case "$(git config --get color.ui)" in
+      "auto" | "always")
+          RED=$(git config --get-color color.interactive.error  1)
+          NC=$'\033[0m'
+          ;;
+      *)
+          RED=
+          NC=
+          ;;
+    esac
+    for file in $(changed_php_files)
+    do
+        errors=$(php_lint $file; xdebug_grep $file)
+        if [[ "$errors" ]]
+        then
+            print_error $file $errors
+        fi
+    done
+
+    if $ERROR_FOUND
+    then
+        echo -e "\nPHP parse errors found. Fix errors and commit again."
+        exit 1
+    fi
+}
+
+main

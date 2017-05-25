@@ -1,0 +1,2 @@
+#!/bin/sh
+.git/hooks/php-lint >/dev/null 2>&1 &
