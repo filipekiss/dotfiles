@@ -58,6 +58,11 @@ path=(
   $path
 )
 
+# Add yarn bin to path
+if (( $+commands[yarn] )); then
+  path+=($(yarn global bin))
+fi
+
 export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
 
 #
