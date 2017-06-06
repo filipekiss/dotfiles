@@ -46,9 +46,7 @@
   editor:
     fontFamily: "Fira Mono"
     fontSize: 16
-    invisibles:
-      cr: "⮐"
-      eol: "➜"
+    invisibles: {}
     scrollPastEnd: true
     showIndentGuide: true
     showInvisibles: true
