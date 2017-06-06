@@ -1,5 +1,5 @@
 fzf-down() {
-  fzf --height 50% "$@"
+  fzf --height 50% "$@" --border
 }
 
 # # https://github.com/junegunn/fzf/wiki/Examples#z
