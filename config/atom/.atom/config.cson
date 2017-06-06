@@ -39,8 +39,10 @@
     auto_add_method_tag: true
     deep_indent: true
     extra_tags: [
-      "@author: Filipe Kiss <eu@filipekiss.com.br>"
+      "@author Filipe Kiss <eu@filipekiss.com.br>"
     ]
+    indentation_spaces: 4
+    indentation_spaces_same_para: 4
   editor:
     fontFamily: "Fira Mono"
     fontSize: 16
@@ -94,3 +96,5 @@
     useClipboardAsDefaultRegister: true
   welcome:
     showOnStartup: false
+  zentabs:
+    manualMode: true
