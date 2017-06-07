@@ -3,7 +3,7 @@
 unalias ccd 2> /dev/null
 ccd() {
   local query="$@"
-   local dest_dir=$(cdscuts_glob_echo | fzf -q "${query}" )
+   local dest_dir=$(cdscuts_glob_echo | fzf -q "${query}" --select-1 )
    if [[ $dest_dir != '' ]]; then
      dest_dir=${dest_dir:s/~/$HOME}
       cd "${dest_dir%% *}"
