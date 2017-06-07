@@ -1,0 +1,67 @@
+#!/usr/bin/env zsh
+
+function emoji_list() {
+    local emojis=(
+    "            "
+    ":art:                 "
+    ":memo:                "
+    ":100:                 "
+    ":bug:                 "
+    ":fire:                "
+    ":white_check_mark:    "
+    ":lock:                "
+    )
+    local description=(
+    " No emoji"
+    " Improving the format/structure of the code"
+    " Writing docs"
+    " Adding a new feature"
+    " Fixing a bug"
+    " Removing code or files"
+    " Adding tests"
+    " Dealing with security"
+    )
+    local select=()
+    local totalMessages=${#emojis}
+    for i in {1..$totalMessages}; do
+        select+=$(echo "$emojis[$i]" | emojify)" "$emojis[$i]" "$description[$i]
+    done
+    echo ${(j:\n:)select}
+}
+
+function join-lines() {
+  local item
+  while read item; do
+    echo -n "${(q)item} "
+  done
+}
+
+function fzf_select_emoji() {
+    emoji_list |
+    fzf --multi --ansi --header "Use <TAB> to select multiple" |
+    grep -o ":.*:" |
+    join-lines
+}
+
+function fzf_prepare_message() {
+    local COMMIT_MESSAGE_FILE="$1"
+    local COMMITS_MESSAGE_CONTENT=$(cat ${COMMIT_MESSAGE_FILE})
+    case "$2,$3" in
+        message,)
+            if [[ $HAS_FZF && $HAS_EMOJIFY ]]; then
+                local prepend_emojis=$(fzf_select_emoji)
+                echo ${prepend_emojis}" "${COMMITS_MESSAGE_CONTENT} | tee ${COMMIT_MESSAGE_FILE}
+            fi
+        ;;
+    esac
+}
+
+function validate_emoji_selector() {
+    HAS_FZF=$commands[fzf]
+    HAS_EMOJIFY=$commands[emojify]
+    [[ -z $HAS_FZF ]] && echo " No fzf found..."
+    [[ -z $HAS_EMOJIFY ]] && echo " No emojify found..."
+}
+
+validate_emoji_selector
+fzf_prepare_message "$1" "$2" "$3"
