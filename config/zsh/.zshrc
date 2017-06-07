@@ -21,6 +21,7 @@ zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "Eriner/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eriner/zim ~/.zim"
 zplug "noveumdois/nine12", as:theme
 zplug "knu/z", use:"z.sh", depth:1, defer:1
+zplug "b4b4r07/emoji-cli"
 
 ###############################
 # Install missing modules
@@ -48,6 +49,7 @@ SAVEHIST=$HISTSIZE
 export FZF_DEFAULT_OPTS='--min-height 30 --height 50% --reverse --tabstop 2 --multi --margin 0,3,3,3'
 export FZF_DEFAULT_COMMAND='rg --no-messages --files --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
