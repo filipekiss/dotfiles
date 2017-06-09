@@ -1,0 +1,26 @@
+@guide-lines-fade: 85%;
+// Custom color for visual guide-lines
+atom-text-editor.editor {
+  .multi-wrap-guide:nth-child(1) .multi-wrap-guide-line {
+    background-color: fadeout(@text-color-info, @guide-lines-fade);
+    width: 1px;
+  }
+  .multi-wrap-guide:nth-child(2) .multi-wrap-guide-line {
+    background-color: fadeout(@text-color-success, @guide-lines-fade);
+    width: 1px;
+  }
+  .multi-wrap-guide:nth-child(3) .multi-wrap-guide-line {
+    background-color: fadeout(@text-color-warning, @guide-lines-fade);
+    width: 2px;
+  }
+  .multi-wrap-guide:nth-child(4) .multi-wrap-guide-line {
+    background-color: fadeout(@text-color-error, @guide-lines-fade);
+    width: 3px;
+  }
+}
+
+// Disable font ligatures inside quoted string and regex
+atom-text-editor.editor .syntax--string.syntax--quoted,
+atom-text-editor.editor .syntax--string.syntax--regexp {
+  -webkit-font-feature-settings: "liga" off, "calt" off;
+}

@@ -1,3 +1,4 @@
+# vim:ft=ruby:
 tap 'homebrew/bundle'
 tap 'homebrew/dupes'
 tap 'homebrew/php'
@@ -5,6 +6,7 @@ tap 'homebrew/services'
 tap 'caskroom/cask'
 tap 'caskroom/fonts'
 tap 'caskroom/versions'
+tap 'neovim/neovim'
 tap 'universal-ctags/universal-ctags'
 
 brew 'coreutils'
@@ -22,6 +24,7 @@ brew 'jq'
 brew 'mas'
 brew 'nginx'
 brew 'nvm'
+brew 'neovim', ARGS: ['HEAD']
 brew 'perl'
 brew 'php71'
 brew 'php71-mcrypt'
@@ -68,6 +71,7 @@ cask 'whatsapp'
 cask 'ynab'
 
 cask 'font-fira-mono'
+cask 'font-fira-code'
 cask 'font-inconsolata'
 
 

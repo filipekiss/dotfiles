@@ -44,7 +44,7 @@
     indentation_spaces: 4
     indentation_spaces_same_para: 4
   editor:
-    fontFamily: "Fira Mono"
+    fontFamily: "Fira Code"
     fontSize: 16
     invisibles: {}
     scrollPastEnd: true
