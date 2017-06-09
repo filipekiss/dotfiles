@@ -62,6 +62,7 @@
     executablePath: "/usr/local/bin/phpcs"
   "linter-ui-default":
     gutterPosition: "Left"
+    panelHeight: 56
     showDecorations: false
     showPanel: true
   "markdown-preview":
