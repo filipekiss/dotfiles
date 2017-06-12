@@ -1,3 +1,2 @@
 caches/*
-config/vim/.vim/netrwhist
-backups
+backups/*
