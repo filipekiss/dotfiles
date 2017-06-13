@@ -48,6 +48,9 @@
 	van = add -vAn
 	wipe = !git reset --hard HEAD && git clean -fd
 	me = "!git log --author=$(whoami)"
+	rbc = rebase --continue
+	rbs = rebase --skip
+	rba = rebase --abort
 
 [push]
 	default = current
