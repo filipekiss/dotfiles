@@ -90,6 +90,7 @@ function make_config() {
     e_info "Creating config at ${config_location}"
   fi
   for file in ${files}; do
+    file=$(realpath -e $file)
     if [[ -L ${file} ]]; then
       local realfile=$(realpath -e $file)
       e_info "${PURPLE}$(basename ${file})${RESET} is a symbolic link to ${PURPLE}${realfile}${RESET}."
