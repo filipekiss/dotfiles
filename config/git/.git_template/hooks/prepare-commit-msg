@@ -1,30 +1,34 @@
 #!/usr/bin/env zsh
 
 function emoji_list() {
-    local emojis=(
-    "            "
-    ":art:                 "
-    ":memo:                "
-    ":100:                 "
-    ":bug:                 "
-    ":fire:                "
-    ":white_check_mark:    "
-    ":lock:                "
-    )
-    local description=(
-    " No emoji"
-    " Improving the format/structure of the code"
-    " Writing docs"
-    " Adding a new feature"
-    " Fixing a bug"
-    " Removing code or files"
-    " Adding tests"
-    " Dealing with security"
-    )
+    local FILE_PATH=$(git rev-parse --show-toplevel)/.precommit
+    local EMOJI_LIST=(
+    'No emoji'
+    ':art: Improving the format/structure of the code|:art:'
+    ':memo: Writing docs|:memo:'
+    ':100: Adding a new feature|:100:'
+    ':bug: Fixing a bug|:bug:'
+    ':fire: Removing code or files|:fire:'
+    ':white_check_mark: Adding tests|:white_check_mark:'
+    ':lock: Dealing with security|:lock:'
+    '')
+    # If .precommit file exists in the root of the repo, use that instead of the default list
+    if [[ -e $FILE_PATH ]]; then
+        EMOJI_LIST=("${(@f)$(<$FILE_PATH)}")
+    fi
     local select=()
-    local totalMessages=${#emojis}
-    for i in {1..$totalMessages}; do
-        select+=$(echo "$emojis[$i]" | emojify)" "$emojis[$i]" "$description[$i]
+    for currentLine in $EMOJI_LIST; do
+	    local displayText=$(echo $currentLine | cut -d '|' -f1)
+	    local prependText=$(echo $currentLine | cut -d '|' -f2)
+	    if [[ $prependText == $displayText ]]; then
+	        prependText=""
+	    else
+	        prependText=" | "$prependText
+	    fi
+	    if [[ $HAS_EMOJIFY ]]; then
+		    displayText=$(echo $displayText | emojify)
+	    fi
+	    select+=$displayText$prependText
     done
     echo ${(j:\n:)select}
 }
@@ -39,7 +43,7 @@ function join-lines() {
 function fzf_select_emoji() {
     emoji_list |
     fzf --multi --ansi --header "Use <TAB> to select multiple" |
-    grep -o ":.*:" |
+    cut -d '|' -f2 |
     join-lines
 }
 
@@ -65,9 +69,8 @@ function fzf_prepare_message() {
 function validate_emoji_selector() {
     HAS_FZF=$commands[fzf]
     HAS_EMOJIFY=$commands[emojify]
-    [[ -z $HAS_FZF ]] && echo " No fzf found..."
-    [[ -z $HAS_EMOJIFY ]] && echo " No emojify found..."
 }
 
 validate_emoji_selector
+[[ -z $HAS_FZF ]] && echo " No fzf found... Skipping precommit selector" && exit 0
 fzf_prepare_message "$1" "$2" "$3"
