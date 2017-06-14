@@ -26,14 +26,14 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " Disable arrow keys (hardcore)
-map  <up>    <nop>
-imap <up>    <nop>
-map  <down>  <nop>
-imap <down>  <nop>
-map  <left>  <nop>
-imap <left>  <nop>
-map  <right> <nop>
-imap <right> <nop>
+nmap  <up>    <nop>
+"imap <up>    <nop>
+nmap  <down>  <nop>
+"imap <down>  <nop>
+nmap  <left>  <nop>
+"imap <left>  <nop>
+nmap  <right> <nop>
+"imap <right> <nop>
 
 " Make arrowkey do something usefull, resize the viewports accordingly
 nnoremap <Left> :vertical resize -2<CR>
@@ -56,8 +56,10 @@ nnoremap <leader>q :quit<CR>
 
 " https://github.com/mhinz/vim-galore#quickly-edit-your-macros
 nnoremap <leader>m  :<c-u><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
-
+" Quickly return to normal mode
 inoremap jj <ESC>
+inoremap kk <ESC>
+
 nnoremap \ :Grepper -side -tool rg -query<SPACE>
 " nnoremap \\ :Grepper -side -tool git -query<SPACE>
 " nnoremap <silent> <leader>d :20Lex<CR>
@@ -158,3 +160,6 @@ endfunction
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
 
+
+" Find first function declaration before cursor and add jsDoc to it
+nmap <silent> <C-l> ?function\(<cr>:noh<cr><Plug>(jsdoc)
