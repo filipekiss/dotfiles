@@ -43,6 +43,7 @@ function join-lines() {
 function fzf_select_emoji() {
     emoji_list |
     fzf --multi --ansi --header "Use <TAB> to select multiple" |
+    grep '|' |
     cut -d '|' -f2 |
     join-lines
 }
