@@ -44,6 +44,7 @@ Plug 'wincent/terminus'
 Plug 'mhinz/vim-startify'
 Plug 'kepbod/quick-scope'
 Plug 'google/vim-searchindex'
+Plug 'terryma/vim-multiple-cursors'
 
 " Syntax
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
@@ -56,6 +57,7 @@ Plug 'stephenway/postcss.vim', { 'for': ['css'] }
 Plug 'editorconfig/editorconfig-vim', { 'on': [] }
 Plug 'w0rp/ale', { 'do': 'npm i -g stylelint eslint' }
 Plug 'sbdchd/neoformat', { 'on': 'Neoformat', 'do': 'npm i -g prettier stylefmt' }
+Plug 'heavenshell/vim-jsdoc', {'for' : ['javascript'] }
 
 " Git
 Plug 'airblade/vim-gitgutter'
