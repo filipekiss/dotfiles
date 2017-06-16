@@ -96,7 +96,7 @@ fstash() {
     k="${out[1]}"
     stashLine="${out[-1]}"
     stashIdx="${stashLine%% *}"
-    sha="${stashLine#${stashIdx}}"
+    sha="${stashLine#${stashIdx} }"
     sha="${sha%% *}"
     [[ -z "$sha" ]] && continue
     if [[ "$k" == 'ctrl-d' ]]; then
