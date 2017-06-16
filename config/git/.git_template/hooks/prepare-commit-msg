@@ -56,7 +56,7 @@ function fzf_prepare_message() {
     [[ -z $MESSAGE_TYPE ]] && MESSAGE_TYPE="message"
     case $MESSAGE_TYPE in
 	message|template)
-	    if [[ $HAS_FZF && $HAS_EMOJIFY ]]; then
+	    if [[ $HAS_FZF ]]; then
 		SHOW_EMOJI_SELECTOR=true
 	    fi
 	;;
