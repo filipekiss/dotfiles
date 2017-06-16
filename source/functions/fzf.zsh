@@ -75,21 +75,24 @@ ftag() {
 }
 # fstash - easier way to deal with stashes
 # type fstash to get a list of your stashes
-# enter applies the selected stash
+# ctrl-a applies the selected stash
 # ctrl-d shows a diff of the stash against your current HEAD
 # ctrl-b checks the stash out as a branch, for easier merging
-# ctrl-s shows you the contents of the stash
+# ctrl-s drops the current stash
 #
 # Options available
 # FSTASH_BRANCH_PREFIX      The prefix used to created the branch from stash. Default is `stash-`
-# FSTASH_DROP_AFTER_APPLY   If true, drop stash after apply
+# FSTASH_APPLY   If equals "DROP" will 'git stash pop' the commit for dropping after adding.
+# Otherwise will just apply the stash
 fstash() {
   emulate -L sh
   local out q k sha
   while out=$(
     git stash list --pretty="%C(yellow)%gd %C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
     fzf --ansi --no-sort --query="$q" --print-query \
-        --expect=ctrl-d,ctrl-b,ctrl-s);
+      --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 |
+                 xargs -I % sh -c 'git stash show --color=always % | head -200 '" \
+        --expect=ctrl-d,ctrl-b,ctrl-s,ctrl-a);
   do
     out=( "${(@f)out}")
     q="${out[0]}"
@@ -105,12 +108,15 @@ fstash() {
       git stash branch "${FSTASH_BRANCH_PREFIX:-stash-}$sha" $sha
       break;
     elif [[ "$k" == 'ctrl-s' ]]; then
-      git stash show -p $sha
-    else
-      if [[ ${FSTASH_DROP_AFTER_APPLY:-0} ]]; then
+      git stash drop $stashIdx
+      break;
+    elif [[ "$k" == 'ctrl-a' ]]; then
+      if [[ ${FSTASH_APPLY:-apply}=="DROP" ]]; then
         git stash pop $stashIdx
+        break;
       else
         git stash apply $sha
+        break;
       fi
     fi
   done
