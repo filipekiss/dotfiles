@@ -77,7 +77,7 @@ function is_ubuntu_desktop() {
 }
 
 function get_os() {
-  for os in osx ubuntu ubuntu_desktop; do
+  for os in macos ubuntu ubuntu_desktop; do
     is_$os; [[ $? == ${1:-0} ]] && echo $os
   done
 }
