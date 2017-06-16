@@ -327,11 +327,11 @@ function link_config() {
   local managed_folders=($(find ~/.dotfiles/config/* -mindepth 1 -type d))
   unset IFS
 
-  for folder in $managed_folders; do
-    folder=${folder#$DOTFILES/*/*/}
-    [[ $folder = *"$DOTFILES"* ]] && continue #skip this config if it has no subfolder
-    make_folder "${HOME}/${folder}"
-  done
+  # for folder in $managed_folders; do
+  #   folder=${folder#$DOTFILES/*/*/}
+  #   [[ $folder = *"$DOTFILES"* ]] && continue #skip this config if it has no subfolder
+  #   make_folder "${HOME}/${folder}"
+  # done
 
   for file in $files; do
     file=${file#${DOTFILES}/*/*/}
