@@ -1,3 +1,5 @@
 caches/*
 backups/*
 tags
+.DS_Store
+.tags
