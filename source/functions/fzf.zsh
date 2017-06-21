@@ -90,6 +90,7 @@ fstash() {
   while out=$(
     git stash list --pretty="%C(yellow)%gd %C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
     fzf --ansi --no-sort --query="$q" --print-query \
+        --header "Ctrl-a to apply stash | Ctrl-d to diff against current HEAD | Ctrl-b to create branch | Ctrl-s to drop selected stash" \
       --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 |
                  xargs -I % sh -c 'git stash show --color=always % | head -200 '" \
         --expect=ctrl-d,ctrl-b,ctrl-s,ctrl-a);
