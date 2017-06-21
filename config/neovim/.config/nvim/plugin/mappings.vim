@@ -20,10 +20,24 @@ map <expr> k v:count ? 'k' : 'gk'
 " Make `Y` behave like `C` and `D` (to the end of line)
 nnoremap Y y$
 
+" Use Ctrl<hjkl> to move between buffers on the same tab
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+" Use Alt<hjkl> to move between buffers on the same tab
+if has('macunix')
+    nnoremap ˙      <c-w>h
+    nnoremap ∆      <c-w>j
+    nnoremap ˚      <c-w>k
+    nnoremap ¬      <c-w>l
+elseif has('unix')
+    nnoremap <M-h>      <c-w>h
+    nnoremap <M-j>       <c-w>j
+    nnoremap <M-k>       <c-w>k
+    nnoremap <M-l>       <c-w>l
+endif
+
 
 " Disable arrow keys (hardcore)
 nmap  <up>    <nop>
@@ -116,10 +130,17 @@ if has('nvim')
   " nnoremap <leader>t  :vsplit +terminal<cr>
   " ignore when inisde FZF buffer
   tnoremap <expr> <esc> &filetype == 'fzf' ? "\<esc>" : "\<c-\>\<c-n>"
-  tnoremap <a-h>      <c-\><c-n><c-w>h
-  tnoremap <a-j>      <c-\><c-n><c-w>j
-  tnoremap <a-k>      <c-\><c-n><c-w>k
-  tnoremap <a-l>      <c-\><c-n><c-w>l
+  if has('macunix')
+    tnoremap ˙      <c-\><c-n><c-w>h
+    tnoremap ∆      <c-\><c-n><c-w>j
+    tnoremap ˚      <c-\><c-n><c-w>k
+    tnoremap ¬      <c-\><c-n><c-w>l
+  else
+    tnoremap <a-h>      <c-\><c-n><c-w>h
+    tnoremap <a-j>      <c-\><c-n><c-w>j
+    tnoremap <a-k>      <c-\><c-n><c-w>k
+    tnoremap <a-l>      <c-\><c-n><c-w>l
+endif
   autocmd BufEnter term://* startinsert
 endif
 

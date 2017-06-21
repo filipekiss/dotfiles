@@ -74,6 +74,7 @@ call plug#end()
 syntax enable
 filetype plugin indent on
 colorscheme nord
+set termguicolors
 
 " Define some binary paths
 let g:current_flow_path = nrun#Which('flow')
