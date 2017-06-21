@@ -41,6 +41,10 @@ nnoremap <Right> :vertical resize +2<CR>
 nnoremap <Up> :resize -2<CR>
 nnoremap <Down> :resize +2<CR>
 
+" Pressing up/down exits insert mode
+inoremap <silent> <Up> <ESC>
+inoremap <silent> <Down> <ESC>
+
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 
 nnoremap gb  :Gina browse :% --exact<CR> " Open current file on github.com
@@ -64,7 +68,12 @@ nnoremap \ :Grepper -side -tool rg -query<SPACE>
 " nnoremap \\ :Grepper -side -tool git -query<SPACE>
 " nnoremap <silent> <leader>d :20Lex<CR>
 nnoremap <silent> <leader>d :NERDTreeFind<CR>
-nnoremap <M-d> :Sayonara!<CR>
+
+if has('macunix')
+    nnoremap ∂ :Sayonara!<CR>
+elseif has('unix')
+    nnoremap <M-d> :Sayonara!<CR>
+endif
 nnoremap <Leader><TAB> <C-w><C-w>
 nnoremap <M-Tab> <C-^>
 " set text wrapping toggles
