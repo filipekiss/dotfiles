@@ -55,7 +55,7 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Homebrew options. See https://github.com/Homebrew/brew/blob/master/docs/Tips-N%27-Tricks.md#hiding-the-beer-mug-emoji-when-finishing-a-build
-export HOMEBREW_INSTALL_BADGE="🔮"
+export HOMEBREW_INSTALL_BADGE="⚗️"
 export HOMEBREW_NO_ANALYTICS=1
 
 

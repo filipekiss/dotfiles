@@ -11,8 +11,8 @@ unalias cast 2> /dev/null
 function cast() {
   if [[ $# -eq 0 ]]; then
     brew ls
-  else
-    brew install $@
+else
+    HOMEBREW_INSTALL_BADGE="🔮" brew install $@
   fi
 }
 
