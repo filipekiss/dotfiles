@@ -54,3 +54,5 @@ if (( $+commands[git] )); then
     unalias g 2>/dev/null
     alias g='git'
 fi
+
+(( $+commands[nvim] )) && alias vim="nvim"
