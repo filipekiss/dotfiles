@@ -112,7 +112,7 @@ fstash() {
       git stash drop $stashIdx
       break;
     elif [[ "$k" == 'ctrl-a' ]]; then
-      if [[ ${FSTASH_APPLY:-apply}=="DROP" ]]; then
+      if [[ ${FSTASH_APPLY:-apply} == "DROP" ]]; then
         git stash pop $stashIdx
         break;
       else
