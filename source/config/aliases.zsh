@@ -49,10 +49,5 @@ if (( $+commands[pygmentize] )); then
     alias cat='pygmentize -O console256 -g'
 fi
 
-# Alias git to g
-if (( $+commands[git] )); then
-    unalias g 2>/dev/null
-    alias g='git'
-fi
 
 (( $+commands[nvim] )) && alias vim="nvim"
