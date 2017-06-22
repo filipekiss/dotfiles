@@ -19,9 +19,10 @@ function fzf_gg() {
 # Git branches
 function fzf_gb() {
   is_in_git_repo || return
-  git branch -a --color=always | grep -v '/HEAD' | sort |
+  branches=$(git for-each-ref --sort=committerdate refs/heads/ --format='%(refname:short) (last activity: %(color:green)%(committerdate:relative)%(color:reset))')
+  echo $branches |
   fzf-down --ansi --multi --tac --preview-window right:70% \
-    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1) | head -200' |
+    --preview 'git log --color=always --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(echo {} | cut -d" " -f1)' |
   sed 's/^..//' | cut -d' ' -f1 |
   sed 's#^remotes/##'
 }
@@ -46,7 +47,7 @@ function fzf_gr() {
   is_in_git_repo || return
   git remote -v | awk '{print $1 "\t" $2}' | uniq |
   fzf-down --tac \
-    --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
+    --preview 'git log --oneline --graph --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
   cut -d$'\t' -f1
 }
 
