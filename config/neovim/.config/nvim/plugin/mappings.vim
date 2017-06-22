@@ -193,3 +193,5 @@ vnoremap . :norm.<CR>
 
 " Find first function declaration before cursor and add jsDoc to it
 nmap <silent> <M-l> ?function\(<cr>:noh<cr><Plug>(jsdoc)
+
+nnoremap <C-t> :Files<CR>
