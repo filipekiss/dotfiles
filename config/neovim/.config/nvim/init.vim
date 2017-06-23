@@ -52,6 +52,7 @@ Plug 'ap/vim-css-color'
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['css']
 Plug 'stephenway/postcss.vim', { 'for': ['css'] }
+Plug 'lepture/vim-jinja'
 
 " Linters & Code quality
 Plug 'editorconfig/editorconfig-vim', { 'on': [] }
