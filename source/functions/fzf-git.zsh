@@ -8,7 +8,7 @@
 function is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
-
+# Show git modified files
 function fzf_gg() {
   is_in_git_repo || return
   git -c color.status=always status --short |
@@ -16,15 +16,23 @@ function fzf_gg() {
     --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
   cut -c4- | sed 's/.* -> //'
 }
-# Git branches
+# Git local branches, ordered by last activity
 function fzf_gb() {
   is_in_git_repo || return
-  branches=$(git for-each-ref --sort=committerdate refs/heads/ --format='%(refname:short) (last activity: %(color:green)%(committerdate:relative)%(color:reset))')
+  branches=$(git for-each-ref --sort=committerdate refs/heads --format='%(refname:short) (last activity: %(color:green)%(committerdate:relative)%(color:reset))')
   echo $branches |
-  fzf-down --ansi --multi --tac --preview-window right:70% \
+  fzf-down --ansi --multi --tac --preview-window right:60% \
     --preview 'git log --color=always --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(echo {} | cut -d" " -f1)' |
-  sed 's/^..//' | cut -d' ' -f1 |
-  sed 's#^remotes/##'
+  cut -d' ' -f1
+}
+# Git remote branches, ordered by last activity
+function fzf_gf() {
+  is_in_git_repo || return
+  branches=$(git for-each-ref --sort=committerdate refs/remotes --format='%(refname:short) (last activity: %(color:green)%(committerdate:relative)%(color:reset))')
+  echo $branches |
+  fzf-down --ansi --multi --tac --preview-window right:60% \
+    --preview 'git log --color=always --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" $(echo {} | cut -d" " -f1)' |
+  cut -d' ' -f1
 }
 # Git tags
 function fzf_gt() {
@@ -33,7 +41,7 @@ function fzf_gt() {
   fzf-down --multi --preview-window right:70% \
     --preview 'git show --color=always {} | head -200'
 }
-
+# Git commit hashes
 function fzf_gh() {
   is_in_git_repo || return
   git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
@@ -67,5 +75,5 @@ function bind-git-helper() {
   done
 }
 
-bind-git-helper g b t r h
+bind-git-helper g b t r h f
 unset -f bind-git-helper
