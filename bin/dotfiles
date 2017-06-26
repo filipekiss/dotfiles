@@ -304,19 +304,13 @@ function show_backup_message() {
 
 function link_config() {
   IFS=$'\n'
-  local files=($(find $DOTFILES/config -mindepth 2 -type f))
+  local files=($(git --work-tree=$DOTFILES --git-dir=$DOTFILES/.git ls-files config/**/*))
   local stow_paths=($(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d))
   local managed_folders=($(find ~/.dotfiles/config/* -mindepth 1 -type d))
   unset IFS
 
-  # for folder in $managed_folders; do
-  #   folder=${folder#$DOTFILES/*/*/}
-  #   [[ $folder = *"$DOTFILES"* ]] && continue #skip this config if it has no subfolder
-  #   make_folder "${HOME}/${folder}"
-  # done
-
   for file in $files; do
-    file=${file#${DOTFILES}/*/*/}
+    file=${file#*/*/}
     backup_stuff $file
   done
 
