@@ -265,7 +265,7 @@ function install_dotfiles() {
       if [[ $current_head != $prev_head ]]; then
         # Remove flags so all install options will run again
         rm -rf caches/flags
-        if is_dotfiles_bin; then
+        if [[ is_dotfiles_bin ]]; then
           e_info "Changes detected, restarting script"
           exec "$0" restart
         else
@@ -281,7 +281,6 @@ function install_dotfiles() {
   # Create caches folder if not exists
   CACHES_DIR=${DOTFILES}/caches
   mkdir -p ${CACHES_DIR}
-  touch ${CACHES_DIR}/apt_keys
  }
 
 function update_path() {
@@ -291,7 +290,7 @@ function update_path() {
 
 function prepare_folders() {
   # If backups are needed, this is where they'll go.
-  DOTFILES_BACKUP_DIR="${DOTFILES}/backups/$(date "+%Y_%m_%d-%H_%M_%S")"
+  DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%s")"
   backup=""
   [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
 }
