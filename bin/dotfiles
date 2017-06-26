@@ -247,7 +247,7 @@ function install_dotfiles() {
     cd $DOTFILES && \
     e_info "Stashing local changes..." && \
     git add . && \
-    git stash && \
+    git stash save "dotfiles auto-stash $(date +%s)" && \
     e_info "Pulling updates from origin/${DOTFILES_GH_BRANCH:-master}..." && \
     git pull origin ${DOTFILES_GH_BRANCH:-master} && \
     e_info "Checking out ${DOTFILES_GH_BRANCH:-master}"
