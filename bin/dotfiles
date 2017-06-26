@@ -267,7 +267,7 @@ function install_dotfiles() {
         rm -rf caches/flags
         if [[ is_dotfiles_bin ]]; then
           e_info "Changes detected, restarting script"
-          exec "$0" restart
+          exec "$SCRIPT_NAME" restart
         else
           e_info "Changes detected, please re-run script"
           exit
@@ -403,5 +403,5 @@ function main() {
   e_success "${RESET}All done!"
   e_info "You may need to change your shell to zsh. Try ${PURPLE}chsh -s $(which zsh)${RESET}"
 }
-
+SCRIPT_NAME="$(basename $0)"
 main "$1"
