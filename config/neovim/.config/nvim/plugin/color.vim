@@ -9,11 +9,6 @@ let g:gruvbox_invert_selection=0
 
 let s:hour = strftime('%H')
 colorscheme nord
-" if s:hour >= 6 && s:hour < 18
-"   colorscheme onedark
-" else
-"   colorscheme deep-space
-" endif
 
 " I hate bold tabline
 hi Tabline cterm=None gui=None
