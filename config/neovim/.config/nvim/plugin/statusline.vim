@@ -17,9 +17,9 @@ set statusline+=\ %4*
 set statusline+=\ %{statusline#fileprefix()}
 set statusline+=%6*
 set statusline+=%t
-set statusline+=%#errormsg#
 set statusline+=\ %{statusline#modified()}
 set statusline+=\ %{statusline#readOnly()}\ %w
+set statusline+=%#errormsg#
 set statusline+=%*
 set statusline+=%9*\ %=
 set statusline+=%#ale_statusline#\ %{statusline#ALEGetStatus()}

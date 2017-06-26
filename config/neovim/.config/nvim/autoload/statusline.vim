@@ -87,7 +87,7 @@ endfunction
 
 function! statusline#readOnly()
   if !&modifiable && &readonly
-    return ' RO'
+    return 'RO'
   elseif &modifiable && &readonly
     return 'RO'
   elseif !&modifiable && !&readonly
