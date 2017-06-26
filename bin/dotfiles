@@ -346,8 +346,8 @@ function backup_stuff() {
     #this config file is located in a subfolder.
     make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
   fi
-  e_info ${SOURCE}
-  [[ -f ${SOURCE} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
+  REALPATH=$(realpath ${SOURCE})
+  [[ -f ${SOURCE} && ${SOURCE} == ${REALPPATH} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
 }
 
 function make_folder() {
