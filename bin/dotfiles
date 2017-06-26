@@ -42,23 +42,6 @@ function has_dotfiles_function() {
   echo "" || return 1
 }
 
-function yes_no(){
-  eval "$@" > /dev/null 2>&1 && echo "yes" || echo "no"
-}
-# For testing.
-function assert() {
-  local success modes equals actual expected
-  modes=(e_error e_success); equals=("!=" "=="); expected="$1"; shift
-  actual="$("$@")"
-  [[ "$actual" == "$expected" ]] && success=1 || success=0
-  ${modes[success]} "\"$actual\" ${equals[success]} \"$expected\""
-}
-
-# Test if the dotfiles script is currently
-function is_dotfiles_running() {
-  [[ "$DOTFILES_SCRIPT_RUNNING" ]] || return 1
-}
-
 # Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
 function is_dotfiles_bin() {
   [[ "$(basename $0 2>/dev/null)" == dotfiles ]] || return 1
