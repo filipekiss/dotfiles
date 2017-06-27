@@ -39,41 +39,41 @@ export DOTFILES=~/.dotfiles
 
 #simple function to test if we have access to other functions
 function has_dotfiles_function() {
-  echo "" || return 1
+    echo "" || return 1
 }
 
 # Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
 function is_dotfiles_bin() {
-  [[ "$(basename $0 2>/dev/null)" == dotfiles ]] || return 1
+    [[ "$(basename $0 2>/dev/null)" == dotfiles ]] || return 1
 }
 
 # OS detection
 function is_macos() {
-  [[ "$OSTYPE" =~ ^darwin ]] || return 1
+    [[ "$OSTYPE" =~ ^darwin ]] || return 1
 }
 function is_ubuntu() {
-  [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
+    [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
 }
 
 function is_ubuntu_desktop() {
-  dpkg -l ubuntu-desktop >/dev/null 2>&1 || return 1
+    dpkg -l ubuntu-desktop >/dev/null 2>&1 || return 1
 }
 
 function get_os() {
-  for os in macos ubuntu ubuntu_desktop; do
-    is_$os; [[ $? == ${1:-0} ]] && echo $os
-  done
+    for os in macos ubuntu ubuntu_desktop; do
+        is_$os; [[ $? == ${1:-0} ]] && echo $os
+    done
 }
 
 # Remove an entry from $PATH
 # Based on http://stackoverflow.com/a/2108540/142339
 function path_remove() {
-  local arg path
-  path=":$PATH:"
-  for arg in "$@"; do path="${path//:$arg:/:}"; done
-  path="${path%:}"
-  path="${path#:}"
-  echo "$path"
+    local arg path
+    path=":$PATH:"
+    for arg in "$@"; do path="${path//:$arg:/:}"; done
+    path="${path%:}"
+    path="${path#:}"
+    echo "$path"
 }
 
 
@@ -81,11 +81,11 @@ function path_remove() {
 # Array mapper. Calls map_fn for each item ($1) and index ($2) in array.
 # Usage: array_map array_name map_fn
 function array_map() {
-  local __arr
-  eval __arr=\("\${$1[@]}"\); shift
-  for i in "${!__arr[@]}"; do
-    "$@" "${__arr[i]}" $i
-  done
+    local __arr
+    eval __arr=\("\${$1[@]}"\); shift
+    for i in "${!__arr[@]}"; do
+        "$@" "${__arr[i]}" $i
+    done
 }
 
 # Print out bash array for debugging purposes
@@ -101,13 +101,13 @@ function array_filter() { __array_filter 1 "$@"; }
 function array_filter_i() { __array_filter 0 "$@"; }
 
 function __array_filter() {
-  local __arr __mode __output
-  __mode=$1; shift
-  eval __arr=\("\${$1[@]}"\); shift
-  for i in "${!__arr[@]}"; do
-    [[ "$__mode" == 1 ]] && __output="${__arr[i]}" || __output=$i
-    "$@" "${__arr[i]}" $i >/dev/null && echo "$__output"
-  done
+    local __arr __mode __output
+    __mode=$1; shift
+    eval __arr=\("\${$1[@]}"\); shift
+    for i in "${!__arr[@]}"; do
+        [[ "$__mode" == 1 ]] && __output="${__arr[i]}" || __output=$i
+        "$@" "${__arr[i]}" $i >/dev/null && echo "$__output"
+    done
 }
 
 # Given strings containing space-delimited words A and B, "setdiff A B" will
@@ -115,24 +115,24 @@ function __array_filter() {
 # (and not in a good way).
 # From http://stackoverflow.com/a/1617303/142339
 function setdiff() {
-  local debug skip a b
-  if [[ "$1" == 1 ]]; then debug=1; shift; fi
-  if [[ "$1" ]]; then
-    local setdiff_new setdiff_cur setdiff_out
-    setdiff_new=($1); setdiff_cur=($2)
-  fi
-  setdiff_out=()
-  for a in "${setdiff_new[@]}"; do
-    skip=
-    for b in "${setdiff_cur[@]}"; do
-      [[ "$a" == "$b" ]] && skip=1 && break
+    local debug skip a b
+    if [[ "$1" == 1 ]]; then debug=1; shift; fi
+    if [[ "$1" ]]; then
+        local setdiff_new setdiff_cur setdiff_out
+        setdiff_new=($1); setdiff_cur=($2)
+    fi
+    setdiff_out=()
+    for a in "${setdiff_new[@]}"; do
+        skip=
+        for b in "${setdiff_cur[@]}"; do
+            [[ "$a" == "$b" ]] && skip=1 && break
+        done
+        [[ "$skip" ]] || setdiff_out=("${setdiff_out[@]}" "$a")
     done
-    [[ "$skip" ]] || setdiff_out=("${setdiff_out[@]}" "$a")
-  done
-  [[ "$debug" ]] && for a in setdiff_new setdiff_cur setdiff_out; do
+    [[ "$debug" ]] && for a in setdiff_new setdiff_cur setdiff_out; do
     echo "$a ($(eval echo "\${#$a[*]}")) $(eval echo "\${$a[*]}")" 1>&2
-  done
-  [[ "$1" ]] && echo "${setdiff_out[@]}"
+done
+[[ "$1" ]] && echo "${setdiff_out[@]}"
 }
 
 # If this file was being sourced, exit now.
@@ -142,18 +142,18 @@ function setdiff() {
 # INSTALLATION FUNCTIONS
 ########################
 function show_script_header() {
-  e_line
-  e_line " ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ " "${BOLD}${WHITE}"
-  e_line " ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝ " "${BOLD}${WHITE}"
-  e_line " ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗ " "${BOLD}${WHITE}"
-  e_line " ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║ " "${BOLD}${WHITE}"
-  e_line " ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║ " "${BOLD}${WHITE}"
-  e_line " ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ " "${BOLD}${WHITE}"
-  e_line
+    e_line
+    e_line " ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ " "${BOLD}${WHITE}"
+    e_line " ██╔══██╗██╔═══██╗╚══██╔══╝██╔════╝██║██║     ██╔════╝██╔════╝ " "${BOLD}${WHITE}"
+    e_line " ██║  ██║██║   ██║   ██║   █████╗  ██║██║     █████╗  ███████╗ " "${BOLD}${WHITE}"
+    e_line " ██║  ██║██║   ██║   ██║   ██╔══╝  ██║██║     ██╔══╝  ╚════██║ " "${BOLD}${WHITE}"
+    e_line " ██████╔╝╚██████╔╝   ██║   ██║     ██║███████╗███████╗███████║ " "${BOLD}${WHITE}"
+    e_line " ╚═════╝  ╚═════╝    ╚═╝   ╚═╝     ╚═╝╚══════╝╚══════╝╚══════╝ " "${BOLD}${WHITE}"
+    e_line
 }
 
 function cleanup {
-  unset DOTFILES_SCRIPT_RUNNING
+    unset DOTFILES_SCRIPT_RUNNING
 }
 
 function show_script_info() {
@@ -165,243 +165,260 @@ function show_script_info() {
     e_info "Dotfiles Folder Exists: ${dotfiles_exists} ${DOTFILES}"
     e_info "Is Running as Binary from Path: ${is_binary}"
     if [[ -d "${DOTFILES}/.git" ]]; then
-      cd $DOTFILES
-      show_git_info
+        cd $DOTFILES
+        show_git_info
     fi
     e_line
 }
 
 function show_git_info() {
-  DOTFILES_GIT_INFO_COMMIT=$(git log -n 1 --pretty=format:'%C(yellow)commit:  %h')
-  DOTFILES_GIT_INFO_DATE=$(git log -n 1 --pretty=format:'%C(red)date:    %ad' --date=short)
-  DOTFILES_GIT_INFO_AUTHOR=$(git log -n 1 --pretty=format:'%C(cyan)author:  %an')
-  DOTFILES_GIT_INFO_MESSAGE=$(git log -n 1 --pretty=format:'%C(green)message: %s')
+    DOTFILES_GIT_INFO_COMMIT=$(git log -n 1 --pretty=format:'%C(yellow)commit:  %h')
+    DOTFILES_GIT_INFO_DATE=$(git log -n 1 --pretty=format:'%C(red)date:    %ad' --date=short)
+    DOTFILES_GIT_INFO_AUTHOR=$(git log -n 1 --pretty=format:'%C(cyan)author:  %an')
+    DOTFILES_GIT_INFO_MESSAGE=$(git log -n 1 --pretty=format:'%C(green)message: %s')
 
-  e_header "Last Commit Info"
-  e_info "$DOTFILES_GIT_INFO_COMMIT${LOG_COLOR}"
-  e_info "$DOTFILES_GIT_INFO_DATE${LOG_COLOR}"
-  e_info "$DOTFILES_GIT_INFO_AUTHOR${LOG_COLOR}"
-  e_info "$DOTFILES_GIT_INFO_MESSAGE${LOG_COLOR}"
-  e_line
+    e_header "Last Commit Info"
+    e_info "$DOTFILES_GIT_INFO_COMMIT${LOG_COLOR}"
+    e_info "$DOTFILES_GIT_INFO_DATE${LOG_COLOR}"
+    e_info "$DOTFILES_GIT_INFO_AUTHOR${LOG_COLOR}"
+    e_info "$DOTFILES_GIT_INFO_MESSAGE${LOG_COLOR}"
+    e_line
 }
 
 
 function validate_gcc() {
-  # Ensure Xcode is installed
-  if (( ! $+commands[gcc] )) && is_macos; then
-    e_error "XCode or the Command Line Tools for XCode must be installed first."
-    exit 1
-  fi
+    # Ensure Xcode is installed
+    if (( ! $+commands[gcc] )) && is_macos; then
+        e_error "XCode or the Command Line Tools for XCode must be installed first."
+        exit 1
+    fi
 }
 
 function validate_git() {
-  # If Git is not installed, install it (Ubuntu only, since Git comes standard
-  # with recent XCode or CLT)
-  if (( ! $+commands[git] )) && is_ubuntu; then
-    e_info "Installing Git"
-    sudo apt-get -qq install git-core
-  fi
-  # If Git isn't installed by now, something exploded. We gots to quit!
-  if (( ! $+commands[git] )); then
-    e_error "Git should be installed. It isn't. Aborting."
-    exit 1
-  fi
+    # If Git is not installed, install it (Ubuntu only, since Git comes standard
+    # with recent XCode or CLT)
+    if (( ! $+commands[git] )) && is_ubuntu; then
+        e_info "Installing Git"
+        sudo apt-get -qq install git-core
+    fi
+    # If Git isn't installed by now, something exploded. We gots to quit!
+    if (( ! $+commands[git] )); then
+        e_error "Git should be installed. It isn't. Aborting."
+        exit 1
+    fi
 }
 
 function validate_stow() {
-  if (( ! $+commands[stow] )) && is_ubuntu; then
-    e_info "Installing Stow"
-    sudo apt-get -qq install stow
-  fi
-  if (( ! $+commands[stow] )) && is_macos; then
-    validate_homebrew
-    e_info "Installing Stow"
-    brew install stow
-    [[ ! $+commands[stow] ]] && commands[stow]=$(which stow)
-  fi
-  # If Stow isn't installed by now, something exploded. We gots to quit!
-  if (( ! $+commands[stow] )); then
-    e_error "Stow should be installed. It isn't. Aborting."
-    exit 1
-  fi
+    if (( ! $+commands[stow] )) && is_ubuntu; then
+        e_info "Installing Stow"
+        sudo apt-get -qq install stow
+    fi
+    if (( ! $+commands[stow] )) && is_macos; then
+        validate_homebrew
+        e_info "Installing Stow"
+        brew install stow
+        [[ ! $+commands[stow] ]] && commands[stow]=$(which stow)
+    fi
+    # If Stow isn't installed by now, something exploded. We gots to quit!
+    if (( ! $+commands[stow] )); then
+        e_error "Stow should be installed. It isn't. Aborting."
+        exit 1
+    fi
 }
 
 function validate_homebrew() {
-  if (( ! $+commands[brew] )) && is_macos; then
-    e_info "Installing Homebrew"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  fi
+    if (( ! $+commands[brew] )) && is_macos; then
+        e_info "Installing Homebrew"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
 }
 
 function install_dotfiles() {
-  # Initialize.
-  local prev_head current_head
-  if [[ ! -d "$DOTFILES" ]]; then
-    e_info "$DOTFILES doesn't exists."
-    mkdir "$DOTFILES"
-    git clone --recursive git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && \
-    e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles cloned"
-  elif [[ "$1" != "restart" ]]; then
-    prev_head="$(git rev-parse HEAD)"
-    e_info "Updating ${DOTFILES_GH_USER:-filipekiss}/dotfiles"
-    cd $DOTFILES && \
-    e_info "Stashing local changes..." && \
-    git add . && \
-    git stash save "dotfiles auto-stash $(date +%s)" && \
-    e_info "Pulling updates from origin/${DOTFILES_GH_BRANCH:-master}..." && \
-    git pull origin ${DOTFILES_GH_BRANCH:-master} && \
-    e_info "Checking out ${DOTFILES_GH_BRANCH:-master}"
-    git checkout ${DOTFILES_GH_BRANCH:-master} && \
-    git reset --hard origin/${DOTFILES_GH_BRANCH:-master} && \
-    e_info "Updating submodules..." && \
-    git submodule update --init --recursive && \
-    e_info "Returning to your branch"
-    git checkout - && \
-    e_info "Applying stashed changes..." && \
-    git stash pop && \
-    e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles updated"
-    if [[ "$1" != "restart" ]]; then
-      current_head="$(git rev-parse HEAD)"
-      if [[ $current_head != $prev_head ]]; then
-        # Remove flags so all install options will run again
-        rm -rf caches/flags
-        if [[ is_dotfiles_bin ]]; then
-          e_info "Changes detected, restarting script"
-          exec "$SCRIPT_NAME" restart
-        else
-          e_info "Changes detected, please re-run script"
-          exit
+    # Initialize.
+    local prev_head current_head
+    if [[ ! -d "$DOTFILES" ]]; then
+        e_info "$DOTFILES doesn't exists."
+        mkdir "$DOTFILES"
+        git clone --recursive git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && \
+            e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles cloned"
+    elif [[ "$1" != "restart" ]]; then
+        prev_head="$(git rev-parse HEAD)"
+        e_info "Updating ${DOTFILES_GH_USER:-filipekiss}/dotfiles"
+        cd $DOTFILES && \
+            e_info "Stashing local changes..." && \
+            git add . && \
+            git stash save "dotfiles auto-stash $(date +%s)" && \
+            e_info "Pulling updates from origin/${DOTFILES_GH_BRANCH:-master}..." && \
+            git pull origin ${DOTFILES_GH_BRANCH:-master} && \
+            e_info "Checking out ${DOTFILES_GH_BRANCH:-master}"
+        git checkout ${DOTFILES_GH_BRANCH:-master} && \
+            git reset --hard origin/${DOTFILES_GH_BRANCH:-master} && \
+            e_info "Updating submodules..." && \
+            git submodule update --init --recursive && \
+            e_info "Returning to your branch"
+        git checkout - && \
+            e_info "Applying stashed changes..." && \
+            git stash pop && \
+            e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles updated"
+        if [[ "$1" != "restart" ]]; then
+            current_head="$(git rev-parse HEAD)"
+            if [[ $current_head != $prev_head ]]; then
+                # Remove flags so all install options will run again
+                rm -rf caches/flags
+                if [[ is_dotfiles_bin ]]; then
+                    e_info "Changes detected, restarting script"
+                    exec "$SCRIPT_NAME" restart
+                else
+                    e_info "Changes detected, please re-run script"
+                    exit
+                fi
+            fi
         fi
-      fi
     fi
-  fi
-  cd ${DOTFILES}
+    cd ${DOTFILES}
 }
- function prepare_caches() {
-  # Create caches folder if not exists
-  CACHES_DIR=${DOTFILES}/caches
-  mkdir -p ${CACHES_DIR}
- }
+
+function prepare_caches() {
+    # Create caches folder if not exists
+    CACHES_DIR=${DOTFILES}/caches
+    mkdir -p ${CACHES_DIR}
+}
 
 function update_path() {
-  # Add binaries into the path
-  [[ -d $DOTFILES/bin ]] && export PATH=$DOTFILES/bin:$PATH
+    # Add binaries into the path
+    [[ -d $DOTFILES/bin ]] && export PATH=$DOTFILES/bin:$PATH
 }
 
 function prepare_folders() {
-  # If backups are needed, this is where they'll go.
-  DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%s")"
-  backup=""
-  [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
+    # If backups are needed, this is where they'll go.
+    DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%s")"
+    backup=""
+    [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
 }
 
 function show_backup_message() {
-  # Alert if backups were made.
-  if [[ "$backup" ]]; then
-    e_info "Backups were moved to ${BLUE}~/${DOTFILES_BACKUP_DIR#$HOME/}${RESET}"
-  fi
+    # Alert if backups were made.
+    if [[ "$backup" ]]; then
+        e_info "Backups were moved to ${BLUE}~/${DOTFILES_BACKUP_DIR#$HOME/}${RESET}"
+    fi
 }
 
 function link_config() {
-  IFS=$'\n'
-  local files=($(git --work-tree=$DOTFILES --git-dir=$DOTFILES/.git ls-files config/**/*))
-  local stow_paths=($(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d))
-  local managed_folders=($(find ~/.dotfiles/config/* -mindepth 1 -type d))
-  unset IFS
+    IFS=$'\n'
+    local files=($(git --work-tree=$DOTFILES --git-dir=$DOTFILES/.git ls-files config/**/*))
+    local stow_paths=($(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d))
+    local managed_folders=($(find ~/.dotfiles/config/* -mindepth 1 -type d))
+    unset IFS
 
-  for file in $files; do
-    file=${file#*/*/}
-    backup_stuff $file
-  done
+    for file in $files; do
+        file=${file#*/*/}
+        backup_stuff $file
+    done
 
-  for stow_path in $stow_paths; do
-    stow_path=${stow_path#$DOTFILES/config/}
-    do_stow "${stow_path}"
-  done;
+    for stow_path in $stow_paths; do
+        stow_path=${stow_path#$DOTFILES/config/}
+        do_stow "${stow_path}"
+    done;
 }
 
 function do_stow() {
-  local stow_path="$1"
-  if [[ -d "${DOTFILES}/config/${stow_path}" ]]; then
-    e_info "Stowing ${YELLOW}${stow_path}${RESET}"
-    stow --ignore ".DS_Store" --target="$HOME" --dir="${DOTFILES}/config" $stow_path
-  fi
+    local stow_path="$1"
+    if [[ -d "${DOTFILES}/config/${stow_path}" ]]; then
+        e_info "Stowing ${YELLOW}${stow_path}${RESET}"
+        stow --ignore ".DS_Store" --target="$HOME" --dir="${DOTFILES}/config" $stow_path
+    fi
 }
 
 function install_stuff() {
-  for install (${DOTFILES}/install/*.zsh) source $install
+    for install (${DOTFILES}/install/*.zsh) source $install
 }
 
 function postinstall_stuff() {
-  for script (${DOTFILES}/post-install/*.zsh) source $script
+    for script (${DOTFILES}/post-install/*.zsh) source $script
+    change_shell
+}
+
+function change_shell() {
+    e_success "Switching shell to (homebrew) zsh..."
+    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells > /dev/null
+    chsh -s "/usr/local/bin/zsh" "$(whoami)"
 }
 
 function backup_stuff() {
-  local DEST
-  local TARGET="$1"
-  e_info "Preparing ${TARGET}..."
-  SOURCE="${HOME}/${TARGET}"
-  DEST="${DOTFILES_BACKUP_DIR}/${TARGET}"
-  if [[ ${TARGET} != $(basename ${TARGET}) ]]; then
-    #this config file is located in a subfolder.
-    make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
-  fi
-  REALPATH=$(realpath ${SOURCE})
-  [[ -f ${SOURCE} && ${SOURCE} == ${REALPPATH} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
+    local DEST
+    local TARGET="$1"
+    e_info "Preparing ${TARGET}..."
+    SOURCE="${HOME}/${TARGET}"
+    DEST="${DOTFILES_BACKUP_DIR}/${TARGET}"
+    if [[ ${TARGET} != $(basename ${TARGET}) ]]; then
+        #this config file is located in a subfolder.
+        make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
+    fi
+    REALPATH=$(realpath ${SOURCE})
+    [[ -f ${SOURCE} && ${SOURCE} == ${REALPPATH} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
 }
 
 function make_folder() {
-  local FOLDER=$1
-  [[ -e "${FOLDER}" ]] && e_info "${FOLDER} already exists. Skipping..." && return
-  mkdir -p "${FOLDER}" && e_success "${FOLDER} created"
+    local FOLDER=$1
+    [[ -e "${FOLDER}" ]] && e_info "${FOLDER} already exists. Skipping..." && return
+    mkdir -p "${FOLDER}" && e_success "${FOLDER} created"
 }
 
 function setup_git_config() {
-  local GIT_USER GIT_EMAIL
-  GIT_USER=$(git config -f $HOME/.gitconfig.local user.name)
-  GIT_EMAIL=$(git config -f $HOME/.gitconfig.local user.email)
-  [[ ${GIT_USER} == "" ]] && e_set_inline && e_info "What name do you wish to use to sign your commits? " && read GIT_USER
-  [[ ${GIT_EMAIL} == "" ]] && e_set_inline && e_info "What e-mail do you wish to use to sign your commits? " && read GIT_EMAIL
-  e_reset_line
-  if [[ ${GIT_USER:-} != "" ]]; then
-    git config -f $HOME/.gitconfig.local user.name "${GIT_USER}"
-  fi
-  if [[ ${GIT_EMAIL:-} != "" ]]; then
-    git config -f $HOME/.gitconfig.local user.email "${GIT_EMAIL}"
-  fi
-  cd $DOTFILES
-  git remote set-url origin git@github.com:filipekiss/dotfiles.git
+    local GIT_USER GIT_EMAIL
+    GIT_USER=$(git config -f $HOME/.gitconfig.local user.name)
+    GIT_EMAIL=$(git config -f $HOME/.gitconfig.local user.email)
+    [[ ${GIT_USER} == "" ]] && e_set_inline && e_info "What name do you wish to use to sign your commits? " && read GIT_USER
+    [[ ${GIT_EMAIL} == "" ]] && e_set_inline && e_info "What e-mail do you wish to use to sign your commits? " && read GIT_EMAIL
+    e_reset_line
+    if [[ ${GIT_USER:-} != "" ]]; then
+        git config -f $HOME/.gitconfig.local user.name "${GIT_USER}"
+    fi
+    if [[ ${GIT_EMAIL:-} != "" ]]; then
+        git config -f $HOME/.gitconfig.local user.email "${GIT_EMAIL}"
+    fi
+    cd $DOTFILES
+    git remote set-url origin git@github.com:filipekiss/dotfiles.git
 }
 
 
 function main() {
-  if [[ "$1" == "-h" || "$1" == "--help" ]]; then
-    e_info "Usage: dotfiles"
-    e_info "See the README for documentation."
-    e_info "https://github.com/filipekiss/dotfiles"
-    e_info "Copyright (c) 2017 Filipe Kiss"
-    e_info "Licensed under the MIT license."
-    e_line
-    show_script_info
-  exit; fi
+    if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+        e_info "Usage: dotfiles"
+        e_info "See the README for documentation."
+        e_info "https://github.com/filipekiss/dotfiles"
+        e_info "Copyright (c) 2017 Filipe Kiss"
+        e_info "Licensed under the MIT license."
+        e_line
+        show_script_info
+        exit
+    fi
 
-  show_script_header
-  show_script_info
-  validate_gcc
-  validate_git
-  validate_stow
-  update_path
-  prepare_folders
-  install_dotfiles
-  prepare_caches
-  link_config
-  setup_git_config
-  install_stuff
-  postinstall_stuff
-  show_backup_message
-  # all done!
-  e_success "${RESET}All done!"
-  e_info "You may need to change your shell to zsh. Try ${PURPLE}chsh -s $(which zsh)${RESET}"
+    show_script_header
+    show_script_info
+
+    if [[ "$1" == "install" ]]; then
+        validate_gcc
+        validate_git
+        validate_stow
+    fi
+
+    update_path
+    prepare_folders
+    install_dotfiles
+    prepare_caches
+    link_config
+    setup_git_config
+
+    if [[ "$1" == "install" ]]; then
+        install_stuff
+        postinstall_stuff
+    fi
+
+    show_backup_message
+    # all done!
+    e_success "${RESET}All done!"
 }
+
 SCRIPT_NAME="$(basename $0)"
 main "$1"
