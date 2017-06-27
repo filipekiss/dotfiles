@@ -19,3 +19,6 @@ $ curl -fsSL  https://raw.githubusercontent.com/filipekiss/dotfiles/master/bin/d
 ```sh
 $ git clone https://github.com/filipekiss/dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./bin/dotfiles
 ```
+
+If it is the first time you're running this on the machine (or if you want to check for
+updates/installation changes), run `./bin/dotfiles install`
