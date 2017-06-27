@@ -93,3 +93,5 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 # Custom env variables
 #
 export ATOM_PACKAGES_FILE=$HOME/.dotfiles/config/atom/.atom/my-packages
+# Use -> as prompt symbol since we have ligature support!
+export NINE12_PROMPT_SYMBOL="->"

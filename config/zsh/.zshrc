@@ -58,8 +58,6 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 export HOMEBREW_INSTALL_BADGE="⚗️"
 export HOMEBREW_NO_ANALYTICS=1
 
-# Use -> as prompt symbol since we have ligature support!
-export NINE12_PROMPT_SYMBOL="->"
 
 #####################################
 # Source config and aliases and stuff
