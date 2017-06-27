@@ -122,3 +122,24 @@ fstash() {
     fi
   done
 }
+
+
+# fgr - grep with preview and fzf
+# USAGE: fgr <pattern> <files>
+fgr() {
+    # emulate -L sh
+    local grepper pattern files target
+    [[ -z "$1" || -z "$2" ]] && echo "USAGE: fgr <pattern> <files>" && return
+    pattern="$1"
+    shift
+    files="$@"
+    grepper=$commands[grep]
+    # Use ripgrep if available
+    [[ $+commands[rg] ]] && grepper=$commands[rg]
+    target=$(
+        ${grepper} -lirn "${pattern}" ${files} |
+        fzf --ansi --no-sort \
+            --preview="${grepper} -C 3 --pretty -in  \"${pattern}\" {}" \
+            --header "Enter to open the file in the current \$EDITOR") || return
+    [[ -n $target ]] && $EDITOR $target
+}
