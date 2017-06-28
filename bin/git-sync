@@ -1,0 +1,25 @@
+
+#!/bin/sh
+#
+# Sync your current branch with it's remote counterpart.
+#
+# $1 - Optional remote name, defaults to origin
+# $2 - Optional branch name, defaults to current branch
+#
+# Examples
+#
+#   git sync
+#   git sync origin
+#   git sync origin master
+#
+
+function sync_branch() {
+    local current_branch_name remote branch_name
+    current_branch_name=$(git rev-parse --abbrev-ref HEAD)
+    remote=${1:-origin}
+    branch_name=${2:-${current_branch_name}}
+    git pull ${remote} ${branch_name} && (git push ${remote} ${branch_name} && echo "Synced ${branch_name} -> ${remote}/${branch_name} sucessfully" || echo "Error when pushing changes to ${remote}/${branch_name}") || echo "Error when fetching changes from ${remote}/${branch_name}"
+}
+
+sync_branch "$@"
+    
