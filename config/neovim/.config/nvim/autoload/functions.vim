@@ -105,7 +105,7 @@ function! functions#mkview() abort
 endfunction
 
 function! functions#hasFileType(list)
-  return index(a:list, &filetype) == -1
+  return index(a:list, &filetype) != -1
 endfunction
 
 let g:fckQuitBlackList = ['preview', 'qf', 'fzf', 'netrw', 'help']
