@@ -53,7 +53,7 @@ Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['css']
 Plug 'stephenway/postcss.vim', { 'for': ['css'] }
 Plug 'lepture/vim-jinja'
-Plug 'lumiliet/vim-twig'
+
 
 " Linters & Code quality
 Plug 'editorconfig/editorconfig-vim', { 'on': [] }
@@ -132,3 +132,6 @@ let s:vimrc_project = $PWD . '/.local.vim'
 if filereadable(s:vimrc_project)
   execute 'source ' . s:vimrc_project
 endif
+
+let g:user_emmet_leader_key=','
+

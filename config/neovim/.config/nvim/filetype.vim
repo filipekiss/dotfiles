@@ -9,5 +9,5 @@ augroup filetypedetect
   au! BufNewFile,BufRead .tags setl filetype=tags
   au! BufRead,BufNewFile jrnl*.txt,TODO setl filetype=markdown
   au! BufRead,BufNewFile *zsh/* setl filetype=zsh
-  au! BufNewFile,BufRead *.html,*.htm,*.shtml,*.stm set ft=jinja
+  au! BufNewFile,BufRead *.twig,*.html,*.htm,*.shtml,*.stm set ft=jinja
 augroup END
