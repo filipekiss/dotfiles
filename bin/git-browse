@@ -5,10 +5,17 @@ function open_browser() {
     remote=${1:-origin}
     git_url=$(git ls-remote --get-url ${remote})
     [[ $(command -v open) ]] && browser_bin="open" || browser_bin="echo"
-    if [[ $git_url =~ "git@" ]]; then
+    if [[ $git_url =~ "@" ]]; then
         browser_url=$(normalize_ssh $git_url)
+    else
+        browser_url=$(normalize_https $git_url)
     fi
     [[ -n $browser_url ]] && $browser_bin $browser_url
+}
+
+function normalize_https() {
+    local remote_url="$1"
+    echo ${remote_url%*.git}
 }
 
 function normalize_ssh() {
@@ -21,6 +28,6 @@ function normalize_ssh() {
     # extract path
     path=${remote_url#*:} # leaves user/repo.git
     path=${path%*.git} # removes the .git, leaving with the proper url
-    echo "http://${domain}/${path}"
+    echo "https://${domain}/${path}"
 }
 open_browser $@
