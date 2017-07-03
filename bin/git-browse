@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+function open_browser() {
+    local remote git_url browser_url browser_bin
+    remote=${1:-origin}
+    git_url=$(git ls-remote --get-url ${remote})
+    [[ $(command -v open) ]] && browser_bin="open" || browser_bin="echo"
+    if [[ $git_url =~ "git@" ]]; then
+        browser_url=$(normalize_ssh $git_url)
+    fi
+    [[ -n $browser_url ]] && $browser_bin $browser_url
+}
+
+function normalize_ssh() {
+    local domain path
+    local remote_url="$1"
+    # remove git@ from the url
+    remote_url=${remote_url#git@}
+    # extract domain
+    domain=${remote_url%:*}
+    # extract path
+    path=${remote_url#*:} # leaves user/repo.git
+    path=${path%*.git} # removes the .git, leaving with the proper url
+    echo "http://${domain}/${path}"
+}
+open_browser $@
