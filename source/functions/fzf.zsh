@@ -136,10 +136,10 @@ fgr() {
     grepper=$commands[grep]
     # Use ripgrep if available
     [[ $+commands[rg] ]] && grepper=$commands[rg]
-    target=$(
-        ${grepper} -lirn "${pattern}" ${files} |
-        fzf --ansi --no-sort \
-            --preview="${grepper} -C 3 --pretty -in  \"${pattern}\" {}" \
-            --header "Enter to open the file in the current \$EDITOR") || return
-    [[ -n $target ]] && $EDITOR $target
+    IFS=$'\n' target=($(
+    ${grepper} -lirn "${pattern}" ${files} |
+    fzf --ansi --no-sort --multi --exit-0\
+        --preview="${grepper} -C 3 --pretty -in  \"${pattern}\" {}" \
+        --header "Enter to send filename to CLI"))
+    [[ -n $target ]] && echo -n "$target"
 }
