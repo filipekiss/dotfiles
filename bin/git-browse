@@ -1,20 +1,33 @@
-#!/usr/bin/env zsh
+#!/bin/sh
+#
+# Open current repository page on default browser
+#
+# $1 - Optional remote name, defaults to origin
+#
+# Examples
+#
+#   git browse
+#   git browse gitlab
+#
+#
+# Caveats
+#
+# Since I work mainly on macOS, this will rely on the 'open' command to work. If `open` is not
+# available, it will simple print the browser url to stdout (You can still use this in linux,
+# something along the lines of `xdg-open` $(git browse))
+#
+# I'm not sure which is the most common open command on linux, so I chose to leave it out.
+# Suggestions are welcome
 
-function open_browser() {
-    local remote git_url browser_url browser_bin
-    remote=${1:-origin}
-    git_url=$(git ls-remote --get-url ${remote})
+function choose_open_bin() {
+    local browser_bin
     [[ $(command -v open) ]] && browser_bin="open" || browser_bin="echo"
-    if [[ $git_url =~ "@" ]]; then
-        browser_url=$(normalize_ssh $git_url)
-    else
-        browser_url=$(normalize_https $git_url)
-    fi
-    [[ -n $browser_url ]] && $browser_bin $browser_url
+    echo $browser_bin
 }
 
 function normalize_https() {
     local remote_url="$1"
+    # just remove .git from the url
     echo ${remote_url%*.git}
 }
 
@@ -27,7 +40,22 @@ function normalize_ssh() {
     domain=${remote_url%:*}
     # extract path
     path=${remote_url#*:} # leaves user/repo.git
-    path=${path%*.git} # removes the .git, leaving with the proper url
+    path=${path%*.git} # removes the .git
     echo "https://${domain}/${path}"
 }
+
+function open_browser() {
+    local remote git_url browser_url browser_bin
+    remote=${1:-origin}
+    git_url=$(git ls-remote --get-url ${remote})
+    if [[ $git_url =~ "@" ]]; then
+        browser_url=$(normalize_ssh $git_url)
+    else
+        browser_url=$(normalize_https $git_url)
+    fi
+    browser_bin=$(choose_open_bin)
+    [[ -n $browser_url ]] && $browser_bin $browser_url
+}
+
 open_browser $@
+
