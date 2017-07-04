@@ -8,6 +8,8 @@ let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_invert_selection=0
 
 let s:hour = strftime('%H')
+syntax enable
+filetype plugin indent on
 colorscheme nord
 
 " I hate bold tabline

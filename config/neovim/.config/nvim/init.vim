@@ -72,12 +72,6 @@ Plug 'junegunn/vim-emoji'
 
 call plug#end()
 
-" Vim Configuration
-syntax enable
-filetype plugin indent on
-colorscheme nord
-set termguicolors
-
 " Define some binary paths
 let g:current_flow_path = nrun#Which('flow')
 let g:current_eslint_path = nrun#Which('eslint')
