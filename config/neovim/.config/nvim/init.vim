@@ -56,7 +56,7 @@ Plug 'lepture/vim-jinja'
 
 
 " Linters & Code quality
-Plug 'editorconfig/editorconfig-vim', { 'on': [] }
+Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale', { 'do': 'npm i -g stylelint eslint' }
 Plug 'sbdchd/neoformat', { 'on': 'Neoformat', 'do': 'npm i -g prettier stylefmt' }
 Plug 'heavenshell/vim-jsdoc', {'for' : ['javascript'] }

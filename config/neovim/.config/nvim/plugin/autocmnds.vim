@@ -34,9 +34,3 @@ aug omnicomplete
     autocmd FileType html,htmldjango,jinja2 setl omnifunc=emmet#completeTag
   endif
 aug END
-
-" Those are heavy plugins that I lazy load them so startup time can be fast still
-augroup lazyLoadPlugins
-  autocmd!
-  autocmd CursorHold, CursorHoldI * call plug#load('editorconfig') | autocmd! lazyLoadPlugins
-augroup END
