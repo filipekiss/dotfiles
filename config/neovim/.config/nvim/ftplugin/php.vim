@@ -4,3 +4,4 @@ set nocursorcolumn
 set nocursorline
 set norelativenumber
 syntax sync minlines=256
+let g:loaded_matchparen = 1
