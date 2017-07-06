@@ -5,3 +5,4 @@ set nocursorline
 set norelativenumber
 syntax sync minlines=256
 let g:loaded_matchparen = 1
+let b:ale_enabled = 0
