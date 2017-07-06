@@ -135,3 +135,4 @@
 	prompt = false
 [merge]
 	tool = Kaleidoscope
+	conflictstyle = diff3
