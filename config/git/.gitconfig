@@ -1,138 +1,142 @@
 [commit]
-	gpgsign = true
+    gpgsign = true
 
 [include]
-	path = ~/.gitconfig.local
+    path = ~/.gitconfig.local
 
 [alias]
-	a = add -v
-	all = add -v .
-	ap = add -p
-	assume = update-index --assume-unchanged
-	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
-	br = branch
-	branch-name = rev-parse --abbrev-ref HEAD
-	ci = commit
-	co = checkout
-	conflict = diff --name-only --diff-filter=U
-	current = "!git branch-name"
-	diffc = diff --cached
-	discard = checkout --
-	dw = diff --color-words
-	feature = flow feature
-	full-status = status --porcelain --untracked-files=all
-	gr = log --graph --full-history --all --color --decorate
-	hotfix = flow hotfix
-	ignored = ls-files --others -i --exclude-standard
-	last = log --pretty=format:'%s' --abbrev-commit -1
-	latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
-	lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
-	nb = "!f() { echo 'Creating branch from '$(git latest-tag); git checkout -b $1 $(git latest-tag); }; f";
-	ncluderelease = flow release
-	nmg = branch --no-merged
-	ours = "!f() { git checkout --ours $@ && git add $@; }; f"
-	patch = add -v -p
-	pr = pull-request -b
-	ps = push
-	purr = pull --rebase
-	rci = "!git recommit"
-	recommit = commit --amend --no-edit
-	st = status -sb
-	support = flow support
-	tags = tag -l
-	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-	unassume = update-index --no-assume-unchanged
-	unstage = reset HEAD
-	update-commit = "!git a . && git ci --amend --no-edit"
-	update-submodules = "!git submodule -q foreach git pull -q origin master"
-	van = add -vAn
-	wipe = !git reset --hard HEAD && git clean -fd
-	me = "!git log --author=$(whoami)"
-	rbc = rebase --continue
-	rbs = rebase --skip
-	rba = rebase --abort
+    a = add -v
+    all = add -v .
+    amend = commit --amend -C HEAD
+    ap = add -p
+    assume = update-index --assume-unchanged
+    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+    br = branch
+    branch-name = rev-parse --abbrev-ref HEAD
+    cb = checkout -b
+    ci = commit
+    co = checkout
+    conflict = diff --name-only --diff-filter=U
+    current = "!git branch-name"
+    d = diff --patch-with-stat
+    dc = diff --patch-with-stat --staged
+    diffc = diff --cached
+    discard = checkout --
+    dm = diff --patch-with-stat --word-diff-regex=.
+    dw = diff --color-words
+    feature = flow feature
+    full-status = status --porcelain --untracked-files=all
+    gr = log --graph --full-history --all --color --decorate
+    hotfix = flow hotfix
+    ignored = ls-files --others -i --exclude-standard
+    last = log --pretty=format:'%s' --abbrev-commit -1
+    latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
+    lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
+    me = "!git log --author=$(whoami)"
+    nb = "!f() { echo 'Creating branch from '$(git latest-tag); git checkout -b $1 $(git latest-tag); }; f";
+    ncluderelease = flow release
+    nmg = branch --no-merged
+    ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+    patch = !git --no-pager diff --no-color
+    patch = add -v -p
+    pr = pull-request -b
+    prune = fetch --prune
+    ps = push
+    purr = pull --rebase
+    rba = rebase --abort
+    rbc = rebase --continue
+    rbs = rebase --skip
+    rci = "!git recommit"
+    recommit = commit --amend --no-edit
+    st = status -sb
+    support = flow support
+    tags = tag -l
+    theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+    track = push origin -u HEAD
+    unassume = update-index --no-assume-unchanged
+    unstage = reset HEAD
+    update-commit = "!git a . && git ci --amend --no-edit"
+    update-submodules = "!git submodule -q foreach git pull -q origin master"
+    van = add -vAn
+    wipe = !git reset --hard HEAD && git clean -fd
 
 [push]
-	default = current
+    default = current
 
 [core]
-	excludesfile = ~/.gitignore_global
-	filemode = false
-	mergeoptions = --no-edit
-	untrackedCache = true
-	editor = $EDITOR
+    excludesfile = ~/.gitignore_global
+    filemode = false
+    mergeoptions = --no-edit
+    untrackedCache = true
+    editor = $EDITOR
 
 [color]
-	diff = auto
-	interactive = auto
-	ui = true
+    diff = auto
+    interactive = auto
+    ui = true
 
 [color "branch"]
-  current = blue bold ul
-  local = yellow italic
-  remote = green
+    current = blue bold ul
+    local = yellow italic
+    remote = green
 
 [color "diff"]
-  meta = yellow
-  frag = cyan
-  old = red strike
-  new = green bold
-  whitespace = yellow reverse
+    meta = yellow
+    frag = cyan
+    old = red strike
+    new = green bold
+    whitespace = yellow reverse
 
 [color "status"]
-  added = green bold
-  changed = blue bold
-  untracked = red
+    added = green bold
+    changed = blue bold
+    untracked = red
 
 [color "diff-highlight"]
-  oldNormal = "red bold"
-  oldHighlight = "red bold 52"
-  newNormal = "green bold"
-  newHighlight = "green bold 22"
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
 
 [branch]
-	autosetuprebase = always
+    autosetuprebase = always
 
 [dotfiles]
-	managed = true
+    managed = true
+
 [init]
-	templatedir = ~/.git_template
+    templatedir = ~/.git_template
+
 [fetch]
-	prunt = true
+    prunt = true
+#
 # URL shorthands
 [url "git@github.com:"]
-  insteadOf = "gh:"
-  pushInsteadOf = "github:"
-  pushInsteadOf = "git://github.com/"
+    insteadOf = gh:
+    pushInsteadOf = github:
+    pushInsteadOf = git://github.com/
 
 [url "git://github.com/"]
-  insteadOf = "github:"
+    insteadOf = github:
 
 [url "git@gist.github.com:"]
-  insteadOf = "gst:"
-  pushInsteadOf = "gist:"
-  pushInsteadOf = "git://gist.github.com/"
+    insteadOf = gst:
+    pushInsteadOf = gist:
+    pushInsteadOf = git://gist.github.com/
 
 [url "git://gist.github.com/"]
-  insteadOf = "gist:"
+    insteadOf = gist:
 
 [url "git@github.com:filipekiss/"]
-  insteadOf = "me:"
-  pushInsteadOf = "https://github.com/filipekiss/"
-  pushInsteadOf = "http://github.com/filipekiss/"
-  pushInsteadOf = "git://github.com/filipekiss/"
-  pushInsteadOf = "me:"
-[difftool "Kaleidoscope"]
-	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[diff]
-	tool = Kaleidoscope
-[difftool]
-	prompt = false
-[mergetool "Kaleidoscope"]
-	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
-[mergetool]
-	prompt = false
+    insteadOf = me:
+    pushInsteadOf = https://github.com/filipekiss/
+    pushInsteadOf = http://github.com/filipekiss/
+    pushInsteadOf = git://github.com/filipekiss/
+    pushInsteadOf = me:
+
 [merge]
-	tool = Kaleidoscope
-	conflictstyle = diff3
+    conflictstyle = diff3
+
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+    show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
