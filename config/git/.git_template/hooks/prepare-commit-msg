@@ -46,7 +46,7 @@ function fzf_select_emoji() {
 
 function fzf_prepare_message() {
     local COMMIT_MESSAGE_FILE="$1"
-    local COMMITS_MESSAGE_CONTENT=$(cat ${COMMIT_MESSAGE_FILE})
+    [[ -e $COMMIT_MESSAGE_FILE ]] && local COMMITS_MESSAGE_CONTENT=$(cat ${COMMIT_MESSAGE_FILE})
     local MESSAGE_TYPE="$2"
     local SHOW_EMOJI_SELECTOR=false
     [[ -z $MESSAGE_TYPE ]] && MESSAGE_TYPE="message"
