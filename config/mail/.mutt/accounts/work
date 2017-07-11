@@ -1,0 +1,9 @@
+# vim: ft=muttrc
+
+set folder    = "~/.mail/Work"
+set mbox      = "+Inbox"
+set record    = "+Inbox"
+set postponed = "+Inbox"
+set spoolfile = "~/.mail/Work/Inbox"
+set from="filipe.kiss@fcamara.com.br"
+set sendmail = "/usr/local/bin/msmtp -a work"
