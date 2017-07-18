@@ -34,7 +34,7 @@
     lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
     me = "!git log --author=$(whoami)"
     nb = "!f() { echo 'Creating branch from '$(git latest-tag); git checkout -b $1 $(git latest-tag); }; f";
-    ncluderelease = flow release
+    release = flow release
     nmg = branch --no-merged
     ours = "!f() { git checkout --ours $@ && git add $@; }; f"
     patch = !git --no-pager diff --no-color
