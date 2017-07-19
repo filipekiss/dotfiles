@@ -10,3 +10,6 @@ if (( $+commands[git] )); then
         fi
     }
 fi
+
+# Ensure g is completed like git
+compdef g=git
