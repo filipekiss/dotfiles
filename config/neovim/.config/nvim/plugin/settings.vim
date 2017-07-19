@@ -162,6 +162,11 @@ set smartindent
 
 set hidden
 
+" Vim emoji autocomplete
+if emoji#available()
+    set completefunc=emoji#complete
+endif
+
 " Make tilde command behave like an operator.
 set tildeop
 
