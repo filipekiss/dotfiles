@@ -70,6 +70,7 @@ Plug 'tpope/vim-fugitive'
 " Colors and stuff
 Plug 'arcticicestudio/nord-vim'
 Plug 'junegunn/vim-emoji'
+Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 
