@@ -7,7 +7,7 @@ unalias lf  2> /dev/null
 
 #simple aliases
 alias ll="tree -da -L 1"
-alias la="tree --dirsfirst -FL 1"
+alias la="tree --dirsfirst -aFL 1"
 
 # custom lf function to show files only
 function lf {
