@@ -2,6 +2,7 @@
 
 function emoji_list() {
     local FILE_PATH=$(git rev-parse --show-toplevel)/.precommit
+    local HOME_PATH="${HOME}/.precommit"
     local EMOJI_LIST=(
     ':art: Improving the format/structure of the code|:art:'
     ':memo: Writing docs|:memo:'
@@ -11,6 +12,10 @@ function emoji_list() {
     ':white_check_mark: Adding tests|:white_check_mark:'
     ':lock: Dealing with security|:lock:'
     '')
+    # If .precommit file exists in home folder, use that instead of the default list
+    if [[ -e $HOME_PATH ]]; then
+        EMOJI_LIST=("${(@f)$(<$HOME_PATH)}")
+    fi
     # If .precommit file exists in the root of the repo, use that instead of the default list
     if [[ -e $FILE_PATH ]]; then
         EMOJI_LIST=("${(@f)$(<$FILE_PATH)}")
