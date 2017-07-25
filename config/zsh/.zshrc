@@ -22,6 +22,8 @@ zplug "Eriner/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eri
 zplug "noveumdois/nine12", as:theme
 zplug "knu/z", use:"z.sh", depth:1, defer:1
 zplug "b4b4r07/emoji-cli"
+zplug "docker/cli", use:contrib/completion/zsh
+zplug "docker/compose", use:contrib/completion/zsh
 
 ###############################
 # Install missing modules
