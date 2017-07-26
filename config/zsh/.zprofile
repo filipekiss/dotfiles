@@ -54,6 +54,7 @@ typeset -gU cdpath fpath mailpath path
 path=(
   /usr/local/{bin,sbin}
   /usr/local/opt/coreutils/libexec/gnubin
+/usr/local/opt/python/libexec/bin
   /usr/local/Cellar/git
   ${HOME}/.dotfiles/bin
   $path
