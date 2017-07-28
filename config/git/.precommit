@@ -1,58 +1,56 @@
-:construction_worker:  Adding CI build system. | :construction_worker:
-:speaker:  Adding Logging | :speaker:
-:heavy_plus_sign:  Adding a dependency. | :heavy_plus_sign:
-:chart_with_upwards_trend:  Adding analytics or tracking code. | :chart_with_upwards_trend:
-:bento:  Adding or updating assets. | :bento:
-:page_facing_up:  Adding or updating license. | :page_facing_up:
-:umbrella:  Adding tests | :umbrella:
-:white_check_mark:  Adding tests. | :white_check_mark:
-:rocket:  Anything related to Deployments/DevOps | :rocket:
-:tractor:  Change file structure | :tractor:
-:wrench:  Changing configuration files. | :wrench:
-:ribbon:  Customer requested application Customization, with @HACK Comment Tag | :ribbon:
-:arrow_down:  Downgrading dependencies. | :arrow_down:
-:green_heart:  Fixing CI Build. | :green_heart:
-:bug:  Fixing a bug. | :bug:
-:lock:  Fixing security issues. | :lock:
-:robot:  Fixing something on Android. | :robot:
-:penguin:  Fixing something on Linux. | :penguin:
-:checkered_flag:  Fixing something on Windows. | :checkered_flag:
-:green_apple:  Fixing something on iOS. | :green_apple:
-:apple:  Fixing something on macOS. | :apple:
-:pencil2:  Fixing typos. | :pencil2:
-:fast_forward:  Forward-porting features from an older version/branch | :fast_forward:
-:bank:  Generic Database specific (Migrations, Scripts, Extensions, ...) | :bank:
-:ambulance:  Hotfix. | :ambulance:
-:wheelchair:  Improving accessibility. | :wheelchair:
-:zap:  Improving performance. | :zap:
-:art:  Improving the format/structure of the code | :art:
-:tada:  Initial commit. | :tada:
-:globe_with_meridians:  Internationalization and localization. | :globe_with_meridians:
-:boom:  Introducing breaking changes. | :boom:
-:sparkles:  Introducing new features. | :sparkles:
-:handshake:  Merge files | :handshake:
-:twisted_rightwards_arrows:  Merging branches. | :twisted_rightwards_arrows:
-:leaves:  MongoDB Database specific (Migrations, Scripts, Extensions, ...) | :leaves:
-:truck:  Moving or renaming files. | :truck:
-:dolphin:  MySQL Database specific (Migrations, Scripts, Extensions, ...) | :dolphin:
-:bulb:  New Idea, with @IDEA Comment Tag | :bulb:
-:card_file_box:  Performing database related changes. | :card_file_box:
-:pencil:  Performing minor changes/fixing the code or language | :pencil:
-:elephant:  PostgreSQL Database specific (Migrations, Scripts, Extensions, ...) | :elephant:
-:hammer:  Refactoring code. | :hammer:
-:bookmark:  Releasing / Version tags. | :bookmark:
-:heavy_minus_sign:  Removing a dependency. | :heavy_minus_sign:
-:fire:  Removing code or files. | :fire:
-:rotating_light:  Removing linter warnings. | :rotating_light:
-:rewind:  Reverting changes. | :rewind:
-:ok_hand:  Updating code due to code review changes. | :ok_hand:
-:alien:  Updating code due to external API changes. | :alien:
-:package:  Updating compiled files or packages. | :package:
-:speech_balloon:  Updating text and literals. | :speech_balloon:
-:lipstick:  Updating the UI and style files. | :lipstick:
-:arrow_up:  Upgrading dependencies. | :arrow_up:
-:construction:  W.I.P - Work in progress. | :construction:
-:whale:  Work about Docker. | :whale:
-:hankey:  Writing bad code that needs to be improved. | :hankey:
-:books:  Writing docs | :books:
-:memo:  Writing docs. | :memo:
+Adding CI build system. | :construction_worker:
+Adding Logging | :speaker:
+Adding a dependency. | :heavy_plus_sign:
+Adding analytics or tracking code. | :chart_with_upwards_trend:
+Adding or updating assets. | :bento:
+Adding or updating license. | :page_facing_up:
+Adding tests | :umbrella:
+Anything related to Deployments/DevOps | :rocket:
+Change file structure | :tractor:
+Changing configuration files. | :wrench:
+Customer requested application Customization, with @HACK Comment Tag | :ribbon:
+Downgrading dependencies. | :arrow_down:
+Fixing CI Build. | :green_heart:
+Fixing a bug. | :bug:
+Fixing security issues. | :lock:
+Fixing something on Android. | :robot:
+Fixing something on Linux. | :penguin:
+Fixing something on Windows. | :checkered_flag:
+Fixing something on iOS. | :green_apple:
+Fixing something on macOS. | :apple:
+Fixing typos. | :pencil2:
+Forward-porting features from an older version/branch | :fast_forward:
+Generic Database specific (Migrations, Scripts, Extensions, ...) | :bank:
+Hotfix. | :ambulance:
+Improving accessibility. | :wheelchair:
+Improving performance. | :zap:
+Improving the format/structure of the code | :art:
+Initial commit. | :tada:
+Internationalization and localization. | :globe_with_meridians:
+Introducing breaking changes. | :boom:
+Introducing new features. | :sparkles:
+Merge files | :handshake:
+Merging branches. | :twisted_rightwards_arrows:
+MongoDB Database specific (Migrations, Scripts, Extensions, ...) | :leaves:
+Moving or renaming files. | :truck:
+MySQL Database specific (Migrations, Scripts, Extensions, ...) | :dolphin:
+New Idea, with @IDEA Comment Tag | :bulb:
+Performing database related changes. | :card_file_box:
+Performing minor changes/fixing the code or language | :pencil:
+PostgreSQL Database specific (Migrations, Scripts, Extensions, ...) | :elephant:
+Refactoring code. | :hammer:
+Releasing / Version tags. | :bookmark:
+Removing a dependency. | :heavy_minus_sign:
+Removing code or files. | :fire:
+Removing linter warnings. | :rotating_light:
+Reverting changes. | :rewind:
+Updating code due to code review changes. | :ok_hand:
+Updating code due to external API changes. | :alien:
+Updating compiled files or packages. | :package:
+Updating text and literals. | :speech_balloon:
+Updating the UI and style files. | :lipstick:
+Upgrading dependencies. | :arrow_up:
+W.I.P - Work in progress. | :construction:
+Work about Docker. | :whale:
+Writing bad code that needs to be improved. | :hankey:
+Writing docs | :books:
