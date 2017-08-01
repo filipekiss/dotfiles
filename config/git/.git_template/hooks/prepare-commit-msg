@@ -26,9 +26,6 @@ function emoji_list() {
 	    local displayText=$(echo $currentLine | cut -d '|' -f1)
 	    local prependText=$(echo $currentLine | cut -d '|' -f2)
         prependText=" | "$prependText
-	    if [[ $HAS_EMOJIFY ]]; then
-		    displayText=$(echo $displayText | emojify)
-	    fi
 	    select+=$displayText$prependText
     done
     echo ${(j:\n:)select}
@@ -55,13 +52,9 @@ function fzf_prepare_message() {
     local MESSAGE_TYPE="$2"
     local SHOW_EMOJI_SELECTOR=false
     [[ -z $MESSAGE_TYPE ]] && MESSAGE_TYPE="message"
-    case $MESSAGE_TYPE in
-	message|template)
-	    if [[ $HAS_FZF ]]; then
-            SHOW_EMOJI_SELECTOR=true
-	    fi
-	;;
-    esac
+    if [[ $HAS_FZF ]]; then
+        SHOW_EMOJI_SELECTOR=true
+    fi
     if $SHOW_EMOJI_SELECTOR; then
         local prepend_emojis=$(fzf_select_emoji)
         echo ${prepend_emojis}" "${COMMITS_MESSAGE_CONTENT} | tee ${COMMIT_MESSAGE_FILE}
@@ -70,7 +63,6 @@ function fzf_prepare_message() {
 
 function validate_emoji_selector() {
     HAS_FZF=$commands[fzf]
-    HAS_EMOJIFY=$commands[emojify]
 }
 
 validate_emoji_selector
