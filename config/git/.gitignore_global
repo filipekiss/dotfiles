@@ -12,7 +12,8 @@ ___*
 .gemtags
 
 #Ignore Vim swap and temporary files
-.*.s[a-w][a-z]
+*.swp
+*.swo
 *.un~
 Session.vim
 .netrwhist
