@@ -12,7 +12,7 @@ function is_in_git_repo() {
 function fzf_gg() {
   is_in_git_repo || return
   git -c color.status=always status --short |
-  fzf-down -m --ansi --nth 2..,.. \
+  fzf-down -m --ansi --select-1 --exit-0 --nth 2..,.. \
     --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
   cut -c4- | sed 's/.* -> //'
 }
