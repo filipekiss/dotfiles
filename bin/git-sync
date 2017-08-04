@@ -3,7 +3,8 @@
 #
 # Sync your current branch with it's remote counterpart.
 #
-# $1 - Optional remote name, defaults to origin
+# $1 - Optional remote name, defaults to origin. If you pass "all", all remotes will be synced to
+# the current branch (or the branch passed as argument $2)
 # $2 - Optional branch name, defaults to current branch
 #
 # Examples
@@ -14,12 +15,18 @@
 #
 
 function sync_branch() {
-    local current_branch_name remote branch_name
+    local current_branch_name remote branch_name all_remotes
+    all_remotes=$(git remote)
     current_branch_name=$(git rev-parse --abbrev-ref HEAD)
-    remote=${1:-origin}
+    remotes=(${1:-origin})
+    if [[ $1 == "all" ]]; then
+        remotes=$all_remotes
+    fi
     branch_name=${2:-${current_branch_name}}
-    git pull ${remote} ${branch_name} && (git push ${remote} ${branch_name} && echo "Synced ${branch_name} -> ${remote}/${branch_name} sucessfully" || echo "Error when pushing changes to ${remote}/${branch_name}") || echo "Error when fetching changes from ${remote}/${branch_name}"
+    for remote in $remotes; do
+        git pull ${remote} ${branch_name} && (git push ${remote} ${branch_name} && echo "Synced ${branch_name} -> ${remote}/${branch_name} sucessfully" || echo "Error when pushing changes to ${remote}/${branch_name}") || echo "Error when fetching changes from ${remote}/${branch_name}"
+    done
 }
 
 sync_branch "$@"
-    
+
