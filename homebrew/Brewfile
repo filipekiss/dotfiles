@@ -49,6 +49,7 @@ brew 'subliminal'
 brew 'switchaudio-osx'
 brew 'tldr'
 brew 'tmux'
+brew 'transcrypt'
 brew 'tree'
 brew 'universal-ctags', args: ['HEAD']
 brew 'unrar'
