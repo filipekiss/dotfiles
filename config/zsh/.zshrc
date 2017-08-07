@@ -70,3 +70,5 @@ if [[ $DOTFILES_BIN ]]; then
   for config ($DOTFILES/source/config/*.zsh) source $config
   for func ($DOTFILES/source/functions/*.zsh) source $func
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
