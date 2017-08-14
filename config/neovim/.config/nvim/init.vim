@@ -46,6 +46,7 @@ Plug 'kepbod/quick-scope'
 Plug 'google/vim-searchindex'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'tpope/tpope-vim-abolish'
 
 " Syntax
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
