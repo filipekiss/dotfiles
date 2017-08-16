@@ -3,6 +3,7 @@ git|git:
 homebrew|brew:
 mail|mail:
 meta|meta:
+tmux|tmux:
 utils|utils:
 vim|vim:
 zsh|zsh:
