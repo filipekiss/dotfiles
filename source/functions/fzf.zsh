@@ -1,5 +1,5 @@
 fzf-down() {
-  fzf --height 50% "$@" --border
+  fzf-tmux --height 50% "$@" --border
 }
 
 # # https://github.com/junegunn/fzf/wiki/Examples#z
@@ -7,7 +7,7 @@ fzf-down() {
 unalias z 2> /dev/null
 z() {
   if [[ -z "$*" ]]; then
-    cd "$(_z_cmd -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+    cd "$(_z_cmd -l 2>&1 | fzf-tmux +s --tac | sed 's/^[0-9,.]* *//')"
   else
     _last_z_args="$@"
     _z_cmd "$@"
@@ -15,7 +15,7 @@ z() {
 }
 
 zz() {
-  cd "$(_z_cmd -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q ${_last_z_args:-''})"
+  cd "$(_z_cmd -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf-tmux -q ${_last_z_args:-''})"
 }
 
 
@@ -23,7 +23,7 @@ zz() {
 fshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+  fzf-tmux --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
       --header "Press CTRL-S to toggle sort" \
       --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 |
                  xargs -I % sh -c 'git show --color=always % | head -200 '" \
@@ -89,7 +89,7 @@ fstash() {
   local out q k sha
   while out=$(
     git stash list --pretty="%C(yellow)%gd %C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-    fzf --ansi --no-sort --query="$q" --print-query \
+    fzf-tmux --ansi --no-sort --query="$q" --print-query \
         --header "Ctrl-a to apply stash | Ctrl-d to diff against current HEAD | Ctrl-b to create branch | Ctrl-s to drop selected stash" \
       --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 |
                  xargs -I % sh -c 'git stash show --color=always % | head -200 '" \
