@@ -8,8 +8,10 @@ function link_git_hooks() {
   local git_hooks=($(find "${DOTFILES}/config/git/.git_template/hooks" -type f))
   for hook in $git_hooks; do
     local final_name=$HOME/${hook##$DOTFILES/config/git/}
-    e_info "Linking $(basename $hook)"
-    ln -sf $hook $final_name
+    if [[ ! -e $final_name ]]; then
+        e_info "Linking $(basename $hook)"
+        ln -sf $hook $final_name
+    fi
   done
 }
 

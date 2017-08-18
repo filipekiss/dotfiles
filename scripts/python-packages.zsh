@@ -10,4 +10,4 @@ PACKAGES=(
      jedi
 )
 
-pip install ${PACKAGES[@]} && pip3 install ${PACKAGES[@]}
+pip2 install ${PACKAGES[@]} && pip3 install ${PACKAGES[@]}

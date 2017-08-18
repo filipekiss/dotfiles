@@ -3,7 +3,6 @@ vim/.vimrc
 neovim/.config/nvim/plugged/
 neovim/.config/nvim/tmp/
 neovim/.config/nvim/autoload/*
-!neovim/.config/nvim/autoload/plug.vim
 mail/.mutt/tmp
 mail/.mutt/cache
 mail/.mutt/certificates

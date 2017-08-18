@@ -44,7 +44,7 @@ function has_dotfiles_function() {
 
 # Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
 function is_dotfiles_bin() {
-    [[ "$(basename $0 2>/dev/null)" == dotfiles ]] || return 1
+    [[ $SCRIPT_NAME == $DOTFILES_BINARY_NAME ]] || return 1
 }
 
 # OS detection
@@ -185,14 +185,11 @@ function show_git_info() {
     e_line
 }
 
-
-function validate_gcc() {
-    # Ensure Xcode is installed
-    if (( ! $+commands[gcc] )) && is_macos; then
-        e_error "XCode or the Command Line Tools for XCode must be installed first."
-        exit 1
-    fi
+function run_softwareupdate() {
+    cd "$HOME"
+    softwareupdate --verbose --install --all
 }
+
 
 function validate_git() {
     # If Git is not installed, install it (Ubuntu only, since Git comes standard
@@ -212,12 +209,12 @@ function validate_stow() {
     if (( ! $+commands[stow] )) && is_ubuntu; then
         e_info "Installing Stow"
         sudo apt-get -qq install stow
+        hash -r
     fi
     if (( ! $+commands[stow] )) && is_macos; then
-        validate_homebrew
         e_info "Installing Stow"
         brew install stow
-        [[ ! $+commands[stow] ]] && commands[stow]=$(which stow)
+        hash -r
     fi
     # If Stow isn't installed by now, something exploded. We gots to quit!
     if (( ! $+commands[stow] )); then
@@ -230,6 +227,7 @@ function validate_homebrew() {
     if (( ! $+commands[brew] )) && is_macos; then
         e_info "Installing Homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+       hash -r
     fi
 }
 
@@ -239,8 +237,17 @@ function install_dotfiles() {
     if [[ ! -d "$DOTFILES" ]]; then
         e_info "$DOTFILES doesn't exists."
         mkdir "$DOTFILES"
-        git clone --recursive git://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && \
-            e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles cloned"
+        git clone --recursive https://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles cloned"
+        if [[ ! -d "$DOTFILES" ]]; then
+            e_error "Error when cloning dotfiles repository. Try again"
+            exit 1
+        fi
+        e_info "Since this is the first time you're running this,"
+        e_info "this must be run this from path, properly."
+        e_info "Please, run the command below"
+        update_path()
+        e_info "$DOTFILES/bin/$DOTFILES_BINARY_NAME"
+        exit 0
     elif [[ "$1" != "restart" ]]; then
         prev_head="$(git rev-parse HEAD)"
         e_info "Updating ${DOTFILES_GH_USER:-filipekiss}/dotfiles"
@@ -264,10 +271,9 @@ function install_dotfiles() {
             current_head="$(git rev-parse HEAD)"
             if [[ $current_head != $prev_head ]]; then
                 # Remove flags so all install options will run again
-                rm -rf caches/flags
                 if [[ is_dotfiles_bin ]]; then
                     e_info "Changes detected, restarting script"
-                    exec "$SCRIPT_NAME" restart
+                    exec "$DOFILES_BINARY_NAME" restart
                 else
                     e_info "Changes detected, please re-run script"
                     exit
@@ -276,12 +282,6 @@ function install_dotfiles() {
         fi
     fi
     cd ${DOTFILES}
-}
-
-function prepare_caches() {
-    # Create caches folder if not exists
-    CACHES_DIR=${DOTFILES}/caches
-    mkdir -p ${CACHES_DIR}
 }
 
 function update_path() {
@@ -329,20 +329,6 @@ function do_stow() {
     fi
 }
 
-function install_stuff() {
-    for install (${DOTFILES}/install/*.zsh) source $install
-}
-
-function postinstall_stuff() {
-    for script (${DOTFILES}/post-install/*.zsh) source $script
-    change_shell
-}
-
-function change_shell() {
-    e_success "Switching shell to (homebrew) zsh..."
-    echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells > /dev/null
-    chsh -s "/usr/local/bin/zsh" "$(whoami)"
-}
 
 function backup_stuff() {
     local DEST
@@ -354,7 +340,7 @@ function backup_stuff() {
         #this config file is located in a subfolder.
         make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
     fi
-    REALPATH=$(realpath ${SOURCE})
+    REALPATH=${SOURCE:A}
     [[ -f ${SOURCE} && ${SOURCE} == ${REALPPATH} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
 }
 
@@ -368,8 +354,16 @@ function setup_git_config() {
     local GIT_USER GIT_EMAIL
     GIT_USER=$(git config -f $HOME/.gitconfig.local user.name)
     GIT_EMAIL=$(git config -f $HOME/.gitconfig.local user.email)
-    [[ ${GIT_USER} == "" ]] && e_set_inline && e_info "What name do you wish to use to sign your commits? " && read GIT_USER
-    [[ ${GIT_EMAIL} == "" ]] && e_set_inline && e_info "What e-mail do you wish to use to sign your commits? " && read GIT_EMAIL
+    if [[ ${GIT_USER} == "" ]]; then
+        e_set_inline
+        e_info "What name do you wish to use to sign your commits? "
+        read GIT_USER
+    fi
+    if [[ ${GIT_EMAIL} == "" ]]; then
+      e_set_inline
+      e_info "What e-mail do you wish to use to sign your commits? "
+      read GIT_EMAIL
+    fi
     e_reset_line
     if [[ ${GIT_USER:-} != "" ]]; then
         git config -f $HOME/.gitconfig.local user.name "${GIT_USER}"
@@ -379,6 +373,16 @@ function setup_git_config() {
     fi
     cd $DOTFILES
     git remote set-url origin git@github.com:filipekiss/dotfiles.git
+}
+
+
+function install_apps() {
+	if [[ -d $DOTFILES ]]; then
+		e_info "Installing apps. This may take a while...."
+		cd "$DOTFILES" && make
+	else
+		e_error "There's no $DOTFILES folder"
+	fi
 }
 
 
@@ -394,31 +398,33 @@ function main() {
         exit
     fi
 
-    show_script_header
-    show_script_info
+    # Ask for the administrator password upfront.
+    sudo -v
 
-    if [[ "$1" == "install" ]]; then
-        validate_gcc
-        validate_git
-        validate_stow
+    # Keep-alive: update existing `sudo` time stamp until the script has finished.
+    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+    if is_macos; then
+        run_softwareupdate
     fi
 
+    show_script_header
+    show_script_info
+    validate_homebrew
+    validate_git
+    validate_stow
     update_path
     prepare_folders
     install_dotfiles
-    prepare_caches
     link_config
     setup_git_config
-
-    if [[ "$1" == "install" ]]; then
-        install_stuff
-        postinstall_stuff
-    fi
-
     show_backup_message
+    install_apps
     # all done!
-    e_success "${RESET}All done!"
+    e_success "Make sure you change your shell to homebrew's zsh: chsh -s $(brew --prefix)/bin/zsh"
+    is_macos && e_success "If it's the first time you're running this, run make macos"
 }
 
 SCRIPT_NAME="$(basename $0)"
+DOTFILES_BINARY_NAME="dotfiles"
 main "$1"
