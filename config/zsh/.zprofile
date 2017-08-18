@@ -61,6 +61,7 @@ path=(
   /usr/local/{bin,sbin}
   /usr/local/opt/coreutils/libexec/gnubin
 /usr/local/opt/python/libexec/bin
+/usr/local/opt/curl/bin
   /usr/local/Cellar/git
   ${HOME}/.dotfiles/bin
   $path
