@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 function emoji_list() {
-    local FILE_PATH=$(git rev-parse --show-toplevel)/.precommit
+    local FILE_PATH=${REPO_PATH}/.precommit
     local HOME_PATH="${HOME}/.precommit"
     local EMOJI_LIST=(
     ':art: Improving the format/structure of the code|:art:'
@@ -65,6 +65,8 @@ function validate_emoji_selector() {
     HAS_FZF=$commands[fzf]
 }
 
+REPO_PATH=$(git rev-parse --show-toplevel)
+[[ -e ${REPO_PATH}/.git/rebase-merge ]] && echo "Rebase/Merge detected. Skipping prefix selector"
 validate_emoji_selector
-[[ -z $HAS_FZF ]] && echo " No fzf found... Skipping precommit selector" && exit 0
+[[ -z $HAS_FZF ]] && echo " No fzf found... Skipping prefix selector" && exit 0
 fzf_prepare_message "$1" "$2" "$3"
