@@ -273,7 +273,7 @@ function install_dotfiles() {
                 # Remove flags so all install options will run again
                 if [[ is_dotfiles_bin ]]; then
                     e_info "Changes detected, restarting script"
-                    exec "$DOFILES_BINARY_NAME" restart
+                    exec "$DOTFILES_BINARY_NAME" restart
                 else
                     e_info "Changes detected, please re-run script"
                     exit
