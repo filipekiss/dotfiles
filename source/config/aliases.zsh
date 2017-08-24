@@ -57,3 +57,9 @@ fi
 
 
 (( $+commands[nvim] )) && alias vim="nvim"
+
+# Muscle memory is a bitch
+alias :qa=exit
+alias :wq=exit
+[[ $TERM == *"tmux"* ]] && alias :sp='tmux split-window'
+[[ $TERM == *"tmux"* ]] && alias :vs='tmux split-window -h'
