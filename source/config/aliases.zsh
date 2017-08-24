@@ -38,10 +38,16 @@ alias -g LSN=$'| awk \'{k=0;for(i=0;i<=8;i++)k+=((substr($1,i+2,1)~/[rwx]/) *2^(
 alias -g X='| xargs'
 
 # Daily useful stuff
-alias ll="l -d .*/ */ "
-alias lf="ls -la"
 alias la="ls -la"
 alias lc="ls -AlCF "
+
+if (( $+commands[exa] )); then
+  alias ll="exa --tree"
+elif (( $+commands[tree] )); then
+  alias ll="type tree >/dev/null && tree -da -L 1 || l -d .*/ */ "
+else
+  alias ll="echo 'You have to install exa or tree'"
+fi
 
 # Use pygmentize to color cat output, if available
 if (( $+commands[pygmentize] )); then
