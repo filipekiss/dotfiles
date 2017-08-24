@@ -1,0 +1,17 @@
+session_name: Saraiva
+windows:
+- focus: 'true'
+  layout: 77d7,318x82,0,0[318x56,0,0,0,318x25,0,57{73x25,0,57,3,166x25,74,57,4,77x25,241,57,6}]
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command:
+    - cd /Users/filipekiss/work/saraiva-magento
+  - shell_command:
+    - cd /Users/filipekiss/work/saraiva-magento/gulp
+  - shell_command:
+    - cd /Users/filipekiss/work/saraiva-magento
+  - shell_command:
+    - cd /Users/filipekiss/work/saraiva-docker
+    - ctop -a
+  window_name: Saraiva

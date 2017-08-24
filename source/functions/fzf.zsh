@@ -143,3 +143,16 @@ fgr() {
         --header "Enter to send filename to CLI"))
     [[ -n $target ]] && echo -n "$target"
 }
+
+
+# select fzf session
+fs() {
+  local session
+  local current_session=$(tmux display-message -p '#S')
+  local session_list=($(tmux list-sessions -F "#{session_name}"))
+  # remove current session from session list. see https://stackoverflow.com/a/25172688/708359
+  session_list[$session_list[(i)$current_session]]=()
+  session=$(echo ${(F)session_list} | \
+    fzf --query="$1" --select-1 --exit-0) &&
+  tmux switch-client -t "$session"
+}

@@ -6,6 +6,7 @@ PACKAGES=(
      --upgrade pip
      pygments
      neovim
+     tmuxp
      vim-vint
      jedi
 )
