@@ -146,13 +146,34 @@ fgr() {
 
 
 # select fzf session
+# if you're inside a tmux session already, will switch-client. If not, will attach to session
 fs() {
+  HAS_TMUX_SESSION=false
+  (tmux info &> /dev/null) && HAS_TMUX_SESSION=true
+  if [[ $HAS_TMUX_SESSION == false ]]; then
+      tm "$@"
+      return
+  fi
+  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
   local session
-  local current_session=$(tmux display-message -p '#S')
   local session_list=($(tmux list-sessions -F "#{session_name}"))
-  # remove current session from session list. see https://stackoverflow.com/a/25172688/708359
-  session_list[$session_list[(i)$current_session]]=()
+  if [[ -n "$TMUX" ]]; then
+    local current_session=$(tmux display-message -p '#S')
+    # remove current session from session list. see https://stackoverflow.com/a/25172688/708359
+    session_list[$session_list[(i)$current_session]]=()
+  fi
   session=$(echo ${(F)session_list} | \
     fzf --query="$1" --select-1 --exit-0) &&
-  tmux switch-client -t "$session"
+  tmux $change -t "$session"
+}
+
+tm() {
+    [[ $+commands[tmuxp] ]] || return
+    # Find our tmuxp sessions
+    TMUXP_SESSIONS=($(find ${HOME}/.tmuxp -not -type d))
+    # (F) will echo the array joined by new-lines. :t will remove leading path (like basename) and
+    # :r will remove file extension
+    TMUXP_SESSIONS=${(F)TMUXP_SESSIONS:t:r}
+    tmux_session_name=$(echo ${TMUXP_SESSIONS} | \
+        fzf --query="$1" --select-1 --exit-0) && tmuxp load "$tmux_session_name"
 }
