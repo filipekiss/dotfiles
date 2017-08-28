@@ -10,7 +10,6 @@ zmodules=(
   archive
   directory
   environment
-  fasd
   git-info
   syntax-highlighting
   history
