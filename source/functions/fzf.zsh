@@ -148,32 +148,58 @@ fgr() {
 # select fzf session
 # if you're inside a tmux session already, will switch-client. If not, will attach to session
 fs() {
+  local session
   HAS_TMUX_SESSION=false
-  (tmux info &> /dev/null) && HAS_TMUX_SESSION=true
+  # Get the TMUX session list as an array
+  local session_list=($(tmux list-sessions -F "#{session_name}" 2>/dev/null))
+  [[ -n $session_list ]] && HAS_TMUX_SESSION=true
   if [[ $HAS_TMUX_SESSION == false ]]; then
-      tm "$@"
+      tm "$1" "TMUXP - No TMUX session found. Pick one"
       return
   fi
-  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
-  local session
-  local session_list=($(tmux list-sessions -F "#{session_name}"))
+  # By default, use attach session
+  change="attach-session"
+  # If currently inside a TMUX session, remove that session from the list and use switch-client
+  # instead of attach-session
   if [[ -n "$TMUX" ]]; then
+    change="switch-client"
     local current_session=$(tmux display-message -p '#S')
     # remove current session from session list. see https://stackoverflow.com/a/25172688/708359
     session_list[$session_list[(i)$current_session]]=()
   fi
+  echo $session_list
+  # If only one session is open, invokes tm() to open a new session
+  if [[ -z $session_list || -z "$TMUX" && ${#session_list} == 1 ]]; then
+      tm "$1" "TMUXP - Sessions with a * next to their name are already loaded"
+      return
+  fi
   session=$(echo ${(F)session_list} | \
-    fzf --query="$1" --select-1 --exit-0) &&
+    fzf --query="$1" --header="TMUX - Open sessions" --exit-0 --select-1) &&
   tmux $change -t "$session"
 }
 
 tm() {
     [[ $+commands[tmuxp] ]] || return
+    local HEADER_MESSAGE="TMUXP - Select a tmux session to load/attach to"
+    local LOADED_SESSIONS=($(tmux list-sessions -F "#{session_name}" 2>/dev/null))
+    [[ -n $2 ]] && HEADER_MESSAGE="$2"
     # Find our tmuxp sessions
     TMUXP_SESSIONS=($(find ${HOME}/.tmuxp -not -type d))
-    # (F) will echo the array joined by new-lines. :t will remove leading path (like basename) and
-    # :r will remove file extension
-    TMUXP_SESSIONS=${(F)TMUXP_SESSIONS:t:r}
-    tmux_session_name=$(echo ${TMUXP_SESSIONS} | \
-        fzf --query="$1" --select-1 --exit-0) && tmuxp load "$tmux_session_name"
+    # :t will remove leading path (like basename) and :r will remove file extension
+    TMUXP_SESSIONS=(${TMUXP_SESSIONS:t:r})
+    # Do some magic if we have TMUX sessions already loaded
+    if [[ -n $LOADED_SESSIONS ]]; then
+        ACTIVE_TMUXP_SESSIONS=(${TMUXP_SESSIONS:*LOADED_SESSIONS})
+        INACTIVE_TMUXP_SESSIONS=(${TMUXP_SESSIONS:|LOADED_SESSIONS})
+        TMUXP_SESSIONS=()
+        TMUXP_SESSIONS+=(${LOADED_SESSIONS:|ACTIVE_TMUXP_SESSIONS})
+        TMUXP_SESSIONS+=(${^ACTIVE_TMUXP_SESSIONS}"*")
+        TMUXP_SESSIONS+=(${INACTIVE_TMUXP_SESSIONS})
+        TMUXP_SESSIONS=(${(i)TMUXP_SESSIONS})
+        HEADER_MESSAGE="TMUXP - Sessions with a * next to their name are already loaded"
+    fi
+    tmux_session_name=$(echo ${(iF)TMUXP_SESSIONS} | \
+        fzf --header="$HEADER_MESSAGE" --exit-0 --select-1 | cut -d '*' -f1)
+    [[ -n $tmux_session_name ]] && tmuxp load "$tmux_session_name"
 }
+
