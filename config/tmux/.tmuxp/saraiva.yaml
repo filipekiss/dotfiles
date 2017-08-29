@@ -1,18 +1,22 @@
 session_name: Saraiva
 windows:
 - focus: 'true'
-  layout: 8f0a,318x82,0,0[318x66,0,0,1,318x15,0,67{73x15,0,67,2,166x15,74,67,3,77x15,241,67,4}]
+  layout: a279,318x82,0,0[318x70,0,0,1,318x11,0,71{73x11,0,71,2,83x11,74,71,3,82x11,158,71,5,77x11,241,71,4}]
   options:
     automatic-rename: 'off'
+    remain-on-exit: 'off'
+    synchronize-panes: 'off'
   panes:
   - focus: 'true'
     shell_command:
     - cd /Users/filipekiss/work/saraiva-magento
-  - shell_command:
-    - cd /Users/filipekiss/work/saraiva-magento/gulp
+  - cd /Users/filipekiss/work/saraiva-magento/gulp
   - shell_command:
     - cd /Users/filipekiss/work/saraiva-magento
     - git status
+    - shell_command:
+        - cd /Users/filipekiss/work/saraiva-docker
+        - vtop
   - shell_command:
     - cd /Users/filipekiss/work/saraiva-docker
     - ctop -a

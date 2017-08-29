@@ -609,6 +609,8 @@
 	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<true/>
+	<key>DoubleReportScrollWheel</key>
+	<false/>
 	<key>EnableDivisionView</key>
 	<false/>
 	<key>EnableRendezvous</key>
@@ -807,7 +809,7 @@
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>269 139 606 456 0 0 2560 1440 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>470 224 796 473 0 0 2560 1440 </string>
+	<string>470 302 1018 447 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>4 0 2556 1440 0 0 2560 1440 </string>
 	<key>NeverWarnAboutMeta</key>
