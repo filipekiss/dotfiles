@@ -195,3 +195,4 @@ vnoremap . :norm.<CR>
 nmap <silent> <M-l> ?function\(<cr>:noh<cr><Plug>(jsdoc)
 
 nnoremap <C-t> :Files<CR>
+nnoremap <C-z> :Buffers<CR>
