@@ -167,7 +167,6 @@ fs() {
     # remove current session from session list. see https://stackoverflow.com/a/25172688/708359
     session_list[$session_list[(i)$current_session]]=()
   fi
-  echo $session_list
   # If only one session is open, invokes tm() to open a new session
   if [[ -z $session_list || -z "$TMUX" && ${#session_list} == 1 ]]; then
       tm "$1" "TMUXP - Sessions with a * next to their name are already loaded"
@@ -189,14 +188,23 @@ tm() {
     TMUXP_SESSIONS=(${TMUXP_SESSIONS:t:r})
     # Do some magic if we have TMUX sessions already loaded
     if [[ -n $LOADED_SESSIONS ]]; then
+        # Create an array with elements that are in both TMUXP_SESSIONS and LOADED_SESSIONS array
         ACTIVE_TMUXP_SESSIONS=(${TMUXP_SESSIONS:*LOADED_SESSIONS})
+        # Create an array with sessions that are in TMUXP_SESSIONS but not in LOADED_SESSIONS
         INACTIVE_TMUXP_SESSIONS=(${TMUXP_SESSIONS:|LOADED_SESSIONS})
+        # Reset TMUXP_SESSIONS array
         TMUXP_SESSIONS=()
+        # Remove sessions that are available on TMUXP from the loaded sessions - will add those in
+        # the next step
         TMUXP_SESSIONS+=(${LOADED_SESSIONS:|ACTIVE_TMUXP_SESSIONS})
+        # Add the sessions from TMUXP that are active and add an asterisk next to their name
         TMUXP_SESSIONS+=(${^ACTIVE_TMUXP_SESSIONS}"*")
+        # Add the sessions from TMUXP that are not open
         TMUXP_SESSIONS+=(${INACTIVE_TMUXP_SESSIONS})
+        # Sort sessions array
         TMUXP_SESSIONS=(${(i)TMUXP_SESSIONS})
-        HEADER_MESSAGE="TMUXP - Sessions with a * next to their name are already loaded"
+        # Only overwrite the header message if no header message was passed as argument
+        [[ -z $2 ]] && HEADER_MESSAGE="TMUXP - Sessions with a * next to their name are already loaded"
     fi
     tmux_session_name=$(echo ${(iF)TMUXP_SESSIONS} | \
         fzf --header="$HEADER_MESSAGE" --exit-0 --select-1 | cut -d '*' -f1)
