@@ -1,0 +1,10 @@
+session_name: playground
+windows:
+- focus: 'true'
+  layout: bf02,318x82,0,0,5
+  options:
+    automatic-rename: 'off'
+  panes:
+  - focus: 'true'
+  start_directory: /Users/filipekiss/code
+  window_name: playground
