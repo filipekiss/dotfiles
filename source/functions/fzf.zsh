@@ -207,7 +207,7 @@ tm() {
         [[ -z $2 ]] && HEADER_MESSAGE="TMUXP - Sessions with a * next to their name are already loaded"
     fi
     tmux_session_name=$(echo ${(iF)TMUXP_SESSIONS} | \
-        fzf --header="$HEADER_MESSAGE" --exit-0 --select-1 | cut -d '*' -f1)
+        fzf --query="$1" --header="$HEADER_MESSAGE" --exit-0 --select-1 | cut -d '*' -f1)
     [[ -n $tmux_session_name ]] && tmuxp load "$tmux_session_name"
 }
 
