@@ -97,8 +97,7 @@ fs() {
       return
   fi
   session=$(echo ${(F)session_list} | \
-    fzf --query="$1" --header="TMUX - Open sessions" --exit-0 --select-1) &&
-  tmux $change -t "$session"
+    fzf --query="$1" --header="TMUX - Open sessions" --exit-0 --select-1) && tmux $change -t "$session"
 }
 
 tm() {
