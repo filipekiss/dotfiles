@@ -190,6 +190,10 @@ endfunction
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
 
+" Use <Leader>y and <Leader>p to use the 0 register automatically (Avoid yanking replaced line)
+vnoremap <Leader>y "0y
+vnoremap <Leader>p "0p
+
 
 " Find first function declaration before cursor and add jsDoc to it
 nmap <silent> <M-l> ?function\(<cr>:noh<cr><Plug>(jsdoc)
