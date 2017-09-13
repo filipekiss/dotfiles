@@ -56,7 +56,7 @@ if (( $+commands[pygmentize] )); then
 fi
 
 
-(( $+commands[nvim] )) && alias vim="nvim"
+alias e=$EDITOR
 
 # Muscle memory is a bitch
 alias :qa=exit
