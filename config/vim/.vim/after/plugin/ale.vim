@@ -1,5 +1,9 @@
 scriptencoding utf-8
 
+if !exists(':ALELint')
+    finish
+endif
+
 let g:ale_sign_error = 'E'
 let g:ale_sign_warning = 'W'
 let g:ale_statusline_format = ['E %d', 'W %d', 'ok']

@@ -54,7 +54,7 @@ brew 'transcrypt'
 brew 'tree'
 brew 'universal-ctags', args: ['HEAD']
 brew 'unrar'
-brew 'vim', args: ['with-python2', 'with-override-system-vi']
+brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
 brew 'watch'
 brew 'wget'
 brew 'yarn'

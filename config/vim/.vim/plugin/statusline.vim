@@ -22,16 +22,20 @@ set statusline+=\ %{statusline#readOnly()}\ %w
 set statusline+=%#errormsg#
 set statusline+=%*
 set statusline+=%9*\ %=
-set statusline+=%#ale_statusline#\ %{statusline#ALEGetStatus()}
+if exists(':ALELint')
+    set statusline+=%#ale_statusline#\ %{statusline#ALEGetStatus()}
+endif
 set statusline+=%4*\ %y
 set statusline+=%4*\ %{statusline#fileSize()}
 set statusline+=%4*%{statusline#rhs()}
 set statusline+=%*
 
-execute 'highlight! User1 ' . pinnacle#extract_highlight('Function')
-execute 'highlight! User2 ' . pinnacle#extract_highlight('NonText')
-execute 'highlight! User3 ' . pinnacle#extract_highlight('Todo')
-execute 'highlight! User4 ' . pinnacle#extract_highlight('WhiteSpace')
+if exists('pinnacle#extract_highlight')
+    execute 'highlight! User1 ' . pinnacle#extract_highlight('Function')
+    execute 'highlight! User2 ' . pinnacle#extract_highlight('NonText')
+    execute 'highlight! User3 ' . pinnacle#extract_highlight('Todo')
+    execute 'highlight! User4 ' . pinnacle#extract_highlight('WhiteSpace')
+endif
 " execute 'highlight! User5 ' . pinnacle#extract_highlight('PmenuSel')
 " execute 'highlight! User6 ' . pinnacle#extract_highlight('PmenuSel')
 " execute 'highlight! User7 ' . pinnacle#extract_highlight('PmenuSel')
