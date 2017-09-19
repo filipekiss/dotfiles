@@ -141,6 +141,5 @@
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
     show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
-    log  = diff-so-fancy | less --tabs=4 -RFX --pattern '^(commit|Date:) '
 [github]
 	user = filipekiss
