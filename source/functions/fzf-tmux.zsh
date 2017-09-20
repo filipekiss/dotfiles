@@ -46,10 +46,16 @@ tm() {
         # Only overwrite the header message if no header message was passed as argument
         [[ -z $2 ]] && HEADER_MESSAGE="TMUXP - Sessions with a * next to their name are already loaded"
     fi
+    # If the TMUXP Sessions is empty, there's only one session in tmux and we're already in it
+    # Feedback and return
+    if [[ -z $TMUXP_SESSIONS ]]; then
+        [[ -n $current_session ]] && echo "You're alredy in ${current_session}. I'm done here"
+        return
+    fi
     tmux_session_name=$(echo ${(iF)TMUXP_SESSIONS} | \
         fzf --query="$1" --header="$HEADER_MESSAGE" --exit-0 --select-1 | cut -d '*' -f1)
-    # If session is already loaded, use fs to change to it
-    [[ -n $tmux_session_name && $LOADED_SESSIONS[(r)$tmux_session_name] = $tmux_session_name ]] && fs "$tmux_session_name" && return
+    # If session is already loaded, use fs to change to it if we have more than one session
+    [[ ${#TMUXP_SESSIONS} > 1 && -n $tmux_session_name && $LOADED_SESSIONS[(r)$tmux_session_name] = $tmux_session_name ]] && fs "$tmux_session_name" && return
     # Otherwise, load session from TMUXP
     [[ -n $tmux_session_name ]] && tmuxp load "$tmux_session_name"  && return
 }
