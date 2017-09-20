@@ -6,7 +6,6 @@ windows:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
-    shell_command: zsh
   start_directory: /Users/filipekiss/.dotfiles
   window_name: '[.]files'
 - layout: befe,318x82,0,0,1
@@ -14,7 +13,6 @@ windows:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
-    shell_command: zsh
   start_directory: /Users/filipekiss/code
   window_name: playground
 - layout: 86c5,318x82,0,0{238x82,0,0,2,79x82,239,0[79x26,239,0,3,79x26,239,27,4,79x28,239,54,5]}
