@@ -35,23 +35,25 @@ function! statusline#rhs() abort
   return l:rhs
 endfunction
 
-" For a more fancy ale statusline
-function! statusline#ALEGetStatus()
-  let l:res = ale#statusline#Status()
-  let l:e_w = split(l:res)
-  let l:e_sign = get(g:, 'ale_sign_error', g:ale_sign_error)
-  let l:w_sign = get(g:, 'ale_sign_warning', g:ale_sign_warning)
-  " Not working, unicode issue?
-  " echo index(l:e_w, l:e_sign)
-  if index(l:e_w, l:w_sign) >= 0
-    exec 'highlight ale_statusline guibg=orange guifg=black'
-  elseif index(l:e_w, l:w_sign) < 0 && index(l:e_w, 'ok') < 0
-    exec 'highlight ale_statusline guifg=black guibg=red'
-  else
-    exec 'highlight ale_statusline guifg=green guibg=None'
-  endif
-  return l:res . ' '
-endfunction
+if exists(':ALELint')
+    " For a more fancy ale statusline
+    function! statusline#ALEGetStatus()
+        let l:res = ale#statusline#Status()
+        let l:e_w = split(l:res)
+        let l:e_sign = get(g:, 'ale_sign_error', g:ale_sign_error)
+        let l:w_sign = get(g:, 'ale_sign_warning', g:ale_sign_warning)
+        " Not working, unicode issue?
+        " echo index(l:e_w, l:e_sign)
+        if index(l:e_w, l:w_sign) >= 0
+            exec 'highlight ale_statusline guibg=orange guifg=black'
+        elseif index(l:e_w, l:w_sign) < 0 && index(l:e_w, 'ok') < 0
+            exec 'highlight ale_statusline guifg=black guibg=red'
+        else
+            exec 'highlight ale_statusline guifg=green guibg=None'
+        endif
+        return l:res . ' '
+    endfunction
+endif
 
 function! statusline#fileSize()
   let l:bytes = getfsize(expand('%:p'))
@@ -75,15 +77,6 @@ function! statusline#fileSize()
   endif
 endfunction
 
-
-function! statusline#gitInfo()
-  let l:gitbranch = fugitive#head()
-  if l:gitbranch !=# ''
-    return '⎇ ' .fugitive#head()
-  else
-    return ''
-  endif
-endfunction
 
 function! statusline#readOnly()
   if !&modifiable && &readonly
@@ -132,11 +125,12 @@ let s:dictstatuscolor={
       \ '1': 'hi! StatusLine guibg=#ab4642 guifg=None',
       \ '2': 'hi! StatusLine guibg=#dc9656 guifg=None',
       \ '3': 'hi! StatusLine guibg=#f7ca88 guifg=None',
-      \ '4': 'hi! StatusLine '.pinnacle#extract_highlight('Visual').' guifg=' .pinnacle#extract_fg('Normal'),
-      \ '5': 'hi! StatusLine guibg='. pinnacle#extract_fg('Function') .' guifg=' .pinnacle#extract_fg('NonText') ,
+      \ '4': 'hi! StatusLine guibg=#434C5E guifg=#D8DEE9',
+      \ '5': 'hi! StatusLine guibg=#88C0D0 guifg=#434C5E',
       \ '6': 'hi! StatusLine guibg=#ba8baf guifg=None',
       \ '7': 'hi! StatusLine guibg=#a16946 guifg=None'
       \}
+
 
 " GET CURRENT MODE FROM DICTIONARY AND RETURN IT
 " IF MODE IS NOT IN DICTIONARY RETURN THE ABBREVIATION

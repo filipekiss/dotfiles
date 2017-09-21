@@ -40,49 +40,54 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
-Plug 'wincent/loupe'
-Plug 'wincent/pinnacle' " this is only used in plugins/after/loupe.vim is it worth it?
 Plug 'wincent/terminus'
 Plug 'mhinz/vim-startify'
 Plug 'kepbod/quick-scope'
 Plug 'google/vim-searchindex'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/tpope-vim-abolish'
+Plug 'bronson/vim-visual-star-search'
 
 " Syntax
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus'] }
 Plug 'sheerun/vim-polyglot'
 let g:polyglot_disabled = ['css']
 Plug 'stephenway/postcss.vim', { 'for': ['css'] }
-Plug 'lepture/vim-jinja'
+Plug 'lepture/vim-jinja', { 'for': ['jinja2', 'jinja', 'htmldjango', 'twig'] }
 Plug 'Konfekt/FastFold'
 
 " Linters & Code quality
 Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale', { 'do': 'npm i -g stylelint eslint' }
 Plug 'sbdchd/neoformat', { 'on': 'Neoformat', 'do': 'npm i -g prettier stylefmt' }
-Plug 'heavenshell/vim-jsdoc', {'for' : ['javascript'] }
 
 " Git
 Plug 'airblade/vim-gitgutter'
-Plug 'lambdalisue/vim-gista'
-Plug 'tpope/vim-fugitive'
 
 " Colors and stuff
 Plug 'arcticicestudio/nord-vim'
-Plug 'junegunn/vim-emoji'
 Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 
 " Define some binary paths
-let g:current_flow_path = nrun#Which('flow')
-let g:current_eslint_path = nrun#Which('eslint')
-let g:current_prettier_path = nrun#Which('prettier')
-let g:current_stylefmt_path = nrun#Which('stylefmt')
-let g:current_stylelint_path = nrun#Which('stylelint')
+" Put this in a try let the user know he needs to install nrun
+" Using exists() won't work because nrun is autoloaded
+try
+    let g:current_flow_path = nrun#Which('flow')
+    let g:current_eslint_path = nrun#Which('eslint')
+    let g:current_prettier_path = nrun#Which('prettier')
+    let g:current_stylefmt_path = nrun#Which('stylefmt')
+    let g:current_stylelint_path = nrun#Which('stylelint')
+catch
+    echo 'Looks like nrun is not installed. Setting blank values to avoid startup error in ALELint'
+    let g:current_flow_path = ''
+    let g:current_eslint_path = ''
+    let g:current_prettier_path = ''
+    let g:current_stylefmt_path = ''
+    let g:current_stylelint_path = ''
+endtry
 
 " Plugins settings
 "================================================================================
@@ -134,3 +139,37 @@ endif
 
 let g:user_emmet_leader_key=','
 
+" Other Files {
+" config/vim/.vim/after/plugin/NERDTree.vim
+" config/vim/.vim/after/plugin/UltiSnips.vim
+" config/vim/.vim/after/plugin/abolish.vim
+" config/vim/.vim/after/plugin/ale.vim
+" config/vim/.vim/after/plugin/commentray.vim
+" config/vim/.vim/after/plugin/easy_align.vim
+" config/vim/.vim/after/plugin/editorconfig.vim
+" config/vim/.vim/after/plugin/fzf.vim
+" config/vim/.vim/after/plugin/gista.vim
+" config/vim/.vim/after/plugin/gitgutter.vim
+" config/vim/.vim/after/plugin/grepper.vim
+" config/vim/.vim/after/plugin/guttentags.vim
+" config/vim/.vim/after/plugin/startify.vim
+" config/vim/.vim/autoload/.gitignore
+" config/vim/.vim/autoload/functions.vim
+" config/vim/.vim/autoload/plug.vim
+" config/vim/.vim/autoload/statusline.vim
+" config/vim/.vim/filetype.vim
+" config/vim/.vim/ftplugin/fzf.vim
+" config/vim/.vim/ftplugin/gitcommit.vim
+" config/vim/.vim/ftplugin/markdown.vim
+" config/vim/.vim/ftplugin/php.vim
+" config/vim/.vim/plugin/README.md
+" config/vim/.vim/plugin/autocmnds.vim
+" config/vim/.vim/plugin/color.vim
+" config/vim/.vim/plugin/commands.vim
+" config/vim/.vim/plugin/indent-line.vim
+" config/vim/.vim/plugin/mappings.vim
+" config/vim/.vim/plugin/settings.vim
+" config/vim/.vim/plugin/statusline.vim
+" config/vim/.vim/ultisnips/php.snippets
+" config/vim/.vim/ultisnips/snippets.snippets
+" }

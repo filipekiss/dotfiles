@@ -1,4 +1,5 @@
 scriptencoding utf-8
+" See also config/vim/.vim/autoload/statusline.vim
 
 set laststatus=2    " LAST WINDOW WILL ALWAYS HAVE A STATUS LINE
 " set showtabline=2
@@ -12,7 +13,6 @@ set statusline=
 set statusline+=%0*
 set statusline+=\ %{statusline#getMode()}
 set statusline+=\ %<
-set statusline+=%6*\ %{statusline#gitInfo()}
 set statusline+=\ %4*
 set statusline+=\ %{statusline#fileprefix()}
 set statusline+=%6*
@@ -30,17 +30,10 @@ set statusline+=%4*\ %{statusline#fileSize()}
 set statusline+=%4*%{statusline#rhs()}
 set statusline+=%*
 
-if exists('pinnacle#extract_highlight')
-    execute 'highlight! User1 ' . pinnacle#extract_highlight('Function')
-    execute 'highlight! User2 ' . pinnacle#extract_highlight('NonText')
-    execute 'highlight! User3 ' . pinnacle#extract_highlight('Todo')
-    execute 'highlight! User4 ' . pinnacle#extract_highlight('WhiteSpace')
-endif
-" execute 'highlight! User5 ' . pinnacle#extract_highlight('PmenuSel')
-" execute 'highlight! User6 ' . pinnacle#extract_highlight('PmenuSel')
-" execute 'highlight! User7 ' . pinnacle#extract_highlight('PmenuSel')
-" execute 'highlight! User8 ' . pinnacle#extract_highlight('PmenuSel')
-" execute 'highlight! User9 ' . pinnacle#extract_highlight('PmenuSel')
+execute 'highlight! User1 ctermfg=6 guifg=#88C0D0'
+execute 'highlight! User2 ctermfg=8 gui=bold guifg=#434C5E'
+execute 'highlight! User3 ctermfg=3 guifg=#EBCB8B guibg=Yellow'
+execute 'highlight! User4 ctermfg=8 gui=bold guifg=#434C5E'
 
 augroup fckStatusLine
   autocmd!
