@@ -197,6 +197,7 @@ function validate_git() {
     if (( ! $+commands[git] )) && is_ubuntu; then
         e_info "Installing Git"
         sudo apt-get -qq install git-core
+        hash -r
     fi
     # If Git isn't installed by now, something exploded. We gots to quit!
     if (( ! $+commands[git] )); then
