@@ -1,5 +1,4 @@
-
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Sync your current branch with it's remote counterpart.
 #
@@ -13,7 +12,6 @@
 #   git sync origin
 #   git sync origin master
 #
-
 function sync_branch() {
     local current_branch_name remote branch_name all_remotes
     all_remotes=$(git remote)
