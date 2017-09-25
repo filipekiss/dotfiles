@@ -22,9 +22,6 @@ set statusline+=\ %{statusline#readOnly()}\ %w
 set statusline+=%#errormsg#
 set statusline+=%*
 set statusline+=%9*\ %=
-if exists(':ALELint')
-    set statusline+=%#ale_statusline#\ %{statusline#ALEGetStatus()}
-endif
 set statusline+=%4*\ %y
 set statusline+=%4*\ %{statusline#fileSize()}
 set statusline+=%4*%{statusline#rhs()}

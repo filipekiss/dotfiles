@@ -59,7 +59,6 @@ Plug 'Konfekt/FastFold'
 
 " Linters & Code quality
 Plug 'editorconfig/editorconfig-vim'
-Plug 'w0rp/ale', { 'do': 'npm i -g stylelint eslint' }
 Plug 'sbdchd/neoformat', { 'on': 'Neoformat', 'do': 'npm i -g prettier stylefmt' }
 
 " Git
@@ -71,24 +70,6 @@ Plug 'morhetz/gruvbox'
 Plug 'wakatime/vim-wakatime'
 
 call plug#end()
-
-" Define some binary paths
-" Put this in a try let the user know he needs to install nrun
-" Using exists() won't work because nrun is autoloaded
-try
-    let g:current_flow_path = nrun#Which('flow')
-    let g:current_eslint_path = nrun#Which('eslint')
-    let g:current_prettier_path = nrun#Which('prettier')
-    let g:current_stylefmt_path = nrun#Which('stylefmt')
-    let g:current_stylelint_path = nrun#Which('stylelint')
-catch
-    echo 'Looks like nrun is not installed. Setting blank values to avoid startup error in ALELint'
-    let g:current_flow_path = ''
-    let g:current_eslint_path = ''
-    let g:current_prettier_path = ''
-    let g:current_stylefmt_path = ''
-    let g:current_stylelint_path = ''
-endtry
 
 " Plugins settings
 "================================================================================
@@ -144,7 +125,6 @@ let g:user_emmet_leader_key=','
 " config/vim/.vim/after/plugin/NERDTree.vim
 " config/vim/.vim/after/plugin/UltiSnips.vim
 " config/vim/.vim/after/plugin/abolish.vim
-" config/vim/.vim/after/plugin/ale.vim
 " config/vim/.vim/after/plugin/commentray.vim
 " config/vim/.vim/after/plugin/easy_align.vim
 " config/vim/.vim/after/plugin/editorconfig.vim

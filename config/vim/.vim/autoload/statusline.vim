@@ -35,26 +35,6 @@ function! statusline#rhs() abort
   return l:rhs
 endfunction
 
-if exists(':ALELint')
-    " For a more fancy ale statusline
-    function! statusline#ALEGetStatus()
-        let l:res = ale#statusline#Status()
-        let l:e_w = split(l:res)
-        let l:e_sign = get(g:, 'ale_sign_error', g:ale_sign_error)
-        let l:w_sign = get(g:, 'ale_sign_warning', g:ale_sign_warning)
-        " Not working, unicode issue?
-        " echo index(l:e_w, l:e_sign)
-        if index(l:e_w, l:w_sign) >= 0
-            exec 'highlight ale_statusline guibg=orange guifg=black'
-        elseif index(l:e_w, l:w_sign) < 0 && index(l:e_w, 'ok') < 0
-            exec 'highlight ale_statusline guifg=black guibg=red'
-        else
-            exec 'highlight ale_statusline guifg=green guibg=NONE'
-        endif
-        return l:res . ' '
-    endfunction
-endif
-
 function! statusline#fileSize()
   let l:bytes = getfsize(expand('%:p'))
   if (l:bytes >= 1024)
