@@ -72,12 +72,11 @@ endfunction
 
 function! statusline#modified()
   if &modified
-    return '⎔'
+    return '!!'
   else
     return ''
   endif
 endfunction
-
 
 " DEFINE MODE DICTIONARY
 let s:dictmode= {'n': ['N', '4'],
@@ -102,13 +101,13 @@ let s:dictmode= {'n': ['N', '4'],
 
 " DEFINE COLORS FOR STATUSBAR
 let s:dictstatuscolor={
-      \ '1': 'hi! StatusLine guibg=#ab4642 guifg=NONE',
-      \ '2': 'hi! StatusLine guibg=#dc9656 guifg=NONE',
-      \ '3': 'hi! StatusLine guibg=#f7ca88 guifg=NONE',
-      \ '4': 'hi! StatusLine guibg=#434C5E guifg=#D8DEE9',
-      \ '5': 'hi! StatusLine guibg=#88C0D0 guifg=#434C5E',
-      \ '6': 'hi! StatusLine guibg=#ba8baf guifg=NONE',
-      \ '7': 'hi! StatusLine guibg=#a16946 guifg=NONE'
+      \ '1': 'hi! User1 guibg=#f84b3c guifg=NONE',
+      \ '2': 'hi! User1 guibg=#f8bc41 guifg=NONE',
+      \ '3': 'hi! User1 guibg=#ebdab4 guifg=NONE',
+      \ '4': 'hi! User1 guibg=#928375 guifg=#282828',
+      \ '5': 'hi! User1 guibg=#b8ba37 guifg=#282828',
+      \ '6': 'hi! User1 guibg=#d1879b guifg=NONE',
+      \ '7': 'hi! User1 guibg=#d45d20 guifg=NONE'
       \}
 
 
@@ -121,7 +120,7 @@ function! statusline#getMode()
   let l:modecolor = l:modelist[1]
   let l:modename = l:modelist[0]
   let l:modeexe = get(s:dictstatuscolor, l:modecolor, 'red')
-  " echo modeexe
+  redrawstatus
   exec l:modeexe
   return l:modename
 endfunction
