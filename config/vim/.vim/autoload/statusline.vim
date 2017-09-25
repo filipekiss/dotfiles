@@ -49,7 +49,7 @@ if exists(':ALELint')
         elseif index(l:e_w, l:w_sign) < 0 && index(l:e_w, 'ok') < 0
             exec 'highlight ale_statusline guifg=black guibg=red'
         else
-            exec 'highlight ale_statusline guifg=green guibg=None'
+            exec 'highlight ale_statusline guifg=green guibg=NONE'
         endif
         return l:res . ' '
     endfunction
@@ -122,13 +122,13 @@ let s:dictmode= {'n': ['N', '4'],
 
 " DEFINE COLORS FOR STATUSBAR
 let s:dictstatuscolor={
-      \ '1': 'hi! StatusLine guibg=#ab4642 guifg=None',
-      \ '2': 'hi! StatusLine guibg=#dc9656 guifg=None',
-      \ '3': 'hi! StatusLine guibg=#f7ca88 guifg=None',
+      \ '1': 'hi! StatusLine guibg=#ab4642 guifg=NONE',
+      \ '2': 'hi! StatusLine guibg=#dc9656 guifg=NONE',
+      \ '3': 'hi! StatusLine guibg=#f7ca88 guifg=NONE',
       \ '4': 'hi! StatusLine guibg=#434C5E guifg=#D8DEE9',
       \ '5': 'hi! StatusLine guibg=#88C0D0 guifg=#434C5E',
-      \ '6': 'hi! StatusLine guibg=#ba8baf guifg=None',
-      \ '7': 'hi! StatusLine guibg=#a16946 guifg=None'
+      \ '6': 'hi! StatusLine guibg=#ba8baf guifg=NONE',
+      \ '7': 'hi! StatusLine guibg=#a16946 guifg=NONE'
       \}
 
 

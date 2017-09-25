@@ -1,5 +1,4 @@
-
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Sync your current branch with it's remote counterpart.
 #
@@ -13,7 +12,6 @@
 #   git sync origin
 #   git sync origin master
 #
-
 function sync_branch() {
     local current_branch_name remote branch_name all_remotes
     all_remotes=$(git remote)
@@ -25,7 +23,7 @@ function sync_branch() {
     branch_name=${2:-${current_branch_name}}
     for remote in $remotes; do
         echo "==== Syncing ${branch_name} -> ${remote}/${branch_name}"
-        git pull ${remote} ${branch_name} && (git push ${remote} ${branch_name} && echo "==== Synced ${branch_name} -> ${remote}/${branch_name} sucessfully\n" || echo "==== Error when pushing changes to ${remote}/${branch_name}") || echo "==== Error when fetching changes from ${remote}/${branch_name}"
+        git pull --rebase ${remote} ${branch_name} && (git push ${remote} ${branch_name} && echo "==== Synced ${branch_name} -> ${remote}/${branch_name} sucessfully" || echo "==== Error when pushing changes to ${remote}/${branch_name}") || echo "==== Error when fetching changes from ${remote}/${branch_name}"
     done
 }
 
