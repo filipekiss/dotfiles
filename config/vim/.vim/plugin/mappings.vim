@@ -3,8 +3,13 @@ let mapleader="\<Space>"
 
 " stolen from https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
 " Keep search matches in the middle of the window.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+if exists(':SearchIndex')
+    nmap n nzzg/
+    nmap N Nzzg/
+else
+    nmap n nzz
+    nmap N Nzz
+endif
 
 " Movement
 "-----------------
