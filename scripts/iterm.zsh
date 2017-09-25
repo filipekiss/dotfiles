@@ -11,10 +11,10 @@ ITERM_THEMES_REPOS=(
 )
 
 function update_iterm_config() {
-  local package_location="$1"
-  cd $package_location
-  e_info "Adding ${package_location:t:r} to iTerm"
-  local itermfiles=($(find $package_location -type f -iname "*.itermcolors"))
+  local full_package_location="$1"
+  cd $full_package_location
+  e_info "Adding ${full_package_location:t:r} to iTerm"
+  local itermfiles=($(find $full_package_location -type f -iname "*.itermcolors"))
   for file ($itermfiles) open -a iTerm "$file"
   e_success "${RESET}Done"
 }
@@ -22,21 +22,25 @@ function update_iterm_config() {
 function download_or_update_package() {
     local repo_url="$1"
     local package_name=${repo_url:t:r}
-    local package_location="${DOWNLOAD_LOCATION}/${package_name}"
-    if [[ ! -d $package_location ]]; then
-        e_info "${package_name} for iTerm2 not found. Cloning..."
-        git clone $repo_url $package_location
-        update_iterm_config "${package_location}"
+    # Package will be under <user/org>/<package>
+    local url_prefix=${repo_url%/*/*.git}
+    local package_author_name=${repo_url#$url_prefix/}
+    package_author_name=${package_author_name:r}
+    local full_package_location="${DOWNLOAD_LOCATION}/${package_author_name}"
+    if [[ ! -d $full_package_location ]]; then
+        e_info "${package_author_name} for iTerm2 not found. Cloning..."
+        git clone $repo_url $full_package_location
+        update_iterm_config "${full_package_location}"
     else
-        cd ${package_location}
+        cd ${full_package_location}
         prev_head="$(git rev-parse HEAD)"
         git reset --hard HEAD
         git pull
         current_head="$(git rev-parse HEAD)"
         if [[ $current_head != $prev_head ]]; then
-            update_iterm_config ${pacakge_location}
+            update_iterm_config ${full_package_location}
         else
-            e_info "${package} Already at latest version"
+            e_info "${package_author_name} Already at latest version"
         fi
     fi
 }
