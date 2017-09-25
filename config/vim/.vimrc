@@ -67,6 +67,7 @@ Plug 'airblade/vim-gitgutter'
 
 " Colors and stuff
 Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
 Plug 'wakatime/vim-wakatime'
 
 call plug#end()
