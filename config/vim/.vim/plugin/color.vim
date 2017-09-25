@@ -2,6 +2,11 @@ if has('termguicolors')
   set termguicolors
 end
 
+" https://medium.com/@ericclifford/neovim-item2-truecolor-awesome-70b975516849
+if has('nvim')
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+end
+
 set background=dark
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='medium'
