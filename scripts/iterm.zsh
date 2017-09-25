@@ -3,18 +3,18 @@
 (( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
 is_macos || return 1
 
-DOWNLOAD_LOCATION=$DOTFILES/caches/downloads/
+DOWNLOAD_LOCATION=$DOTFILES/caches/downloads
 
 ITERM_THEMES_REPOS=(
     https://github.com/arcticicestudio/nord-iterm2.git
-    https://github.com/herrbischoff/iterm2-gruvbox
+    https://github.com/morhetz/gruvbox-contrib.git
 )
 
 function update_iterm_config() {
   local package_location="$1"
   cd $package_location
   e_info "Adding ${package_location:t:r} to iTerm"
-  local itermfiles=$(find $package_location -type f -iname "*.itermcolors")
+  local itermfiles=($(find $package_location -type f -iname "*.itermcolors"))
   for file ($itermfiles) open -a iTerm "$file"
   e_success "${RESET}Done"
 }
