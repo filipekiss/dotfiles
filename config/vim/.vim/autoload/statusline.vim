@@ -114,15 +114,18 @@ let s:dictstatuscolor={
 " GET CURRENT MODE FROM DICTIONARY AND RETURN IT
 " IF MODE IS NOT IN DICTIONARY RETURN THE ABBREVIATION
 " GetMode() GETS THE MODE FROM THE ARRAY THEN RETURNS THE NAME
-function! statusline#getMode()
-  let l:modenow = mode()
-  let l:modelist = get(s:dictmode, l:modenow, [l:modenow, 'red'])
-  let l:modecolor = l:modelist[1]
-  let l:modename = l:modelist[0]
-  let l:modeexe = get(s:dictstatuscolor, l:modecolor, 'red')
-  redrawstatus
-  exec l:modeexe
-  return l:modename
+let s:statusline_last_mode = mode()
+function! statusline#getMode(mode)
+        let l:modelist = get(s:dictmode, a:mode, [a:mode, 'red'])
+        let l:modecolor = l:modelist[1]
+        let l:modename = l:modelist[0]
+    if a:mode != s:statusline_last_mode
+        let l:modeexe = get(s:dictstatuscolor, l:modecolor, 'red')
+        let s:statusline_last_mode = a:mode
+        exec l:modeexe
+        redrawstatus!
+    endif
+    return l:modename
 endfunction
 
 function! statusline#fileprefix()
