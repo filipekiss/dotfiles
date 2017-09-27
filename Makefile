@@ -4,10 +4,7 @@ permissions:
 	-@zsh ./scripts/file-permissions.zsh
 
 brew:
-	-@brew bundle --file="$(HOME)/.dotfiles/homebrew/Brewfile"
-	-@brew cleanup
-	-@brew doctor
-	-@/usr/local/opt/fzf/install --all
+	-@zsh ./scripts/brew-select.zsh
 
 python:
 	-@zsh ./scripts/python-packages.zsh

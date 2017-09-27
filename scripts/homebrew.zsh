@@ -20,6 +20,7 @@ function install_from_brewfile() {
   e_info "Post-Install Clean-up"
   brew cleanup
   brew doctor
+  [[ -f /usr/local/opt/fzf/install ]] && /usr/local/opt/fzf/install --all
 }
 
 validate_homebrew
