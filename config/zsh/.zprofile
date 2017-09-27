@@ -52,12 +52,14 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  ${HOME}/.dotfiles/bin
+  ${HOME}/.linuxbrew/bin
+  /home/linuxbrew/.linuxbrew/bin
   /usr/local/{bin,sbin}
   /usr/local/opt/coreutils/libexec/gnubin
 /usr/local/opt/python/libexec/bin
 /usr/local/opt/curl/bin
   /usr/local/Cellar/git
-  ${HOME}/.dotfiles/bin
   $path
 )
 
