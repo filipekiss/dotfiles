@@ -1,10 +1,12 @@
-🐛|:bug:
-📚|:books:
-git|git:
-homebrew|brew:
-mail|mail:
-meta|meta:
-tmux|tmux:
-utils|utils:
-vim|vim:
-zsh|zsh:
+🐛                   | :bug:
+📚 readme, docs, etc | :books:
+🐧linux              | :penguin:
+🍎macos              | :apple:
+git                  | git:
+homebrew             | brew:
+mail                 | mail:
+meta                 | meta:
+tmux                 | tmux:
+utils                | utils:
+vim                  | vim:
+zsh                  | zsh:
