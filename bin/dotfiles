@@ -192,11 +192,11 @@ function run_softwareupdate() {
 
 
 function validate_git() {
-    # If Git is not installed, install it (Ubuntu only, since Git comes standard
-    # with recent XCode or CLT)
-    if (( ! $+commands[git] )) && is_ubuntu; then
+    # Homebrew or Linuxbrew should be installed at this point, and, consequently, git. If not, try
+    # to install it via brew. Otherwise, abort
+    if (( ! $+commands[git] )); then
         e_info "Installing Git"
-        sudo apt-get -qq install git-core
+        brew install git
         hash -r
     fi
     # If Git isn't installed by now, something exploded. We gots to quit!
@@ -207,12 +207,7 @@ function validate_git() {
 }
 
 function validate_stow() {
-    if (( ! $+commands[stow] )) && is_ubuntu; then
-        e_info "Installing Stow"
-        sudo apt-get -qq install stow
-        hash -r
-    fi
-    if (( ! $+commands[stow] )) && is_macos; then
+    if (( ! $+commands[stow] )); then
         e_info "Installing Stow"
         brew install stow
         hash -r
@@ -225,11 +220,8 @@ function validate_stow() {
 }
 
 function validate_homebrew() {
-    if (( ! $+commands[brew] )) && is_macos; then
-        e_info "Installing Homebrew"
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-       hash -r
-    fi
+    cd $DOTFILES
+    make brew
 }
 
 function install_dotfiles() {
