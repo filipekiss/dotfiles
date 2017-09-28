@@ -2,6 +2,7 @@
 alias gci="git commit"
 alias gco="git checkout"
 alias gps="git push"
+alias gpf="git push --force-with-lease"
 alias gpr="git pull --rebase"
 alias gst="git status --short"
 alias gap="git add -p"
