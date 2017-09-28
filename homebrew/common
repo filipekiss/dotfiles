@@ -1,24 +1,11 @@
 # vim:ft=ruby:
 
 # Taps
-tap 'homebrew/bundle'
-tap 'homebrew/dupes'
-tap 'homebrew/php'
 tap 'homebrew/services'
-tap 'caskroom/cask'
-tap 'caskroom/fonts'
-tap 'caskroom/versions'
-tap 'universal-ctags/universal-ctags'
 
 # Brews
-brew 'git', args: ['without-completions']
-brew 'python'
-brew 'python3'
-brew 'coreutils'
 brew 'curl'
 brew 'diff-so-fancy'
-# brew 'editorconfig'
-# brew 'exa'
 brew 'ffmpeg'
 brew 'fortune'
 brew 'fzf'
@@ -33,19 +20,13 @@ brew 'jq'
 brew 'less'
 brew 'nvm'
 brew 'neovim', ARGS: ['HEAD']
-brew 'perl'
 brew 'rbenv'
 brew 'ssh-copy-id'
-brew 'stow'
 brew 'tmux'
-brew 'transcrypt'
 brew 'tree'
-# brew 'universal-ctags', args: ['HEAD']
 brew 'unrar'
 brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
 brew 'watch'
 brew 'wget'
 brew 'yarn'
 brew 'youtube-dl'
-brew 'zsh'
-brew 'zsh-completions'

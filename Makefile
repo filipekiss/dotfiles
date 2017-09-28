@@ -3,8 +3,11 @@ all: brew permissions python iterm githooks
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
 
+requirements:
+	-@zsh ./scripts/brew.zsh "required"
+
 brew:
-	-@zsh ./scripts/brew-select.zsh
+	-@zsh ./scripts/brew.zsh
 
 python:
 	-@zsh ./scripts/python-packages.zsh
@@ -19,4 +22,4 @@ iterm:
 	-@zsh ./scripts/iterm.zsh
 
 
-PHONY: all brew permissions iterm python macos githooks
+PHONY: all brew permissions iterm python macos githooks requirements

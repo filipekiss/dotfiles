@@ -4,8 +4,10 @@
 ! has_dotfiles_function > /dev/null 2>&1 && echo "Something went wrong. Try again" && exit 1
 
 function main() {
-  local config="$1"
-  local action="config"
+  local config
+  config="$1"
+  local action
+  action="config"
   [[ $# -gt 0 ]] && shift
   case $config in
     "unconfig" )
@@ -19,7 +21,8 @@ function main() {
         [[ $# -gt 0 ]] && shift
       ;;
   esac
-  local files=($@)
+  local files
+  files=($@)
   [[ $action == "config" ]] && make_config $config $files
   [[ $action == "unconfig" ]] && undo_config $config $files
   [[ $action == "clean" ]] && clean_config $config
@@ -27,12 +30,15 @@ function main() {
 
 
 function clean_config() {
-  local config_to_clean="$1"
-  local silent=0
+  local config_to_clean
+  config_to_clean="$1"
+  local silent
+  silent=0
   [[ $config_to_clean == "E_SILENT" ]] && config_to_clean="" && silent=1
   local config_path
   config_path=${DOTFILES}/config/${config_to_clean}
-  local empty_config=($(find ${config_path%/} -type d -empty -not -iwholename '*.git*'))
+  local empty_config
+  empty_config=($(find ${config_path%/} -type d -empty -not -iwholename '*.git*'))
   if [[ -z $empty_config ]]; then
     [[ $silent -eq 0 ]] && e_success "${RESET}Nothing to clean ${YELLOW}:)"
     exit 0
@@ -43,10 +49,13 @@ function clean_config() {
 }
 
 function undo_config() {
-  local config="$1"
+  local config
+  config="$1"
   [[ $# -gt 0 ]] && shift
-  local files=($@)
-  local config_location=${DOTFILES}/config/${config}
+  local files
+  files=($@)
+  local config_location
+  config_location=${DOTFILES}/config/${config}
   if [[ ! -e ${config_location} ]]; then
     e_error "Config ${config} doesn't exists. Please, check your configs and try again!"
     exit 1
@@ -61,12 +70,17 @@ function undo_config() {
       e_info "This is a folder. Try\n${PURPLE}find ${file%/} -type f -exec config unconfig ${config} {} \;"
       exit 0
     fi
-    local finalname=${file#${config_location}/}
+    local finalname
+    finalname=${file#${config_location}/}
     finalname=${finalname#${HOME}/}
-    local source=${config_location}/${finalname}
-    local dest=${HOME}/${finalname}
-    local fileonly=$(basename ${file})
-    local dest_folder=${dest%$fileonly}
+    local source
+    source=${config_location}/${finalname}
+    local dest
+    dest=${HOME}/${finalname}
+    local fileonly
+    fileonly=$(basename ${file})
+    local dest_folder
+    dest_folder=${dest%$fileonly}
     if [[ -e ${dest} ]] && [[ ! -L ${dest} ]]; then
       e_info "The file ${PURPLE}$(basename ${file})${RESET} already exists at ${YELLOW}${dest}${RESET}. ${RED}Skipping...${RESET}"
       continue
@@ -81,18 +95,22 @@ function undo_config() {
 }
 
 function make_config() {
-  local config="$1"
+  local config
+  config="$1"
   [[ $# -gt 0 ]] && shift
-  local files=($@)
+  local files
+  files=($@)
   [[ -z $files ]] && e_info "USAGE: ${PURPLE}config ${YELLOW}<config> ${GREEN}<files to add>" && exit 0
-  local config_location=${DOTFILES}/config/${config}
+  local config_location
+  config_location=${DOTFILES}/config/${config}
   if [[ ! -e ${config_location} ]]; then
     e_info "Creating config at ${config_location}"
   fi
   for file in ${files}; do
     file=$(realpath -e $file)
     if [[ -L ${file} ]]; then
-      local realfile=$(realpath -e $file)
+      local realfile
+      realfile=$(realpath -e $file)
       e_info "${PURPLE}$(basename ${file})${RESET} is a symbolic link to ${PURPLE}${realfile}${RESET}."
       file=$realfile
     fi
@@ -104,12 +122,17 @@ function make_config() {
       e_info "${PURPLE}config${RESET} is meant for files located below your home folder. ${file} is outside your home folder"
       continue
     fi
-    local finalname=${file#${config_location}/}
+    local finalname
+    finalname=${file#${config_location}/}
     finalname=${finalname#${HOME}/}
-    local source=${HOME}/${finalname}
-    local dest=${config_location}/${finalname}
-    local fileonly=$(basename ${file})
-    local dest_folder=${dest%$fileonly}
+    local source
+    source=${HOME}/${finalname}
+    local dest
+    dest=${config_location}/${finalname}
+    local fileonly
+    fileonly=$(basename ${file})
+    local dest_folder
+    dest_folder=${dest%$fileonly}
     if [[ -e ${dest} ]]; then
       e_info "The file ${PURPLE}$(basename ${file})${RESET} already exists at ${YELLOW}${dest}${RESET}. ${RED}Skipping...${RESET}"
       continue
@@ -126,7 +149,8 @@ function make_config() {
 }
 
 function validate_path() {
-  local file_path="$1"
+  local file_path
+  file_path="$1"
   [[ ${file_path#$HOME} == ${file_path} ]] && return 1 || return 0
 }
 

@@ -1,0 +1,22 @@
+# vim:ft=ruby:
+
+# These are formulas required by the dotfiles script to do a proper run. This will be installed
+# before anything else.
+#
+# homebrew/common - formulas that should be installed on both macOS and Linux boxes
+# homebrew/macos - formulas that should only be installed on macOS boxes
+# homebrew/linux - formulas that should only be installed on Linux boxes
+
+# Taps
+tap 'homebrew/bundle'
+tap 'homebrew/dupes'
+
+# Brews
+brew 'git', args: ['without-completions']
+brew 'python'
+brew 'python3'
+brew 'coreutils'
+brew 'stow'
+brew 'transcrypt'
+brew 'zsh'
+brew 'zsh-completions'

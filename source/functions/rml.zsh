@@ -5,8 +5,10 @@ function rml() {
     if [[ $# -eq 0 ]]; then
         echo "USAGE: rml <targets to remove>" && exit 1
     else
-        local rmOptions=()
-        local filesToDelete=()
+        local rmOptions
+        rmOptions=()
+        local filesToDelete
+        filesToDelete=()
         for filePath in $@; do
             [[ $filePath == "-"* ]] && rmOptions+=($filePath) && continue
             filesToDelete+=($filePath)

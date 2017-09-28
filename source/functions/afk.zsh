@@ -4,8 +4,10 @@ is_macos || return 0
 
 
 function afk() {
-  local sierra_screensaver_location="/System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app"
-  local app_name="ScreenSaverEngine.app"
+  local sierra_screensaver_location
+  sierra_screensaver_location="/System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app"
+  local app_name
+  app_name="ScreenSaverEngine.app"
   # On macOS Sierra, the screensaver has to be acessed directly. On other versions, just try to open
   # the app by name
   if [[ -f $sierra_screensaver_location ]]; then

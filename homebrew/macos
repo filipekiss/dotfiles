@@ -1,57 +1,24 @@
 # vim:ft=ruby:
 
+# This file contains formulas that should only be installed on macOS. In case no exclusive
+# formula is required, just leave the file empty
+# For other formulas, see the files below:
+#
+# homebrew/required - formulas required to setup dotfiles
+# homebrew/common - formulas that should be installed on both macOS and Linux boxes
+# homebrew/linux - formulas that should only be installed on Linux boxes
+
 # Taps
-tap 'homebrew/bundle'
-tap 'homebrew/dupes'
-tap 'homebrew/services'
 tap 'caskroom/cask'
 tap 'caskroom/fonts'
 tap 'caskroom/versions'
-tap 'universal-ctags/universal-ctags'
 
 # Brews
-brew 'git', args: ['without-completions']
-brew 'python'
-brew 'python3'
-brew 'coreutils'
-brew 'curl'
-brew 'diff-so-fancy'
 brew 'editorconfig'
 brew 'exa'
-brew 'ffmpeg'
-brew 'fortune'
-brew 'fzf'
-brew 'git-flow-avh'
-brew 'gnu-sed'
-brew 'gnupg2'
-brew 'grep'
-brew 'htop'
-brew 'highlight'
-brew 'hub'
-brew 'jq'
-brew 'less'
 brew 'mas'
-brew 'nginx'
-brew 'nvm'
-brew 'neovim', ARGS: ['HEAD']
 brew 'reattach-to-user-namespace'
-brew 'rbenv'
-brew 'ssh-copy-id'
-brew 'stow'
-brew 'subliminal'
-brew 'tldr'
-brew 'tmux'
-brew 'transcrypt'
-brew 'tree'
 brew 'universal-ctags', args: ['HEAD']
-brew 'unrar'
-brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
-brew 'watch'
-brew 'wget'
-brew 'yarn'
-brew 'youtube-dl'
-brew 'zsh'
-brew 'zsh-completions'
 
 # Casks
 cask '1password-beta'

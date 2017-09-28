@@ -6,8 +6,10 @@
 tm() {
     # Will do nothing if there's no TMUXP binary
     (( $+commands[tmuxp] )) || return
-    local HEADER_MESSAGE="TMUXP - Select a tmux session to load"
-    local LOADED_SESSIONS=($(tmux list-sessions -F "#{session_name}" 2>/dev/null))
+    local HEADER_MESSAGE
+    HEADER_MESSAGE="TMUXP - Select a tmux session to load"
+    local LOADED_SESSIONS
+    LOADED_SESSIONS=($(tmux list-sessions -F "#{session_name}" 2>/dev/null))
     [[ -n $2 ]] && HEADER_MESSAGE="$2"
     # Find our tmuxp sessions
     TMUXP_SESSIONS=($(find ${HOME}/.tmuxp/ -not -type d))
@@ -18,7 +20,8 @@ tm() {
     # Do some magic if we have TMUX sessions already loaded
     if [[ -n $LOADED_SESSIONS ]]; then
         if [[ -n "$TMUX" ]]; then
-            local current_session=$(tmux display-message -p '#S')
+            local current_session
+            current_session=$(tmux display-message -p '#S')
             # remove current session from session list. see https://stackoverflow.com/a/25172688/708359
             TMUXP_SESSIONS[$TMUXP_SESSIONS[(i)$current_session]]=()
         fi
@@ -28,7 +31,8 @@ tm() {
         INACTIVE_TMUXP_SESSIONS=(${TMUXP_SESSIONS:|LOADED_SESSIONS})
         # If inside tmux session, remove current session from list
         if [[ -n "$TMUX" ]]; then
-            local current_session=$(tmux display-message -p '#S')
+            local current_session
+            current_session=$(tmux display-message -p '#S')
             # remove current session from session list. see https://stackoverflow.com/a/25172688/708359
             LOADED_SESSIONS[$LOADED_SESSIONS[(i)$current_session]]=()
         fi
@@ -66,7 +70,8 @@ fs() {
   local session
   HAS_TMUX_SESSION=false
   # Get the TMUX session list as an array
-  local session_list=($(tmux list-sessions -F "#{session_name}" 2>/dev/null))
+  local session_list
+  session_list=($(tmux list-sessions -F "#{session_name}" 2>/dev/null))
   [[ -n $session_list ]] && HAS_TMUX_SESSION=true
   if [[ $HAS_TMUX_SESSION == false ]]; then
       tm "$1" "TMUXP - No TMUX session found. Pick one"
@@ -78,7 +83,8 @@ fs() {
   # instead of attach-session
   if [[ -n "$TMUX" ]]; then
     change="switch-client"
-    local current_session=$(tmux display-message -p '#S')
+    local current_session
+    current_session=$(tmux display-message -p '#S')
     # remove current session from session list. see https://stackoverflow.com/a/25172688/708359
     session_list[$session_list[(i)$current_session]]=()
   fi

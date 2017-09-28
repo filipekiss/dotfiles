@@ -44,95 +44,23 @@ function has_dotfiles_function() {
 
 # Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
 function is_dotfiles_bin() {
-    [[ $SCRIPT_NAME == $DOTFILES_BINARY_NAME ]] || return 1
+    [[ -d $DOTFILES && $SCRIPT_NAME == $DOTFILES_BINARY_NAME ]] || return 1
 }
 
 # OS detection
 function is_macos() {
     [[ "$OSTYPE" =~ ^darwin ]] || return 1
 }
-function is_ubuntu() {
-    [[ "$(cat /etc/issue 2> /dev/null)" =~ Ubuntu ]] || return 1
+
+function is_linux() {
+    [[ "$OSTYPE" =~ ^linux ]] || return 1
 }
 
-function is_ubuntu_desktop() {
-    dpkg -l ubuntu-desktop >/dev/null 2>&1 || return 1
-}
 
 function get_os() {
-    for os in macos ubuntu ubuntu_desktop; do
+    for os in macos linux; do
         is_$os; [[ $? == ${1:-0} ]] && echo $os
     done
-}
-
-# Remove an entry from $PATH
-# Based on http://stackoverflow.com/a/2108540/142339
-function path_remove() {
-    local arg path
-    path=":$PATH:"
-    for arg in "$@"; do path="${path//:$arg:/:}"; done
-    path="${path%:}"
-    path="${path#:}"
-    echo "$path"
-}
-
-
-
-# Array mapper. Calls map_fn for each item ($1) and index ($2) in array.
-# Usage: array_map array_name map_fn
-function array_map() {
-    local __arr
-    eval __arr=\("\${$1[@]}"\); shift
-    for i in "${!__arr[@]}"; do
-        "$@" "${__arr[i]}" $i
-    done
-}
-
-# Print out bash array for debugging purposes
-function array_print() { array_map $1 __array_print; }
-function __array_print() { echo "$2 <$1>"; }
-
-# Array filter. Calls map_fn for each item ($1) and index ($2) in array.
-# Returns filtered array containing array values.
-# Usage: array_filter array_name filter_fn
-function array_filter() { __array_filter 1 "$@"; }
-# Returns filtered array containing array indices.
-# Usage: array_filter_i array_name filter_fn
-function array_filter_i() { __array_filter 0 "$@"; }
-
-function __array_filter() {
-    local __arr __mode __output
-    __mode=$1; shift
-    eval __arr=\("\${$1[@]}"\); shift
-    for i in "${!__arr[@]}"; do
-        [[ "$__mode" == 1 ]] && __output="${__arr[i]}" || __output=$i
-        "$@" "${__arr[i]}" $i >/dev/null && echo "$__output"
-    done
-}
-
-# Given strings containing space-delimited words A and B, "setdiff A B" will
-# return all words in A that do not exist in B. Arrays in bash are insane
-# (and not in a good way).
-# From http://stackoverflow.com/a/1617303/142339
-function setdiff() {
-    local debug skip a b
-    if [[ "$1" == 1 ]]; then debug=1; shift; fi
-    if [[ "$1" ]]; then
-        local setdiff_new setdiff_cur setdiff_out
-        setdiff_new=($1); setdiff_cur=($2)
-    fi
-    setdiff_out=()
-    for a in "${setdiff_new[@]}"; do
-        skip=
-        for b in "${setdiff_cur[@]}"; do
-            [[ "$a" == "$b" ]] && skip=1 && break
-        done
-        [[ "$skip" ]] || setdiff_out=("${setdiff_out[@]}" "$a")
-    done
-    [[ "$debug" ]] && for a in setdiff_new setdiff_cur setdiff_out; do
-    echo "$a ($(eval echo "\${#$a[*]}")) $(eval echo "\${$a[*]}")" 1>&2
-done
-[[ "$1" ]] && echo "${setdiff_out[@]}"
 }
 
 # If this file was being sourced, exit now.
@@ -220,9 +148,32 @@ function validate_stow() {
 }
 
 function validate_homebrew() {
-    cd $DOTFILES
-    make brew
+    # Install homebrew
+    install_linuxbrew
+    install_homebrew
+    hash -r
 }
+
+function install_linuxbrew() {
+    if (( ! $+commands[brew] )) && is_linux; then
+        sudo apt-get install -y build-essential curl file git python-setuptools ruby
+        e_info "Installing Linuxbrew"
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+    fi
+}
+
+function install_homebrew() {
+    if (( ! $+commands[brew] )) && is_macos; then
+        e_info "Installing Homebrew"
+        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+}
+
+function validate_requirements() {
+    cd $DOTFILES
+    make requirements
+}
+
 
 function install_dotfiles() {
     # Initialize.
@@ -237,9 +188,9 @@ function install_dotfiles() {
         fi
         e_info "Since this is the first time you're running this,"
         e_info "this must be run this from path, properly."
-        e_info "Please, run the command below"
-        update_path()
-        e_info "$DOTFILES/bin/$DOTFILES_BINARY_NAME"
+        e_info "Trying to run from path…"
+        update_path
+        exec "$DOTFILES_BINARY_NAME"
         exit 0
     elif [[ "$1" != "restart" ]]; then
         prev_head="$(git rev-parse HEAD)"
@@ -279,7 +230,9 @@ function install_dotfiles() {
 
 function update_path() {
     # Add binaries into the path
-    [[ -d $DOTFILES/bin ]] && export PATH=$DOTFILES/bin:$PATH
+    PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+    PATH=${HOME}/.linuxbrew/bin:$PATH
+    export PATH=${HOME}/.dotfiles/bin:$PATH
 }
 
 function prepare_folders() {
@@ -298,9 +251,12 @@ function show_backup_message() {
 
 function link_config() {
     IFS=$'\n'
-    local files=($(git --work-tree=$DOTFILES --git-dir=$DOTFILES/.git ls-files config/**/*))
-    local stow_paths=($(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d))
-    local managed_folders=($(find ~/.dotfiles/config/* -mindepth 1 -type d))
+    local files
+    files=($(git --work-tree=$DOTFILES --git-dir=$DOTFILES/.git ls-files config/**/*))
+    local stow_paths
+    stow_paths=($(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d))
+    local managed_folders
+    managed_folders=($(find ~/.dotfiles/config/* -mindepth 1 -type d))
     unset IFS
 
     for file in $files; do
@@ -315,7 +271,8 @@ function link_config() {
 }
 
 function do_stow() {
-    local stow_path="$1"
+    local stow_path
+    stow_path="$1"
     if [[ -d "${DOTFILES}/config/${stow_path}" ]]; then
         e_info "Stowing ${YELLOW}${stow_path}${RESET}"
         stow --ignore ".DS_Store" --target="$HOME" --dir="${DOTFILES}/config" $stow_path
@@ -325,7 +282,8 @@ function do_stow() {
 
 function backup_stuff() {
     local DEST
-    local TARGET="$1"
+    local TARGET
+    TARGET="$1"
     e_info "Preparing ${TARGET}..."
     SOURCE="${HOME}/${TARGET}"
     DEST="${DOTFILES_BACKUP_DIR}/${TARGET}"
@@ -338,7 +296,8 @@ function backup_stuff() {
 }
 
 function make_folder() {
-    local FOLDER=$1
+    local FOLDER
+    FOLDER=$1
     [[ -e "${FOLDER}" ]] && e_info "${FOLDER} already exists. Skipping..." && return
     mkdir -p "${FOLDER}" && e_success "${FOLDER} created"
 }
@@ -369,16 +328,6 @@ function setup_git_config() {
 }
 
 
-function install_apps() {
-	if [[ -d $DOTFILES ]]; then
-		e_info "Installing apps. This may take a while...."
-		cd "$DOTFILES" && make
-	else
-		e_error "There's no $DOTFILES folder"
-	fi
-}
-
-
 function main() {
     if [[ "$1" == "-h" || "$1" == "--help" ]]; then
         e_info "Usage: dotfiles"
@@ -404,18 +353,18 @@ function main() {
     show_script_header
     show_script_info
     validate_homebrew
+    update_path
     validate_git
     validate_stow
-    update_path
-    prepare_folders
     install_dotfiles
+    validate_requirements
+    prepare_folders
     link_config
     setup_git_config
     show_backup_message
-    install_apps
     # all done!
-    e_success "Make sure you change your shell to homebrew's zsh: chsh -s $(brew --prefix)/bin/zsh"
-    is_macos && e_success "If it's the first time you're running this, run make macos"
+    e_success "Make sure you change your shell to homebrew's zsh: ${YELLOW}chsh -s $(brew --prefix)/bin/zsh"
+    e_success "Don't forget to run ${YELLOW}make all${RESET}"
 }
 
 SCRIPT_NAME="$(basename $0)"
