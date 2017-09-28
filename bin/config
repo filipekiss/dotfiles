@@ -32,7 +32,7 @@ function clean_config() {
   [[ $config_to_clean == "E_SILENT" ]] && config_to_clean="" && silent=1
   local config_path
   config_path=${DOTFILES}/config/${config_to_clean}
-  local empty_config=$(find ${config_path%/} -type d -empty)
+  local empty_config=($(find ${config_path%/} -type d -empty -not -iwholename '*.git*'))
   if [[ -z $empty_config ]]; then
     [[ $silent -eq 0 ]] && e_success "${RESET}Nothing to clean ${YELLOW}:)"
     exit 0

@@ -2,9 +2,7 @@
 #
 # USAGE: transfer <file>
 
-if (( ! $+commands[curl] )); then
-  return 1
-fi
+(( $+commands[curl] )) || return 0
 
 transfer() {
     # check arguments

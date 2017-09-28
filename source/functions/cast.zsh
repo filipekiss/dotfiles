@@ -2,9 +2,7 @@
 #
 # No arguments will work as `brew ls`. Otherwise will behave as `brew install`
 
-is_macos || return 0
-
-[[ $+commands[brew] ]] || return 0
+(( $+commands[brew] )) || return 0
 
 unalias cast 2> /dev/null
 
@@ -16,5 +14,5 @@ else
   fi
 }
 
-# Autocomplete as if typing `brew cask`
-compdef '_brew_install' cast
+# Autocomplete as if typing `brew cask`. This only works on macos
+is_macos && compdef '_brew_install' cast

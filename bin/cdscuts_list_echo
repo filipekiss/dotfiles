@@ -1,3 +1,0 @@
-#!/usr/bin/env zsh
-
-cat $1 | sed '/^\s*$/d'

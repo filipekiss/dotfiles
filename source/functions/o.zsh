@@ -8,6 +8,9 @@ if (( $+commands[xdg-open] )); then
   alias open="xdg-open &> /dev/null"
 fi
 
+# Exit if no command/alias open is defined
+(( $+commands[open] || $+aliases[open] )) || return 0
+
 function o {
   if [[ $# -eq 0 ]]; then
     open .

@@ -1,6 +1,5 @@
-if (( ! $+commands[youtube-dl] )); then
-  return 0
-fi
+# Don't run if youtube-dl is not available
+(( $+commands[youtube-dl] )) || return 0
 
 unalias yt2mp3 2>/dev/null
 

@@ -4,7 +4,7 @@
 
 is_macos || return 0
 
-[[ $+commands[brew] ]] || return 0
+(( $+commands[brew] )) || return 0
 
 unalias cask 2> /dev/null
 

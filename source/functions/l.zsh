@@ -5,7 +5,7 @@ l(){
     if [[ "$1" == '--help' ]]; then
       exa --help
     else
-      # --all --long --group --header --links --classify --color-scale --group-directories-first --sort=type
+        # --all --long --group --header --links|-H --classify|-F --color-scale --group-directories-first --sort=type
       exa -alghHF --color-scale --group-directories-first --sort=type "$@"
     fi
   else

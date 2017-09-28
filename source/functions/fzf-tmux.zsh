@@ -5,7 +5,7 @@
 
 tm() {
     # Will do nothing if there's no TMUXP binary
-    [[ $+commands[tmuxp] ]] || return
+    (( $+commands[tmuxp] )) || return
     local HEADER_MESSAGE="TMUXP - Select a tmux session to load"
     local LOADED_SESSIONS=($(tmux list-sessions -F "#{session_name}" 2>/dev/null))
     [[ -n $2 ]] && HEADER_MESSAGE="$2"

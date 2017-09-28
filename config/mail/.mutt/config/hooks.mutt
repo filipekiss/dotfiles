@@ -1,4 +1,0 @@
-folder-hook +Work/  source ~/.mutt/accounts/work
-
-# Source this file initially, so it acts like a default account
-source ~/.mutt/accounts/work
