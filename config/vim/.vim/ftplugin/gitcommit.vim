@@ -6,4 +6,4 @@ setl formatoptions+=t
 setl textwidth=72
 
 " While git commit titles are constraied to 50 characters
-setl colorcolumn=+51
+setl colorcolumn=51,73
