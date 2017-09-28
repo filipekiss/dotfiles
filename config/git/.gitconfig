@@ -41,7 +41,6 @@
     patch = !git --no-pager diff --no-color
     patch = add -v -p
     pr = pull-request -b
-    prune = fetch --prune
     ps = push
     purr = pull --rebase
     rba = rebase --abort
@@ -109,7 +108,7 @@
     templatedir = ~/.git_template
 
 [fetch]
-    prunt = true
+	prune = true
 #
 # URL shorthands
 [url "git@github.com:"]
