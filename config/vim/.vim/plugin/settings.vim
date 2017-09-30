@@ -202,8 +202,8 @@ set shortmess+=t                      " truncate file messages at start
 " endif
 
 if has('nvim')
-  let g:python_host_prog = '/usr/local/bin/python2'
-  let g:python3_host_prog = '/usr/local/bin/python3'
+  let g:python_host_prog = nrun#Which('python2')
+  let g:python3_host_prog = nrun#Which('python3')
 endif
 
 " Configure fold status text
