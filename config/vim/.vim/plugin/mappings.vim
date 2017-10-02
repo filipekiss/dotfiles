@@ -30,18 +30,13 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
-" Use Alt<hjkl> to move between buffers on the same tab
-if has('macunix')
-    nnoremap ˙      <c-w>h
-    nnoremap ∆      <c-w>j
-    nnoremap ˚      <c-w>k
-    nnoremap ¬      <c-w>l
-elseif has('unix')
-    nnoremap <M-h>      <c-w>h
-    nnoremap <M-j>       <c-w>j
-    nnoremap <M-k>       <c-w>k
-    nnoremap <M-l>       <c-w>l
-endif
+
+" https://twitter.com/vimgifs/status/913390282242232320
+" :h i_CTRL-G_u
+inoremap . .<c-g>u
+inoremap ? ?<c-g>u
+inoremap ! !<c-g>u
+inoremap , ,<c-g>u
 
 
 " Disable arrow keys (hardcore)
@@ -118,6 +113,9 @@ nnoremap <Leader>n :e <C-R>=expand("%:p:h") . "/" <CR>
 " Tab and Shift + Tab Circular buffer navigation
 nnoremap <tab>   :bnext<CR>
 nnoremap <S-tab> :bprevious<CR>
+
+
+
 
 
 " use tab to toggle folds
