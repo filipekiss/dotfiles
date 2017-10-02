@@ -52,6 +52,7 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  ./node_modules/.bin
   ${HOME}/.dotfiles/bin
   ${HOME}/.linuxbrew/bin
   /home/linuxbrew/.linuxbrew/bin
