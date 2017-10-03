@@ -6,14 +6,14 @@ windows:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
-  start_directory: /Users/filipekiss/.dotfiles
+  start_directory: ~/.dotfiles
   window_name: '[.]files'
 - layout: befe,318x82,0,0,1
   options:
     automatic-rename: 'off'
   panes:
   - focus: 'true'
-  start_directory: /Users/filipekiss/code
+  start_directory: ~/code
   window_name: playground
 - layout: 86c5,318x82,0,0{238x82,0,0,2,79x82,239,0[79x26,239,0,3,79x26,239,27,4,79x28,239,54,5]}
   options:
@@ -21,13 +21,13 @@ windows:
   panes:
   - focus: 'true'
     shell_command:
-    - cd /Users/filipekiss/work/saraiva-magento
+    - cd ~/work/saraiva-magento
   - shell_command:
-    - cd /Users/filipekiss/work/saraiva-magento
+    - cd ~/work/saraiva-magento
     - git status
   - shell_command:
-    - cd /Users/filipekiss/work/saraiva-magento/gulp
+    - cd ~/work/saraiva-magento/gulp
   - shell_command:
-    - cd /Users/filipekiss/work/saraiva-magento
+    - cd ~/work/saraiva-magento
     - htop
   window_name: Saraiva
