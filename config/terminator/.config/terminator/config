@@ -16,10 +16,8 @@
       type = Window
 [plugins]
 [profiles]
-  [[default]]
-    background_color = "#2e3440"
-    background_image = None
-    cursor_color = "#D8DEE9"
-    foreground_color = "#d8dee9"
-    login_shell = True
-    palette = "#3b4252:#bf616a:#a3be8c:#ebcb8b:#81a1c1:#b48ead:#88c0d0:#e5e9f0:#4c566a:#bf616a:#a3be8c:#ebcb8b:#81a1c1:#b48ead:#8fbcbb:#eceff4"
+    [[default]]
+        background_color = "#282828"
+        cursor_color = "#7c6f64"
+        foreground_color = "#ebdbb2"
+        palette = "#181818:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#a89984:#928374:#fb4934:#b8bb26:#fabd2f:#83a598:#d3869b:#8ec07c:#ebdbb2"
