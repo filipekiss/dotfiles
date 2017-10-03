@@ -11,7 +11,7 @@ alias pubkey='cat $HOME/.ssh/id_rsa.pub'
 alias rm="${aliases[rm]:-rm} -i"
 alias rsync="rsync -rpltDv"
 alias server="sudo python -m SimpleHTTPServer 80"
-alias type='${aliases[type]:-type} -a'
+alias type="${saliases[type]:-type} -a"
 
 # File Download
 if (( $+commands[curl] )); then
