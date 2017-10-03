@@ -25,9 +25,9 @@ set statusline+=%5*\ %{statusline#fileSize()}
 set statusline+=%5*%{statusline#rhs()}
 set statusline+=%*
 
-execute 'highlight! User2 gui=none guifg=#84a598'
+execute 'highlight! User2 gui=NONE guifg=#84a598'
 execute 'highlight! User3 gui=bold guifg=#488587'
-execute 'highlight! User4 gui=none guifg=none'
+execute 'highlight! User4 gui=NONE guifg=NONE'
 execute 'highlight! User5 guifg=#6a9c6c'
 
 " This is here to ensure proper statusline redraw when changing modes
