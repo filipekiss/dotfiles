@@ -1,18 +1,29 @@
-# simple afk command to invoke screensaver from CLI. MacOS only for now
-
-is_macos || return 0
+# simple afk command to invoke screensaver from CLI.
 
 
-function afk() {
-  local sierra_screensaver_location
-  sierra_screensaver_location="/System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app"
+
+function _macos_afk() {
   local app_name
   app_name="ScreenSaverEngine.app"
+  local sierra_screensaver_location
+  sierra_screensaver_location="/System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/${app_name}"
   # On macOS Sierra, the screensaver has to be acessed directly. On other versions, just try to open
   # the app by name
   if [[ -f $sierra_screensaver_location ]]; then
-    /usr/bin/open /System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/ScreenSaverEngine.app
+    /usr/bin/open ${sierra_screensaver_location}
   else
     /usr/bin/open -a $app_name
   fi
+}
+
+function _linux_afk() {
+    if (( $+commands[xdg-screensaver] )); then
+        $commands[xdg-screensaver] lock
+    else
+        echo "This distro is not supported yet. :("
+    fi
+}
+function afk() {
+    is_macos && _macos_afk
+    is_linux && _linux_afk
 }
