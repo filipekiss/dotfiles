@@ -8,6 +8,7 @@ PACKAGES=(
      neovim
      tmuxp
      vim-vint
+     virtualenv
      jedi
 )
 
