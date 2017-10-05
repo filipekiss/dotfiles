@@ -18,7 +18,7 @@ source ~/.zplug/init.zsh
 ###############################
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "Eriner/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eriner/zim ~/.zim"
+zplug "Eriner/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eriner/zim ~/.zim && ln -sf $ZPLUG_REPOS/Eriner/zim/templates/zlogin ~/.zlogin"
 zplug "noveumdois/nine12", as:theme
 zplug "knu/z", use:"z.sh", depth:1, defer:1
 zplug "b4b4r07/emoji-cli"
