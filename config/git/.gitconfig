@@ -58,7 +58,9 @@
     update-commit = "!git a . && git ci --amend --no-edit"
     update-submodules = "!git submodule -q foreach git pull -q origin master"
     van = add -vAn
+    w = whatchanged  --pretty=format:\"%C(blue)%h %Creset- %C(green)(%cr) %C(cyan)<%aN> %Creset%aE %C(magenta)%d %n %C(yellow)%s %n%Creset\" --date=short
     wipe = !git reset --hard HEAD && git clean -fd
+	who = shortlog -sne
 
 [push]
     default = current
@@ -67,7 +69,8 @@
     excludesfile = ~/.gitignore_global
     filemode = false
     mergeoptions = --no-edit
-    untrackedCache = true
+    # https://news.ycombinator.com/item?id=11388479
+	untrackedCache = true
     editor = $EDITOR
 
 [color]
@@ -140,5 +143,10 @@
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
     show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+
 [github]
 	user = filipekiss
+
+
+[pull]
+	rebase = true
