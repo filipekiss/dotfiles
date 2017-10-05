@@ -21,6 +21,7 @@ brew 'less'
 brew 'nvm'
 brew 'neovim', ARGS: ['HEAD']
 brew 'rbenv'
+brew 'ripgrep'
 brew 'ssh-copy-id'
 brew 'tmux'
 brew 'tree'
