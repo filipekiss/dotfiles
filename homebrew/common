@@ -4,6 +4,7 @@
 tap 'homebrew/services'
 
 # Brews
+brew 'asciinema'
 brew 'curl'
 brew 'diff-so-fancy'
 brew 'ffmpeg'
