@@ -70,11 +70,15 @@ set whichwrap=b,h,l,s,<,>,[,],~       " allow <BS>/h/l/<Left>/<Right>/<Space>, ~
 set completeopt+=menuone
 set completeopt-=preview
 
-" highlight current line (Check auto groups too)
-" https://github.com/mhinz/vim-galore#smarter-cursorline
+" highlight current line in insert mode, don't bother otherwise
 set nocursorcolumn       " do not highlight column
-" autocmd InsertLeave,WinEnter * set cursorline
-" autocmd InsertEnter,WinLeave * set nocursorline
+autocmd InsertLeave,WinEnter * set nocursorline
+autocmd InsertEnter,WinLeave * set cursorline
+
+" use relative numbers in normal mode, absolute numbers in insert mode
+set number
+autocmd InsertLeave,WinEnter * set relativenumber
+autocmd InsertEnter,WinLeave * set norelativenumber
 
 set lazyredraw                        " don't bother updating screen during macro playback
 
