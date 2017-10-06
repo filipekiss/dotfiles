@@ -48,6 +48,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-eunuch'
 
 " Syntax
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
