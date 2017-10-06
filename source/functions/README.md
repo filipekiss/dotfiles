@@ -1,10 +1,10 @@
 # My custom functions
 
-If a function is worth explaning, it's here
+If a function is worth explaining, it's here
 
 ## tm() and fs() functions
 
-These functions are used to handle my workflow during multiple tmux sessions. fs() is a fast-switch
+These functions are used to handle my workflow during multiple tmux sessions. fs() is a fast switch
 and tm() loads sessions from my tmuxp configuration
 
 However, both functions are a little smart, so I won't get frustrated:
