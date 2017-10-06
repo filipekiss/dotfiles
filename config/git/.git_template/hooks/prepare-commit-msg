@@ -43,6 +43,7 @@ function fzf_select_emoji() {
     fzf --multi --ansi --header "Use <TAB> to select multiple" |
     grep '|' |
     cut -d '|' -f2 |
+    awk '{$1=$1};1'
     join-lines
 }
 
@@ -57,7 +58,7 @@ function fzf_prepare_message() {
     fi
     if $SHOW_EMOJI_SELECTOR; then
         local prepend_emojis=$(fzf_select_emoji)
-        echo ${prepend_emojis}" "${COMMITS_MESSAGE_CONTENT} | tee ${COMMIT_MESSAGE_FILE} > /dev/null
+        echo "${prepend_emojis} ${COMMITS_MESSAGE_CONTENT}" | tee ${COMMIT_MESSAGE_FILE} > /dev/null
     fi
 }
 
