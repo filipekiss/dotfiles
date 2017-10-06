@@ -49,8 +49,16 @@ fi
 
 alias e=$EDITOR
 
+# Useful stuff
+alias ev="e ~/.vimrc"
+alias "?"="pwd"
+alias flushcache="dscacheutil -flushcache && sudo kill -HUP mDNSResponder"
+
 # Muscle memory is a bitch
 alias :qa=exit
 alias :wq=exit
 [[ $TERM == *"tmux"* ]] && alias :sp='tmux split-window'
 [[ $TERM == *"tmux"* ]] && alias :vs='tmux split-window -h'
+
+# Add default arguments to a few command
+(( $+commands[rg] )) && alias rg="${commands[rg]} --hidden"
