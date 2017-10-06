@@ -52,7 +52,7 @@ alias e=$EDITOR
 # Useful stuff
 alias ev="e ~/.vimrc"
 alias "?"="pwd"
-alias flushcache="dscacheutil -flushcache && sudo kill -HUP mDNSResponder"
+alias flushcache="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 
 # Muscle memory is a bitch
 alias :qa=exit
