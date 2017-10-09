@@ -83,3 +83,4 @@ function make_folder() {
 validate_stow
 prepare_folders
 link_config
+show_backup_message

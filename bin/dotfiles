@@ -134,19 +134,6 @@ function validate_git() {
     fi
 }
 
-function validate_stow() {
-    if (( ! $+commands[stow] )); then
-        e_info "Installing Stow"
-        brew install stow
-        hash -r
-    fi
-    # If Stow isn't installed by now, something exploded. We gots to quit!
-    if (( ! $+commands[stow] )); then
-        e_error "Stow should be installed. It isn't. Aborting."
-        exit 1
-    fi
-}
-
 function validate_homebrew() {
     # Install homebrew
     install_linuxbrew
@@ -235,44 +222,8 @@ function update_path() {
     export PATH=${HOME}/.dotfiles/bin:$PATH
 }
 
-function prepare_folders() {
-    # If backups are needed, this is where they'll go.
-    DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%s")"
-    backup=""
-    [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
-}
-
-function show_backup_message() {
-    # Alert if backups were made.
-    if [[ "$backup" ]]; then
-        e_info "Backups were moved to ${BLUE}~/${DOTFILES_BACKUP_DIR#$HOME/}${RESET}"
-    fi
-}
-
 function link_config() {
     make stow
-}
-
-function backup_stuff() {
-    local DEST
-    local TARGET
-    TARGET="$1"
-    e_info "Preparing ${TARGET}..."
-    SOURCE="${HOME}/${TARGET}"
-    DEST="${DOTFILES_BACKUP_DIR}/${TARGET}"
-    if [[ ${TARGET} != $(basename ${TARGET}) ]]; then
-        #this config file is located in a subfolder.
-        make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
-    fi
-    REALPATH=${SOURCE:A}
-    [[ -f ${SOURCE} && ${SOURCE} == ${REALPPATH} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
-}
-
-function make_folder() {
-    local FOLDER
-    FOLDER=$1
-    [[ -e "${FOLDER}" ]] && e_info "${FOLDER} already exists. Skipping..." && return
-    mkdir -p "${FOLDER}" && e_success "${FOLDER} created"
 }
 
 function setup_git_config() {
@@ -328,13 +279,10 @@ function main() {
     validate_homebrew
     update_path
     validate_git
-    validate_stow
     install_dotfiles
     validate_requirements
-    prepare_folders
     link_config
     setup_git_config
-    show_backup_message
     # all done!
     e_success "Make sure you change your shell to homebrew's zsh: ${YELLOW}chsh -s $(brew --prefix)/bin/zsh"
     e_success "Don't forget to run ${YELLOW}make all${RESET}"
