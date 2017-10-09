@@ -1,0 +1,3 @@
+[submodule "config/keys"]
+	path = config/keys
+	url = keybase://private/filipekiss/private-keys
