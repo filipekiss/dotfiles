@@ -250,35 +250,8 @@ function show_backup_message() {
 }
 
 function link_config() {
-    IFS=$'\n'
-    local files
-    files=($(git --work-tree=$DOTFILES --git-dir=$DOTFILES/.git ls-files config/**/*))
-    local stow_paths
-    stow_paths=($(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d))
-    local managed_folders
-    managed_folders=($(find ~/.dotfiles/config/* -mindepth 1 -type d))
-    unset IFS
-
-    for file in $files; do
-        file=${file#*/*/}
-        backup_stuff $file
-    done
-
-    for stow_path in $stow_paths; do
-        stow_path=${stow_path#$DOTFILES/config/}
-        do_stow "${stow_path}"
-    done;
+    make stow
 }
-
-function do_stow() {
-    local stow_path
-    stow_path="$1"
-    if [[ -d "${DOTFILES}/config/${stow_path}" ]]; then
-        e_info "Stowing ${YELLOW}${stow_path}${RESET}"
-        stow --ignore ".DS_Store" --target="$HOME" --dir="${DOTFILES}/config" $stow_path
-    fi
-}
-
 
 function backup_stuff() {
     local DEST

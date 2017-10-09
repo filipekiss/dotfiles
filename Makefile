@@ -21,5 +21,10 @@ githooks:
 iterm:
 	-@zsh ./scripts/iterm.zsh
 
+stow:
+	-@zsh ./scripts/stow.zsh
 
-PHONY: all brew permissions iterm python macos githooks requirements
+keybase:
+	-@zsh ./scripts/keybase.zsh
+
+PHONY: all brew permissions iterm python macos githooks requirements stow keybase

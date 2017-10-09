@@ -26,6 +26,13 @@ If it is the first time you're running this on the machine (or if you want to ch
 updates/installation changes), run `./bin/dotfiles install`
 
 
+## Private Keybase Submodule
+
+Keybase has [private encrypted git repos][keybase-git-announcement], so my private data are hosted
+there. After the first installation, just run `make keybase` and it will ask you to login on keybase
+if it's not logged yet and then will clone the sub repository. After that, just run `make stow`
+again.
+
 ## Sensitive Data
 
 Any sensitive file (such as `.ssh/id_rsa`) is encrypted using a `aes-256-cbc` cypher and protected
