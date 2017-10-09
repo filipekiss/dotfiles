@@ -1,6 +1,0 @@
-# Ignore everything
-*
-# Dont ignore the files below
-!.gitignore
-!.ssh/id_rsa
-!.ssh/id_rsa.pub
