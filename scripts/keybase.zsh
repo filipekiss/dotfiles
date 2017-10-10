@@ -10,7 +10,7 @@ function login_keybase() {
 
 function init_submodules() {
     e_info "Updating submodule"
-    GIT_ALLOW_PROTOCOL=keybase $commands[git] submodule update --recursive --remote
+    GIT_ALLOW_PROTOCOL=keybase $commands[git] submodule update --init --recursive --remote
     e_info "Done"
 }
 
