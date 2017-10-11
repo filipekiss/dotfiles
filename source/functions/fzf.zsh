@@ -36,10 +36,10 @@ fstash() {
   while out=$(
     git stash list --pretty="%C(yellow)%gd %C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
     fzf --ansi --no-sort --query="$q" --print-query \
-        --header "Ctrl-a to apply stash | Ctrl-d to diff against current HEAD | Ctrl-b to create branch | Ctrl-s to drop selected stash" \
+        --header "Ctrl-a: apply stash | Ctrl-d: diff | Ctrl-b: create branch | Ctrl-s: drop | Ctrl-p: Pop" \
       --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 |
                  xargs -I % sh -c 'git stash show --color=always % | head -200 '" \
-        --expect=ctrl-d,ctrl-b,ctrl-s,ctrl-a);
+        --expect=ctrl-d,ctrl-b,ctrl-s,ctrl-a,ctrl-p);
   do
     out=( "${(@f)out}")
     q="${out[0]}"
@@ -58,13 +58,11 @@ fstash() {
       git stash drop $stashIdx
       break;
     elif [[ "$k" == 'ctrl-a' ]]; then
-      if [[ ${FSTASH_APPLY:-apply} == "DROP" ]]; then
-        git stash pop $stashIdx
-        break;
-      else
-        git stash apply $sha
-        break;
-      fi
+      git stash apply $sha
+      break;
+    elif [[ "$k" == 'ctrl-p' ]]; then
+      git stash pop $stashIdx
+      break;
     fi
   done
 }
