@@ -12,6 +12,7 @@ alias rm="${aliases[rm]:-rm} -i"
 alias rsync="rsync -rpltDv"
 alias server="sudo python -m SimpleHTTPServer 80"
 alias type="${saliases[type]:-type} -a"
+alias gulp="nocorrect gulp"
 
 # File Download
 if (( $+commands[curl] )); then
