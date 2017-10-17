@@ -51,6 +51,8 @@ tags.*
 Session.vim
 *.swp
 *.add.spl
+*.spl
+*.sug
 *.vim-rplugin~
 .netrwhist
 undodir/
