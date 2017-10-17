@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # mx
-# version 0.5
+# version 0.6
 
 # Contributors:
 #   Wynn Netherland - https://github.com/pengwynn
@@ -47,12 +47,17 @@ fi
 
 # tmux 1.9a+ doesn't like .'s in session names
 SESSION="${SESSION//./_}"
+[[ "$SESSION" == *"dotfiles" ]] && SESSION="dotfiles"
 
-if ! (tmux list-sessions | cut -d':' -f1 | grep -q ^"$SESSION"\$); then
+if ! (tmux has-session -t "$SESSION"); then
 
     WORKINGDIR=""
 
-    if [ -d "$PROJECTS"/"$SESSION"/"$2" ]; then
+    if [[ "$SESSION" == "dotfiles" && -d "$HOME/.dotfiles" ]]; then
+        WORKINGDIR="${HOME}/.dotfiles"
+    elif [ -d "${HOME}/${SESSION}" ]; then
+        WORKINGDIR="$HOME/$SESSION"
+    elif [ -d "$PROJECTS"/"$SESSION"/"$2" ]; then
         WORKINGDIR="$PROJECTS"/"$SESSION"/"$2"
     elif [ -d "$PROJECTS"/"$SESSION" ]; then
         WORKINGDIR="$PROJECTS"/"$SESSION"
@@ -61,14 +66,15 @@ if ! (tmux list-sessions | cut -d':' -f1 | grep -q ^"$SESSION"\$); then
     fi
 
     tmux new-session -s "$SESSION" -n editor -d -c $WORKINGDIR
-    # if  [ -f "./start" ]; then
-        # tmux send-keys -t "$SESSION":1 './start' C-m
-    # fi
-    # tmux send-keys -t "$SESSION":1 "$EDITOR" C-m
-    tmux split-window -h -p 15 -c $WORKINGDIR
-
-    tmux select-window -t "$SESSION":1
-    tmux select-pane -t0
+    # If there's a start script, execute it
+    if  [ -f "${WORKINGDIR}/start" ]; then
+        tmux send-keys -t "$SESSION":1 "${WORKINGDIR}/start" C-m
+    # Else, run the default config: Split 85/15 with editor on left and shell on $PWD on right
+    else
+        tmux split-window -h -p 15 -c $WORKINGDIR
+        tmux select-pane -t0
+        tmux send-keys -t "$SESSION":1 "$EDITOR" C-m
+    fi
 fi
 
 if [ -z "$TMUX" ]; then
