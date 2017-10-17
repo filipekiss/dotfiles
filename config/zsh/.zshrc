@@ -22,6 +22,8 @@ zplug "Eriner/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eri
 zplug "filipekiss/pure", depth:1, use:"{async,pure}.zsh"
 zplug "knu/z", use:"z.sh", depth:1, defer:1
 zplug "b4b4r07/emoji-cli"
+zplug "zsh-users/zsh-completions", defer:1
+zplug "zsh-users/zsh-autosuggestions", defer:1
 zplug "docker/cli", use:contrib/completion/zsh
 zplug "docker/compose", use:contrib/completion/zsh
 
