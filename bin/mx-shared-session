@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# mx-share-session is a session with utilities that is linked to every tmux session I run
+
+# How to use:
+#
+# Just update the MX_SHARED array with the commands you wish to run on a shared session. The window
+# will be named after the binary you're running. You can also use aliases.
+
+MX_SHARED=(
+    weechat
+)
+
+
+function try_open() {
+    if (type -p "$1" > /dev/null); then
+        if ! (tmux has-session "_shared" > /dev/null 2>&1); then
+            tmux new-session -d -s "_shared" -n "$1"
+        fi
+        tmux set-option allow-rename off
+        tmux send-keys "$1 $2" C-m
+    else
+        echo "$1 was not found in your path…"
+    fi
+}
+
+function create_shared_session() {
+    for PROGRAM in ${MX_SHARED[@]}; do
+        try_open "$PROGRAM"
+    done;
+}
+
+function create() {
+    if ! (tmux has-session -t "_shared" > /dev/null 2>&1); then
+        create_shared_session
+    fi
+}
+
+function link() {
+    if (tmux has-session -t "_shared" > /dev/null 2>&1); then
+        for PROGRAM in ${MX_SHARED[@]}; do
+            tmux link-window -s "_shared:weechat"
+        done;
+    fi
+}
+
+case "$1" in
+    link)
+        link
+        ;;
+    create)
+        create
+        ;;
+esac

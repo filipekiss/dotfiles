@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # mx
-# version 0.6
+# version 0.7
 
 # Contributors:
 #   Wynn Netherland - https://github.com/pengwynn
@@ -39,6 +39,7 @@
 
 set -e
 
+
 if [ -z "$1" ]; then
   SESSION="${PWD##*/}"
 else
@@ -49,7 +50,9 @@ fi
 SESSION="${SESSION//./_}"
 [[ "$SESSION" == *"dotfiles" ]] && SESSION="dotfiles"
 
-if ! (tmux has-session -t "$SESSION"); then
+mx-shared-session "create"
+
+if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
 
     WORKINGDIR=""
 
@@ -75,6 +78,9 @@ if ! (tmux has-session -t "$SESSION"); then
         tmux select-pane -t0
         tmux send-keys -t "$SESSION":1 "$EDITOR" C-m
     fi
+
+    mx-shared-session "link"
+    tmux select-window -t 1
 fi
 
 if [ -z "$TMUX" ]; then
