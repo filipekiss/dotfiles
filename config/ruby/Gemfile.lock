@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    lunchy (0.10.4)
+    msgpack (1.1.0)
+    neovim (0.5.1)
+      msgpack (~> 1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  lunchy
+  neovim
+
+BUNDLED WITH
+   1.15.4

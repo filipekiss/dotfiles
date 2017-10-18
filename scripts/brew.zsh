@@ -19,6 +19,7 @@ function select_brewfiles() {
             brew cleanup
             e_info "Maybe running \`brew doctor\` is a good idea"
         fi
+        hash -r
     else
         e_info "No Brewfile selected for installation"
     fi

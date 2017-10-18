@@ -1,4 +1,4 @@
-all: brew permissions python iterm githooks
+all: brew permissions python ruby iterm githooks
 
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
@@ -11,6 +11,10 @@ brew:
 
 python:
 	-@zsh ./scripts/python-packages.zsh
+
+ruby:
+	-@gem install bundler
+	-@bundle install --system --gemfile=./config/ruby/Gemfile
 
 macos:
 	-@zsh ./scripts/macos-options.zsh
