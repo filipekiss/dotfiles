@@ -3,37 +3,22 @@
 There's not much secret on the tmux config itself. It's basically my key bindings. Most, if not all
 of them are commented, so you can just read them directly from the `.tmux.conf` file.
 
-There's a `.tmux.reset.conf` that is sourced at the beginning of my `.tmux.conf` that resets the
-key bindings to the defaults of TMUX (and then my own custom key bindings are applied). This is to
-allow me to just `source ~/.tmux.conf` and try changed bindings. See [this question on
-stackoverflow][tmux-reset-binding] for more info.
+# `mx` what?
 
-## TMUXP - TMUX Session Manager
+I used to use [tmuxp] for managing my sessions, but I found [mx] to better suit how I work.
 
-I'm using [tmuxp][tmuxp] as my session manager. It's written in Python and installed via `pip` (it's
-on my `../../scripts/python-packages.zsh` file) and it's pretty easy to use.
+`mx` is a simple binary that will take one to two arguments and will create a tmux session that's
+context aware. So, for example, I `cd ~/work` and run `mx`. If there's a session name `work` on
+tmux, tmux will attach to that session (or switch to it if it's already running).
 
-I currently have two tmux sessions, one for this dotfiles (which is pretty default) and one a little
-more "advanced" for my workspace:
+[My `mx` binary][mx] is slightly customized. If you `mx work` and you have a folder that is located at
+either of the locations below, `mx` will load your workplace based on that location:
 
-![tmux-screenshot](https://raw.githubusercontent.com/filipekiss/dotfiles/master/config/tmux/screenshot.png)
+ - `$HOME/work`
+ - `$PROJECTS/work`
 
-It has a custom layout, it changes the panes to their proper folders and runs a few commands as soon
-as you start the session (`git status` and `ctop -a`). You can check all of this reading [the
-configuration file][tmuxp-saraiva]
+You can also have something along the lines of `$PROJECTS/username/awesome` for example, than you
+can just `mx username awesome` and `mx` will do it's job.
 
-## Saving a custom session to a file
-
-So, did I write the layout line by hand? Of course not.
-
-Just create a new tmux session, divide then as you want and run, in any of the panes `tmux freeze
-$(tmux display-message -p "#S")`. This will prompt you to save the session. The default path is
-`$HOME/.tmuxp/<session-name>.yaml`.
-
-Some editing might be needed, but nothing too complex. You can read [tmuxp
-documentation][tmuxp-docs] to better grasp how this works
-
-[tmux-reset-binding]: https://unix.stackexchange.com/questions/57641/reload-of-tmux-config-not-unbinding-keys-bind-key-is-cumulative
-[tmuxp]: https://github.com/tony/tmuxp/
-[tmuxp-saraiva]: https://github.com/filipekiss/dotfiles/blob/master/config/tmux/.tmuxp/saraiva.yaml
-[tmux-docs]: http://tmuxp.git-pull.com
+[tmuxp]: https://github.com/tony/tmuxp
+[mx]: https://github.com/filipekiss/dotfiles/blob/master/bin/mx
