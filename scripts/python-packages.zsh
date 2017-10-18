@@ -9,6 +9,7 @@ PACKAGES=(
      vim-vint
      virtualenv
      jedi
+     websocket-client
 )
 
 pip2 install ${PACKAGES[@]} && pip3 install ${PACKAGES[@]}

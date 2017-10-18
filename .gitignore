@@ -3,3 +3,9 @@ backups/*
 tags
 .DS_Store
 .tags
+irc/.weechat/*
+!irc/.weechat/buflist.conf
+!irc/.weechat/irc.conf
+!irc/.weechat/weechat.conf
+!irc/.weechat/plugins.conf
+!irc/.weechat/python/autoload/wee_slack.py
