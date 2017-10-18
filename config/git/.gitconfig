@@ -29,13 +29,13 @@
     full-status = status --porcelain --untracked-files=all
     gr = log --graph --full-history --all --color --decorate
     hotfix = flow hotfix
+    ici = commit --allow-empty -m \":tada: Initial Commit\"
     ignored = ls-files --others -i --exclude-standard
     last = log --pretty=format:'%s' --abbrev-commit -1
     latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
     lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
     me = "!git log --author=$(whoami)"
     nb = "!f() { echo 'Creating branch from '$(git latest-tag); git checkout -b $1 $(git latest-tag); }; f";
-    release = flow release
     nmg = branch --no-merged
     ours = "!f() { git checkout --ours $@ && git add $@; }; f"
     patch = !git --no-pager diff --no-color
@@ -48,19 +48,23 @@
     rbs = rebase --skip
     rci = "!git recommit"
     recommit = commit --amend --no-edit
+    release = flow release
+    root = rev-parse --show-toplevel
     st = status -sb
     support = flow support
     tags = tag -l
     theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
     track = push origin -u HEAD
     unassume = update-index --no-assume-unchanged
+    unpushed = log @{u}..
     unstage = reset HEAD
     update-commit = "!git a . && git ci --amend --no-edit"
     update-submodules = "!git submodule -q foreach git pull -q origin master"
     van = add -vAn
     w = whatchanged  --pretty=format:\"%C(blue)%h %Creset- %C(green)(%cr) %C(cyan)<%aN> %Creset%aE %C(magenta)%d %n %C(yellow)%s %n%Creset\" --date=short
+    wip = rebase -i @{u}
+    who = shortlog -sne
     wipe = !git reset --hard HEAD && git clean -fd
-	who = shortlog -sne
 
 [push]
     default = current

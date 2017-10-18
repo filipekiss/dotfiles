@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Simple tool to remove a git repo from somewhere. Just run `git deinit`
+
+function deinit_git() {
+    REPO_PATH=$(git rev-parse --show-toplevel)
+    if [[ -d "${REPO_PATH}/.git" ]]; then
+        read -p "De-initialize this git repo? " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            rm -rf $REPO_PATH"/.git"
+        else
+            echo "Aborting…"
+        fi
+    else
+        echo "Not in a git repository";
+    fi
+}
+ deinit_git
