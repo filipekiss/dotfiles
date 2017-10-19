@@ -16,9 +16,11 @@ function try_open() {
     if (type -p "$1" > /dev/null); then
         if ! (tmux has-session "_shared" > /dev/null 2>&1); then
             tmux new-session -d -s "_shared" -n "$1"
+        else
+            tmux new-window -t "_shared" -a -n "$1"
         fi
         tmux set-option allow-rename off
-        tmux send-keys "$1 $2" C-m
+        tmux send-keys -t "_shared" "$1 $2" C-m
     else
         echo "$1 was not found in your path…"
     fi
@@ -39,14 +41,14 @@ function create() {
 function link() {
     if (tmux has-session -t "_shared" > /dev/null 2>&1); then
         for PROGRAM in ${MX_SHARED[@]}; do
-            tmux link-window -s "_shared:weechat"
+            tmux link-window -s "_shared:weechat" -t "$1" -d
         done;
     fi
 }
 
 case "$1" in
     link)
-        link
+        link "$2"
         ;;
     create)
         create
