@@ -16,6 +16,14 @@ function fzf_gg() {
     --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
   cut -c4- | sed 's/.* -> //'
 }
+# Show git conflicted files
+function fzf_gu() {
+  is_in_git_repo || return
+  git ls-files -u | awk '{print $4}' | sort -u |
+  fzf-down -m --ansi --select-1 --exit-0 --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1}) | head -500' |
+   sed 's/.* -> //'
+}
 # Git local branches, ordered by last activity
 function fzf_gb() {
   is_in_git_repo || return
@@ -75,5 +83,5 @@ function bind-git-helper() {
   done
 }
 
-bind-git-helper g b t r h f
+bind-git-helper g b t r h f u
 unset -f bind-git-helper
