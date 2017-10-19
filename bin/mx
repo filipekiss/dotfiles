@@ -34,8 +34,8 @@
 
 # If there is no .tmux file, the default window setup is as follows:
 # editor/shell  - runs $EDITOR right away and a new shell in a 50/50 split
-# console       - if script/console is available
-# server        - if script/server is available
+# shell - runs the shell in a second window, just in case
+# shared windows - attach windows created for the _shared session
 
 set -e
 
@@ -77,6 +77,7 @@ if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
         tmux split-window -h -p 15 -c $WORKINGDIR -t "$SESSION"
         tmux select-pane -t0
         tmux send-keys -t "$SESSION" "$EDITOR" C-m
+        tmux new-window -d -n "shell"
     fi
 
     mx-shared-session "link" $SESSION
