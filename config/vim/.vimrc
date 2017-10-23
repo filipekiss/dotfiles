@@ -49,6 +49,7 @@ Plug 'tpope/tpope-vim-abolish'
 Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
+Plug 'junegunn/vader.Vim'
 
 " Syntax
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
@@ -61,7 +62,8 @@ Plug 'Konfekt/FastFold'
 
 " Linters & Code quality
 Plug 'editorconfig/editorconfig-vim'
-Plug 'sbdchd/neoformat', { 'on': 'Neoformat', 'do': 'npm i -g prettier stylefmt' }
+Plug 'sbdchd/neoformat', { 'on': 'Neoformat', 'do': 'yarn global add prettier stylefmt' }
+Plug 'AndrewRadev/splitjoin.Vim'
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -70,6 +72,10 @@ Plug 'airblade/vim-gitgutter'
 Plug 'arcticicestudio/nord-vim'
 Plug 'morhetz/gruvbox'
 Plug 'wakatime/vim-wakatime'
+
+" Writing
+Plug 'junegunn/goyo.vim', { 'on': ['Goyo']}
+Plug 'junegunn/limelight.vim', { 'on': ['Limelight'] }
 
 call plug#end()
 

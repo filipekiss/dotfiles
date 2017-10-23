@@ -49,7 +49,7 @@ set wildignore+=*/.DS_Store,*/tmp/*
 
 " https://robots.thoughtbot.com/opt-in-project-specific-vim-spell-checking-and-word-completion
 set spelllang=en_us,pt_br
-set spellfile=~/.vim/spell/en.utf-8.add,~/.vim/spell/pt.utg-8.add
+set spellfile=~/.vim/spell/en.utf-8.add,~/.vim/spell/pt.utf-8.add
 if has('syntax')
   set spellcapcheck=                  " don't check for capital letters at start of sentence
 endif
