@@ -13,6 +13,7 @@ tap 'caskroom/cask'
 tap 'caskroom/fonts'
 tap 'caskroom/versions'
 tap 'universal-ctags/universal-ctags'
+tap 'tavianator/tap'
 
 # Brews
 brew 'editorconfig'
@@ -44,6 +45,7 @@ cask 'skitch'
 cask 'skype'
 cask 'slack'
 cask 'spotify'
+brew 'tavianator/tap/bfs'
 cask 'transmission'
 cask 'whatsapp'
 
