@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # mx
-# version 0.8
+# version 0.9
 
 # Contributors:
 #   Wynn Netherland - https://github.com/pengwynn
@@ -74,10 +74,9 @@ if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
         tmux send-keys -t "$SESSION" "${WORKINGDIR}/start" C-m
     # Else, run the default config: Split 85/15 with editor on left and shell on $PWD on right
     else
-        tmux split-window -h -p 15 -c $WORKINGDIR -t "$SESSION"
-        tmux select-pane -t0
         tmux send-keys -t "$SESSION" "$EDITOR" C-m
-        tmux new-window -d -n "shell"
+        tmux split-window -h -p 15 -c $WORKINGDIR -t "$SESSION"
+        tmux new-window -d -n "shell" -t "$SESSION"
     fi
 
     mx-shared-session "link" $SESSION
