@@ -59,7 +59,7 @@ nnoremap <Down> :resize +2<CR>
 inoremap <silent> <Up> <ESC>
 inoremap <silent> <Down> <ESC>
 
-nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :e ~/.vimrc<CR>
 
 nnoremap gb  :Gina browse :% --exact<CR> " Open current file on github.com
 vnoremap gb  :Gina browse :% --exact<CR> " Make it work in Visual mode to open with highlighted linenumbers
