@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # mx
-# version 0.9
+# version 1.0
 
 # Contributors:
 #   Wynn Netherland - https://github.com/pengwynn
@@ -38,6 +38,7 @@
 # shared windows - attach windows created for the _shared session
 
 set -e
+source dotfiles "source"
 
 
 if [ -z "$1" ]; then
@@ -48,39 +49,56 @@ fi
 
 # tmux 1.9a+ doesn't like .'s in session names
 SESSION="${SESSION//./_}"
-[[ "$SESSION" == *"dotfiles" ]] && SESSION="dotfiles"
+[[ "$SESSION" == *'dotfiles' ]] && SESSION='dotfiles'
 
-mx-shared-session "create"
+mx-shared-session create&
 
 if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
-
     WORKINGDIR=""
 
-    if [[ "$SESSION" == "dotfiles" && -d "$HOME/.dotfiles" ]]; then
+    twidth=$(tput cols)
+    theight=$(tput lines)
+
+    e_set_inline
+    if [[ "$SESSION" == 'dotfiles' && -d "$HOME/.dotfiles" ]]; then
+        e_info "Using dotfiles settings"
         WORKINGDIR="${HOME}/.dotfiles"
     elif [ -d "${HOME}/${SESSION}" ]; then
+        e_info "Found project at ${HOME}/${SESSION}"
         WORKINGDIR="$HOME/$SESSION"
     elif [ -d "$PROJECTS"/"$SESSION"/"$2" ]; then
+        e_info "Found project at ${HOME}/${SESSION}/$2"
         WORKINGDIR="$PROJECTS"/"$SESSION"/"$2"
     elif [ -d "$PROJECTS"/"$SESSION" ]; then
+        e_info "Found project at ${PROJECTS}/${SESSION}"
         WORKINGDIR="$PROJECTS"/"$SESSION"
     else
+        e_info "Using current directory: $PWD"
         WORKINGDIR="$PWD"
     fi
 
-    tmux new-session -s "$SESSION" -n editor -d -c $WORKINGDIR
-    # If there's a start script, execute it
-    if  [ -f "${WORKINGDIR}/start" ]; then
+    tmux new-session -s "$SESSION" -n editor -d -c $WORKINGDIR -x $twidth -y $theight
+    # If there's a start script and it has +x permissions, execute it
+    e_reset_line
+    e_set_inline
+    if  [ -x "${WORKINGDIR}/start" ]; then
+        e_info "Running start script at ${WORKINGDIR}/start"
         tmux send-keys -t "$SESSION" "${WORKINGDIR}/start" C-m
-    # Else, run the default config: Split 85/15 with editor on left and shell on $PWD on right
+    # Else, run the default config: Split 80/20 with editor on left and shell on $PWD on right
     else
+        e_info "Setting up default workspace…"
         tmux send-keys -t "$SESSION" "$EDITOR" C-m
-        tmux split-window -h -p 15 -c $WORKINGDIR -t "$SESSION"
-        tmux new-window -d -n "shell" -t "$SESSION"
+        tmux split-window -h -p 20 -c $WORKINGDIR -t "$SESSION"
+        tmux new-window -d -n 'shell' -t "$SESSION"
     fi
 
-    mx-shared-session "link" $SESSION
+    tmux wait-for shared-create
+    e_reset_line
+    e_set_inline
+    e_info "Linking shared windows…"
+    mx-shared-session link $SESSION
     tmux select-window -t 1
+    tmux select-pane -t 0
 fi
 
 if [ -z "$TMUX" ]; then

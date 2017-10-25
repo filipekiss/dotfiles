@@ -2,48 +2,44 @@
 
 # mx-share-session is a session with utilities that is linked to every tmux session I run
 
-# How to use:
-#
-# Just update the MX_SHARED array with the commands you wish to run on a shared session. The window
-# will be named after the binary you're running. You can also use aliases.
-
-MX_SHARED=(
-    weechat
-)
-
-
 function try_open() {
     if (type -p "$1" > /dev/null); then
-        if ! (tmux has-session "_shared" > /dev/null 2>&1); then
-            tmux new-session -d -s "_shared" -n "$1"
-        else
-            tmux new-window -t "_shared" -a -n "$1"
-        fi
-        tmux set-option allow-rename off
-        tmux send-keys -t "_shared" "$1 $2" C-m
+        tmux new-window -t '_shared' -a -n "$1"
+        tmux set-option -t '_shared' allow-rename off
+        tmux send-keys -t '_shared' "$1 $2" C-m
     else
         echo "$1 was not found in your path…"
     fi
 }
 
 function create_shared_session() {
-    for PROGRAM in ${MX_SHARED[@]}; do
-        try_open "$PROGRAM"
-    done;
+    # Create the session and the Log & Notes Window
+    local twidth theight
+    twidth=$(tput cols)
+    theight=$(tput lines)
+    tmux new-session -d -s '_shared' -n 'Log & Notes' -x $twidth -y $theight
+    tmux set-option allow-rename off
+    tmux send-keys -t '_shared' 'e ~/_log.md -c "silent! \!tmux wait-for -S log-editor"' C-m
+    tmux wait-for log-editor
+    tmux send-keys -t '_shared' ":vs ~/_notes.md | silent! !tmux wait-for -S notes-editor" C-m
+    tmux wait-for notes-editor
+    # Open other programs
+    try_open 'weechat'
 }
 
 function create() {
-    if ! (tmux has-session -t "_shared" > /dev/null 2>&1); then
+    if ! (tmux has-session -t '_shared' > /dev/null 2>&1); then
         create_shared_session
+        tmux wait-for -S shared-create
     fi
 }
 
 function link() {
-    if (tmux has-session -t "_shared" > /dev/null 2>&1); then
-        for PROGRAM in ${MX_SHARED[@]}; do
-            tmux link-window -s "_shared:weechat" -t "$1" -d
-        done;
+    if (tmux has-session -t '_shared' > /dev/null 2>&1); then
+        tmux link-window -s '_shared:Log & Notes' -t 0 -d
+        tmux link-window -s '_shared:weechat' -t 9 -d
     fi
+    tmux wait-for -S shared-link
 }
 
 case "$1" in
