@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
 # mx
-# version 1.0
+# version 1.0.1
+#
+# Versioning: A.B.C
+# A - Major changes either to bin/mx or bin/mx-shared-session
+# B - Minor changes or bug fixes to bin/mx
+# C - Minor changes or bug fices to bin/mx-shared-session
 
 # Contributors:
 #   Wynn Netherland - https://github.com/pengwynn
@@ -10,32 +15,6 @@
 
 # Usage:
 #   mx [session]
-
-# To 'auto-launch' projects, you'll need a $PROJECTS dir where you keep code
-# sorted like so: $PROJECTS/<org or user>/<repo>.
-# So, a typical workflow would look like:
-#   $ hub clone pengwynn/octonaut $PROJECTS/pengwynn/octonaut
-#   $ mx octonaut
-
-# If `mx` is called with a <session> name, and there is no valid repo inside
-# $PROJECTS, a new tmux session will be initialized in the current working
-# directory with a name of <session>
-
-# If the target directory has a .tmux file, that file will be executed
-# (and sent the <session> name as the first argument) instead of the default
-# window setup (explained below). An example .tmux file may look like
-# so:
-#   #!/usr/bin/env sh
-#   SESSION="$1"
-#   cd ~/.dotfiles
-#   tmux new-session -s "$SESSION" -n editor -d
-#   tmux send-keys 'e' C-m ':CtrlP' C-m
-#   tmux select-window -t "$SESSION":1
-
-# If there is no .tmux file, the default window setup is as follows:
-# editor/shell  - runs $EDITOR right away and a new shell in a 50/50 split
-# shell - runs the shell in a second window, just in case
-# shared windows - attach windows created for the _shared session
 
 set -e
 source dotfiles "source"
