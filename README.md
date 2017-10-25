@@ -24,7 +24,7 @@ $ git clone https://github.com/filipekiss/dotfiles.git ~/.dotfiles && cd ~/.dotf
 
 ## Private Keybase Submodule
 
-Keybase has [private encrypted git repos], so my private data are hosted
+Keybase has [private encrypted git repos], so my private data is hosted
 there. After the first installation, just run `make keybase` and it will ask you to login on keybase
 if it's not logged yet and then will clone the sub repository. After that, just run `make stow`
 again.
