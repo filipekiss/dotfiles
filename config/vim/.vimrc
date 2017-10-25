@@ -113,6 +113,9 @@ smap <S-Tab> <Plug>(ultisnips_backward)
 " optional
 inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
 
+" Add current folder to path (and subfolders also)
+set path+=$PWD/**
+
 " Overrrides
 "================================================================================
 let s:vimrc_local = $HOME . '/.vimrc.local'
