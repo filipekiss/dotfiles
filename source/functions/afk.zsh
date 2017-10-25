@@ -24,6 +24,6 @@ function _linux_afk() {
     fi
 }
 function afk() {
-    is_macos && _macos_afk
-    is_linux && _linux_afk
+    if is_macos; then; _macos_afk; fi;
+    if is_linux; then; _linux_afk; fi;
 }
