@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # mx
-# version 1.0.1
+# version 1.1.1
 #
 # Versioning: A.B.C
 # A - Major changes either to bin/mx or bin/mx-shared-session

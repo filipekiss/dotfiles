@@ -23,6 +23,7 @@ function create_shared_session() {
     tmux wait-for log-editor
     tmux send-keys -t '_shared' ":vs ~/_notes.md | silent! !tmux wait-for -S notes-editor" C-m
     tmux wait-for notes-editor
+    tmux send-keys -t '_shared' C-w h ":sp ~/_todo.md" C-m
     # Open other programs
     try_open 'weechat'
 }

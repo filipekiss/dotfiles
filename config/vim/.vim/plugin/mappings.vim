@@ -186,7 +186,3 @@ vnoremap . :norm.<CR>
 " Use <Leader>y and <Leader>p to use the 0 register automatically (Avoid yanking replaced line)
 vnoremap <Leader>y "0y
 vnoremap <Leader>p "0p
-
-
-nnoremap <C-t> :Files<CR>
-nnoremap <C-z> :Buffers<CR>
