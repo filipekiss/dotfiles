@@ -31,6 +31,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Make better undo chunks when writing long texts (prose) without exiting insert mode.
 " https://twitter.com/vimgifs/status/913390282242232320
 " :h i_CTRL-G_u
 inoremap . .<c-g>u
@@ -41,30 +42,21 @@ inoremap , ,<c-g>u
 
 " Disable arrow keys (hardcore)
 nmap  <up>    <nop>
-"imap <up>    <nop>
 nmap  <down>  <nop>
-"imap <down>  <nop>
 nmap  <left>  <nop>
-"imap <left>  <nop>
 nmap  <right> <nop>
-"imap <right> <nop>
 
 " Make arrowkey do something usefull, resize the viewports accordingly
-nnoremap <Left> :vertical resize -2<CR>
-nnoremap <Right> :vertical resize +2<CR>
-nnoremap <Up> :resize -2<CR>
-nnoremap <Down> :resize +2<CR>
+nnoremap <Left> :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
+nnoremap <Up> :resize +2<CR>
+nnoremap <Down> :resize -2<CR>
 
 " Pressing up/down exits insert mode
 inoremap <silent> <Up> <ESC>
 inoremap <silent> <Down> <ESC>
 
 nnoremap <silent> <leader>ev :e ~/.vimrc<CR>
-
-nnoremap gb  :Gina browse :% --exact<CR> " Open current file on github.com
-vnoremap gb  :Gina browse :% --exact<CR> " Make it work in Visual mode to open with highlighted linenumbers
-nnoremap gs  :Gina status<CR>
-vnoremap gs  :Gina status<CR>
 
 " Quickly move current line, also accepts counts 2<leader>j
 nnoremap <leader>j :<c-u>execute 'move +'. v:count1<cr>

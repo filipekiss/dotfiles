@@ -34,8 +34,6 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'jinja', 'jinja2', 'twig
 Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper'] }
 Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-  \| Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -59,6 +57,17 @@ let g:polyglot_disabled = ['css']
 Plug 'stephenway/postcss.vim', { 'for': ['css'] }
 Plug 'lepture/vim-jinja', { 'for': ['jinja2', 'jinja', 'htmldjango', 'twig'] }
 Plug 'Konfekt/FastFold'
+Plug 'Valloric/MatchTagAlways'
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'jinja2' : 1,
+    \ 'twig' : 1,
+    \ 'javascript' : 1,
+    \ 'javascript.jsx' : 1,
+    \}
 
 " Linters & Code quality
 Plug 'editorconfig/editorconfig-vim'
@@ -137,7 +146,6 @@ endif
 let g:user_emmet_leader_key=','
 
 " Other Files {
-" config/vim/.vim/after/plugin/NERDTree.vim
 " config/vim/.vim/after/plugin/UltiSnips.vim
 " config/vim/.vim/after/plugin/abolish.vim
 " config/vim/.vim/after/plugin/commentray.vim
