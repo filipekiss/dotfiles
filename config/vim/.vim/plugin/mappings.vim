@@ -3,6 +3,8 @@ let mapleader="\<Space>"
 
 " stolen from https://bitbucket.org/sjl/dotfiles/src/tip/vim/vimrc
 " Keep search matches in the middle of the window.
+" If SearchIndex (https://github.com/google/vim-searchindex) is installed, ensure the index is shown
+" after redrawing.
 if exists(':SearchIndex')
     nmap n nzzg/
     nmap N Nzzg/
@@ -19,17 +21,16 @@ nnoremap gV `[v`]
 " Treat overflowing lines as having line breaks.
 map <expr> j v:count ? 'j' : 'gj'
 map <expr> k v:count ? 'k' : 'gk'
-" map j gj
-" map k gk
-"
+
+
 " Make `Y` behave like `C` and `D` (to the end of line)
 nnoremap Y y$
 
 " Use Ctrl<hjkl> to move between buffers on the same tab
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+" map <C-h> <C-w>h
+" map <C-j> <C-w>j
+" map <C-k> <C-w>k
+" map <C-l> <C-w>l
 
 " Make better undo chunks when writing long texts (prose) without exiting insert mode.
 " https://twitter.com/vimgifs/status/913390282242232320

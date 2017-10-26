@@ -48,6 +48,7 @@ Plug 'bronson/vim-visual-star-search'
 Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/vader.Vim'
+Plug 'christoomey/vim-tmux-navigator'
 
 " Syntax
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
