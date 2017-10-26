@@ -126,10 +126,6 @@ inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ult
 " Add current folder to path (and subfolders also)
 set path+=$PWD/**
 
-" wildmenu for a more useful :find
-set wildmenu
-set wildmode=list:full
-
 " Overrrides
 "================================================================================
 let s:vimrc_local = $HOME . '/.vimrc.local'

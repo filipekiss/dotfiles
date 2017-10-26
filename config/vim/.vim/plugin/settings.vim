@@ -7,7 +7,6 @@ if !has('nvim')
   set display+=lastline
   set laststatus=2
   set ttyfast
-  set wildmenu
   if &term =~# '^tmux'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -15,7 +14,7 @@ if !has('nvim')
 endif
 
 " set highlight+=@:ColorColumn          " ~/@ at end of window, 'showbreak'
-" set highlight+=N:DiffText             " make current line number stand out a little
+set highlight+=N:DiffText             " make current line number stand out a little
 " set highlight+=c:LineNr               " blend vertical separators with line numbers
 
 set expandtab                         " always use spaces instead of tabs
@@ -39,6 +38,7 @@ endif
 set noshowmode                        " Don't Display the mode you're in. since it's already shown on the statusline
 
 " show a navigable menu for tab completion
+set wildmenu
 set wildmode=longest,list,full
 set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem,*.pyc
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
@@ -46,6 +46,7 @@ set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
 set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
 set wildignore+=*.swp,*~,._*,*.jpg,*.png,*.gif,*.jpeg
 set wildignore+=*/.DS_Store,*/tmp/*
+set wildignore+=*/node_modules/*
 
 " https://robots.thoughtbot.com/opt-in-project-specific-vim-spell-checking-and-word-completion
 set spelllang=en_us,pt_br
@@ -72,8 +73,7 @@ set completeopt-=preview
 
 " highlight current line in insert mode, don't bother otherwise
 set nocursorcolumn       " do not highlight column
-autocmd InsertLeave,WinEnter * set nocursorline
-autocmd InsertEnter,WinLeave * set cursorline
+set cursorline
 
 " use relative numbers in normal mode, absolute numbers in insert mode
 set number
