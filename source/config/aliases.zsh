@@ -59,8 +59,10 @@ alias flushcache="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 # Muscle memory is a bitch
 alias :qa=exit
 alias :wq=exit
-[[ $TERM == *"tmux"* ]] && alias :sp='tmux split-window'
-[[ $TERM == *"tmux"* ]] && alias :vs='tmux split-window -h'
+[[ $TMUX == *"tmux"* ]] && alias :sp='tmux split-window'
+[[ $TMUX == *"tmux"* ]] && alias :vs='tmux split-window -h'
+[[ $TMUX == *"tmux"* ]] && alias :wq='tmux kill-pane'
+[[ $TMUX == *"tmux"* ]] && alias :qa='tmux kill-session'
 
 # Add default arguments to a few command
 (( $+commands[rg] )) && alias rg="${commands[rg]} --hidden"

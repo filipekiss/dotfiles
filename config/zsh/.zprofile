@@ -52,16 +52,16 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  ./node_modules/.bin
-  ${HOME}/.dotfiles/bin
-  ${HOME}/.linuxbrew/bin
-  /home/linuxbrew/.linuxbrew/bin
-  /usr/local/{bin,sbin}
-  /usr/local/opt/coreutils/libexec/gnubin
-/usr/local/opt/python/libexec/bin
-/usr/local/opt/curl/bin
-  /usr/local/Cellar/git
-  $path
+    ./node_modules/.bin
+    ${HOME}/.dotfiles/bin
+    ${HOME}/.linuxbrew/bin
+    /home/linuxbrew/.linuxbrew/bin
+    /usr/local/{bin,sbin}
+    /usr/local/opt/coreutils/libexec/gnubin
+    /usr/local/opt/python/libexec/bin
+    /usr/local/opt/curl/bin
+    /usr/local/Cellar/git
+    $path
 )
 
 # Add yarn bin to path
@@ -98,6 +98,5 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 #
 # Custom env variables
 #
-export ATOM_PACKAGES_FILE=$HOME/.dotfiles/config/atom/.atom/my-packages
-# Use -> as prompt symbol since we have ligature support!
-export NINE12_PROMPT_SYMBOL="->"
+
+export PROJECTS="${HOME}/code"
