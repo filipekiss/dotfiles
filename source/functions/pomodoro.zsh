@@ -9,6 +9,6 @@ unalias pomo 2>/dev/null
 
 function pomo() {
     POMO_TIMER='25m'
-    [[ $HAS_FOCUS_APP ]] && open 'focus://focus?minutes=25' && POMO_TIMER='25m2s'
-    [[ $HAS_POMODORO_BIN ]] && pomodoro $POMO_TIMER; open 'focus://unfocus'
+    [[ $HAS_FOCUS_APP ]] && open 'focus://focus?minutes='$POMO_TIMER && return
+    [[ $HAS_POMODORO_BIN ]] && pomodoro $POMO_TIMER
 }
