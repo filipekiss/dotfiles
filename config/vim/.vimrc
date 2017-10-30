@@ -49,6 +49,9 @@ Plug 'justinmk/vim-sneak'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/vader.Vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'blueyed/vim-diminactive'
+let g:diminactive_use_syntax = 1
+let g:diminactive_enable_focus = 1
 
 " Syntax
 Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }
