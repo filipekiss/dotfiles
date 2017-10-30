@@ -68,7 +68,7 @@ if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
         e_info "Setting up default workspace…"
         tmux send-keys -t "$SESSION" "$EDITOR" C-m
         tmux split-window -h -p 20 -c $WORKINGDIR -t "$SESSION"
-        tmux new-window -d -n 'shell' -t "$SESSION"
+        tmux new-window -d -n 'shell' -t "$SESSION" -c $WORKINGDIR
     fi
 
     tmux wait-for shared-create
