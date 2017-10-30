@@ -44,4 +44,4 @@ Don't forget to trust said keys.
 I may add the gpg to the repository someday, but, for now, keybase is the way to go.
 
 [private encrypted git repos]: https://keybase.io/blog/encrypted-git-for-everyone
-[screenshot]: https://raw.githubusercontent.com/filipekiss/dotfiles/master/screenshot.gif
+[screenshot]: https://raw.githubusercontent.com/filipekiss/dotfiles/master/screenshot.png
