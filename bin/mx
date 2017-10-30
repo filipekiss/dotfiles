@@ -63,11 +63,11 @@ if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
     if  [ -x "${WORKINGDIR}/start" ]; then
         e_info "Running start script at ${WORKINGDIR}/start"
         tmux send-keys -t "$SESSION" "${WORKINGDIR}/start" C-m
-    # Else, run the default config: Split 80/20 with editor on left and shell on $PWD on right
+    # Else, run the default config: Split 50/50 with editor on left and shell on $PWD on right
     else
         e_info "Setting up default workspace…"
         tmux send-keys -t "$SESSION" "$EDITOR" C-m
-        tmux split-window -h -p 20 -c $WORKINGDIR -t "$SESSION"
+        tmux split-window -h -p 50 -c $WORKINGDIR -t "$SESSION"
         tmux new-window -d -n 'shell' -t "$SESSION" -c $WORKINGDIR
     fi
 
