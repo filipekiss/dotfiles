@@ -50,7 +50,9 @@ Plug 'tpope/vim-eunuch'
 Plug 'junegunn/vader.Vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'blueyed/vim-diminactive'
-let g:diminactive_use_syntax = 1
+Plug 'tpope/vim-fugitive'
+
+let g:diminactive_use_syntax = 0
 let g:diminactive_enable_focus = 1
 
 " Syntax
@@ -128,6 +130,8 @@ inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ult
 
 " Add current folder to path (and subfolders also)
 set path+=$PWD/**
+" Always have $HOME/.dotfiles on Vim path. No need for subfolders
+set path+=$HOME/.dotfiles/
 
 " Overrrides
 "================================================================================
@@ -176,4 +180,5 @@ let g:user_emmet_leader_key=','
 " config/vim/.vim/plugin/statusline.vim
 " config/vim/.vim/ultisnips/php.snippets
 " config/vim/.vim/ultisnips/snippets.snippets
+" config/vim/.vim/ultisnips/jinja.snippets
 " }

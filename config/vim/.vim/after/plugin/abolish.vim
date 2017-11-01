@@ -9,5 +9,4 @@ Abolish delte{,e}       delete{}
 Abolish funciton{,ed,s} function{}
 Abolish seconde         second
 Abolish relatvie        relative
-Abolish vim             Vim
 Abolish jquery          jQuery

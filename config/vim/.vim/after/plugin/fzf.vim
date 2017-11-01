@@ -25,6 +25,7 @@ nnoremap <silent> <leader><leader> :Files<cr>
 nnoremap <silent> <Leader>c :Colors<cr>
 nnoremap <silent> <Leader>b :Buffers<cr>
 nnoremap <silent> <Leader>h :Helptags<cr>
+nnoremap <silent> <Leader>t :Tags<cr>
 
 function! s:fzf_statusline()
   " Override statusline as you like
