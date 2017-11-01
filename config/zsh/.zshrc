@@ -73,4 +73,6 @@ if [[ $DOTFILES_BIN ]]; then
   for func ($DOTFILES/source/functions/*.zsh) source $func
 fi
 
+[[ -f ${HOME}/.zshrc.local ]] && source $HOME/.zshrc.local
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
