@@ -118,9 +118,6 @@ nnoremap <S-tab> :bprevious<CR>
 " qq to record, Q to replay
 nnoremap Q @q
 
-" Make dot work in visual mode
-vmap . :norm.<CR>
-
 " For neovim terminal :term
 if has('nvim')
   " nnoremap <leader>t  :vsplit +terminal<cr>

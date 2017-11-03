@@ -161,6 +161,7 @@ let g:user_emmet_leader_key=','
 " config/vim/.vim/after/plugin/grepper.vim
 " config/vim/.vim/after/plugin/guttentags.vim
 " config/vim/.vim/after/plugin/startify.vim
+" config/vim/.vim/after/plugin/sneak.vim
 " config/vim/.vim/autoload/.gitignore
 " config/vim/.vim/autoload/functions.vim
 " config/vim/.vim/autoload/plug.vim
