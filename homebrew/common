@@ -2,6 +2,7 @@
 
 # Taps
 tap 'homebrew/services'
+tap 'homebrew/php'
 
 # Brews
 brew 'asciinema'
@@ -21,6 +22,8 @@ brew 'jq'
 brew 'less'
 brew 'nvm'
 brew 'neovim', ARGS: ['HEAD']
+brew 'php71'
+brew 'composer'
 brew 'ruby'
 brew 'ripgrep'
 brew 'ssh-copy-id'
