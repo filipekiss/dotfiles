@@ -1,6 +1,6 @@
-###############################
+# ------------------------------------------------------------
 # zPlug
-###############################
+# ------------------------------------------------------------
 
 if [[ ! -f ~/.zplug/init.zsh ]]; then
   if (( $+commands[git] )); then
@@ -13,9 +13,9 @@ fi
 
 source ~/.zplug/init.zsh
 
-###############################
+# ------------------------------------------------------------
 # zPlug modules
-###############################
+# ------------------------------------------------------------
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "Eriner/zim", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/Eriner/zim ~/.zim && ln -sf $ZPLUG_REPOS/Eriner/zim/templates/zlogin ~/.zlogin"
@@ -27,9 +27,9 @@ zplug "zsh-users/zsh-autosuggestions", defer:1
 zplug "docker/cli", use:contrib/completion/zsh
 zplug "docker/compose", use:contrib/completion/zsh
 
-###############################
+# ------------------------------------------------------------
 # Install missing modules
-###############################
+# ------------------------------------------------------------
 
 if ! zplug check --verbose; then
   printf "Install? [y/N]: "
@@ -40,16 +40,24 @@ fi
 
 zplug load
 
+# ------------------------------------------------------------
+# ZSH Settings
+# ------------------------------------------------------------
+ZSH_AUTOSUGGEST_USE_ASYNC=true
+
 # Ignore some commands and set history size
 HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 
-#####################################
-# Tools
-#####################################
 
+# ------------------------------------------------------------
+# Tools
+# ------------------------------------------------------------
+
+# ------------------------------------------------------------
 # FZF - https://github.com/junegunn/fzf
+# ------------------------------------------------------------
 export FZF_DEFAULT_OPTS='--min-height 30 --bind esc:cancel --height 50% --border --reverse --tabstop 2 --multi --margin 0,3,3,3'
 export FZF_DEFAULT_COMMAND='\rg --no-messages --files --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -58,14 +66,19 @@ export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap 
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Homebrew options. See https://github.com/Homebrew/brew/blob/master/docs/Tips-N%27-Tricks.md#hiding-the-beer-mug-emoji-when-finishing-a-build
+# ------------------------------------------------------------
+# Homebrew options
+# See https://github.com/Homebrew/brew/blob/master/docs/Tips-N%27-Tricks.md#hiding-the-beer-mug-emoji-when-finishing-a-build
+# ------------------------------------------------------------
+
 export HOMEBREW_INSTALL_BADGE="⚗️"
 export HOMEBREW_NO_ANALYTICS=1
 
 
-#####################################
+# ------------------------------------------------------------
 # Source config and aliases and stuff
-#####################################
+# ------------------------------------------------------------
+
 DOTFILES_BIN=$(which dotfiles)
 if [[ $DOTFILES_BIN ]]; then
   source $DOTFILES_BIN "source"
@@ -76,3 +89,23 @@ fi
 [[ -f ${HOME}/.zshrc.local ]] && source $HOME/.zshrc.local
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# ------------------------------------------------------------
+# Random prompt symbol
+# ------------------------------------------------------------
+
+SYMBOLS=(
+    "❯"
+    "→"
+    "»"
+    "৸"
+)
+ERROR_SYMBOLS=(
+    "⎋"
+    "⊘"
+    "⊗"
+    "×"
+)
+
+export PURE_PROMPT_SYMBOL="${SYMBOLS[$RANDOM % ${#SYMBOLS[@]}]}"
+export PURE_PROMPT_SYMBOL_ERROR="${ERROR_SYMBOLS[$RANDOM % ${#ERROR_SYMBOLS[@]}]}"
