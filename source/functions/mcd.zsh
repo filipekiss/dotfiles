@@ -9,4 +9,4 @@ function mcd(){
 }
 
 #complete like cd
-compdef mcd=cd
+compdef _cd mcd

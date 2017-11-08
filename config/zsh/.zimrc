@@ -17,7 +17,6 @@ zmodules=(
   meta
   input
   utility
-  spectrum
   ssh
   completion
 )
