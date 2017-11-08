@@ -15,14 +15,14 @@ LOG_STATUS_SUCCESS="✔"
 LOG_STATUS_ERROR="✖"
 LOG_STATUS_INFO="➜"
 
-e_header()   { e_line && e_line "${1} ==" "${BOLD}" "==" "${BOLD}"; }
-e_line() { [[ $LINE_BREAK != "" ]] && LINE_BREAK="\n"; printf "${4} %b${RESET} ${2}%b${RESET}${LINE_BREAK}" "${3}" "${1}"; }
-e_success() { e_line "$1" "${GREEN}" "${LOG_STATUS_SUCCESS}" "${GREEN}"; }
-e_error() { e_line "$1" "${RED}" "${LOG_STATUS_ERROR}" "${RED}"; }
-e_info() { e_line "$1" "" "${LOG_STATUS_INFO}" "${BLUE}"; }
+e_header() { e_line "--------------------------------------------------------------------------------" "${BOLD}" && e_line "${1}" "${BOLD}" && e_line "--------------------------------------------------------------------------------" "${BOLD}"; }
+e_line() { [[ $LINE_BREAK != "" ]] && LINE_BREAK="\n"; printf "${4}%b${RESET}${2}%b${RESET}${LINE_BREAK}" "${3}" "${1}"; }
+e_success() { e_line "$1" "${GREEN}" "${LOG_STATUS_SUCCESS} " "${GREEN}"; }
+e_error() { e_line "$1" "${RED}" "${LOG_STATUS_ERROR} " "${RED}"; }
+e_info() { e_line "$1" "" "${LOG_STATUS_INFO} " "${BLUE}"; }
 e_reset_line() { local COLS=$(tput cols); printf "\r" && printf "%${COLS}s\r"; LINE_BREAK="\n"; }
 e_set_inline() { LINE_BREAK=""; }
-e_spinner() { local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'; while sleep 0.1; do e_reset_line; local temp=${spinstr#?}; printf " ${YELLOW}%s${RESET} ${2}%b${RESET}" "${spinstr:0:1}" "${1}"; local spinstr=$temp${spinstr%"$temp"}; done; }
+e_spinner() { local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'; while sleep 0.1; do e_reset_line; local temp=${spinstr#?}; printf "${YELLOW}%s${RESET} ${2}%b${RESET}" "${spinstr:0:1}" "${1}"; local spinstr=$temp${spinstr%"$temp"}; done; }
 e_activity() { local MESSAGE="$1"; SPINNER_MESSAGE="$1"; e_spinner "$MESSAGE" & E_SPINNER_PID=$! 2> /dev/null; disown $E_SPINNER_PID > /dev/null 2>&1; }
 e_activity_end() { kill $E_SPINNER_PID > /dev/null 2>&1; e_reset_line; [[ ! -z $SPINNER_MESSAGE ]] && e_info $SPINNER_MESSAGE; }
 LINE_BREAK="\n"
