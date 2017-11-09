@@ -1,23 +1,83 @@
 #!/usr/bin/env bash
 
 # mx
-# version 1.1.1
+# --------------------------------------------------------------------------------------------------
 #
+# Description
+# -----------
+# mx is a tmux start script to keep things organized
+# --------------------------------------------------------------------------------------------------
+
+# Contributors
+# ------------
+# Wynn Netherland - https://github.com/pengwynn
+# Adam Jahnke - https://github.com/adamyonk
+# Filipe Kiss <eu@filipekiss.com.br> http://github.com/filipekiss
+# --------------------------------------------------------------------------------------------------
+#
+# Version
+# -------
+# 1.2.1
+# --------------------------------------------------------------------------------------------------
+#
+# Versioning Details
+# ------------------
 # Versioning: A.B.C
 # A - Major changes either to bin/mx or bin/mx-shared-session
 # B - Minor changes or bug fixes to bin/mx
 # C - Minor changes or bug fices to bin/mx-shared-session
+# --------------------------------------------------------------------------------------------------
+#
+# Usage
+# -----
+# mx <session name> [project]
+#
+# Arguments
+# ---------
+# All Arguments are optional.
+#
+# If no arguments are passed, mx will use the current folder name as a session name with proper
+# escaping to ensure tmux compatibility
+#
+# session name
+# ------------
+# If a session name is passed, mx will do a few checks before putting you inside the session.
+#
+# First, it will check if you're trying to start a session that matches the 'dotfiles' name. If you
+# are, mx will create a session for your dotfiles and set the WORKINGDIR to $HOME/.dotfiles
+#
+# If you're session is not 'dotfiles', mx will look for a folder with the same name under your home
+# folder. So, for example, let's say you have a $HOME/work folder and you call `mx work`. Here's
+# what mx will do:
+#
+#  * Will find the folder located at $HOME/work
+#  * Will see if there's a session named work already. If there is, attach to it.
+#  * If there's not a session, it will continue with it's own instructions to create the proper
+#  session and then will attach you to it
+#
+# Finally, if you have a $PROJECTS variable set in you environment and there's a folder located at
+# $PROJECTS/<session name>, mx will do the same steps as if it were in you $HOME
+#
+# project
+# -------
+# If you pass a second argument and you have a folder at this structure: $PROJECTS/<session name>/<project
+# name>, it will open the project at the correct location. For example, I keep my projects in
+# a `code` folder under my home dir. So my `pure` fork, por example, sits at $HOME/code/filipekiss/pure
+# I can just call `mx filipekiss pure` and mx will set everything up for me, leaving me ready to
+# work
+# --------------------------------------------------------------------------------------------------
+#
+# Start script
+# ------------
+# If you have a file named `start` at the current $WORKINGDIR and that file is executable, mx will
+# execute that file instead of doing the usual 50/50 split. You can use this to customize your
+# layout (using tmux commands from the cli), open files, update dependencies or something like that.
+# --------------------------------------------------------------------------------------------------
 
-# Contributors:
-#   Wynn Netherland - https://github.com/pengwynn
-#   Adam Jahnke - https://github.com/adamyonk
-#   Filipe Kiss - https://github.com/filipekiss
-
-# Usage:
-#   mx [session]
 
 set -e
 source dotfiles "source"
+
 
 
 if [ -z "$1" ]; then
@@ -38,7 +98,6 @@ if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
     twidth=$(tput cols)
     theight=$(tput lines)
 
-    e_set_inline
     if [[ "$SESSION" == 'dotfiles' && -d "$HOME/.dotfiles" ]]; then
         e_info "Using dotfiles settings"
         WORKINGDIR="${HOME}/.dotfiles"
@@ -56,30 +115,33 @@ if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
         WORKINGDIR="$PWD"
     fi
 
+    e_set_inline
     tmux new-session -s "$SESSION" -n editor -d -c $WORKINGDIR -x $twidth -y $theight
     # If there's a start script and it has +x permissions, execute it
-    e_reset_line
-    e_set_inline
     if  [ -x "${WORKINGDIR}/start" ]; then
-        e_info "Running start script at ${WORKINGDIR}/start"
+        e_activity "Running start script at ${WORKINGDIR}/start"
         tmux send-keys -t "$SESSION" "${WORKINGDIR}/start" C-m
-    # Else, run the default config: Split 50/50 with editor on left and shell on $PWD on right
+    # Else, run the default config: Split 50/50 with editor on left and shell on $WORKINGDIR on right
     else
-        e_info "Setting up default workspace…"
+        e_activity 'Setting up default workspace…'
         tmux send-keys -t "$SESSION" "$EDITOR" C-m
         tmux split-window -h -p 50 -c $WORKINGDIR -t "$SESSION"
         tmux new-window -d -n 'shell' -t "$SESSION" -c $WORKINGDIR
     fi
+    e_activity_end
+    e_success "Session created"
 
     tmux wait-for shared-create
-    e_reset_line
     e_set_inline
-    e_info "Linking shared windows…"
+    e_activity "Linking shared windows…"
     mx-shared-session link $SESSION
     tmux select-window -t 1
     tmux select-pane -t 0
+    e_activity_end
+    e_success "Shared session linked"
 fi
 
+e_info "Sending you to $SESSION..."
 if [ -z "$TMUX" ]; then
   tmux attach -t "$SESSION"
 else
