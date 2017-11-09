@@ -24,4 +24,4 @@ command! FormatJSON %!python -m json.tool
 
 " Call :AddHR to add dashed lines below the current one
 " -----------------------------------------------------
-command! AddHR :call functions#TextHR()
+command! -range -nargs=? AddHR <line1>,<line2>call functions#TextHR(<f-args>)

@@ -7,20 +7,32 @@ function! functions#IsComment()
     return hg =~? 'comment' ? 1 : 0
 endfunction
 
-function! functions#TextHR()
-    " Store old macro so we don't loose it
-    let l:oldMacro = @p
-    " The macros are slightly different if we're in a comment or not
-    if functions#IsComment() == 1
-        let l:macroText = "yypwv$hr-"
-    else
-        let l:macroText = "yypv$hr-"
+
+" This functions adds a line separator below current line.
+" --------------------------------------------------------
+function! functions#TextHR(...) range
+    let l:sep = "-"
+    if a:0
+        let l:sep = a:1
     endif
-    " Set and run the macro
-    let @p = l:macroText
-    exec "normal! @p"
-    " Restore old macro contents
-    let @p = l:oldMacro
+    let l:startLine = a:firstline
+    let l:endLineBefore = a:lastline
+    let l:totalLines = l:endLineBefore - l:startLine
+    let l:endLineAfter = l:endLineBefore + l:totalLines
+    let l:skipLine = 0
+    for lineN in range(l:startLine, l:endLineAfter)
+        if l:skipLine == 1
+            let l:skipLine = 0
+            continue
+        endif
+        if functions#IsComment() == 1
+            let l:macroText = "yypwv$hr".l:sep."j"
+        else
+            let l:macroText = "yypv$hr".l:sep."j"
+        endif
+        exec "normal! " . l:macroText
+        let l:skipLine = 1
+    endfor
 endfunction
 
 function! functions#ZoomToggle() abort
