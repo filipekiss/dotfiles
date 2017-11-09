@@ -2,6 +2,27 @@ function! functions#trim(txt)
   return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 endfunction
 
+function! functions#IsComment()
+    let hg = join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'))
+    return hg =~? 'comment' ? 1 : 0
+endfunction
+
+function! functions#TextHR()
+    " Store old macro so we don't loose it
+    let l:oldMacro = @p
+    " The macros are slightly different if we're in a comment or not
+    if functions#IsComment() == 1
+        let l:macroText = "yypwv$hr-"
+    else
+        let l:macroText = "yypv$hr-"
+    endif
+    " Set and run the macro
+    let @p = l:macroText
+    exec "normal! @p"
+    " Restore old macro contents
+    let @p = l:oldMacro
+endfunction
+
 function! functions#ZoomToggle() abort
   if exists('t:zoomed') && t:zoomed
     exec t:zoom_winrestcmd
