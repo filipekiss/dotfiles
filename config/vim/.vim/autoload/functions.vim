@@ -2,14 +2,13 @@ function! functions#trim(txt)
   return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 endfunction
 
-function! functions#IsComment()
-    let hg = join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'))
+function! functions#IsComment(...)
+    let hg = join(map(synstack(line('.'), col('$') - 1), 'synIDattr(v:val, "name")'))
     return hg =~? 'comment' ? 1 : 0
 endfunction
 
 
 " This functions adds a line separator below current line.
-" --------------------------------------------------------
 function! functions#TextHR(...) range
     let l:sep = "-"
     if a:0
