@@ -17,7 +17,7 @@
 #
 # Version
 # -------
-# 1.2.1
+# 2.0.0
 # --------------------------------------------------------------------------------------------------
 #
 # Versioning Details
@@ -64,7 +64,16 @@
 # name>, it will open the project at the correct location. For example, I keep my projects in
 # a `code` folder under my home dir. So my `pure` fork, por example, sits at $HOME/code/filipekiss/pure
 # I can just call `mx filipekiss pure` and mx will set everything up for me, leaving me ready to
-# work
+# work.
+#
+# Combined namespace/project name at session title
+# ------------------------------------------------
+# Sometimes I wish to work on multiple projects of the same namespace (let's say my
+# [filipekiss/quick-tips] and my filipekiss/secret-projects). To achieve this, If `mx` receives
+# a second argument, it will be appended to the session name. So `mx filipekiss quick-tips` will
+# start a session name *filipekiss/quick-tips* on the directory $PROJECTS/filipekiss/quick-tips.
+# If you wish to maintain a single session for each given "namespace", just set MX_UNIQUE_SESSIONS
+# on your shell (put export MX_UNIQUE_SESSIONS="1" in your `~/.bashrc` or `~/.zshrc`).
 # --------------------------------------------------------------------------------------------------
 #
 # Start script
@@ -90,9 +99,14 @@ fi
 SESSION="${SESSION//./_}"
 [[ "$SESSION" == *'dotfiles' ]] && SESSION='dotfiles'
 
+if [[ -n "$2" && -z $MX_UNIQUE_SESSIONS ]]; then
+    PROJECT_NAME="$2"
+    SESSION="${SESSION}/${PROJECT_NAME//./}"
+fi
+
 mx-shared-session create&
 
-if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
+if ! (tmux has-session -t "${SESSION}" > /dev/null 2>&1); then
     WORKINGDIR=""
 
     twidth=$(tput cols)
@@ -101,12 +115,15 @@ if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
     if [[ "$SESSION" == 'dotfiles' && -d "$HOME/.dotfiles" ]]; then
         e_info "Using dotfiles settings"
         WORKINGDIR="${HOME}/.dotfiles"
+    elif [ -d "${HOME}/${SESSION}/${PROJECT_NAME}" ]; then
+        e_info "Found project at ${HOME}/${SESSION}/${PROJECT_NAME}"
+        WORKINGDIR="$HOME/$SESSION/$PROJECT_NAME"
     elif [ -d "${HOME}/${SESSION}" ]; then
         e_info "Found project at ${HOME}/${SESSION}"
         WORKINGDIR="$HOME/$SESSION"
-    elif [ -d "$PROJECTS"/"$SESSION"/"$2" ]; then
-        e_info "Found project at ${HOME}/${SESSION}/$2"
-        WORKINGDIR="$PROJECTS"/"$SESSION"/"$2"
+    elif [ -d "$PROJECTS"/"$SESSION"/"$PROJECT_NAME" ]; then
+        e_info "Found project at ${HOME}/${SESSION}/$PROJECT_NAME"
+        WORKINGDIR="$PROJECTS"/"$SESSION"/"$PROJECT_NAME"
     elif [ -d "$PROJECTS"/"$SESSION" ]; then
         e_info "Found project at ${PROJECTS}/${SESSION}"
         WORKINGDIR="$PROJECTS"/"$SESSION"
@@ -130,8 +147,10 @@ if ! (tmux has-session -t "$SESSION" > /dev/null 2>&1); then
     fi
     e_activity_end
     e_success "Session created"
-
-    tmux wait-for shared-create
+    # Check if _shared session is available. If not, wait for it to be
+    if ! (tmux has-session -t "_shared"); then
+        tmux wait-for shared-create
+    fi
     e_set_inline
     e_activity "Linking shared windows…"
     mx-shared-session link $SESSION
