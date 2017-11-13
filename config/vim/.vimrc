@@ -63,6 +63,7 @@ let g:polyglot_disabled = ['css']
 Plug 'stephenway/postcss.vim', { 'for': ['css'] }
 Plug 'lepture/vim-jinja', { 'for': ['jinja2', 'jinja', 'htmldjango', 'twig'] }
 Plug 'Konfekt/FastFold'
+Plug 'andymass/matchup.vim'
 Plug 'Valloric/MatchTagAlways'
 let g:mta_filetypes = {
     \ 'html' : 1,
