@@ -56,7 +56,6 @@ fstash() {
       break;
     elif [[ "$k" == 'ctrl-s' ]]; then
       git stash drop $stashIdx
-      break;
     elif [[ "$k" == 'ctrl-a' ]]; then
       git stash apply $sha
       break;
