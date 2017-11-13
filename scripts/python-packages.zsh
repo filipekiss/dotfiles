@@ -2,14 +2,15 @@
 (( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
 
 PACKAGES=(
-     --upgrade setuptools
-     --upgrade pip
+     setuptools
+     pip
      pygments
      neovim
+     typing
      vim-vint
      virtualenv
      jedi
      websocket-client
 )
 
-pip2 install ${PACKAGES[@]} && pip3 install ${PACKAGES[@]}
+pip2 install --upgrade ${PACKAGES[@]} && pip3 install --upgrade ${PACKAGES[@]}
