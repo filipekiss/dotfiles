@@ -38,7 +38,7 @@ function create() {
 function link() {
     if (tmux has-session -t '_shared' > /dev/null 2>&1); then
         tmux link-window -s '_shared:Log & Notes' -t "${1}:0" -d
-        tmux link-window -s '_shared:weechat' -t "${1}:9" -d
+        tmux link-window -s '_shared:weechat' -t "${1}:9" -d > /dev/null 2>&1
     fi
     tmux wait-for -S shared-link
 }
