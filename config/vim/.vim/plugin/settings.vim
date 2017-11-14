@@ -14,7 +14,7 @@ if !has('nvim')
 endif
 
 " set highlight+=@:ColorColumn          " ~/@ at end of window, 'showbreak'
-set highlight+=N:DiffText             " make current line number stand out a little
+" set highlight+=N:DiffText             " make current line number stand out a little
 " set highlight+=c:LineNr               " blend vertical separators with line numbers
 
 set expandtab                         " always use spaces instead of tabs
