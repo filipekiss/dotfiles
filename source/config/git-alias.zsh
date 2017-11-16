@@ -9,7 +9,7 @@ alias   gps="git push"
 unalias gpf 2> /dev/null
 alias   gpf="git push --force-with-lease"
 unalias gpr 2> /dev/null
-alias   gpr="git pull --rebase"
+[[ $+commands[git-up] ]] && alias gpr="git up" || alias gpr="git pull --rebase"
 unalias gst 2> /dev/null
 alias   gst="git status --short"
 unalias gap 2> /dev/null
