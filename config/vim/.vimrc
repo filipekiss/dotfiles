@@ -51,6 +51,7 @@ Plug 'junegunn/vader.Vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'blueyed/vim-diminactive'
 Plug 'tpope/vim-fugitive'
+Plug 'mjbrownie/swapit'
 
 let g:diminactive_use_syntax = 0
 let g:diminactive_enable_focus = 1
