@@ -17,7 +17,7 @@
 #
 # Version
 # -------
-# 2.0.0
+# 2.1.0
 # --------------------------------------------------------------------------------------------------
 #
 # Versioning Details
@@ -148,14 +148,17 @@ if ! (tmux has-session -t "${SESSION}" > /dev/null 2>&1); then
     e_activity_end
     e_success "Session created"
     # Check if _shared session is available. If not, wait for it to be
-    if ! (tmux has-session -t "_shared"); then
+    if ! (tmux has-session -t "_shared" > /dev/null 2>&1); then
+        e_set_inline
+        e_activity "Waiting for shared session…"
         tmux wait-for shared-create
+        e_activity_end
     fi
     e_set_inline
     e_activity "Linking shared windows…"
     mx-shared-session link $SESSION
     tmux select-window -t 1
-    tmux select-pane -t 0
+    tmux select-pane -t 1
     e_activity_end
     e_success "Shared session linked"
 fi
