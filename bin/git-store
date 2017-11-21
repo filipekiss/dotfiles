@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+#
+# git-store
+# --------------------------------------------------------------------------------------------------
+#
+# Version
+# -------
+# 0.1.0
+# --------------------------------------------------------------------------------------------------
+#
+# Author
+# ------
+# Filipe Kiss <eu@filipekiss.com.br>
+# --------------------------------------------------------------------------------------------------
+#
+# Description
+# -----------
+# Stash only the staged changes.
+# --------------------------------------------------------------------------------------------------
+#
+# About
+# ----------
+# This script is based on the stackoverflow answer listed below. It basically creates two stashes:
+# One named "Stashed: <description>", which includes everything. This is git default stash. A second
+# one named "Stored: <description>". This will include only the staged changes. By default, the
+# first stash created is deleted, leaving you only with the stash with the staged changes. See the
+# store.preserve option below for more info
+#
+# See https://stackoverflow.com/a/32951373
+# --------------------------------------------------------------------------------------------------
+#
+# Settings
+# --------
+# store.preserve = [true|false]
+# -----------------------------
+# By default, `git-store` will not preserve the unstaged changes. Since we use the double stash
+# method, it will delete the "bad" stash and keep only the "good" stash (the one with only the
+# staged changes). You can keep the "bad" stash by setting the 'store.preserve' config to true:
+#
+# git config [--global] store.preserve true
+# --------------------------------------------------------------------------------------------------
+#
+# Usage
+# -----
+# git add files-to-stash
+# git store [description]
+# --------------------------------------------------------------------------------------------------
+
+
+hasStagedFiles() {
+    # git diff will return 1 if there are staged files and we need a 0, so we trick it
+    git diff --cached --quiet && return 1 || return 0
+}
+
+store_staged_files() {
+    local stashIdx stashHash stashDescription
+    git stash save --keep-index "Stashed: $descriptionMessage" > /dev/null 2>&1
+    if [[ -z $preserveBadStash ]]; then
+        git stash drop 'stash@{0}' &> /dev/null
+    fi
+    git stash save "Stored: $descriptionMessage" > /dev/null 2>&1
+    stashIdx=$(git stash list --pretty="%gd" -1)
+    stashHash=$(git stash list --pretty="%h" -1)
+    stashDescription=$(git stash list --pretty="%gs" -1)
+    echo "You stored your changes to the stash below:"
+    echo "${YELLOW}${stashIdx} ${stashHash} ${BLUE}${stashDescription}"
+    echo
+    echo "You can restore these changes by running"
+    echo "${YELLOW}git stash apply ${stashIdx}"
+    echo
+}
+
+load_settings() {
+    preserveBadStash=""
+    if [ $(_read_git_setting "store.preserve") = "true" ]; then
+        preserveBadStash=true
+    fi
+}
+
+_read_git_setting() {
+    config_name="$1"
+    if git config --get "$config_name" &> /dev/null; then
+        git config --get "$config_name"
+    fi
+}
+
+main() {
+    local descriptionMessage
+    descriptionMessage="git-store auto stash"
+    [[ -n $1 ]] && descriptionMessage="$1"
+    if hasStagedFiles; then
+        store_staged_files $descriptionMessage
+    else
+        echo "No staged files detected. Aborting store…"
+    fi
+}
+
+load_settings
+main "$@"
