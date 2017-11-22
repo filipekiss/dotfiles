@@ -25,9 +25,9 @@ function! functions#TextHR(...) range
             continue
         endif
         if functions#IsComment() == 1
-            let l:macroText = "yypwv$hr".l:sep."j"
+            let l:macroText = '"ayy"apwv$hr'.l:sep.'j'
         else
-            let l:macroText = "yypv$hr".l:sep."j"
+            let l:macroText = '"ayy"apv$hr'.l:sep.'j'
         endif
         exec "normal! " . l:macroText
         let l:skipLine = 1
