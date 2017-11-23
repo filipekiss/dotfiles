@@ -17,7 +17,9 @@ alias weechat="weechat --dir=$HOME/.dotfiles/irc/.weechat"
 alias work="mx saraiva"
 
 # File Download
-if (( $+commands[curl] )); then
+if (( $+commands[aria2c] )); then
+  alias get='aria2c --continue --remote-time --file-allocation=none'
+elif (( $+commands[curl] )); then
   alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
 elif (( $+commands[wget] )); then
   alias get='wget --continue --progress=bar --timestamping'
