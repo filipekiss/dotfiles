@@ -39,7 +39,6 @@
     Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-surround'
     Plug 'wellle/targets.vim'
     Plug 'wincent/terminus'
     Plug 'mhinz/vim-startify'
@@ -55,6 +54,7 @@
     Plug 'blueyed/vim-diminactive'
     Plug 'tpope/vim-fugitive'
     Plug 'mjbrownie/swapit'
+    Plug 'machakann/vim-sandwich'
 
 " }}} ---------------------------------------- General Plugins
 
@@ -67,6 +67,7 @@
     Plug 'Konfekt/FastFold'
     Plug 'andymass/matchup.vim'
     Plug 'Valloric/MatchTagAlways'
+    Plug 'adamclerk/vim-razor', { 'for': ['razor'] }
 " }}} ---------------------------------------- Syntax Plugins
 
 " Linters and Code Quality Plugins ---------------------------------------- {{{
