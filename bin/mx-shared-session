@@ -25,7 +25,7 @@ function create_shared_session() {
     tmux wait-for notes-editor
     tmux send-keys -t '_shared' C-w h ":sp ~/_todo.md" C-m
     # Open other programs
-    try_open 'weechat'
+    # try_open 'weechat'
 }
 
 function create() {
@@ -38,7 +38,7 @@ function create() {
 function link() {
     if (tmux has-session -t '_shared' > /dev/null 2>&1); then
         tmux link-window -s '_shared:Log & Notes' -t "${1}:0" -d
-        tmux link-window -s '_shared:weechat' -t "${1}:9" -d > /dev/null 2>&1
+        # tmux link-window -s '_shared:weechat' -t "${1}:9" -d > /dev/null 2>&1
     fi
     tmux wait-for -S shared-link
 }

@@ -17,7 +17,7 @@
 #
 # Version
 # -------
-# 2.1.0
+# 3.0.0
 # --------------------------------------------------------------------------------------------------
 #
 # Versioning Details
@@ -135,9 +135,9 @@ if ! (tmux has-session -t "${SESSION}" > /dev/null 2>&1); then
     e_set_inline
     tmux new-session -s "$SESSION" -n editor -d -c $WORKINGDIR -x $twidth -y $theight
     # If there's a start script and it has +x permissions, execute it
-    if  [ -x "${WORKINGDIR}/start" ]; then
-        e_activity "Running start script at ${WORKINGDIR}/start"
-        tmux send-keys -t "$SESSION" "${WORKINGDIR}/start" C-m
+    if  [ -x "${WORKINGDIR}/.mx-start" ]; then
+        e_activity "Running start script at ${WORKINGDIR}/.mx-start"
+        tmux send-keys -t "$SESSION" "${WORKINGDIR}/.mx-start" C-m
     # Else, run the default config: Split 50/50 with editor on left and shell on $WORKINGDIR on right
     else
         e_activity 'Setting up default workspace…'
