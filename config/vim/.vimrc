@@ -18,12 +18,15 @@
     call plug#begin('~/.vim/plugged')
 
 " General Plugins ---------------------------------------- {{{
+    " Autocomplete ---------------------------------------- {{{
     if has('nvim')
         Plug 'roxma/nvim-completion-manager'
         Plug 'roxma/ncm-flow', { 'for': ['javascript', 'javascript.jsx'] }
+        Plug 'Shougo/neco-vim', { 'for': ['vim'] }
     endif
+    " }}} ---------------------------------------- Autocomplete
+
     Plug 'davidhalter/jedi', { 'for': ['python'] }
-    Plug 'Shougo/neco-vim', { 'for': ['vim'] }
     Plug 'jiangmiao/auto-pairs'
     Plug 'SirVer/ultisnips'
     Plug 'duggiefresh/vim-easydir'
@@ -55,6 +58,7 @@
     Plug 'tpope/vim-fugitive'
     Plug 'mjbrownie/swapit'
     Plug 'machakann/vim-sandwich'
+    Plug 'kana/vim-textobj-user' | Plug 'kana/vim-textobj-line'
 
 " }}} ---------------------------------------- General Plugins
 
@@ -68,6 +72,7 @@
     Plug 'andymass/matchup.vim'
     Plug 'Valloric/MatchTagAlways'
     Plug 'adamclerk/vim-razor', { 'for': ['razor'] }
+    Plug 'mustache/vim-mustache-handlebars', { 'for': ['html.handlebars', 'html.mustache'] }
 " }}} ---------------------------------------- Syntax Plugins
 
 " Linters and Code Quality Plugins ---------------------------------------- {{{
@@ -104,11 +109,6 @@
     " this needs to be here ¯\_(ツ)_/¯
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-    let g:cm_complete_delay = 10
-    let g:cm_sources_override = {
-          \ 'cm-tags': {'enable':0}
-          \ }
-
     let g:user_emmet_leader_key=','
 
     let g:diminactive_use_syntax = 0
@@ -132,7 +132,10 @@
 " NCM + UltiSnips ---------------------------------------- {{{
 
     if has('nvim')
-        let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+        let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+        let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+        let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+        let g:UltiSnipsRemoveSelectModeMappings = 0
         inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
         inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
         inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
@@ -148,6 +151,7 @@
     set path+=$HOME/.dotfiles/
     " Add current folder to path (and subfolders also)
     set path+=**
+    set path+=.**
 
 " }}} ---------------------------------------- Path settings
 
