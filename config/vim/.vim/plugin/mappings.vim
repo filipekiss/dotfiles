@@ -41,6 +41,11 @@ inoremap ! !<c-g>u
 inoremap , ,<c-g>u
 
 
+" Swap V and v since I use V-Line so much more
+nnoremap V v
+nnoremap v V
+
+
 " Disable arrow keys (hardcore)
 nmap  <up>    <nop>
 nmap  <down>  <nop>
