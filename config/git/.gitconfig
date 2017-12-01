@@ -120,7 +120,7 @@
 #
 # URL shorthands
 [url "git@github.com:"]
-    insteadOf = gh:
+    insteadOf     = gh:
     pushInsteadOf = github:
     pushInsteadOf = git://github.com/
 
@@ -128,7 +128,7 @@
     insteadOf = github:
 
 [url "git@gist.github.com:"]
-    insteadOf = gst:
+    insteadOf     = gst:
     pushInsteadOf = gist:
     pushInsteadOf = git://gist.github.com/
 
@@ -136,11 +136,26 @@
     insteadOf = gist:
 
 [url "git@github.com:filipekiss/"]
-    insteadOf = me:
+    insteadOf     = me:
+    pushInsteadOf = me:
     pushInsteadOf = https://github.com/filipekiss/
     pushInsteadOf = http://github.com/filipekiss/
     pushInsteadOf = git://github.com/filipekiss/
-    pushInsteadOf = me:
+
+[url "git@gitlab.com:"]
+    insteadOf     = gitlab:
+    insteadOf     = git://gitlab.com/
+    pushInsteadOf = git://gitlab.com/
+    pushInsteadOf = https://gitlab.com/
+    pushInsteadOf = http://gitlab.com/
+
+[url "git@gitlab.com:diario-do-taberneiro/"]
+	insteadOf     = taberneiro:
+    pushInsteadOf = taberneiro:
+    pushInsteadOf = https://gitlab.com/diario-do-taberneiro/
+    pushInsteadOf = http://gitlab.com/diario-do-taberneiro/
+    pushInsteadOf = git://gitlab.com/diario-do-taberneiro/
+
 
 [merge]
     conflictstyle = diff3
