@@ -11,6 +11,11 @@
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 
+    function! PlugCond(cond, ...)
+        let l:opts = get(a:000, 0, {})
+        return a:cond ? l:opts : extend(l:opts, { 'on': [], 'for': [] })
+    endfunction
+
 " }}} ---------------------------------------- Vim Plug Auto Install
 
 " Plugins to Install ---------------------------------------- {{{
@@ -21,7 +26,8 @@
     " Autocomplete ---------------------------------------- {{{
     if has('nvim')
         Plug 'roxma/nvim-completion-manager'
-        Plug 'roxma/ncm-flow', { 'for': ['javascript', 'javascript.jsx'] }
+        Plug 'roxma/nvim-cm-tern', PlugCond(empty(glob(getcwd() .'/.flowconfig')), { 'do': 'yarn' })
+        Plug 'roxma/ncm-flow', PlugCond(!empty(glob(getcwd() .'/.flowconfig')))
         Plug 'Shougo/neco-vim', { 'for': ['vim'] }
     endif
     " }}} ---------------------------------------- Autocomplete
@@ -177,6 +183,7 @@
     " config/vim/.vim/after/plugin/UndoTree.vim
     " config/vim/.vim/after/plugin/abolish.vim
     " config/vim/.vim/after/plugin/commentray.vim
+    " config/vim/.vim/after/plugin/cm.vim
     " config/vim/.vim/after/plugin/easy_align.vim
     " config/vim/.vim/after/plugin/editorconfig.vim
     " config/vim/.vim/after/plugin/fzf.vim
