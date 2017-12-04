@@ -1,0 +1,67 @@
+#compdef mx
+
+# vim:ft=sh:
+
+# mx completion
+# --------------------------------------------------------------------------------------------------
+
+# Description
+# -----------
+# An auto-complete function for my mx needs.
+# --------------------------------------------------------------------------------------------------
+# Authors
+# -------
+# Filipe Kiss <eu@filipekiss.com.br> http://github.com/filipekiss
+# --------------------------------------------------------------------------------------------------
+
+_mx() {
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments \
+        ':Project Namespace:->namespace'\
+        ':Project:->project'
+
+    case $state in
+        (namespace)
+            _arguments '1:Project Namespace:_list_available_namespaces'
+            ;;
+        (project)
+            _arguments '2:Project:_list_projects_for_namespace'
+    esac
+}
+
+
+_list_available_namespaces() {
+    local home_namespaces project_namespaces _has_projects_folder _description
+    _description=()
+    [[ -z $PROJECTS ]] && PROJECTS=$HOME
+    home_namespaces=($(find ${HOME}/* -maxdepth 0 -type d -not -path '*/\.*' -printf '%f\n'))
+    if [[ $PROJECTS != $HOME ]]; then
+        _has_projects_folder=1
+        project_namespaces=($(find ${PROJECTS}/* -maxdepth 0 -type d -not -path '*/\.*' -printf '%f\n'))
+    fi
+    for namespace in $home_namespaces; do
+        [[ -n $_has_projects_folder ]] && prefix="home/"
+        _description+=("${namespace}:${prefix:-}${namespace}")
+    done;
+    for namespace in $project_namespaces; do
+        [[ -n $_has_projects_folder ]] && prefix="projects/"
+        _description+=("${namespace}:${prefix:-}${namespace}")
+    done;
+    _describe -t namespace "Project Namespace" _description
+}
+
+_list_projects_for_namespace() {
+    local _selected_namespace _description
+    _selected_namespace=$words[2]
+    _description=()
+    [[ -d ${PROJECTS}/${_selected_namespace} ]] && NAMESPACE_PATH=${PROJECTS}/${_selected_namespace} || NAMESPACE_PATH=${HOME}/${_selected_namespace}
+    _projects_available=($(find ${NAMESPACE_PATH}/* -maxdepth 0 -type d -printf '%f\n'))
+    for project in $_projects_available; do
+        _description+=("${project}")
+    done;
+    _describe -t project "Project" _description
+}
+
+_mx "$@"

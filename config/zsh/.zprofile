@@ -39,6 +39,7 @@ export LC_ALL='en_US.UTF-8'
 # PATH.
 ##############################################################
 fpath=(
+  "${HOME}/.dotfiles/completion"
   '/usr/local/share/zsh/site-functions'
   $fpath
 )
