@@ -32,9 +32,29 @@ _mx() {
 }
 
 
+_fzf_complete_mx() {
+    ARGS="$@"
+    ARGS_SIZE=${(A)ARGS}
+    if [[ ${#ARGS} -gt 3 ]]; then
+        _fzf_complete "--reverse" "$@" < <(
+            _list_projects_for_namespace "fzf" ${ARGS##mx }
+        )
+    else
+        _fzf_complete "--reverse" "$@" < <(
+            _list_available_namespaces "fzf"
+        )
+    fi
+}
+
+_fzf_complete_mx_post() {
+    cut -d ' ' -f1
+}
+
+
 _list_available_namespaces() {
     local home_namespaces project_namespaces _has_projects_folder _description
     _description=()
+    [[ "$1" == "fzf" ]] && _fzf_pattern=1
     [[ -z $PROJECTS ]] && PROJECTS=$HOME
     home_namespaces=($(find ${HOME}/* -maxdepth 0 -type d -not -path '*/\.*' -printf '%f\n'))
     if [[ $PROJECTS != $HOME ]]; then
@@ -43,24 +63,35 @@ _list_available_namespaces() {
     fi
     for namespace in $home_namespaces; do
         [[ -n $_has_projects_folder ]] && prefix="home/"
-        _description+=("${namespace}:${prefix:-}${namespace}")
+        if [[ -n $_fzf_pattern ]]; then
+            _description+=("${namespace} - ${prefix:-}${namespace}")
+        else
+            _description+=("${namespace}:${prefix:-}${namespace}")
+        fi
     done;
     for namespace in $project_namespaces; do
         [[ -n $_has_projects_folder ]] && prefix="projects/"
-        _description+=("${namespace}:${prefix:-}${namespace}")
+        if [[ -n $_fzf_pattern ]]; then
+            _description+=("${namespace} - ${prefix:-}${namespace}")
+        else
+            _description+=("${namespace}:${prefix:-}${namespace}")
+        fi
     done;
+    [[ "$1" == "fzf" ]] && echo ${(iF)_description} && return
     _describe -t namespace "Project Namespace" _description
+
 }
 
 _list_projects_for_namespace() {
     local _selected_namespace _description
-    _selected_namespace=$words[2]
+    [[ -n "$2" ]] && _selected_namespace="${2%% *}" || _selected_namespace=$words[2]
     _description=()
     [[ -d ${PROJECTS}/${_selected_namespace} ]] && NAMESPACE_PATH=${PROJECTS}/${_selected_namespace} || NAMESPACE_PATH=${HOME}/${_selected_namespace}
     _projects_available=($(find ${NAMESPACE_PATH}/* -maxdepth 0 -type d -printf '%f\n'))
     for project in $_projects_available; do
         _description+=("${project}")
     done;
+    [[ -n "$1" ]] && echo ${(iF)_description} && return
     _describe -t project "Project" _description
 }
 
