@@ -18,6 +18,7 @@
     ci = commit
     co = checkout
     conflict = diff --name-only --diff-filter=U
+    count = rev-list --count
     current = "!git branch-name"
     d = diff --patch-with-stat
     dc = diff --patch-with-stat --staged

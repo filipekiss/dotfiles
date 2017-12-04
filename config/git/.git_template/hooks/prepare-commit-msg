@@ -58,7 +58,7 @@ function fzf_prepare_message() {
     fi
     if $SHOW_EMOJI_SELECTOR; then
         local prepend_emojis=$(fzf_select_emoji)
-        echo "${prepend_emojis} ${COMMITS_MESSAGE_CONTENT}" | tee ${COMMIT_MESSAGE_FILE} > /dev/null
+        echo "${prepend_emojis}${COMMITS_MESSAGE_CONTENT}" | tee ${COMMIT_MESSAGE_FILE} > /dev/null
     fi
 }
 
