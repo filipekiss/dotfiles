@@ -56,8 +56,10 @@ path=(
     ${HOME}/.dotfiles/bin
     ${HOME}/.linuxbrew/bin
     /home/linuxbrew/.linuxbrew/bin
-    /usr/local/{bin,sbin}
+    /usr/local/opt/gnu-sed/libexec/gnubin
+    /usr/local/opt/findutils/libexec/gnubin
     /usr/local/opt/coreutils/libexec/gnubin
+    /usr/local/{bin,sbin}
     /usr/local/opt/python/libexec/bin
     /usr/local/opt/curl/bin
     /usr/local/Cellar/git

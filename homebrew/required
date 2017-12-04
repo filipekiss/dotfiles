@@ -16,6 +16,7 @@ brew 'git', args: ['without-completions']
 brew 'python'
 brew 'python3'
 brew 'coreutils'
+brew 'findutils' ['with-default-names']
 brew 'stow'
 brew 'transcrypt'
 brew 'zsh'
