@@ -62,7 +62,7 @@ _fzf_complete_mx() {
 }
 
 __fzf_complete_mx_namespace(){
-    _fzf_complete "--reverse --header-lines=1" "$@" < <(
+    _fzf_complete "--reverse --no-multi --header-lines=1" "$@" < <(
         echo "Project Namespace"
         _list_available_namespaces |
             cut -d ':' -f1
@@ -71,7 +71,7 @@ __fzf_complete_mx_namespace(){
 
 
 __fzf_complete_mx_project(){
-    _fzf_complete "--reverse --header-lines=1" "$@" < <(
+    _fzf_complete "--reverse --no-multi --header-lines=1" "$@" < <(
         echo "Select Project for $2"
         _list_available_projects "$2" |
             cut -d ':' -f1
