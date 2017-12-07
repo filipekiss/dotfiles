@@ -2,7 +2,46 @@ if !exists(':Startify')
     finish
 endif
 
-let g:startify_custom_header = startify#fortune#cowsay('═','║','╔','╗','╝','╚')
+
+if has('nvim')
+    let g:startify_ascii = [
+                \ "      .            .      ",
+                \ "    .,;'           :,.    ",
+                \ "  .,;;;,,.         ccc;.  ",
+                \ ".;c::::,,,'        ccccc: ",
+                \ ".::cc::,,,,,.      cccccc.",
+                \ ".cccccc;;;;;;'     llllll.",
+                \ ".cccccc.,;;;;;;.   llllll.",
+                \ ".cccccc  ';;;;;;'  oooooo.",
+                \ "'lllllc   .;;;;;;;.oooooo'",
+                \ "'lllllc     ,::::::looooo'",
+                \ "'llllll      .:::::lloddd'",
+                \ ".looool       .;::coooodo.",
+                \ "  .cool         'ccoooc.  ",
+                \ "    .co          .:o:.    ",
+                \ "      .           .'      ",
+                \]
+else
+    let g:startify_ascii = [
+                \ '     ________ ;;     ________',
+                \ '    /********\;;;;  /********\',
+                \ '    \********/;;;;;;\********/',
+                \ '     |******|;;;;;;;;/*****/',
+                \ '     |******|;;;;;;/*****/''',
+                \ '    ;|******|;;;;/*****/'';',
+                \ '  ;;;|******|;;/*****/'';;;;;',
+                \ ';;;;;|******|/*****/'';;;;;;;;;',
+                \ '  ;;;|***********/'';;;;;;;;;',
+                \ '    ;|*********/'';;;;;;;;;',
+                \ '     |*******/'';;;;;;;;;',
+                \ '     |*****/'';;;;;;;;;',
+                \ '     |***/'';;;;;;;;;',
+                \ '     |*/''   ;;;;;;',
+                \ '              ;;',
+                \]
+endif
+
+let g:startify_custom_header = map(g:startify_ascii, '"     ".v:val')
 
 let g:startify_skiplist = [
       \ 'COMMIT_EDITMSG',

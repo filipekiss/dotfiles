@@ -183,3 +183,21 @@ vnoremap . :norm.<CR>
 " Use <Leader>y and <Leader>p to use the 0 register automatically (Avoid yanking replaced line)
 vnoremap <Leader>y "0y
 vnoremap <Leader>p "0p
+
+
+" Don't move cursor when yanking stuff!
+" See http://ddrscott.github.io/blog/2016/yank-without-jank/
+vnoremap <expr>y "my\"" . v:register . "y`y"
+
+
+" Reload $MYVIMRC
+nnoremap <Leader>rr :source $MYVIMRC \| echom "Reloaded " . expand($MYVIMRC) <CR>
+
+" Save and Reload current file
+nnoremap <Leader>R :w<CR> :source % \| echom "Reloaded " . expand("%") <CR>
+
+
+" Add line to the beggining/end of the file. Add a mark o/O to make it easy to get back to where you
+" were
+nnoremap <Leader>O mOggO
+nnoremap <Leader>o moGGo
