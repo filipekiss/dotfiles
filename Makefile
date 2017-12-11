@@ -1,4 +1,4 @@
-all: italics brew permissions python ruby iterm githooks
+all: italics brew permissions python ruby node iterm githooks
 
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
@@ -11,6 +11,9 @@ brew:
 
 python:
 	-@zsh ./scripts/python-packages.zsh
+
+node:
+	-@zsh ./scripts/node-packages.zsh
 
 ruby:
 	-@gem install bundler
@@ -35,4 +38,4 @@ italics:
 	-@tic -o ~/.terminfo ./terminfo/xterm-256color.terminfo.txt
 	-@echo `tput sitm`italics`tput ritm` `tput smso`standout`tput rmso`
 
-PHONY: all brew permissions iterm python macos githooks requirements stow keybase italics
+PHONY: all brew permissions iterm python macos githooks requirements stow keybase italics node
