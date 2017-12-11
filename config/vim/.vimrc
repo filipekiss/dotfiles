@@ -11,11 +11,6 @@
         autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
     endif
 
-    function! PlugCond(cond, ...)
-        let l:opts = get(a:000, 0, {})
-        return a:cond ? l:opts : extend(l:opts, { 'on': [], 'for': [] })
-    endfunction
-
 " }}} ---------------------------------------- Vim Plug Auto Install
 
 " Plugins to Install ---------------------------------------- {{{
@@ -26,8 +21,7 @@
     " Autocomplete ---------------------------------------- {{{
     if has('nvim')
         Plug 'roxma/nvim-completion-manager'
-        Plug 'roxma/nvim-cm-tern', PlugCond(empty(glob(getcwd() .'/.flowconfig')), { 'do': 'yarn' })
-        Plug 'roxma/ncm-flow', PlugCond(!empty(glob(getcwd() .'/.flowconfig')))
+        Plug 'roxma/nvim-cm-tern', { 'do': 'yarn' }
         Plug 'Shougo/neco-vim', { 'for': ['vim'] }
     endif
     " }}} ---------------------------------------- Autocomplete
