@@ -35,9 +35,15 @@ __zsh_complete_tmux_sessions() {
 }
 
 _list_available_sessions() {
+    local _description
     _sessions_available=($(tmux list-sessions -F "#{session_name}"));
+    _description=()
+    if [[ -n "$TMUX" ]]; then
+        local current_session
+        current_session=$(tmux display-message -p '#S')
+    fi
     for session in $_sessions_available; do
-        echo $session;
+        [[ $session != \_* ]] && [[ $session != ${current_session:-} ]] && _description+=("${session}")
     done;
     echo ${(iF)_description}
 }

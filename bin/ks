@@ -15,7 +15,7 @@
 #
 # Version
 # -------
-# 0.1.0
+# 0.2.0
 # --------------------------------------------------------------------------------------------------
 #
 # Usage
@@ -32,7 +32,8 @@ ks() {
     if [ -z "$TMUX" ]; then
         tmux attach -t "$SESSION"
     else
-        tmux switch-client -t "$SESSION" && tmux kill-session
+        tmux switch-client -t "$SESSION"
+        [[ -z $2 ]] && tmux kill-session
     fi
 }
 
