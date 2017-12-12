@@ -35,7 +35,8 @@ keybase:
 	-@zsh ./scripts/keybase.zsh
 
 italics:
-	-@tic -o ~/.terminfo ./terminfo/xterm-256color.terminfo.txt
+	-@tic -o ~/.terminfo ./terminfo/xterm-256color.terminfo
+	-@tic -o ~/.terminfo ./terminfo/tmux-256color.terminfo
 	-@echo `tput sitm`italics`tput ritm` `tput smso`standout`tput rmso`
 
 PHONY: all brew permissions iterm python macos githooks requirements stow keybase italics node

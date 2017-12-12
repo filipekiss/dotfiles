@@ -1111,9 +1111,11 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>2049 110 445 103 0 0 2560 1440 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>479 327 796 473 0 0 2560 1440 </string>
+	<string>479 342 796 473 0 0 2560 1440 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1 24 2560 1416 0 0 2560 1440 </string>
+	<string>0 0 2560 1440 0 0 2560 1440 </string>
+	<key>NSWindow Frame iTerm Window 1</key>
+	<string>0 0 2560 1440 0 0 2560 1440 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -1890,6 +1892,10 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>B360B92D-A557-40E4-ADEF-1D856DBE39DF</string>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
@@ -1942,7 +1948,7 @@
 	<key>ShowBookmarkName</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>TabStyle</key>
 	<integer>1</integer>
 	<key>TabViewType</key>
