@@ -7,6 +7,6 @@ endif
 Abolish ret{run,unr}    return
 Abolish delte{,e}       delete{}
 Abolish funciton{,ed,s} function{}
-Abolish seconde         second
+Abolish seconde{,s}         second{,s}
 Abolish relatvie        relative
 Abolish jquery          jQuery
