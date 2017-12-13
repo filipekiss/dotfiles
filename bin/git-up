@@ -17,10 +17,9 @@
 
 set -e
 
-PULL_ARGS=""
 [ $# -gt 0 ] && PULL_ARGS="$@"
 
-git pull --rebase $PULL_ARGS
+git pull --rebase ${PULL_ARGS:-}
 
 # show diffstat of all changes if we're pulling with --rebase.
 echo
