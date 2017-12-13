@@ -46,17 +46,27 @@
 # --------------------------------------------------------------------------------------------------
 
 function dots() {
-    # If inside tmux
-    if [[ $TMUX == *"tmux"* ]]; then
+    local IN_TMUX HAS_DOTFILES_SESSION
+    [[ $TMUX == *"tmux"* ]] && IN_TMUX="yes"
+    $(tmux has-session -t "dotfiles" > /dev/null 2>&1)  && HAS_DOTFILES_SESSION="yes"
+
+    if [[ ${IN_TMUX:-} ]]; then
         local _current_session=$(tmux display-message -p '#S')
         if [[ $_current_session == "dotfiles" ]]; then
             _change_to_dotfiles_folder
             return 0
         fi
-        (( $+commands[mx] )) && $commands[mx] dotfiles && return 0
-        (( $(tmux has-session -t "dotfiles" > /dev/null 2>&1) )) && tmux attach -t dotfiles && return
+        _switch_to_dotfiles_session
+    fi
+    if [[ ${HAS_DOTFILES_SESSION:-} ]]; then
+        _switch_to_dotfiles_session
     fi
     _change_to_dotfiles_folder
+}
+
+_switch_to_dotfiles_session() {
+    (( $+commands[mx] )) && $commands[mx] dotfiles && return 0
+    (( $(tmux has-session -t "dotfiles" > /dev/null 2>&1) )) && tmux attach -t dotfiles && return 0
 }
 
 _change_to_dotfiles_folder() {
