@@ -2,6 +2,7 @@
   "ecmaVersion": 6,
   "libs": [
     "browser",
+    "jquery",
     "ecma5",
     "ecma6",
     "react"
