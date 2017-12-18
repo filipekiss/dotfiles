@@ -50,7 +50,6 @@ function link() {
             tmux link-window -s "_shared:${window}" -t "${1}:${windowIdx}" -d > /dev/null 2>&1
         done
     fi
-    rm -f /tmp/mx-shared-windows > /dev/null 2>&1
     tmux wait-for -S shared-link
 }
 
