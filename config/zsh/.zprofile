@@ -44,6 +44,12 @@ fpath=(
   $fpath
 )
 
+# Brew prefix
+(( $+commands[brew] )) && HOMEBREW_ROOT=$(brew --prefix)
+
+
+
+
 # GNU Coreutils
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 (( $+commands[nvim] )) && export MANPAGER="nvim -c 'set ft=man' -"
@@ -55,15 +61,13 @@ typeset -gU cdpath fpath mailpath path
 path=(
     ./node_modules/.bin
     ${HOME}/.dotfiles/bin
-    ${HOME}/.linuxbrew/bin
-    /home/linuxbrew/.linuxbrew/bin
-    /usr/local/opt/gnu-sed/libexec/gnubin
-    /usr/local/opt/findutils/libexec/gnubin
-    /usr/local/opt/coreutils/libexec/gnubin
-    /usr/local/{bin,sbin}
-    /usr/local/opt/python/libexec/bin
-    /usr/local/opt/curl/bin
-    /usr/local/Cellar/git
+    ${HOMEBREW_ROOT:-/usr/local}/opt/gnu-sed/libexec/gnubin
+    ${HOMEBREW_ROOT:-/usr/local}/opt/findutils/libexec/gnubin
+    ${HOMEBREW_ROOT:-/usr/local}/opt/coreutils/libexec/gnubin
+    ${HOMEBREW_ROOT:-/usr/local}/{bin,sbin}
+    ${HOMEBREW_ROOT:-/usr/local}/opt/python/libexec/bin
+    ${HOMEBREW_ROOT:-/usr/local}/opt/curl/bin
+    ${HOMEBREW_ROOT:-/usr/local}/Cellar/git
     $path
 )
 
@@ -103,3 +107,5 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 #
 
 export PROJECTS="${HOME}/code"
+
+[[ -f ~/.zsh_base16_theme ]] && . ~/.zsh_base16_theme
