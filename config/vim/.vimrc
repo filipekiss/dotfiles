@@ -88,9 +88,9 @@
 " }}} ---------------------------------------- Git Plugins
 
 " ColorSchemes and cool stuff ---------------------------------------- {{{
-    Plug 'arcticicestudio/nord-vim'
     Plug 'morhetz/gruvbox'
     Plug 'wakatime/vim-wakatime'
+    Plug 'dracula/vim'
 " }}} ---------------------------------------- ColorSchemes and cool stuff
 
 " Writing Plugins ---------------------------------------- {{{
