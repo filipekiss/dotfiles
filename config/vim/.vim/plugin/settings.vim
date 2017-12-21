@@ -75,10 +75,8 @@ set completeopt-=preview
 set nocursorcolumn       " do not highlight column
 set cursorline
 
-" use relative numbers in normal mode, absolute numbers in insert mode
+" Show line numbers by default
 set number
-autocmd InsertLeave,WinEnter * set relativenumber
-autocmd InsertEnter,WinLeave * set norelativenumber
 
 set lazyredraw                        " don't bother updating screen during macro playback
 

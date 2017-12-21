@@ -9,6 +9,9 @@ nmap <Leader>g :Goyo<CR>
 " https://github.com/junegunn/goyo.vim/wiki/Customization
 function! s:goyo_enter()
   Limelight
+  let g:isGoyoActive = 1
+  set number
+  set norelativenumber
   " Ensure TMUX enter a full-screen mode when calling Goyo from vim.
   " Hide status bar
   " Hide pane status
@@ -26,6 +29,9 @@ endfunction
 
 function! s:goyo_leave()
   Limelight!
+  unlet g:isGoyoActive
+  set number
+  set relativenumber
   " Restore TMUX settings
   " Show status bar
   " Show pane status
