@@ -3,6 +3,7 @@
 
 [include]
     path = ~/.gitconfig.local
+    path = ~/.gitconfig.private
 
 [alias]
     a = add -v
@@ -150,12 +151,14 @@
     pushInsteadOf = https://gitlab.com/
     pushInsteadOf = http://gitlab.com/
 
-[url "git@gitlab.com:diario-do-taberneiro/"]
-	insteadOf     = taberneiro:
-    pushInsteadOf = taberneiro:
-    pushInsteadOf = https://gitlab.com/diario-do-taberneiro/
-    pushInsteadOf = http://gitlab.com/diario-do-taberneiro/
-    pushInsteadOf = git://gitlab.com/diario-do-taberneiro/
+[url "git@gitlab.com:"]
+    insteadOf = gl:
+    pushInsteadOf = gitlab:
+    pushInsteadOf = git://gitlab.com/
+
+[url "git://gitlab.com/"]
+    insteadOf = gitlab:
+
 
 
 [merge]
