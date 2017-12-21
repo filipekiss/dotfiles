@@ -57,6 +57,11 @@ SAVEHIST=$HISTSIZE
 # ------------------------------------------------------------
 
 # ------------------------------------------------------------
+# Base16
+# ------------------------------------------------------------
+export BASE16_SHELL="${ZPLUG_REPOS}/chriskempson/base16-shell"
+
+# ------------------------------------------------------------
 # FZF - https://github.com/junegunn/fzf
 # ------------------------------------------------------------
 export FZF_DEFAULT_OPTS='--min-height 30 --bind esc:cancel --height 50% --border --reverse --tabstop 2 --multi --margin 0,3,3,3'
