@@ -2,9 +2,19 @@
 
 ![screenshot]
 
+# What's in the box?
+
+ * [Homebrew] (or [Linuxbrew]) for managing [dependencies]
+ * [tmux]
+ * [NeoVim] with Node, Python and Ruby Support ([Vim] 8.0 or later also supported with Python and
+   Ruby)
+ * [Git]
+ * [Zsh]
+ * [A] [handful] [of] [utilities]
+
 # Requirements
 
- * zsh
+ * [zsh]
 
 `zsh` comes default on macOS, but you may need to install it if you're in a Linux box.
 
@@ -22,17 +32,9 @@ $ curl -fsSL  https://raw.githubusercontent.com/filipekiss/dotfiles/master/bin/d
 $ git clone https://github.com/filipekiss/dotfiles.git ~/.dotfiles && cd ~/.dotfiles && ./bin/dotfiles
 ```
 
-## Private Keybase Submodule
-
-Keybase has [private encrypted git repos], so my private data is hosted
-there. After the first installation, just run `make keybase` and it will ask you to login on keybase
-if it's not logged yet and then will clone the sub repository. After that, just run `make stow`
-again.
-
 ## GPG Key
 
-Since I use `keybase` and it's installed via `brew`, just run the command below. (How you'll login
-to keybase is your own problem :P)
+Exported from `keybase`:
 
 ```
 keybase pgp export --secret | gpg --allow-secret-key-import --import
@@ -41,7 +43,16 @@ gpg --edit-key <you@email.com>
 
 Don't forget to trust said keys.
 
-I may add the gpg to the repository someday, but, for now, keybase is the way to go.
-
-[private encrypted git repos]: https://keybase.io/blog/encrypted-git-for-everyone
 [screenshot]: https://raw.githubusercontent.com/filipekiss/dotfiles/master/screenshot.png
+[Homebrew]: https://brew.sh/
+[Linuxbrew]: https://linuxbrew.sh
+[dependencies]: https://github.com/filipekiss/dotfiles/tree/master/homebrew
+[tmux]: http://tmux.sourceforge.net/
+[NeoVim]: https://neovim.io/
+[Vim]: http://www.vim.org/
+[Git]: http://git-scm.com/
+[Zsh]: http://www.zsh.org/
+[A]: https://github.com/filipekiss/dotfiles/blob/master/bin/mx
+[handful]: https://github.com/filipekiss/dotfiles/blob/master/bin/extract
+[of]: https://github.com/filipekiss/dotfiles/blob/master/source/functions/g.zsh
+[utilities]: https://github.com/filipekiss/dotfiles/blob/master/source/functions/afk.zsh
