@@ -1,9 +1,7 @@
 #!/bin/sh
 
 function _hook() {
-    local hookname=$(basename $0)
-    local _global_hooks_location="$(command git config --get core.hooksPath || echo "~/.dotfiles/config/git/hooks")"
-    local _global_hooks_folder="${_global_hooks_location}/${hookname}.d"
+    _hook_setup $@
     _run_global_hooks $_global_hooks_folder $@
     _run_local_hooks $hookname $@
 }
@@ -23,6 +21,15 @@ function _run_local_hooks() {
     local hookname="$1"
     shift
     [ -f "${GIT_DIR}/hooks/${hookname}" ] && exec "${GIT_DIR}/hooks/${hookname}" $@
+}
+
+function _hook_setup() {
+    hookname=$(basename $0)
+    if [[ $hookname == "post-rewrite" && $1 == "rebase" ]]; then
+        hookname="post-merge"
+    fi
+    _global_hooks_location="$(command git config --get core.hooksPath || echo "~/.dotfiles/config/git/hooks")"
+    _global_hooks_folder="${_global_hooks_location}/${hookname}.d"
 }
 
 _hook $@
