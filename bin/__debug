@@ -2,7 +2,7 @@
 
 function __start_debug() {
     export __DEBUG_FILE_NAME="${1:-$HOME/.__debug_${__debug_start_time}.log}"
-    echo ${__DEBUG_FILE_NAME:a} | tee $__debug_file_path_location
+    echo ${__DEBUG_FILE_NAME:a} | tee $__debug_file_path_location > /dev/null
     touch ${__DEBUG_FILE_NAME:a}
 }
 
