@@ -1,5 +1,6 @@
 [commit]
     gpgsign = true
+	verbose = true
 
 [include]
     path = ~/.gitconfig.local
@@ -79,6 +80,7 @@
 	untrackedCache = true
     editor = $EDITOR
 	whitespace = trailing-space,space-before-tab # Git will check for whitespace at $ and mixed spaces and tabs
+	hooksPath = /Users/filipekiss/.dotfiles/config/git/hooks
 
 [color]
     diff = auto

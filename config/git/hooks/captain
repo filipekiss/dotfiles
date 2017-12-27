@@ -1,0 +1,29 @@
+#!/bin/sh
+
+function _hook() {
+    local hookname=$(basename $0)
+    local _global_hooks_location="$(command git config --get core.hooksPath || echo "~/.dotfiles/config/git/hooks")"
+    local _global_hooks_folder="${_global_hooks_location}/${hookname}.d"
+    _run_global_hooks $_global_hooks_folder $@
+    _run_local_hooks $hookname $@
+}
+
+function _run_global_hooks() {
+    local hooks_folder="$1"
+    shift
+    if [ -d ${hooks_folder} ]; then
+        for hook in $(find ${hooks_folder} -type f -or -type l); do
+            exec $hook $@
+        done
+    fi
+}
+
+
+function _run_local_hooks() {
+    local hookname="$1"
+    shift
+    [ -f "${GIT_DIR}/hooks/${hookname}" ] && exec "${GIT_DIR}/hooks/${hookname}" $@
+}
+
+_hook $@
+exit 0

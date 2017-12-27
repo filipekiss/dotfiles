@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Look for files that still have conflict markers (>|< repeated 7 times)
+
+HAS_CONFLICTS="$(command git diff --cached --name-only --color=always --pickaxe-regex -S'[>|<]{7}')"
+
+if [ -n "$HAS_CONFLICTS" ]; then
+    echo "These files have conflict markers in them:"
+    echo $HAS_CONFLICTS
+    exit 1
+fi
