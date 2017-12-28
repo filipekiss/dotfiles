@@ -116,9 +116,6 @@
 [dotfiles]
     managed = true
 
-[init]
-    templatedir = ~/.git_template
-
 [fetch]
 	prune = true
 #
