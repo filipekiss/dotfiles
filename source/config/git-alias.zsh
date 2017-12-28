@@ -18,3 +18,5 @@ unalias gbr 2> /dev/null
 alias   gbr="git branch"
 unalias gri 2> /dev/null
 alias   gri="git rebase --interactive"
+unalias gar 2> /dev/null
+alias   gar="git add -v $(git rev-parse --show-toplevel)"
