@@ -17,7 +17,7 @@
 #
 # Version
 # -------
-# 4.0.1
+# 4.1.0
 # --------------------------------------------------------------------------------------------------
 #
 # Usage
@@ -80,10 +80,14 @@ set -e
 source dotfiles "source"
 
 
-
 if [ -z "$1" ]; then
   SESSION="${PWD##*/}"
 else
+    _try_command="mx-$1"
+    if [[ -n $(type -p $_try_command) ]]; then
+        exec $_try_command
+        exit 0
+    fi
   SESSION="$1"
 fi
 
