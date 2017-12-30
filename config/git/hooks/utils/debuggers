@@ -1,0 +1,54 @@
+#!/usr/bin/env zsh
+
+# debuggers git hook
+# --------------------------------------------------------------------------------------------------
+#
+# Description
+# -----------
+# Search the specified files for things that are used for debug. The commit won't be prevented, but
+# a warning will be issued to the user
+# --------------------------------------------------------------------------------------------------
+# Authors
+# -------
+# Filipe Kiss https://github.com/filipekiss
+# --------------------------------------------------------------------------------------------------
+
+# Useful vars
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+RESET='\033[0m'
+
+validate_js() {
+    local FILES_PATTERN='\.(js|jsx)(\..+)?$'
+    local BREAK_ON="(console.|debugger)"
+	filter_files ${FILES_PATTERN} ${BREAK_ON}
+}
+
+filter_files() {
+    local FILES_PATTERN="$1"
+    local BREAK_ON="$2"
+    local MESSAGE="${3:-The following files have debugging instructions! Remove before pushing to production}"
+    FILES_TO_CHECK=($(command git --no-pager diff --cached --name-only | grep -E $FILES_PATTERN))
+    if [[ -z $FILES_TO_CHECK ]]; then
+        # no staged files, let's see if there's any previously commited file that matches our
+        # criteria
+        CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        FILES_TO_CHECK=($(command git log ${CURRENT_BRANCH} --not --remotes --name-only --format=""))
+    fi
+    OFFENDING_FILES=$(grep -EHn ${BREAK_ON} $FILES_TO_CHECK)
+    if [[ -n $OFFENDING_FILES ]]; then
+        echo -n "⚠️  ${RED}ATTENTION${RESET} ⚠️"
+        echo "  ${YELLOW}${MESSAGE}${RESET}"
+        for offending_file in $OFFENDING_FILES; do
+            echo "${CYAN}${offending_file}"
+        done;
+    fi
+}
+
+main() {
+	has_errors=0
+    [[ -z $GIT_ROOT ]] && GIT_ROOT=$(git rev-parse --show-toplevel)
+	validate_js
+}
+
+main

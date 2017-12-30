@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+# wip-check
+# --------------------------------------------------------------------------------------------------
+#
+# Description
+# -----------
+# Check for commits subjects containing indications that this is a WIP and displays an alert to the user
+# --------------------------------------------------------------------------------------------------
+# Authors
+# -------
+# Filipe Kiss
+# --------------------------------------------------------------------------------------------------
+
+# Useful vars
+GREP_PATTERN="(W\.?I\.?P\.?)|:construction:"
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+RESET='\033[0m'
+
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+COMMITS_TO_PUSH="$(command git log ${CURRENT_BRANCH} --not --remotes --format="%h %s")"
+HAS_WIP=""
+for COMMIT_SUBJECT in ${COMMITS_TO_PUSH}; do
+    COMMIT_HAS_WIP=$(echo $COMMIT_SUBJECT | grep -i -E "${GREP_PATTERN}")
+    [[ -n $COMMIT_HAS_WIP ]] && HAS_WIP="yes"
+done;
+
+[[ -n $HAS_WIP ]] && echo "⚠️  ${YELLOW}You are pushing commits marked with W.I.P. They should be rebased!${RESET}"

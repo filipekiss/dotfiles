@@ -23,6 +23,7 @@
         Plug 'roxma/nvim-completion-manager'
         Plug 'roxma/nvim-cm-tern', { 'do': 'yarn' }
         Plug 'Shougo/neco-vim', { 'for': ['vim'] }
+        Plug 'llwu/deoplete-emoji'
     endif
     " }}} ---------------------------------------- Autocomplete
 

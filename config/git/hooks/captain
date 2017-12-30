@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 function _hook() {
     _hook_setup $@
@@ -10,9 +10,7 @@ function _run_global_hooks() {
     local hooks_folder="$1"
     shift
     if [ -d ${hooks_folder} ]; then
-        for hook in $(find ${hooks_folder} -type f -or -type l); do
-            exec $hook $@
-        done
+        find ${hooks_folder} -type f -or -type l -exec {} $@ \;
     fi
 }
 
@@ -24,7 +22,6 @@ function _run_local_hooks() {
 }
 
 function _hook_setup() {
-    hookname=$(basename $0)
     if [[ $hookname == "post-rewrite" && $1 == "rebase" ]]; then
         hookname="post-merge"
     fi
@@ -32,5 +29,6 @@ function _hook_setup() {
     _global_hooks_folder="${_global_hooks_location}/${hookname}.d"
 }
 
+hookname=$(basename $0)
 _hook $@
 exit 0
