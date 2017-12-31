@@ -1,4 +1,4 @@
-all: italics brew permissions python ruby node iterm githooks
+all: italics brew permissions python ruby node iterm githooks private
 
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
@@ -24,6 +24,9 @@ macos:
 
 githooks:
 	-@zsh ./scripts/link-git-hooks.zsh
+
+private:
+	-@zsh ./scripts/transcrypt-config.zsh
 
 iterm:
 	-@zsh ./scripts/iterm.zsh

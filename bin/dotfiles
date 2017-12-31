@@ -247,32 +247,6 @@ function link_config() {
     make stow
 }
 
-function setup_git_config() {
-    local GIT_USER GIT_EMAIL
-    GIT_USER=$(git config -f $HOME/.gitconfig.local user.name)
-    GIT_EMAIL=$(git config -f $HOME/.gitconfig.local user.email)
-    if [[ ${GIT_USER} == "" ]]; then
-        e_set_inline
-        e_info "What name do you wish to use to sign your commits? "
-        read GIT_USER
-    fi
-    if [[ ${GIT_EMAIL} == "" ]]; then
-      e_set_inline
-      e_info "What e-mail do you wish to use to sign your commits? "
-      read GIT_EMAIL
-    fi
-    e_reset_line
-    if [[ ${GIT_USER:-} != "" ]]; then
-        git config -f $HOME/.gitconfig.local user.name "${GIT_USER}"
-    fi
-    if [[ ${GIT_EMAIL:-} != "" ]]; then
-        git config -f $HOME/.gitconfig.local user.email "${GIT_EMAIL}"
-    fi
-    cd $DOTFILES
-    git remote set-url origin git@github.com:filipekiss/dotfiles.git
-}
-
-
 function main() {
     if [[ "$1" == "-h" || "$1" == "--help" ]]; then
         e_info "Usage: dotfiles"
@@ -303,7 +277,6 @@ function main() {
     install_dotfiles
     validate_requirements
     link_config
-    setup_git_config
     # all done!
     e_success "Make sure you change your shell to homebrew's zsh: ${YELLOW}chsh -s $(brew --prefix)/bin/zsh"
     e_success "Don't forget to run ${YELLOW}make all${RESET}"

@@ -1,10 +1,16 @@
+[user]
+	name = Filipe Kiss
+	email = eu@filipekiss.com.br
+
+[dotfiles]
+    decrypted = false
+
 [commit]
     gpgsign = true
 	verbose = true
 
 [include]
     path = ~/.gitconfig.local
-    path = ~/.gitconfig.private
 
 [alias]
     a = add -v
@@ -192,5 +198,6 @@
 # ------------------------------
 [rerere]
 	enabled = true
+
 [protocol "keybase"]
 	allow = always
