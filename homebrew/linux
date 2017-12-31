@@ -7,3 +7,6 @@
 # homebrew/required - formulas required to setup dotfiles
 # homebrew/common - formulas that should be installed on both macOS and Linux boxes
 # homebrew/macos - formulas that should only be installed on macOS boxes
+
+
+brew 'ctags'
