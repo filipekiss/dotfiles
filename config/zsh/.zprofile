@@ -44,6 +44,9 @@ fpath=(
   $fpath
 )
 
+# Ensure linuxbrew can be found if installed
+[[ -d /home/linuxbrew/.linuxbrew ]] && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+
 # Brew prefix
 (( $+commands[brew] )) && HOMEBREW_ROOT=$(brew --prefix)
 
