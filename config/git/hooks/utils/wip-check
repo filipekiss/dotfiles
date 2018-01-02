@@ -26,4 +26,12 @@ for COMMIT_SUBJECT in ${COMMITS_TO_PUSH}; do
     [[ -n $COMMIT_HAS_WIP ]] && HAS_WIP="yes"
 done;
 
-[[ -n $HAS_WIP ]] && echo "⚠️  ${YELLOW}You are pushing commits marked with W.I.P. They should be rebased!${RESET}"
+if [[ -n $HAS_WIP ]]; then
+    echo "⚠️  ${YELLOW}You are pushing commits marked with W.I.P. They should be rebased!${RESET}"
+    echo "Do you wish to continue? [y/N]"
+    read -sk 1 "continueCommit"
+    if [[ ! ${continueCommit:-n} =~ ^[Yy]$ ]]; then
+        echo "${RED}Aborting...${RESET}"
+        exit 1
+    fi
+fi
