@@ -10,7 +10,11 @@ function _run_global_hooks() {
     local hooks_folder="$1"
     shift
     if [ -d ${hooks_folder} ]; then
-        find ${hooks_folder} -type f -or -type l -exec {} $@ \;
+        # This is made so the hooks can exit with anything that's non-zero and the global hook will
+        # abort the rest of the process. Pass the result of find to xargs and run, for each result,
+        # once, hence the -L 1. Since I use mainly ZSH, I've written this for ZSH and portability is
+        # not my main concern, but fell free to improve
+        find ${hooks_folder} -type f -or -type l -print0 | xargs -0 -L 1 -Ihook zsh "hook" $@ && exit 0 || exit 1
     fi
 }
 
@@ -18,7 +22,7 @@ function _run_global_hooks() {
 function _run_local_hooks() {
     local hookname="$1"
     shift
-    [ -f "${GIT_DIR}/hooks/${hookname}" ] && exec "${GIT_DIR}/hooks/${hookname}" $@
+    [ -f "${GIT_DIR}/hooks/${hookname}" ] && (exec "${GIT_DIR}/hooks/${hookname}" $@ || exit 1)
 }
 
 function _hook_setup() {
@@ -30,5 +34,4 @@ function _hook_setup() {
 }
 
 hookname=$(basename $0)
-_hook $@
-exit 0
+_hook $@ && exit 0
