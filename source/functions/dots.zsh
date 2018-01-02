@@ -65,7 +65,7 @@ function dots() {
 }
 
 _switch_to_dotfiles_session() {
-    (( $+commands[mx] )) && $commands[mx] dotfiles && return 0
+    (( $+commands[mx] )) && mx dotfiles && return 0
     (( $(tmux has-session -t "dotfiles" > /dev/null 2>&1) )) && tmux attach -t dotfiles && return 0
 }
 
