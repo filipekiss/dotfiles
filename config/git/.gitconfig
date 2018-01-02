@@ -201,3 +201,6 @@
 
 [protocol "keybase"]
 	allow = always
+
+[rebase]
+	instructionFormat = %<(50,trunc)%s - %cd
