@@ -59,13 +59,9 @@ alias ev="e ~/.vimrc"
 alias "?"="pwd"
 alias flushcache="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 
-# Muscle memory is a bitch
-alias :qa=exit
-alias :wq=exit
 [[ $TMUX == *"tmux"* ]] && alias :sp='tmux split-window'
 [[ $TMUX == *"tmux"* ]] && alias :vs='tmux split-window -h'
-[[ $TMUX == *"tmux"* ]] && alias :wq='tmux kill-pane'
-[[ $TMUX == *"tmux"* ]] && alias :qa='tmux kill-session'
+[[ $TMUX == *"tmux"* ]] && alias ssh="TERM=xterm-256color ssh"
 
 # Add default arguments to a few command
 (( $+commands[rg] )) && alias rg="${commands[rg]} --hidden"
