@@ -31,9 +31,9 @@ filter_files() {
     FILES_TO_CHECK=($(command git --no-pager diff --cached --name-only | grep -E $FILES_PATTERN))
     if [[ -z $FILES_TO_CHECK ]]; then
         # no staged files, let's see if there's any previously commited file that matches our
-        # criteria
+        # criteria and haven't been pushed yet
         CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        FILES_TO_CHECK=($(command git log ${CURRENT_BRANCH} --not --remotes --name-only --format=""))
+        FILES_TO_CHECK=($(command git log ${CURRENT_BRANCH} --not --remotes --name-only --format="" | grep -E $FILES_PATTERN))
     fi
     OFFENDING_FILES=$(grep -EHn ${BREAK_ON} $FILES_TO_CHECK)
     if [[ -n $OFFENDING_FILES ]]; then
