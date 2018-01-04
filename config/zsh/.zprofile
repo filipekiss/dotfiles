@@ -13,15 +13,11 @@ setopt printexitvalue       # for non-zero exit status
 setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
 setopt CORRECT
 
-# export TERM=xterm-256color
-
 # Better spell checking & auto correction prompt
 export SPROMPT="zsh: correct %F{red}'%R'%f to %F{blue}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
 
 #
 # Editors
-#
-
 # Set nvim as editor or use vim if nvim is not available
 (( $+commands[nvim] )) && export EDITOR=$commands[nvim] || export EDITOR=vim
 export VISUAL=$EDITOR
