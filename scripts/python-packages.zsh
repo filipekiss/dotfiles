@@ -6,6 +6,7 @@ PACKAGES=(
      pip
      pygments
      neovim
+     neovim-remote
      typing
      vim-vint
      virtualenv
@@ -13,4 +14,6 @@ PACKAGES=(
      websocket-client
 )
 
-pip2 install --upgrade ${PACKAGES[@]} && pip3 install --upgrade ${PACKAGES[@]}
+for package in "${PACKAGES[@]}"; do
+    pip3 install --user --upgrade "$package" && pip2 install --user --upgrade "${package}"
+done;
