@@ -52,8 +52,6 @@ if (( $+commands[pygmentize] )); then
     alias cat='pygmentize -O console256 -g'
 fi
 
-alias e=$EDITOR
-
 # Useful stuff
 alias ev="e ~/.vimrc"
 alias "?"="pwd"
