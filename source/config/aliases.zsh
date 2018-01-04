@@ -15,6 +15,7 @@ alias type="${saliases[type]:-type} -a"
 alias gulp="nocorrect gulp"
 alias weechat="weechat --dir=$HOME/.dotfiles/irc/.weechat"
 alias work="mx saraiva"
+alias dots="cd ${DOTFILES:-${HOME}/.dotfiles}"
 
 # File Download
 if (( $+commands[aria2c] )); then
