@@ -8,6 +8,7 @@
  * [tmux]
  * [NeoVim] with Node, Python and Ruby Support ([Vim] 8.0 or later also supported with Python and
    Ruby)
+ * [nvr]
  * [Git]
  * [Zsh]
  * [A] [handful] [of] [utilities]
@@ -56,3 +57,4 @@ Don't forget to trust said keys.
 [handful]: https://github.com/filipekiss/dotfiles/blob/master/bin/extract
 [of]: https://github.com/filipekiss/dotfiles/blob/master/source/functions/g.zsh
 [utilities]: https://github.com/filipekiss/dotfiles/blob/master/source/functions/afk.zsh
+[nvr]: https://github.com/mhinz/neovim-remote
