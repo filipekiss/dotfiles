@@ -79,6 +79,15 @@ if (( $+commands[yarn] )); then
   path+=($(yarn global bin))
 fi
 
+# Add python binaries to path
+if (( $+commands[python3] )); then
+    path+=($(python3 -m site --user-base)/bin)
+fi
+
+if (( $+commands[python] )); then
+    path+=($(python -m site --user-base)/bin)
+fi
+
 #
 # Less
 #
