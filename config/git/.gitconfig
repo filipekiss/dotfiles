@@ -203,4 +203,6 @@
 	allow = always
 
 [rebase]
-	instructionFormat = %<(50,trunc)%s - %cd
+    # This will format the text when rebasing interactively like the example below:
+    # pick a5bce56 [Filipe K..] vim: Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
+    instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
