@@ -48,7 +48,7 @@ function __e_get_current_socket_name() {
 function __e_check_socket {
     local __socket_to_validate="$1"
     local __socket_is_valid
-    __socket_netstat=$(netstat -lnt | grep "${__socket_to_validate}")
+    __socket_netstat=$(netstat -ln | grep "${__socket_to_validate}")
     [[ -n $__socket_netstat ]] && return 0
     return 1
 }
