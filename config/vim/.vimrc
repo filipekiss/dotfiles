@@ -39,7 +39,6 @@
     Plug 'ludovicchabant/vim-gutentags'
     Plug 'mattn/emmet-vim', { 'for': ['html', 'htmldjango', 'jinja', 'jinja2', 'twig', 'javascript.jsx'] }
     Plug 'mbbill/undotree', { 'on': ['UndotreeToggle'] }
-    Plug 'mhinz/vim-grepper', { 'on': ['Grepper'] }
     Plug 'mhinz/vim-sayonara', { 'on': 'Sayonara' }
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-repeat'
