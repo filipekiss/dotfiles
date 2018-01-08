@@ -5,7 +5,7 @@ function theme() {
     # The concept is the same as Greg Hurrel's colors function, but since base16-vim is messed up on
     # my setup, I'm temporarily using this hardcoded list
     typeset -A theme_list
-    theme_list=("gruvbox-dark-soft" "gruvbox" "dracula" "dracula")
+    theme_list=("gruvbox-dark-soft" "gruvbox" "gruvbox-dark-medium" "gruvbox" "dracula" "dracula")
     if [[ $# -eq 0 ]]; then
         e_info "Current theme: ${ZSH_BASE16_THEME}"
         e_line
