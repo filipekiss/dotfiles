@@ -19,8 +19,8 @@ YELLOW='\033[0;33m'
 RESET='\033[0m'
 
 validate_js() {
-    local FILES_PATTERN='\.(js|jsx)(\..+)?$'
-    local BREAK_ON="(console.|debugger)"
+    local FILES_PATTERN='\.(js|jsx)$'
+    local BREAK_ON="(console\.|debugger)"
 	filter_files ${FILES_PATTERN} ${BREAK_ON}
 }
 
@@ -35,7 +35,7 @@ filter_files() {
         CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
         FILES_TO_CHECK=($(command git log ${CURRENT_BRANCH} --not --remotes --name-only --format="" | grep -E $FILES_PATTERN))
     fi
-    OFFENDING_FILES=$(grep -EHn ${BREAK_ON} $FILES_TO_CHECK)
+    OFFENDING_FILES=$(grep -EHno ".{0,40}${BREAK_ON}.{0,40}" $FILES_TO_CHECK | sed -e 's/\([0-9]:\)[ \t]*/\1/')
     if [[ -n $OFFENDING_FILES ]]; then
         echo -n "⚠️  ${RED}ATTENTION${RESET} ⚠️"
         echo "  ${YELLOW}${MESSAGE}${RESET}"
