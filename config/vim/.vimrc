@@ -173,11 +173,14 @@
 
 " Other Files ---------------------------------------- {{{
 
+    " config/vim/.vim/after/ftplugin/javascript_swapit.vim
+    " config/vim/.vim/after/ftplugin/sh_swapit.vim
     " config/vim/.vim/after/plugin/UltiSnips.vim
     " config/vim/.vim/after/plugin/UndoTree.vim
     " config/vim/.vim/after/plugin/abolish.vim
-    " config/vim/.vim/after/plugin/commentray.vim
+    " config/vim/.vim/after/plugin/auto-pairs.vim
     " config/vim/.vim/after/plugin/cm.vim
+    " config/vim/.vim/after/plugin/commentray.vim
     " config/vim/.vim/after/plugin/easy_align.vim
     " config/vim/.vim/after/plugin/editorconfig.vim
     " config/vim/.vim/after/plugin/fzf.vim
@@ -186,7 +189,6 @@
     " config/vim/.vim/after/plugin/grepper.vim
     " config/vim/.vim/after/plugin/guttentags.vim
     " config/vim/.vim/after/plugin/markdown.vim
-    " config/vim/.vim/after/plugin/sneak.vim
     " config/vim/.vim/after/plugin/startify.vim
     " config/vim/.vim/autoload/.gitignore
     " config/vim/.vim/autoload/functions.vim
@@ -196,6 +198,7 @@
     " config/vim/.vim/ftplugin/fzf.vim
     " config/vim/.vim/ftplugin/gitcommit.vim
     " config/vim/.vim/ftplugin/gitrebase.vim
+    " config/vim/.vim/ftplugin/handlebars.vim
     " config/vim/.vim/ftplugin/markdown.vim
     " config/vim/.vim/ftplugin/php.vim
     " config/vim/.vim/ftplugin/vim.vim
@@ -212,10 +215,10 @@
     " config/vim/.vim/spell/en.utf-8.spl
     " config/vim/.vim/spell/en.utf-8.sug
     " config/vim/.vim/spell/pt.utf-8.spl
-    " config/vim/.vim/spell/pt.utg-8.add.spl
     " config/vim/.vim/ultisnips/all.snippets
+    " config/vim/.vim/ultisnips/javascript.snippets
     " config/vim/.vim/ultisnips/jinja2.snippets
     " config/vim/.vim/ultisnips/php.snippets
     " config/vim/.vim/ultisnips/snippets.snippets
 
-" }}} ---------------------------------------- Other Files
+" }}} ---------------------------------------- /Other Files

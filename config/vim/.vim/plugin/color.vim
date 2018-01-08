@@ -21,6 +21,9 @@ hi Comment cterm=italic gui=italic
 " Highlight long lines
 hi OverLength ctermbg=red ctermfg=white guibg=#592929
 
+" Adjust highlighting for MatchParen
+hi! link MatchParen CursorLineNr
+
 function! s:CheckColorScheme()
 
     let s:config_file = expand('~/.vimrc_bg')
