@@ -74,6 +74,7 @@
     wip = rebase -i @{u}
     who = shortlog -sne
     wipe = !git reset --hard HEAD && git clean -fd
+	ctags = !/Users/filipekiss/.dotfiles/config/git/hooks/utils/ctags
 
 [push]
     default = current
