@@ -1,4 +1,4 @@
--f .tags
+-f tags
 -R
 --fields=+l
 
