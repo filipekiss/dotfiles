@@ -74,7 +74,7 @@
     wip = rebase -i @{u}
     who = shortlog -sne
     wipe = !git reset --hard HEAD && git clean -fd
-	ctags = !/Users/filipekiss/.dotfiles/config/git/hooks/utils/ctags
+	ctags = !~/.dotfiles/config/git/hooks/utils/ctags
 
 [push]
     default = current
@@ -87,7 +87,7 @@
 	untrackedCache = true
     editor = $EDITOR
 	whitespace = trailing-space,space-before-tab # Git will check for whitespace at $ and mixed spaces and tabs
-	hooksPath = /Users/filipekiss/.dotfiles/config/git/hooks
+	hooksPath = ~/.dotfiles/config/git/hooks
 
 [color]
     diff = auto
@@ -205,5 +205,5 @@
 
 [rebase]
     # This will format the text when rebasing interactively like the example below:
-    # pick a5bce56 [Filipe K..] vim: Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
+    # pick a5bce56 [Filipe K..] Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
     instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
