@@ -67,7 +67,6 @@
     Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus'] }
     Plug 'sheerun/vim-polyglot'
     Plug 'stephenway/postcss.vim', { 'for': ['css'] }
-    Plug 'lepture/vim-jinja', { 'for': ['jinja2', 'jinja', 'htmldjango', 'twig'] }
     Plug 'Konfekt/FastFold'
     Plug 'andymass/matchup.vim'
     Plug 'Valloric/MatchTagAlways'
