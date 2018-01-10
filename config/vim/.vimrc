@@ -188,12 +188,17 @@
     " config/vim/.vim/after/plugin/grepper.vim
     " config/vim/.vim/after/plugin/guttentags.vim
     " config/vim/.vim/after/plugin/markdown.vim
+    " config/vim/.vim/after/plugin/matchup.vim
     " config/vim/.vim/after/plugin/startify.vim
     " config/vim/.vim/autoload/.gitignore
     " config/vim/.vim/autoload/functions.vim
     " config/vim/.vim/autoload/plug.vim
     " config/vim/.vim/autoload/statusline.vim
-    " config/vim/.vim/filetype.vim
+    " config/vim/.vim/ftdetect/json.vim
+    " config/vim/.vim/ftdetect/markdown.vim
+    " config/vim/.vim/ftdetect/ruby.vim
+    " config/vim/.vim/ftdetect/tags.vim
+    " config/vim/.vim/ftdetect/zsh.vim
     " config/vim/.vim/ftplugin/fzf.vim
     " config/vim/.vim/ftplugin/gitcommit.vim
     " config/vim/.vim/ftplugin/gitrebase.vim
