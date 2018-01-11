@@ -2,11 +2,9 @@ function vim-gen-related() {
     [[ $PWD != $DOTFILES ]] && echo "Go to $DOTFILES first" && return 1
     local __vim_related_files=($(find config/vim/.vim -not -path \*plugged\* -not -path \*tmp\* -type f | sort))
     local __vim_related_files_count=($(find config/vim/.vim -not -path \*plugged\* -not -path \*tmp\* -type f | sort | wc -l))
-    __vim_related_files=("    \" "${^__vim_related_files})
+    __vim_related_files=("\" "${^__vim_related_files})
     echo "\" Other Files ---------------------------------------- {{{" | tee /tmp/vim-related-files > /dev/null
-    echo "" | tee -a /tmp/vim-related-files > /dev/null
     echo ${(iF)__vim_related_files} | tee -a /tmp/vim-related-files > /dev/null
-    echo "" | tee -a /tmp/vim-related-files > /dev/null
     echo "\" }}} ---------------------------------------- /Other Files" | tee -a /tmp/vim-related-files > /dev/null
     # Backup current .vimrc in case anything goes wrong
     command cp -f $DOTFILES/config/vim/.vimrc $DOTFILES/config/vim/.vimrc-pre-insert-backup
