@@ -180,3 +180,18 @@ function! functions#NeatFoldText()
   let l:foldtextlength = strlen(substitute(l:foldtextstart . l:foldtextend, '.', 'x', 'g')) + &foldcolumn
   return l:foldtextstart . repeat(l:foldchar, winwidth(0)-l:foldtextlength) . l:foldtextend
 endfunction
+
+
+function! functions#SetupNCM()
+    if has('nvim')
+        let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
+        let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+        let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+        let g:UltiSnipsRemoveSelectModeMappings = 0
+        inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
+        inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
+        inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
+        xmap <c-u> <Plug>(ultisnips_expand)
+        smap <c-u> <Plug>(ultisnips_expand)
+    endif
+endfunction

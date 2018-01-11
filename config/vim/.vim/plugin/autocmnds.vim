@@ -28,6 +28,9 @@ augroup MyAutoCmds
   autocmd InsertEnter,WinLeave * if (!exists('g:isGoyoActive')) | set norelativenumber | endif
 
   autocmd FileType crontab setlocal bkc=yes
+
+  autocmd VimEnter * call functions#SetupNCM()
+
 augroup END
 
 aug omnicomplete
