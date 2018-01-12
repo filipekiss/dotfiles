@@ -1,6 +1,10 @@
 unalias l 2> /dev/null
 
 l(){
+  if [[ $# -eq 1 && -f $1 ]]; then
+      less "$1"
+      return
+  fi
   if (( $+commands[exa] )); then
     if [[ "$1" == '--help' ]]; then
       exa --help
