@@ -109,12 +109,6 @@ if ! (tmux has-session -t "${SESSION}" > /dev/null 2>&1); then
     if [[ "$SESSION" == 'dotfiles' && -d "$HOME/.dotfiles" ]]; then
         e_info "Using dotfiles settings"
         WORKINGDIR="${HOME}/.dotfiles"
-    elif [ -d "${HOME}/${SESSION}/${PROJECT_NAME}" ]; then
-        e_info "Found project at ${HOME}/${SESSION}/${PROJECT_NAME}"
-        WORKINGDIR="$HOME/$SESSION/$PROJECT_NAME"
-    elif [ -d "${HOME}/${SESSION}" ]; then
-        e_info "Found project at ${HOME}/${SESSION}"
-        WORKINGDIR="$HOME/$SESSION"
     elif [ -d "$PROJECTS"/"$SESSION"/"$PROJECT_NAME" ]; then
         e_info "Found project at ${HOME}/${SESSION}/$PROJECT_NAME"
         WORKINGDIR="$PROJECTS"/"$SESSION"/"$PROJECT_NAME"

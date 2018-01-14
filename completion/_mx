@@ -82,11 +82,6 @@ _list_available_namespaces() {
     local home_namespaces project_namespaces _has_projects_folder _description
     _description=()
     [[ -z $PROJECTS ]] && PROJECTS=$HOME
-    home_namespaces=($(find ${HOME}/* -maxdepth 0 -type d -not -path '*/\.*' -printf '%f\n'))
-    for namespace in $home_namespaces; do
-        [[ -n $_has_projects_folder ]] && prefix="home/"
-        _description+=("${namespace}:~/${namespace}")
-    done;
 
     if [[ -n $PROJECTS ]]; then
         project_namespaces=($(find ${PROJECTS}/* -maxdepth 0 -type d -not -path '*/\.*' -printf '%f\n'))
