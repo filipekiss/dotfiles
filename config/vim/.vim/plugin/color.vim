@@ -31,7 +31,11 @@ function! s:CheckColorScheme()
     if filereadable(s:config_file)
         execute 'source ' . s:config_file
     else
-        colorscheme gruvbox
+        try
+            colorscheme gruvbox
+        catch
+            colorscheme ron
+        endtry
     endif
 endfunction
 
