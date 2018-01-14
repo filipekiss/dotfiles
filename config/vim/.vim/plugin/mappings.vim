@@ -71,8 +71,6 @@ nnoremap <leader>m  :<c-u><c-r>='let @'. v:register .' = '. string(getreg(v:regi
 inoremap jj <ESC>
 inoremap kk <ESC>
 
-nnoremap \ :Grepper -noprompt -side -tool rg -grepprg rg --hidden --ignore-case <SPACE>
-nnoremap \\ :Grepper -side -tool git -query<SPACE>
 " nnoremap <silent> <leader>d :20Lex<CR>
 nnoremap <silent> <leader>d :NERDTreeFind<CR>
 
