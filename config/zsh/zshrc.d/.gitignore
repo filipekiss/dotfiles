@@ -1,3 +1,4 @@
 .zcompdump
 .zhistory
 *.zwc
+*.old
