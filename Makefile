@@ -1,4 +1,4 @@
-all: italics brew permissions python ruby node iterm githooks private
+all: italics brew permissions python ruby node iterm private
 
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
@@ -22,9 +22,6 @@ ruby:
 macos:
 	-@zsh ./scripts/macos-options.zsh
 
-githooks:
-	-@zsh ./scripts/link-git-hooks.zsh
-
 private:
 	-@zsh ./scripts/transcrypt-config.zsh
 
@@ -42,4 +39,4 @@ italics:
 	-@tic -o ~/.terminfo ./terminfo/tmux-256color.terminfo
 	-@echo `tput sitm`italics`tput ritm` `tput smso`standout`tput rmso`
 
-PHONY: all brew permissions iterm python macos githooks requirements stow keybase italics node
+PHONY: all brew permissions iterm python macos requirements stow keybase italics node
