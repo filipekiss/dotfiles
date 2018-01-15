@@ -1,0 +1,3 @@
+# Don't link the files/folders below
+\.md # Readme, License, etc…
+\.vim
