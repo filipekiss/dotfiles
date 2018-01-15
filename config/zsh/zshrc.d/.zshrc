@@ -17,8 +17,9 @@ source ~/.zplug/init.zsh
 # zPlug modules
 # ------------------------------------------------------------
 
+ZIM_HOME="$ZPLUG_REPOS/zimfw/zimfw"
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "zimfw/zimfw", depth:1, use:"init.zsh", hook-build:"ln -sf $ZPLUG_REPOS/zimfw/zimfw ~/.zim"
+zplug "zimfw/zimfw", depth:1, use:"init.zsh"
 zplug "filipekiss/pure", depth:1, use:"{async,pure}.zsh", as:"theme"
 zplug "filipekiss/z", use:"z.sh", depth:1, defer:1
 zplug "b4b4r07/emoji-cli"
