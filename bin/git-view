@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# git-view
+# --------------------------------------------------------------------------------------------------
+# Description
+# -----------
+# Run git commands on another folder
+# --------------------------------------------------------------------------------------------------
+# Authors
+# -------
+# Filipe Kiss <eu@filipekiss.com.br> https://github.com/filipekiss
+# --------------------------------------------------------------------------------------------------
+# Usage
+# -----
+# git view <path-to-repository> <git arguments and options>
+# --------------------------------------------------------------------------------------------------
+# Example
+# -------
+# git view ~/code/project status
+# --------------------------------------------------------------------------------------------------
+
+_git_view() {
+    local repository="$1"
+    shift
+    local arguments="$@"
+    exec git --work-tree=${repository} --git-dir=${repository}/.git ${arguments}
+}
+
+_git_view "$@"
