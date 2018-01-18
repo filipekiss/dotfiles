@@ -2,3 +2,4 @@
 .zhistory
 *.zwc
 *.old
+.zcompcache
