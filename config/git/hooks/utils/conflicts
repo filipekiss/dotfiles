@@ -3,9 +3,12 @@
 # Look for files that still have conflict markers (>|< repeated 7 times)
 
 HAS_CONFLICTS="$(command git diff --cached --name-only --color=always --pickaxe-regex -S'[>|<]{7}')"
+_CURRENT_GIT_DIR=$(git rev-parse --git-dir)
 
-if [ -n "$HAS_CONFLICTS" ]; then
+if [[ -n "$HAS_CONFLICTS" && ! -e ${_CURRENT_GIT_DIR}/.ignore-conflicts ]]; then
     echo "These files have conflict markers in them:"
     echo $HAS_CONFLICTS
     exit 1
 fi
+
+rm -rf ${_CURRENT_GIT_DIR}/.ignore-conflicts > /dev/null 2>&1
