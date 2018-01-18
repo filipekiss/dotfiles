@@ -38,8 +38,8 @@ Plug 'ludovicchabant/vim-gutentags'          " CTags management
 Plug 'tpope/vim-repeat'                      " Make more commands repeatable with .
 Plug 'mhinz/vim-startify'                    " Show a nice start screen when you open vim but no files
 Plug 'bronson/vim-visual-star-search'        " Start a star search (*) from visually selected text
-Plug 'kana/vim-textobj-user'                 " Allows custom text objects
-            \ | Plug 'kana/vim-textobj-line' " Add a `whole line` text-object
+Plug 'kana/vim-textobj-user'
+            \ | Plug 'kana/vim-textobj-line' " Allows custom text objects \| Add a `whole line` text-object
 " }}} ---------------------------------------- System Plugins
 
 " Syntax and Language-related Plugins ---------------------------------------- {{{
