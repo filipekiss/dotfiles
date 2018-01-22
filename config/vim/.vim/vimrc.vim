@@ -85,7 +85,6 @@ Plug 'blueyed/vim-diminactive'                                         " Dim ina
 Plug 'tpope/vim-fugitive'                                              " Add a few git commands and git support
 Plug 'machakann/vim-sandwich'                                          " Better vim.surround
 Plug 'mjbrownie/swapit'                                                " Swap between words from a specific list
-Plug 'jiangmiao/auto-pairs'                                            " Insert closing brackets automatically
 " }}} ---------------------------------------- General Productivity plugins
 
 " ColorSchemes and cool stuff ---------------------------------------- {{{
