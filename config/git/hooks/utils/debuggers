@@ -35,7 +35,7 @@ filter_files() {
         CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
         FILES_TO_CHECK=($(command git log ${CURRENT_BRANCH} --not --remotes --name-only --format="" | grep -E $FILES_PATTERN))
     fi
-    OFFENDING_FILES=$(grep -EHno ".{0,40}${BREAK_ON}.{0,40}" $FILES_TO_CHECK | sed -e 's/\([0-9]:\)[ \t]*/\1/')
+    OFFENDING_FILES=$(grep -EHno ".{0,40}${BREAK_ON}.{0,40}" $FILES_TO_CHECK 2>/dev/null | sed -e 's/\([0-9]:\)[ \t]*/\1/')
     if [[ -n $OFFENDING_FILES ]]; then
         echo -n "⚠️  ${RED}ATTENTION${RESET} ⚠️"
         echo "  ${YELLOW}${MESSAGE}${RESET}"
