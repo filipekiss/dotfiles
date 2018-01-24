@@ -199,3 +199,8 @@ nnoremap <Leader>R :w<CR> :source % \| echom "Reloaded " . expand("%") <CR>
 " were
 nnoremap <Leader>O mOggO
 nnoremap <Leader>o moGGo
+
+" Shamelessly stolen from https://github.com/jessfraz/.vim/blob/master/vimrc#L286
+" Do not show stupid q: window
+map q: :q
+

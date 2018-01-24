@@ -40,13 +40,19 @@ set noshowmode                        " Don't Display the mode you're in. since 
 " show a navigable menu for tab completion
 set wildmenu
 set wildmode=longest,list,full
-set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem,*.pyc
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
-set wildignore+=*/tmp/librarian/*,*/.vagrant/*,*/.kitchen/*,*/vendor/cookbooks/*
-set wildignore+=*/tmp/cache/assets/*/sprockets/*,*/tmp/cache/assets/*/sass/*
-set wildignore+=*.swp,*~,._*,*.jpg,*.png,*.gif,*.jpeg
-set wildignore+=*/.DS_Store,*/tmp/*
-set wildignore+=*/node_modules/*
+" Ignore files that are…
+set wildignore+=.hg,.git,.svn                                                " …from Version control
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg                               " …binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest                             " …compiled object files
+set wildignore+=*.spl                                                        " …compiled spelling word lists
+set wildignore+=*.sw?                                                        " …Vim swap files
+set wildignore+=*.DS_Store                                                   " …OSX bullshit
+set wildignore+=migrations                                                   " …Laravel migrations
+set wildignore+=*.pyc                                                        " …Python byte code
+set wildignore+=*.orig                                                       " …Merge resolution files
+set wildignore+=*.rbc,*.rbo,*.gem                                            " …compiled stuff from Ruby
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/* " …vendor files
+set wildignore+=*/node_modules/*                                             " JavaScript modules
 
 " https://robots.thoughtbot.com/opt-in-project-specific-vim-spell-checking-and-word-completion
 set spelllang=en_us,pt_br
@@ -91,9 +97,17 @@ set splitright
 " Ignore case in search.
 set ignorecase smartcase
 
-" fix slight delay after pressing ESC then O http://ksjoberg.com/vim-esckeys.html
-" set timeout timeoutlen=500 ttimeoutlen=100
-set timeoutlen=1000 ttimeoutlen=0
+
+" Shamelessly taken from https://github.com/jessfraz/.vim/blob/master/vimrc#L84
+" Timeout on keystrokes but not mappings
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" Enable mouse support
+if has('mouse')
+    set mouse=a
+endif
 
 if !has('nvim') && (v:version > 703 || v:version == 703 && has('patch541'))
   set formatoptions+=j                " remove comment leader when joining comment lines
