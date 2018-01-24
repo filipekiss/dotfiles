@@ -36,8 +36,8 @@ Plug 'andymass/matchup.vim'                  " Better brackets/tags matching
 Plug 'Konfekt/FastFold'                      " Better performance on code folds
 Plug 'ludovicchabant/vim-gutentags'          " CTags management
 Plug 'tpope/vim-repeat'                      " Make more commands repeatable with .
-Plug 'mhinz/vim-startify'                    " Show a nice start screen when you open vim but no files
 Plug 'bronson/vim-visual-star-search'        " Start a star search (*) from visually selected text
+Plug 'mhinz/vim-startify'                    " Show a nice start screen when you open vim but no files
 Plug 'kana/vim-textobj-user'
             \ | Plug 'kana/vim-textobj-line' " Allows custom text objects \| Add a `whole line` text-object
 " }}} ---------------------------------------- System Plugins
