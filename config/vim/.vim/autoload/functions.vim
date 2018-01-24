@@ -195,3 +195,20 @@ function! functions#SetupNCM()
         smap <c-u> <Plug>(ultisnips_expand)
     endif
 endfunction
+
+
+" +IDEA: Maybe don't go to git root if a package.json (or maybe a vimrc.local?) file is found in
+" current dir?
+function! functions#SetGitDir()
+    " Change working dir to the current file
+    lcd %:p:h
+    let s:currentDir=expand('%:p:h')
+    " Set 'gitdir' to be the folder containing .git or an empty string
+    let s:gitdir=system('git rev-parse --show-toplevel 2> /dev/null || echo -n ""')
+    " If not empty, there was no error. Let's lcd (CD, but only current window) but only if we're
+    " not currently on project folder
+    if !empty(s:gitdir) && s:gitdir != s:currentDir
+        silent echo 'Changing to project root…' . s:gitdir
+        lcd `=s:gitdir`
+    endif
+endfunction
