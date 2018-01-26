@@ -8,27 +8,32 @@ set laststatus=2    " LAST WINDOW WILL ALWAYS HAVE A STATUS LINE
 "------------------------------------------------------------------------------
 " STATUS LINE CUSTOMIZATION
 "------------------------------------------------------------------------------
+"
 
-set statusline= " Start statusline
-set statusline+=%1* " Define the User1 to color our mode indicator"
-set statusline+=\ %{statusline#getMode(mode())} " Display currrent mode
-set statusline+=\ %2* " Define the User2 to color our file prefix
-set statusline+=\ %{statusline#fileprefix()}
-set statusline+=%3* " Define the User3 to color the filename
-set statusline+=%t " The current filename
-set statusline+=\ %{statusline#modified()} " Modified indicator
-set statusline+=\ %{statusline#readOnly()}\ %w " Read-only indicator
-set statusline+=%*
-set statusline+=%4*\ %= " Add space to align the rest at the right side of the statusline
-set statusline+=%5*\ %y
-set statusline+=%5*\ %{statusline#fileSize()}
-set statusline+=%5*%{statusline#rhs()}
-set statusline+=%*
+set statusline=%!StatusLine()
 
-execute 'highlight! User2 gui=NONE guifg=#84a598'
-execute 'highlight! User3 gui=bold guifg=#488587'
-execute 'highlight! User4 gui=NONE guifg=NONE'
-execute 'highlight! User5 guifg=#6a9c6c'
+function! StatusLine()
+
+    let l:sline='%1* %{statusline#getMode(mode())} %*' " Show current mode
+    let l:sline.='%2* %{statusline#fileprefix()}%*' " Show path prefix to file
+    let l:sline.='%3*%t' " Show file name
+	let l:sline.='%{statusline#modified()}' " Modified indicator
+    let l:sline.='%{statusline#readOnly()} %w%2*' " Read-only indicator (%w shows [Preview] if the window is a preview)
+    let l:sline.='%=' " Add space to align the rest at the right side of the statusline
+    let l:sline.=statusline#LinterStatus() " Show linting status
+    let l:sline.='%2* %y ' " Show file type (e.g. [vim])
+    let l:sline.=statusline#fileSize() " Show fileSize
+    let l:sline.=statusline#rhs() " Show cursor position, new-line markers, line count…
+    let l:sline.=' ' " End the statusline with a space
+
+    return l:sline
+endfunction
+
+
+
+execute 'hi! link User2 SpecialKey'
+execute 'hi! link User3 LineNr'
+execute 'hi! link User4 TabLine'
 
 " This is here to ensure proper statusline redraw when changing modes
 augroup statusline

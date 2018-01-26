@@ -43,16 +43,16 @@ Plug 'kana/vim-textobj-user'
 " }}} ---------------------------------------- System Plugins
 
 " Syntax and Language-related Plugins ---------------------------------------- {{{
-Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }                         " JS and Node productivity
-Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus'] }             " Show color on color declarations in CSS files
-Plug 'sheerun/vim-polyglot'                                                               " Multiple languages syntax
-Plug 'stephenway/postcss.vim', { 'for': ['css'] }                                         " More modern CSS syntax, don't use the one in Polyglot
-Plug 'davidhalter/jedi', { 'for': ['python'] }                                            " Python autocompletion
-Plug 'tpope/vim-commentary'                                                               " Toggle commentaries in multiple languages
-Plug 'Valloric/MatchTagAlways'                                                            " Highlight matching tags.
-Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)'] }                           " Aesthetically pleasing align made easy
-Plug 'junegunn/vader.Vim'                                                                 " Test suit for VimScript
-Plug 'sbdchd/neoformat', { 'on': 'Neoformat', 'do': 'yarn global add prettier stylefmt' } " Code formatter
+Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }             " JS and Node productivity
+Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus'] } " Show color on color declarations in CSS files
+Plug 'sheerun/vim-polyglot'                                                   " Multiple languages syntax
+Plug 'stephenway/postcss.vim', { 'for': ['css'] }                             " More modern CSS syntax, don't use the one in Polyglot
+Plug 'davidhalter/jedi', { 'for': ['python'] }                                " Python autocompletion
+Plug 'tpope/vim-commentary'                                                   " Toggle commentaries in multiple languages
+Plug 'Valloric/MatchTagAlways'                                                " Highlight matching tags.
+Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)'] }               " Aesthetically pleasing align made easy
+Plug 'junegunn/vader.Vim'                                                     " Test suit for VimScript
+Plug 'w0rp/ale', { 'do': 'yarn global add prettier' }                         " Linting for various languages
 " }}} ---------------------------------------- Syntax and Language-related Plugins
 
 " General Productivity plugins ---------------------------------------- {{{

@@ -45,26 +45,26 @@ function! statusline#fileSize()
   endif
 
   if l:bytes <= 0
-    return '[empty file] '
+    return '[empty file]'
   endif
 
   if (exists('mbytes'))
-    return l:mbytes . 'MB '
+    return l:mbytes . 'MB'
   elseif (exists('kbytes'))
-    return l:kbytes . 'KB '
+    return l:kbytes . 'KB'
   else
-    return l:bytes . 'B '
+    return l:bytes . 'B'
   endif
 endfunction
 
 
 function! statusline#readOnly()
   if !&modifiable && &readonly
-    return 'RO'
+    return '⨉/RO'
   elseif &modifiable && &readonly
     return 'RO'
   elseif !&modifiable && !&readonly
-    return ''
+    return '⨉'
   else
     return ''
   endif
@@ -72,7 +72,7 @@ endfunction
 
 function! statusline#modified()
   if &modified
-    return '!!'
+    return '‼'
   else
     return ''
   endif
@@ -102,11 +102,11 @@ let s:dictmode= {'n': ['N', '4'],
 " DEFINE COLORS FOR STATUSBAR
 let s:dictstatuscolor={
       \ '1': 'hi! User1 guibg=#f84b3c guifg=NONE',
-      \ '2': 'hi! User1 guibg=#f8bc41 guifg=NONE',
+      \ '2': 'hi! link User1 IncSearch',
       \ '3': 'hi! User1 guibg=#ebdab4 guifg=NONE',
-      \ '4': 'hi! User1 guibg=#928375 guifg=#282828',
-      \ '5': 'hi! User1 guibg=#b8ba37 guifg=#282828',
-      \ '6': 'hi! User1 guibg=#d1879b guifg=NONE',
+      \ '4': 'hi! link User1 StatusLine',
+      \ '5': 'hi! link User1 DiffAdd',
+      \ '6': 'hi! link User1 DiffDelete',
       \ '7': 'hi! User1 guibg=#d45d20 guifg=NONE'
       \}
 
@@ -136,4 +136,32 @@ function! statusline#fileprefix()
     " Make sure we show $HOME as ~.
     return substitute(l:basename . '/', '\C^' . $HOME, '~', '')
   endif
+endfunction
+
+" Show ALE on statusline
+" See https://github.com/w0rp/ale#faq-statusline
+function! statusline#LinterStatus() abort
+  let l:error_symbol = '⨉'
+  let l:style_symbol = '●'
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:ale_linter_status = ''
+
+  " if l:counts.total == 0
+    return printf('%%#GitGutterAdd#%s', l:style_symbol)
+  " endif
+
+  if l:counts.error
+    let l:ale_linter_status .= printf('%%%%#GitGutterDelete#%d %s', l:counts.error, l:error_symbol)
+  endif
+  if l:counts.warning
+    let l:ale_linter_status .= printf('%%%%#GitGutterChange#%d %s', l:counts.warning, l:error_symbol)
+  endif
+  if l:counts.style_error
+    let l:ale_linter_status .= printf('%%%%#GitGutterDelete#%d %s', l:counts.style_error, l:style_symbol)
+  endif
+  if l:counts.style_warning
+    let l:ale_linter_status .= printf('%%%%#GitGutterChange#%d %s', l:counts.style_warning, l:style_symbol)
+  endif
+
+  return l:ale_linter_status
 endfunction
