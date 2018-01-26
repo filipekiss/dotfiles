@@ -184,9 +184,9 @@ endfunction
 
 function! functions#SetupNCM()
     if has('nvim')
-        let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-        let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-        let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+        let g:UltiSnipsExpandTrigger		= '<Plug>(ultisnips_expand)'
+        let g:UltiSnipsJumpForwardTrigger	= '<c-j>'
+        let g:UltiSnipsJumpBackwardTrigger	= '<c-k>'
         let g:UltiSnipsRemoveSelectModeMappings = 0
         inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
         inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
@@ -200,11 +200,10 @@ endfunction
 " +IDEA: Maybe don't go to git root if a package.json (or maybe a vimrc.local?) file is found in
 " current dir?
 function! functions#SetGitDir()
-    " Change working dir to the current file
-    lcd %:p:h
+    " Get current file dir
     let s:currentDir=expand('%:p:h')
     " Set 'gitdir' to be the folder containing .git or an empty string
-    let s:gitdir=system('git rev-parse --show-toplevel 2> /dev/null || echo -n ""')
+    let s:gitdir=system('git rev-parse --show-toplevel 2> /dev/null')
     " If not empty, there was no error. Let's lcd (CD, but only current window) but only if we're
     " not currently on project folder
     if !empty(s:gitdir) && s:gitdir != s:currentDir
