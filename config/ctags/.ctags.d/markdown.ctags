@@ -1,0 +1,3 @@
+--langdef=markdown
+--langmap=markdown:.md.markdown.mdown.mkd.mkdn
+--regex-markdown=/^#[ \t](.*$)/\1/h,heading,headings/
