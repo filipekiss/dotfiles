@@ -1,3 +1,5 @@
-let g:UltiSnipsSnippetsDir='~/.dotfiles/config/vim/.vim/ultisnips'
-let g:UltiSnipsSnippetDirectories=['ultisnips']
+let g:UltiSnipsSnippetsDir=$VIMHOME . '/ultisnips'
+let g:UltiSnipsSnippetDirectories=[
+            \ $VIMHOME . '/ultisnips'
+            \ ]
 let g:UltiSnipsEditSplit='context'
