@@ -14,8 +14,8 @@ let g:ale_sign_style_warning  = g:ale_sign_error
 let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
 let g:ale_echo_msg_format = '[%linter%] %s'
 let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_javascript_prettier_options = '--single-quote --no-editorconfig --print-width ' . &textwidth . ' --prose-wrap always --trailing-comma all --no-semi --config-precedence file-override'
-let g:ale_javascript_xo_options = '--cwd=' . expand('%:p:h') " Ensure xo will run at the current file's folder
+let g:ale_javascript_prettier_options = '--config-precedence file-override --no-editorconfig --prose-wrap always --tab-width 4 --single-quote --trailing-comma es5 --arrow-parens avoid'
+let g:ale_javascript_xo_options = '--cwd=' . expand('%:p:h') . ' --space=4' " Ensure xo will run at the current file's folder
 
 " Don't auto fix (format) files inside `node_modules`, `forks` directory or minified files, or jquery files :shrug:
 let g:ale_linter_aliases = {
