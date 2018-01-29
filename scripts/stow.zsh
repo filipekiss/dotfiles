@@ -48,7 +48,6 @@ function prepare_folders() {
     # If backups are needed, this is where they'll go.
     DOTFILES_BACKUP_DIR="${DOTFILES}_backups/$(date "+%s")"
     backup=""
-    [[ ! -e ${DOTFILES_BACKUP_DIR} ]] && mkdir -p ${DOTFILES_BACKUP_DIR}
 }
 
 function show_backup_message() {
@@ -62,21 +61,25 @@ function backup_stuff() {
     local DEST
     local TARGET
     TARGET="$1"
-    e_info "Preparing ${TARGET}..."
     SOURCE="${HOME}/${TARGET}"
-    DEST="${DOTFILES_BACKUP_DIR}/${TARGET}"
-    if [[ ${TARGET} != $(basename ${TARGET}) ]]; then
-        #this config file is located in a subfolder.
-        make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
-    fi
     REALPATH=${SOURCE:A}
-    [[ -f ${SOURCE} && ${SOURCE} == ${REALPPATH} ]] && mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
+    DEST="${DOTFILES_BACKUP_DIR}/${TARGET}"
+    # Only continue if the file is not a symlink
+    if [[ -f ${SOURCE} && ${SOURCE} == ${REALPATH} ]]; then
+        e_info "Preparing ${TARGET}..."
+        make_folder ${DOTFILES_BACKUP_DIR}
+        if [[ ${TARGET} != $(basename ${TARGET}) ]]; then
+            #this config file is located in a subfolder.
+            make_folder ${DOTFILES_BACKUP_DIR}/${TARGET%/*}
+        fi
+        mv "${SOURCE}" "${DEST}" && e_success "${TARGET} backed up" && backup="1"
+    fi
 }
 
 function make_folder() {
     local FOLDER
     FOLDER=$1
-    [[ -e "${FOLDER}" ]] && e_info "${FOLDER} already exists. Skipping..." && return
+    [[ -e "${FOLDER}" ]] && return
     mkdir -p "${FOLDER}" && e_success "${FOLDER} created"
 }
 
