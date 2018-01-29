@@ -57,7 +57,7 @@ nnoremap <Down> :resize -2<CR>
 inoremap <silent> <Up> <ESC>
 inoremap <silent> <Down> <ESC>
 
-nnoremap <silent> <leader>ev :e $VIMHOME/vimrc.vim<CR>
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 
 " Quickly move current line, also accepts counts 2<leader>j
 nnoremap <leader>j :<c-u>execute 'move +'. v:count1<cr>
