@@ -2,6 +2,7 @@
 set -e
 function main() {
     dir="`git rev-parse --show-toplevel`"
+    [[ -e "${dir}/.notags" ]] && return 0
     trap 'rm -f "$dir/$$.tags"' EXIT
     git ls-files | ctags -L - -f"$dir/$$.tags" > /dev/null 2>&1
     mv "$dir/$$.tags" "$dir/tags"
