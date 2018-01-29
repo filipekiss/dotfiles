@@ -56,7 +56,7 @@ set wildignore+=*/node_modules/*                                             " J
 
 " https://robots.thoughtbot.com/opt-in-project-specific-vim-spell-checking-and-word-completion
 set spelllang=en_us,pt_br
-execute "set spellfile=".g:VIM_CONFIG_FOLDER.'/spell/en.utf-8.add'.','.g:VIM_CONFIG_FOLDER.'/spell/pt.utf-8.add'
+execute "set spellfile=".$VIMHOME.'/spell/en.utf-8.add'.','.$VIMHOME.'/spell/pt.utf-8.add'
 if has('syntax')
   set spellcapcheck=                  " don't check for capital letters at start of sentence
 endif
@@ -241,12 +241,12 @@ if has('folding')
   set foldlevelstart=99               " start unfolded
 endif
 
-if empty(glob(g:VIM_CONFIG_FOLDER.'/tmp'))
-  call system('mkdir -p '.g:VIM_CONFIG_FOLDER.'/tmp/{view,backup,swap,undo,info}')
+if empty(glob($VIMHOME.'/tmp'))
+  call system('mkdir -p '.$VIMHOME.'/tmp/{view,backup,swap,undo,info}')
 endif
 
 if has('mksession')
-  let &viewdir=g:VIM_CONFIG_FOLDER.'/tmp/view'       " override ~/.vim/view default
+  let &viewdir=$VIMHOME.'/tmp/view'       " override ~/.vim/view default
   set viewoptions=cursor,folds        " save/restore just these (with `:{mk,load}view`)
 endif
 
@@ -254,14 +254,14 @@ if exists('$SUDO_USER')
   set nobackup                        " don't create root-owned files
   set nowritebackup                   " don't create root-owned files
 else
-  let &backupdir=g:VIM_CONFIG_FOLDER.'/tmp/backup'    " keep backup files out of the way
+  let &backupdir=$VIMHOME.'/tmp/backup'    " keep backup files out of the way
   set backupdir+=.
 endif
 
 if exists('$SUDO_USER')
   set noswapfile                      " don't create root-owned files
 else
-  let &directory=g:VIM_CONFIG_FOLDER.'/tmp/swap/'    " keep swap files out of the way
+  let &directory=$VIMHOME.'/tmp/swap/'    " keep swap files out of the way
   set directory+=.
 endif
 
@@ -271,7 +271,7 @@ if has('persistent_undo')
   if exists('$SUDO_USER')
     set noundofile                    " don't create root-owned files
   else
-    let &undodir=g:VIM_CONFIG_FOLDER.'/tmp/undo'       " keep undo files out of the way
+    let &undodir=$VIMHOME.'/tmp/undo'       " keep undo files out of the way
     set undodir+=.
     set undofile                      " actually use undo files
   endif
@@ -285,10 +285,10 @@ if exists('$SUDO_USER')               " don't create root-owned files
   endif
 else
   if has('nvim')
-      execute "set shada=!,'100,<500,:10000,/10000,s10,h,n".g:VIM_CONFIG_FOLDER.'/tmp/main.shada'
+      execute "set shada=!,'100,<500,:10000,/10000,s10,h,n".$VIMHOME.'/tmp/main.shada'
     autocmd CursorHold,FocusGained,FocusLost * rshada|wshada
   else
-      execute "set viminfo=!,'100,<500,:10000,/10000,s10,h,n".g:VIM_CONFIG_FOLDER.'/tmp/viminfo'
+      execute "set viminfo=!,'100,<500,:10000,/10000,s10,h,n".$VIMHOME.'/tmp/viminfo'
   endif
 endif
 
