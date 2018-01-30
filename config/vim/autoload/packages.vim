@@ -24,7 +24,6 @@ function! packages#init() abort
     Plug 'Konfekt/FastFold'                      " Better performance on code folds
     Plug 'ludovicchabant/vim-gutentags'          " CTags management
     Plug 'tpope/vim-repeat'                      " Make more commands repeatable with .
-    Plug 'bronson/vim-visual-star-search'        " Start a star search (*) from visually selected text
     Plug 'mhinz/vim-startify'                    " Show a nice start screen when you open vim but no files
     Plug 'kana/vim-textobj-user'
                 \ | Plug 'kana/vim-textobj-line' " Allows custom text objects \| Add a `whole line` text-object
@@ -66,6 +65,7 @@ function! packages#init() abort
     Plug 'wellle/targets.vim'                                              " More vim text object targets
     Plug 'kepbod/quick-scope'                                              " Highlight matches on the same line to easily navigate with fF/tT
     Plug 'google/vim-searchindex'                                          " Shows current match and total matches on statusbar when searching a pattern
+    Plug 'bronson/vim-visual-star-search'        " Start a star search (*) from visually selected text
     Plug 'nathanaelkane/vim-indent-guides'                                 " Show indentation guides
     Plug 'tpope/tpope-vim-abolish'                                         " This is basically auto-correct that works
     Plug 'justinmk/vim-sneak'                                              " Like f, but use two characters instead
@@ -84,6 +84,7 @@ function! packages#init() abort
     " Writing Plugins ---------------------------------------- {{{
     Plug 'junegunn/goyo.vim', { 'on': ['Goyo']}            " Distraction free writing
     Plug 'junegunn/limelight.vim', { 'on': ['Limelight'] } " Context highlight
+    Plug 'mzlogin/vim-markdown-toc'                        " Generate TOC for Markdown files
     " }}} ---------------------------------------- Writing Plugins
 
 
