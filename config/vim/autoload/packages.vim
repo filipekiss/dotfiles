@@ -96,9 +96,12 @@ endfunction
 function! packages#installPlug() abort
     " Automatic installation of vim-plug
     " https://github.com/junegunn/vim-plug/wiki/faq#automatic-installation
-    if empty(glob($VIMHOME.'/autoload/plug.vim'))
-        silent !curl -fLo $VIMHOME.'/autoload/plug.vim' --create-dirs
-                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    let s:VIM_PLUG_PATH=expand($VIMHOME . '/autoload/plug.vim')
+    if empty(glob(s:VIM_PLUG_PATH))
+        execute 'silent !curl -fLo '.s:VIM_PLUG_PATH.' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+        augroup MyVimPlug
+            autocmd!
+            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+        augroup END
     endif
 endfunction
