@@ -17,6 +17,8 @@
 
 set -e
 
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+PULL_ARGS="origin ${current_branch}"
 [ $# -gt 0 ] && PULL_ARGS="$@"
 
 git pull --rebase ${PULL_ARGS:-}
