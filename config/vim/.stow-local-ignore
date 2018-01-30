@@ -1,3 +1,12 @@
 # Don't link the files/folders below
 \.md # Readme, License, etc…
-\.vim
+# These folders are used by vim, but there's no need to symlink them. Vim will look for them here.
+ftplugin
+plugged
+spell
+ftdetect
+plugin
+ultisnips
+autoload
+after
+tmp

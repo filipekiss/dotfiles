@@ -1,4 +1,4 @@
-let s:root=expand('~/.dotfiles/config/vim/.vim')
+let s:root=expand('~/.dotfiles/config/vim')
 if !empty(glob(s:root))
     let $VIMHOME=s:root
     let &runtimepath .= ','.$VIMHOME.','.$VIMHOME.'/after'
