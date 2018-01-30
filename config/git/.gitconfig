@@ -165,7 +165,12 @@
 [url "git://gitlab.com/"]
     insteadOf = gitlab:
 
-
+[url "git@gitlab.com:filipekiss/"]
+    insteadOf     = mel:
+    pushInsteadOf = mel:
+    pushInsteadOf = https://gitlab.com/filipekiss/
+    pushInsteadOf = http://gitlab.com/filipekiss/
+    pushInsteadOf = git://gitlab.com/filipekiss/
 
 [merge]
     conflictstyle = diff3
