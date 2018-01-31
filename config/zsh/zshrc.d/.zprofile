@@ -24,6 +24,9 @@ export VISUAL=$EDITOR
 export GIT_EDITOR=$EDITOR
 export PAGER='less'
 
+# Git options
+export GIT_MERGE_AUTOEDIT=no
+
 #
 # Language
 #
