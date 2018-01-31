@@ -34,7 +34,6 @@ brew 'tree'
 brew 'unrar'
 brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
 brew 'watch'
-brew 'weechat', args: ['with-python']
 brew 'wget'
 brew 'yarn'
 brew 'youtube-dl'
