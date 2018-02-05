@@ -18,17 +18,18 @@
 set -e
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
-PULL_ARGS="origin ${current_branch}"
-[ $# -gt 0 ] && PULL_ARGS="$@"
+remote=${1:-origin}
+branch=${2:-$current_branch}
+[ $# -gt 2 ] && shift && shift && PULL_ARGS="$@"
 
-git pull --rebase ${PULL_ARGS:-}
+command git pull --rebase "${remote}" "${branch}" ${PULL_ARGS:-}
 
 # show diffstat of all changes if we're pulling with --rebase.
 echo
 echo "Diff:"
 echo "-----"
 echo
-git --no-pager diff --color --stat HEAD@{1}.. |
+command git --no-pager diff --color --stat HEAD@{1}.. |
 sed 's/^/ /'
 
 # show an abbreviated commit log of stuff that was just merged.
@@ -36,5 +37,5 @@ echo
 echo "Log:"
 echo "----"
 echo
-git log --color --pretty=oneline --abbrev-commit HEAD@{1}.. |
+command git log --color --pretty=oneline --abbrev-commit HEAD@{1}.. |
 sed 's/^/  /'
