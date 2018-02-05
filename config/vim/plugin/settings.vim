@@ -253,9 +253,11 @@ endif
 if exists('$SUDO_USER')
   set nobackup                        " don't create root-owned files
   set nowritebackup                   " don't create root-owned files
+  set backupcopy=no
 else
   let &backupdir=$VIMHOME.'/tmp/backup'    " keep backup files out of the way
   set backupdir+=.
+  set backupcopy=yes
 endif
 
 if exists('$SUDO_USER')
