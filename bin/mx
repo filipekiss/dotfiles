@@ -17,7 +17,7 @@
 #
 # Version
 # -------
-# 4.1.0
+# 4.2.0
 # --------------------------------------------------------------------------------------------------
 #
 # Usage
@@ -127,7 +127,7 @@ if ! (tmux has-session -t "${SESSION}" > /dev/null 2>&1); then
     # Else, run the default config: Split 50/50 with editor on left and shell on $WORKINGDIR on right
     else
         tmux send-keys -t "$SESSION" "e" C-m
-        tmux split-window -h -p 50 -c $WORKINGDIR -t "$SESSION"
+        tmux split-window -h -p 15 -c $WORKINGDIR -t "$SESSION"
         tmux new-window -d -n 'shell' -t "$SESSION" -c $WORKINGDIR
     fi
     tmux select-window -t 1
