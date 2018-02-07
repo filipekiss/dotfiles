@@ -27,7 +27,7 @@ if exists('b:match_words')
             "               └─────────────────────────────── { - match a literal {
             "
         endfor
-        let pattern .= ':{%\s*\<' . element[-1:][0] . '\>\s*%}'
+        let pattern .= ':{%\s*\<' . element[-1:][0] . '\>\s*.\{-}%}'
         let b:match_words .= ',' . pattern
     endfor
 endif
