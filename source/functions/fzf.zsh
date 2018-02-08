@@ -2,23 +2,6 @@ fzf-down() {
   fzf --height 50% "$@" --border
 }
 
-# # https://github.com/junegunn/fzf/wiki/Examples#z
-# fuzzy z
-unalias z 2> /dev/null
-z() {
-  if [[ -z "$*" ]]; then
-    cd "$(_z_cmd -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
-  else
-    _last_z_args="$@"
-    _z_cmd "$@"
-  fi
-}
-
-zz() {
-  cd "$(_z_cmd -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf -q ${_last_z_args:-''})"
-}
-
-
 # fstash - easier way to deal with stashes
 # type fstash to get a list of your stashes
 # ctrl-a applies the selected stash
@@ -67,3 +50,13 @@ fstash() {
 }
 
 
+flog() {
+    local fileName="$1"
+    is_in_git_repo || return
+    [[ -z $fileName ]] && echo "USAGE: flog <file>" && return 0
+    git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always -- $fileName |
+        fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+        --header 'Press CTRL-S to toggle sort' \
+        --preview 'git show --color=always --format=oneline {+3} -- '$fileName' | head -200' |
+        grep -o "[a-f0-9]\{7,\}"
+}
