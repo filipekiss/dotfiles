@@ -32,7 +32,7 @@ augroup MyAutoCmds
   autocmd VimEnter * call functions#SetupNCM()
 
   " Update cd for current window
-  autocmd BufEnter * call functions#SetGitDir()
+  autocmd BufEnter * call functions#SetProjectDir()
 
 augroup END
 

@@ -199,15 +199,52 @@ endfunction
 
 " +IDEA: Maybe don't go to git root if a package.json (or maybe a vimrc.local?) file is found in
 " current dir?
-function! functions#SetGitDir()
+function! functions#SetProjectDir(...)
     " Get current file dir
-    let s:currentDir=expand('%:p:h')
-    " Set 'gitdir' to be the folder containing .git or an empty string
-    let s:gitdir=system('git rev-parse --show-toplevel 2> /dev/null')
-    " If not empty, there was no error. Let's lcd (CD, but only current window) but only if we're
-    " not currently on project folder
-    if !empty(s:gitdir) && s:gitdir != s:currentDir
-        silent echo 'Changing to project root…' . s:gitdir
-        lcd `=s:gitdir`
+    let s:currentDir= (a:0 > 0 ? a:1 : expand('%:p:h'))
+    " Try to get a git top-level directory
+    let s:gitDir = GetGitDir(s:currentDir)
+    " By default, set the git toplevel as our root
+    let s:projectFolder=s:gitDir
+    " If we have a gitDir, set that as the last place to look for, if not, searches until $HOME
+    let s:searchUntil = (!empty(s:gitDir) ? s:gitDir : $HOME)
+    " Look for a package.json file
+    let s:jsProjectDir = GetPackageJsonDir(s:currentDir, s:gitDir)
+    " If we found a package.json in a folder, use that folder instead of .git top-level
+    if (!empty(s:jsProjectDir))
+        let s:projectFolder=s:jsProjectDir
+    endif
+    " If we have a folder set and the folder is not the current folder, change to it
+    if (!empty(s:projectFolder) && s:projectFolder != s:currentDir)
+        lcd `=s:projectFolder`
+        silent echom 'Changed project folder to ' . s:projectFolder
     endif
 endfunction
+
+function! GetPackageJsonDir(startingPath, ...)
+    let s:searchUntil= (a:0 > 0) ? a:1 : $HOME
+    " If s:searchUntil is empty by now, means no $HOME is defined. We have no business here
+    if (empty(s:searchUntil))
+        return ""
+    endif
+    " If we are in the path already, just return it
+    if (a:startingPath == s:searchUntil)
+        return s:searchUntil
+    endif
+    " If found package.json, return the current folder
+    if filereadable(a:startingPath . '/package.json')
+        silent echom 'Found package.json in' . a:startingPath
+        return a:startingPath
+    endif
+    " Recursively run this until a:startingPath is equal s:searchUntil
+    return GetPackageJsonDir(fnamemodify(a:startingPath, ':h'), s:searchUntil)
+endfunction
+
+function! GetGitDir(path)
+    " Set 'gitdir' to be the folder containing .git or an empty string
+    let s:gitdir=system('cd '.a:path.' && git rev-parse --show-toplevel 2> /dev/null')
+    " Clear new-line from system call
+    let s:gitdir=substitute(s:gitdir, ".$", "", "")
+    return s:gitdir
+endfunction
+
