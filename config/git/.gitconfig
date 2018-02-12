@@ -21,7 +21,6 @@
     assumed = "!git ls-files -v | grep ^h | cut -c 3-"
     br = branch
     branch-name = rev-parse --abbrev-ref HEAD
-    cb = checkout -b
     changelog = log --reverse --no-merges --format='* %s'
     ci = commit
     co = checkout
@@ -32,6 +31,7 @@
     dc = diff --patch-with-stat --staged
     diffc = diff --cached
     discard = checkout --
+    # Diff minified files
     dm = diff --patch-with-stat --word-diff-regex=.
     dw = diff --color-words
     feature = flow feature
@@ -43,19 +43,15 @@
     last = log --pretty=format:'%s' --abbrev-commit -1
     latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
     lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
-    me = "!git log --author=$(whoami)"
-    nb = "!f() { echo 'Creating branch from '$(git latest-tag); git checkout -b $1 $(git latest-tag); }; f";
-    nmg = branch --no-merged
+    unmerged = branch --no-merged
     ours = "!f() { git checkout --ours $@ && git add $@; }; f"
-    patch = !git --no-pager diff --no-color
     patch = add -v -p
-    pr = pull-request -b
     ps = push
     purr = pull --rebase
     rba = rebase --abort
     rbc = rebase --continue
     rbs = rebase --skip
-    rci = "!git recommit"
+    rci = commit --ammend --no-edit
     recommit = commit --amend --no-edit
     release = flow release
     root = rev-parse --show-toplevel
