@@ -13,3 +13,13 @@ endsnippet
 snippet elsif "else"
 {% elseif %}
 endsnippet
+
+snippet block "Twig Template Block"
+{% block ${1:name} %}
+    ${0:${VISUAL}}
+{% endblock $1 %}
+endsnippet
+
+snippet include "Include twig template partials"
+{% include '${1:path/to/template}' %}
+endsnippet

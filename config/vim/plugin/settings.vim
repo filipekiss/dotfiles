@@ -297,3 +297,5 @@ endif
 if has('nvim')
   set inccommand=nosplit                " incremental command live feedback"
 endif
+
+let g:fk_ale_project_path="./"

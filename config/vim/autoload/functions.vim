@@ -196,29 +196,44 @@ function! functions#SetupNCM()
     endif
 endfunction
 
-
-" +IDEA: Maybe don't go to git root if a package.json (or maybe a vimrc.local?) file is found in
-" current dir?
 function! functions#SetProjectDir(...)
     " Get current file dir
     let s:currentDir= (a:0 > 0 ? a:1 : expand('%:p:h'))
+    let s:projectFolder = functions#GetProjectDir(s:currentDir)
+    " If we have a folder set and the folder is not the current folder, change to it
+    if (!empty(s:projectFolder))
+        lcd `=s:projectFolder`
+        silent echom 'Changed project folder to ' . s:projectFolder
+        let b:ale_javascript_xo_options="--cwd=" . s:projectFolder
+    endif
+endfunction
+
+function! functions#GetProjectDir(currentDir)
+    " If the directory doesn't exists, don't bother trying to guess stuff and also return an empty
+    " string
+    if !isdirectory(a:currentDir)
+        return ''
+    endif
     " Try to get a git top-level directory
-    let s:gitDir = GetGitDir(s:currentDir)
+    let s:gitDir = GetGitDir(a:currentDir)
     " By default, set the git toplevel as our root
     let s:projectFolder=s:gitDir
     " If we have a gitDir, set that as the last place to look for, if not, searches until $HOME
     let s:searchUntil = (!empty(s:gitDir) ? s:gitDir : $HOME)
     " Look for a package.json file
-    let s:jsProjectDir = GetPackageJsonDir(s:currentDir, s:gitDir)
+    let s:jsProjectDir = GetPackageJsonDir(a:currentDir, s:gitDir)
     " If we found a package.json in a folder, use that folder instead of .git top-level
     if (!empty(s:jsProjectDir))
         let s:projectFolder=s:jsProjectDir
     endif
-    " If we have a folder set and the folder is not the current folder, change to it
-    if (!empty(s:projectFolder) && s:projectFolder != s:currentDir)
-        lcd `=s:projectFolder`
-        silent echom 'Changed project folder to ' . s:projectFolder
+    " Look for a .vimrc.local file
+    " +IDEA: Maybe leave this up to something like projectionist.vim?
+    let s:vimProjectDir = GetVimLocalDir(a:currentDir, s:gitDir)
+    " If we found a .vimrc.local in a folder, use that folder instead of .git top-level
+    if (!empty(s:vimProjectDir) && s:vimProjectDir != s:gitDir)
+        let s:projectFolder=s:vimProjectDir
     endif
+    return s:projectFolder
 endfunction
 
 function! GetPackageJsonDir(startingPath, ...)
@@ -240,9 +255,27 @@ function! GetPackageJsonDir(startingPath, ...)
     return GetPackageJsonDir(fnamemodify(a:startingPath, ':h'), s:searchUntil)
 endfunction
 
+function! GetVimLocalDir(startingPath, ...)
+    let s:searchUntil= (a:0 > 0) ? a:1 : $HOME
+    " If s:searchUntil is empty by now, means no $HOME is defined. We have no business here
+    if (empty(s:searchUntil))
+        return ""
+    endif
+    " If we are in the path already, just return it
+    if (a:startingPath == s:searchUntil)
+        return s:searchUntil
+    endif
+    " If found package.json, return the current folder
+    if filereadable(a:startingPath . '/.vimrc.local')
+        silent echom 'Found .vimrc.local in' . a:startingPath
+        return a:startingPath
+    endif
+    " Recursively run this until a:startingPath is equal s:searchUntil
+    return GetVimLocalDir(fnamemodify(a:startingPath, ':h'), s:searchUntil)
+endfunction
 function! GetGitDir(path)
     " Set 'gitdir' to be the folder containing .git or an empty string
-    let s:gitdir=system('cd '.a:path.' && git rev-parse --show-toplevel 2> /dev/null')
+    let s:gitdir=system('cd '.a:path.' && git rev-parse --show-toplevel 2> /dev/null || echo ""')
     " Clear new-line from system call
     let s:gitdir=substitute(s:gitdir, ".$", "", "")
     return s:gitdir
