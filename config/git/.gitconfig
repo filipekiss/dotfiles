@@ -51,7 +51,7 @@
     rba = rebase --abort
     rbc = rebase --continue
     rbs = rebase --skip
-    rci = commit --ammend --no-edit
+    rci = commit --amend --no-edit
     recommit = commit --amend --no-edit
     release = flow release
     root = rev-parse --show-toplevel
