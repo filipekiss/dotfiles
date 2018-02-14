@@ -30,12 +30,6 @@ filter_files() {
     local BREAK_ON="$2"
     local MESSAGE="${3:-The following files have debugging instructions! Remove before pushing to production}"
     FILES_TO_CHECK=($(command git --no-pager diff --cached --name-only | grep -E $FILES_PATTERN))
-    if [[ -z $FILES_TO_CHECK ]]; then
-        # no staged files, let's see if there's any previously commited file that matches our
-        # criteria and haven't been pushed yet
-        CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        FILES_TO_CHECK=($(command git log ${CURRENT_BRANCH} --not --remotes --name-only --format="" | grep -E $FILES_PATTERN))
-    fi
     OFFENDING_FILES=$(grep -EHno ".{0,40}${BREAK_ON}.{0,40}" $FILES_TO_CHECK 2>/dev/null | sed -e 's/\([0-9]:\)[ \t]*/\1/')
     if [[ -n $OFFENDING_FILES ]]; then
         echo -n "⚠️  ${RED}ATTENTION${RESET} ⚠️"
@@ -43,12 +37,6 @@ filter_files() {
         for offending_file in $OFFENDING_FILES; do
             echo "${CYAN}${offending_file}"
         done;
-        echo "Do you wish to continue? [y/N]"
-        read -sk 1 "continueCommit"
-        if [[ ! ${continueCommit:-n} =~ ^[Yy]$ ]]; then
-            echo "${RED}Aborting...${RESET}"
-            exit 1
-        fi
     fi
 }
 
