@@ -54,7 +54,7 @@ endfunction
 
 function main#overrides() abort
     " Local overrides
-    let s:vimrc_local = $HOME . '/.vimrc.local'
+    let s:vimrc_local = $HOME . '/.local.vim'
     if filereadable(s:vimrc_local)
         execute 'source ' . s:vimrc_local
     endif
