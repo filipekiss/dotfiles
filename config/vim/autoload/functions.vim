@@ -204,7 +204,7 @@ function! functions#SetProjectDir(...)
     if (!empty(s:projectFolder))
         lcd `=s:projectFolder`
         silent echom 'Changed project folder to ' . s:projectFolder
-        let b:ale_javascript_xo_options="--cwd=" . s:projectFolder . g:ale_javascript_xo_options
+        let b:ale_javascript_xo_options="--cwd=" . s:projectFolder
     endif
 endfunction
 
