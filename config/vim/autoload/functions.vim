@@ -214,36 +214,33 @@ function! functions#GetProjectDir(currentDir)
     if !isdirectory(a:currentDir)
         return ''
     endif
-    " Try to get a git top-level directory
+    " Try to get a git top-level directory (this will return $HOME if not inside a git repo)
     let s:gitDir = FindFileIn('.git', a:currentDir)
-    " By default, set the git toplevel as our root
-    let s:projectFolder=s:gitDir
-    " If we have a gitDir, set that as the last place to look for, if not, searches until $HOME
-    let s:searchUntil = (!empty(s:gitDir) ? s:gitDir : $HOME)
     " Look for a package.json file
-    let s:jsProjectDir = FindFileIn('package.json', a:currentDir, s:searchUntil)
-    " If we found a package.json in a folder, use that folder instead of .git top-level
-    if (!empty(s:jsProjectDir))
-        let s:projectFolder=s:jsProjectDir
-    endif
-    " Look for a .local.vim
+    let s:jsProjectDir = FindFileIn('package.json', a:currentDir, s:gitDir)
+    let s:jsProjectDirWeight = len(s:jsProjectDir)
     " +IDEA: Maybe leave this up to something like projectionist.vim?
-    let s:vimProjectDir = FindFileIn('.local.vim', a:currentDir, s:searchUntil)
-    " If we found a .vimrc.local in a folder, use that folder instead of .git top-level
-    if (!empty(s:vimProjectDir))
-        let s:projectFolder=s:vimProjectDir
+    " Look for a .local.vim
+    let s:vimProjectDir = FindFileIn('.local.vim', a:currentDir, s:gitDir)
+    let s:vimProjectDirWeight = len(s:vimProjectDir)
+    " Check what is more specific between the git root project, the foler where we found either
+    " package.json or .local.vim (basically the longest path wins, because that means it's more
+    " specific)
+    let s:projectFolder = s:jsProjectDir
+    if (s:vimProjectDirWeight > s:jsProjectDirWeight)
+        let s:projectFolder = s:vimProjectDir
     endif
     return s:projectFolder
 endfunction
 
 function! FindFileIn(filename, startingPath, ...)
-    if (a:filename == '.git')
-        return GetGitDir(a:startingPath)
-    endif
     let s:searchUntil = get(a:, 1, $HOME)
     " If s:searchUntil is empty by now, means no $HOME is defined. We have no business here
-    if (empty(s:searchUntil))
+    if (empty(s:searchUntil) || len(a:startingPath) < len(s:searchUntil))
         return ''
+    endif
+    if (a:filename == '.git')
+        return GetGitDir(a:startingPath)
     endif
     " If we are in the path already, just return it
     if (a:startingPath == s:searchUntil)
@@ -263,6 +260,9 @@ function! GetGitDir(path)
     let s:gitdir=system('cd '.a:path.' && git rev-parse --show-toplevel 2> /dev/null || echo ""')
     " Clear new-line from system call
     let s:gitdir=substitute(s:gitdir, ".$", "", "")
+    if (empty(s:gitdir))
+        let s:gitdir = $HOME
+    endif
     return s:gitdir
 endfunction
 
