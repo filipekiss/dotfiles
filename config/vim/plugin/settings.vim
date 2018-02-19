@@ -54,6 +54,9 @@ set wildignore+=*.rbc,*.rbo,*.gem                                            " â
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/* " â€¦vendor files
 set wildignore+=*/node_modules/*                                             " JavaScript modules
 
+" Diff Options
+set diffopt+=vertical
+
 " https://robots.thoughtbot.com/opt-in-project-specific-vim-spell-checking-and-word-completion
 set spelllang=en_us,pt_br
 execute "set spellfile=".$VIMHOME.'/spell/en.utf-8.add'.','.$VIMHOME.'/spell/pt.utf-8.add'
