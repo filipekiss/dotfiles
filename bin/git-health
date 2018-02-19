@@ -1,0 +1,70 @@
+#!/usr/bin/env zsh
+# git-health
+# --------------------------------------------------------------------------------------------------
+# Description
+# -----------
+# A simple utility to give a health indication from branches in a repository
+# --------------------------------------------------------------------------------------------------
+# Usage
+# -----
+# git health [all|local|remote]
+#
+# By default, git health will be run against all branches. You can pass local to only check local
+# branches and remote to only check remote branches.
+#
+# The branches will be sorted by last activity, from the most recently active to the least recent
+# active. You can use a dash prefix to invert the order, so git health -all will list all branches
+# with the most stale branch on top and the most recent active branch on the bottom
+# --------------------------------------------------------------------------------------------------
+# Authors
+# -------
+# Filipe Kiss <eu@filipekiss.com.br> http://github.com/filipekiss
+# --------------------------------------------------------------------------------------------------
+
+function updateRemotes() {
+    command git fetch --all > /dev/null 2>&1
+}
+
+function buildCommand() {
+    local branchType=${1:-all}
+    case "$branchType" in
+        local)
+            REF_PATTERN="refs/heads"
+            SORT_ORDER="committerdate"
+            ;;
+        -local)
+            REF_PATTERN="refs/heads"
+            SORT_ORDER="-committerdate"
+            ;;
+        remote)
+            REF_PATTERN="refs/remotes"
+            SORT_ORDER="committerdate"
+            UPDATE_REMOTES="yes"
+            ;;
+        -remote)
+            REF_PATTERN="refs/remotes"
+            SORT_ORDER="-committerdate"
+            UPDATE_REMOTES="yes"
+            ;;
+        -all)
+            REF_PATTERN="refs/remotes refs/heads"
+            SORT_ORDER="-committerdate"
+            UPDATE_REMOTES="yes"
+            ;;
+        *)
+            REF_PATTERN="refs/remotes refs/heads"
+            SORT_ORDER="committerdate"
+            UPDATE_REMOTES="yes"
+            ;;
+    esac
+}
+
+function listBranches() {
+    buildCommand "$@"
+    if [[ "yes" == ${UPDATE_REMOTES:-no} ]]; then
+        updateRemotes;
+    fi
+    command git for-each-ref --sort="${SORT_ORDER}" "${REF_PATTERN}" --format="%(color:yellow)%(refname:short)%(color:reset) %(color:green)%(committerdate:relative)%(color:reset)"
+}
+
+listBranches "$@"
