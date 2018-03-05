@@ -83,7 +83,6 @@ nnoremap <Leader><TAB> <C-w><C-w>
 nnoremap <M-Tab> <C-^>
 " set text wrapping toggles
 nnoremap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
-nnoremap -- :UndotreeToggle<CR>
 nnoremap <leader>= <C-w>t<C-w>K<CR>
 nnoremap <leader>\ <C-w>t<C-w>H<CR>
 " Use | and _ to split windows (while preserving original behaviour of [count]bar and [count]_).
@@ -204,3 +203,11 @@ nnoremap <Leader>o moGGo
 " Do not show stupid q: window
 map q: :q
 
+" Taken from https://github.com/ahmedelgabri/dotfiles/blob/1389afb250a0d234ab279e36fc3bc9b1d2dc80fd/vim/.vim/plugin/mappings.vim#L143-L149
+" inc & dec numbers
+" :h nrformats
+noremap + <C-a>
+noremap - <C-x>
+" Visual mode too
+xnoremap + g<C-a>
+xnoremap - g<C-x>
