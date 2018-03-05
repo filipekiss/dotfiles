@@ -65,7 +65,7 @@ export BASE16_SHELL="${ZPLUG_REPOS}/chriskempson/base16-shell"
 # ------------------------------------------------------------
 # FZF - https://github.com/junegunn/fzf
 # ------------------------------------------------------------
-export FZF_DEFAULT_OPTS='--min-height 30 --bind esc:cancel --height 50% --border --reverse --tabstop 2 --multi --margin 0,3,3,3'
+export FZF_DEFAULT_OPTS='--min-height 30 --bind esc:cancel --height 50% --border --reverse --tabstop 2 --multi --margin 0,3,3,3 --preview-window wrap'
 export FZF_DEFAULT_COMMAND='\rg --no-messages --files --hidden --follow --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
