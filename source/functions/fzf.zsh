@@ -60,3 +60,9 @@ flog() {
         --preview 'git show --color=always --format=oneline {+3} -- '$fileName' | head -200' |
         grep -o "[a-f0-9]\{7,\}"
 }
+
+fe() {
+  local files
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+}
