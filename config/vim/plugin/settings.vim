@@ -231,8 +231,12 @@ set  shortmess+=c " hide annoying completion messages
 " endif
 
 if has('nvim')
-  let g:python_host_prog = nrun#Which('python2')
-  let g:python3_host_prog = nrun#Which('python3')
+    if executable('/usr/local/opt/python@2/bin/python2')
+        let g:python_host_prog = '/usr/local/opt/python@2/bin/python2'
+    endif
+    if executable('/usr/local/bin/python')
+        let g:python3_host_prog = '/usr/local/bin/python'
+    endif
 endif
 
 " Configure fold status text

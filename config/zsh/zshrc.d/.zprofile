@@ -67,7 +67,7 @@ path=(
     ${HOMEBREW_ROOT:-/usr/local}/opt/findutils/libexec/gnubin
     ${HOMEBREW_ROOT:-/usr/local}/opt/coreutils/libexec/gnubin
     ${HOMEBREW_ROOT:-/usr/local}/{bin,sbin}
-    ${HOMEBREW_ROOT:-/usr/local}/opt/python/libexec/bin
+    ${HOMEBREW_ROOT:-/usr/local}opt/python@2/libexec/bin
     ${HOMEBREW_ROOT:-/usr/local}/opt/curl/bin
     ${HOMEBREW_ROOT:-/usr/local}/Cellar/git
     $path
@@ -79,8 +79,8 @@ if (( $+commands[yarn] )); then
 fi
 
 # Add python binaries to path
-if (( $+commands[python3] )); then
-    path+=($(python3 -m site --user-base)/bin)
+if (( $+commands[python2] )); then
+    path+=($(python2 -m site --user-base)/bin)
 fi
 
 if (( $+commands[python] )); then

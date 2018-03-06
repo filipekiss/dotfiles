@@ -16,7 +16,7 @@ brew 'git', args: ['without-completions']
 brew 'gcc'
 brew 'awk'
 brew 'python'
-brew 'python3'
+brew 'python@2'
 brew 'icu4c'
 brew 'node'
 brew 'coreutils'
