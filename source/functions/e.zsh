@@ -53,8 +53,9 @@ function __e_check_socket {
     return 1
 }
 
-# Let's export the $EDITOR to use nvr and the current session socket. Mainly so git also benefits
+# Let's export the $EDITOR and NVIM_LISTEN_ADDRESS to use nvr and the current session socket. Mainly so git also benefits
 # from nvr
-export EDITOR="nvr --servername=$(__e_get_current_socket_name) --remote-wait-silent -s"
+export NVIM_LISTEN_ADDRESS=$(__e_get_current_socket_name)
+export EDITOR="nvr"
 export VISUAL=$EDITOR
-export GIT_EDITOR=$EDITOR
+export GIT_EDITOR="$EDITOR --remote-wait-silent -s"
