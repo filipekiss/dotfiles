@@ -27,6 +27,7 @@ zplug "docker/cli", use:contrib/completion/zsh
 zplug "docker/compose", use:contrib/completion/zsh
 zplug "chriskempson/base16-shell", use:"scripts/base16-${ZSH_BASE16_THEME:-gruvbox-dark-soft}.sh"
 zplug "zsh-users/zsh-completions", defer:1
+zplug "molovo/tipz", defer:2
 
 # ------------------------------------------------------------
 # Install missing modules
