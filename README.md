@@ -10,7 +10,7 @@
    Ruby)
  * [nvr]
  * [Git]
- * [Zsh]
+ * [Zsh] - [Syntax Highlight], [Alias Reminders], [Tab Completion], [Substring Search]…
  * [A] [handful] [of] [utilities]
 
 # Requirements
@@ -58,3 +58,7 @@ Don't forget to trust said keys.
 [of]: https://github.com/filipekiss/dotfiles/blob/master/source/functions/g.zsh
 [utilities]: https://github.com/filipekiss/dotfiles/blob/master/source/functions/afk.zsh
 [nvr]: https://github.com/mhinz/neovim-remote
+[Syntax Highlight]: https://github.com/zdharma/fast-syntax-highlighting
+[Alias Reminders]: https://github.com/molovo/tipz
+[Tab Completion]: https://github.com/zsh-users/zsh-completions
+[Substring Search]: https://github.com/zsh-users/zsh-history-substring-search
