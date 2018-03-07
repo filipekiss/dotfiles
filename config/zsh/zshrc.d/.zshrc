@@ -17,17 +17,16 @@ source ~/.zplug/init.zsh
 # zPlug modules
 # ------------------------------------------------------------
 
-ZIM_HOME="$ZPLUG_REPOS/zimfw/zimfw"
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "zimfw/zimfw", depth:1, use:"init.zsh"
 zplug "filipekiss/pure", depth:1, use:"{async,pure}.zsh", as:"theme"
-zplug "filipekiss/z", use:"z.sh", depth:1, defer:1
-zplug "b4b4r07/emoji-cli"
-zplug "zsh-users/zsh-completions", defer:1
+zplug "zdharma/fast-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions", defer:1
+zplug "zsh-users/zsh-history-substring-search"
+zplug "filipekiss/z", use:"z.sh", depth:1, defer:1
 zplug "docker/cli", use:contrib/completion/zsh
 zplug "docker/compose", use:contrib/completion/zsh
 zplug "chriskempson/base16-shell", use:"scripts/base16-${ZSH_BASE16_THEME:-gruvbox-dark-soft}.sh"
+zplug "zsh-users/zsh-completions", defer:1
 
 # ------------------------------------------------------------
 # Install missing modules
@@ -41,6 +40,16 @@ if ! zplug check --verbose; then
 fi
 
 zplug load
+
+# ------------------------------------------------------------
+# Bind keys to substring search
+# See https://git.io/vAFpR
+# ------------------------------------------------------------
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+# Ensure j/k working in vim mode
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 # ------------------------------------------------------------
 # ZSH Settings
