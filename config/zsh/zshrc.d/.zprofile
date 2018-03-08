@@ -74,6 +74,7 @@ path=(
     ${HOMEBREW_ROOT:-/usr/local}opt/python@2/libexec/bin
     ${HOMEBREW_ROOT:-/usr/local}/opt/curl/bin
     ${HOMEBREW_ROOT:-/usr/local}/Cellar/git
+    ${HOME}/.go/bin
     $path
 )
 
@@ -89,6 +90,10 @@ fi
 
 if (( $+commands[python] )); then
     path+=($(python -m site --user-base)/bin)
+fi
+
+if (( $+commands[go] )); then
+    export GOPATH="${HOME}/.go"
 fi
 
 #
