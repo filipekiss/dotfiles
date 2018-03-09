@@ -17,12 +17,13 @@ endif
 " set highlight+=N:DiffText             " make current line number stand out a little
 " set highlight+=c:LineNr               " blend vertical separators with line numbers
 
-set expandtab                         " always use spaces instead of tabs
-set tabstop=4                         " spaces per tab
-set softtabstop=4
-set shiftround                        " always indent by multiple of shiftwidth
-set shiftwidth=4                      " spaces per tab (when shifting)
-set nowrap                            " no wrap
+" Testing vim-sleuth.
+" set expandtab                         " always use spaces instead of tabs
+" set tabstop=4                         " spaces per tab
+" set softtabstop=4
+" set shiftround                        " always indent by multiple of shiftwidth
+" set shiftwidth=4                      " spaces per tab (when shifting)
+" set nowrap                            " no wrap
 
 set textwidth=100
 set colorcolumn=+1

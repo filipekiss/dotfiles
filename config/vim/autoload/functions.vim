@@ -55,20 +55,8 @@ function! functions#SynStack()
   echo map(synstack(line('.'), col('.')), "synIDattr(v:val, 'name')")
 endfunc
 
-" https://github.com/garybernhardt/dotfiles/blob/68554d69652cc62d43e659f2c6b9082b9938c72e/.vimrc#L182-L194
-function! functions#RenameFile()
-  let l:old_name = expand('%')
-  let l:new_name = input('New file name: ', expand('%'), 'file')
-  if l:new_name !=# '' && l:new_name !=# l:old_name
-    exec ':saveas ' . l:new_name
-    exec ':silent !rm ' . l:old_name
-    redraw!
-  endif
-endfunction
-
-
 " strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
+" is called on buffer write. See config/vim/plugin/autocmnds.vim:25
 function! functions#Preserve(command)
   " Preparation: save last search, and cursor position.
   let l:pos=getcurpos()
@@ -79,23 +67,6 @@ function! functions#Preserve(command)
   let @/=l:search
   nohlsearch
   call setpos('.', l:pos)
-endfunction
-
-
-function! functions#ClearRegisters()
-  let l:regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
-  let l:i=0
-  while (l:i<strlen(l:regs))
-    exec 'let @'.l:regs[l:i].'=""'
-    let l:i=l:i+1
-  endwhile
-endfunction
-
-
-function! functions#setupWrapping()
-  set wrap
-  set wrapmargin=2
-  set textwidth=80
 endfunction
 
 " via: http://vim.wikia.com/wiki/HTML_entities
