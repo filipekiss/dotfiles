@@ -193,6 +193,7 @@ function! functions#SetupNCM()
         inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
         xmap <c-u> <Plug>(ultisnips_expand)
         smap <c-u> <Plug>(ultisnips_expand)
+        imap <C-Space> <Plug>(cm_force_refresh)
     endif
 endfunction
 
