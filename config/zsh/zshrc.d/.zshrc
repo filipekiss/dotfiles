@@ -126,3 +126,8 @@ ERROR_SYMBOLS=(
 
 export PURE_PROMPT_SYMBOL="${SYMBOLS[$RANDOM % ${#SYMBOLS[@]}]}"
 export PURE_PROMPT_SYMBOL_ERROR="${ERROR_SYMBOLS[$RANDOM % ${#ERROR_SYMBOLS[@]}]}"
+
+
+
+# Disable warning if a nested var is in scope
+_comp_options="${_comp_options/NO_warnnestedvar/}"
