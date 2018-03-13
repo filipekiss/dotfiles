@@ -46,7 +46,6 @@ unsetopt CASE_GLOB
 # Then when completion is requested again, remove the first match and insert the second match, etc.
 unsetopt MENU_COMPLETE
 
-
 #
 # completion module options
 #
