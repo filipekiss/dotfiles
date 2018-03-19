@@ -14,8 +14,10 @@ tap 'caskroom/fonts'
 tap 'caskroom/versions'
 tap 'universal-ctags/universal-ctags'
 tap 'tavianator/tap'
+tap "ahmedelgabri/homebrew-battery"
 
 # Brews
+brew 'ahmedelgabri/battery/battery', args: ['HEAD']
 brew 'editorconfig'
 brew 'exa'
 brew 'mas'
