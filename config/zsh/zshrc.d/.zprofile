@@ -64,14 +64,15 @@ export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
+# +TODO: Fix path settings
 path=(
     ./node_modules/.bin
     ${HOME}/.dotfiles/bin
     ${HOMEBREW_ROOT:-/usr/local}/opt/gnu-sed/libexec/gnubin
     ${HOMEBREW_ROOT:-/usr/local}/opt/findutils/libexec/gnubin
     ${HOMEBREW_ROOT:-/usr/local}/opt/coreutils/libexec/gnubin
+    ${HOMEBREW_ROOT:-/usr/local}/opt/python/libexec/bin
     ${HOMEBREW_ROOT:-/usr/local}/{bin,sbin}
-    ${HOMEBREW_ROOT:-/usr/local}opt/python@2/libexec/bin
     ${HOMEBREW_ROOT:-/usr/local}/opt/curl/bin
     ${HOMEBREW_ROOT:-/usr/local}/Cellar/git
     ${HOME}/.go/bin

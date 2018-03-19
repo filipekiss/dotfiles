@@ -232,11 +232,11 @@ set  shortmess+=c " hide annoying completion messages
 " endif
 
 if has('nvim')
-    if executable('/usr/local/opt/python@2/bin/python2')
-        let g:python_host_prog = '/usr/local/opt/python@2/bin/python2'
+    if executable('/usr/local/bin/python2')
+        let g:python_host_prog = '/usr/local/bin/python2'
     endif
-    if executable('/usr/local/bin/python')
-        let g:python3_host_prog = '/usr/local/bin/python'
+    if executable('/usr/local/bin/python3')
+        let g:python3_host_prog = '/usr/local/bin/python3'
     endif
 endif
 
