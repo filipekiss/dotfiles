@@ -66,7 +66,7 @@ function! packages#init() abort
     Plug 'wellle/targets.vim'                                              " More vim text object targets
     Plug 'kepbod/quick-scope'                                              " Highlight matches on the same line to easily navigate with fF/tT
     Plug 'google/vim-searchindex'                                          " Shows current match and total matches on statusbar when searching a pattern
-    Plug 'bronson/vim-visual-star-search'        " Start a star search (*) from visually selected text
+    Plug 'bronson/vim-visual-star-search'                                  " Start a star search (*) from visually selected text
     Plug 'nathanaelkane/vim-indent-guides'                                 " Show indentation guides
     Plug 'tpope/tpope-vim-abolish'                                         " This is basically auto-correct that works
     Plug 'justinmk/vim-sneak'                                              " Like f, but use two characters instead
