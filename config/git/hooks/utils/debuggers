@@ -29,7 +29,7 @@ filter_files() {
     local FILES_PATTERN="$1"
     local BREAK_ON="$2"
     local MESSAGE="${3:-The following files have debugging instructions! Remove before pushing to production}"
-    FILES_TO_CHECK=($(command git --no-pager diff --cached --name-only | grep -E $FILES_PATTERN))
+    FILES_TO_CHECK=($(command git --no-pager diff --diff-filter=d --cached --name-only | grep -E $FILES_PATTERN))
     OFFENDING_FILES=$(grep -EHno ".{0,40}${BREAK_ON}.{0,40}" $FILES_TO_CHECK 2>/dev/null | sed -e 's/\([0-9]:\)[ \t]*/\1/')
     if [[ -n $OFFENDING_FILES ]]; then
         echo -n "⚠️  ${RED}ATTENTION${RESET} ⚠️"
