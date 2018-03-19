@@ -1,3 +1,6 @@
 [submodule "config/keys"]
 	path = config/keys
 	url = keybase://private/filipekiss/private-keys
+[submodule "fonts"]
+	path = fonts
+	url = keybase://private/filipekiss/fonts
