@@ -6,6 +6,7 @@ yarn config set prefix $HOME/.yarn
 PACKAGES=(
     "jscpd"
     "tern"
+    "neovim"
 )
 
 for package in "${PACKAGES[@]}"; do
