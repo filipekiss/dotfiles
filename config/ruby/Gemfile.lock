@@ -2,11 +2,11 @@ GEM
   remote: https://rubygems.org/
   specs:
     lunchy (0.10.4)
-    mdless (0.0.9)
-    msgpack (1.1.0)
-    multi_json (1.12.2)
-    neovim (0.6.1)
-      msgpack (~> 1.0)
+    mdless (0.0.10)
+    msgpack (1.2.4)
+    multi_json (1.13.1)
+    neovim (0.7.1)
+      msgpack (~> 1.1)
       multi_json (~> 1.0)
 
 PLATFORMS
@@ -18,4 +18,4 @@ DEPENDENCIES
   neovim
 
 BUNDLED WITH
-   1.15.4
+   1.16.1
