@@ -17,7 +17,7 @@ alias weechat="weechat --dir=$HOME/.dotfiles/irc/.weechat"
 alias work="mx saraiva"
 alias dots="cd ${DOTFILES:-${HOME}/.dotfiles}"
 
-# File Download
+## File Download
 if (( $+commands[aria2c] )); then
   alias get='aria2c --continue --remote-time --file-allocation=none'
 elif (( $+commands[curl] )); then
@@ -30,11 +30,11 @@ if (( $+commands[htop] )); then
   alias top=htop
 fi
 
-# Resource Usage
+## Resource Usage
 alias df='df -kh'
 alias du='du -kh'
 
-#Global Aliases
+##Global Aliases
 alias -g C='| pbcopy'
 alias -g G='|grep -i '
 alias -g X='| xargs'
@@ -47,20 +47,20 @@ else
   alias ll="echo 'You have to install exa or tree'"
 fi
 
-# Use pygmentize to color cat output, if available
-if (( $+commands[pygmentize] )); then
-    unalias cat 2>/dev/null
-    alias cat='pygmentize -O console256 -g'
-fi
+## Use pygmentize to color cat output, if available
+# if (( $+commands[pygmentize] )); then
+#     unalias cat 2>/dev/null
+#     alias cat='pygmentize -O console256 -g'
+# fi
 
-# Useful stuff
-alias ev="e ~/.vimrc"
-alias "?"="pwd"
-alias flushcache="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
+## Useful stuff
+#alias ev="e ~/.vimrc"
+#alias "?"="pwd"
+#alias flushcache="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 
-[[ $TMUX == *"tmux"* ]] && alias :sp='tmux split-window'
-[[ $TMUX == *"tmux"* ]] && alias :vs='tmux split-window -h'
-[[ $TMUX == *"tmux"* ]] && alias ssh="TERM=xterm-256color ssh"
+#[[ $TMUX == *"tmux"* ]] && alias :sp='tmux split-window'
+#[[ $TMUX == *"tmux"* ]] && alias :vs='tmux split-window -h'
+#[[ $TMUX == *"tmux"* ]] && alias ssh="TERM=xterm-256color ssh"
 
-# Add default arguments to a few command
-(( $+commands[rg] )) && alias rg="${commands[rg]} --hidden"
+## Add default arguments to a few command
+#(( $+commands[rg] )) && alias rg="${commands[rg]} --hidden"

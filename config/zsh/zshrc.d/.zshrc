@@ -99,8 +99,8 @@ export HOMEBREW_NO_ANALYTICS=1
 DOTFILES_BIN=$(which dotfiles)
 if [[ $DOTFILES_BIN ]]; then
   source $DOTFILES_BIN "source"
-  for config ($DOTFILES/source/config/*.zsh) source $config
-  for func ($DOTFILES/source/functions/*.zsh) source $func
+  for config ($DOTFILES/config/zsh/zshrc.d/config/*.zsh) source $config
+  for func ($DOTFILES/config/zsh/zshrc.d/functions/*.zsh) source $func
 fi
 
 [[ -f ${HOME}/.zshrc.local ]] && source $HOME/.zshrc.local

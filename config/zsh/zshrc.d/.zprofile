@@ -2,11 +2,6 @@
 # Executes commands at login pre-zshrc.
 
 ##############################################################
-# Load shell configs
-##############################################################
-for config (${HOME}/.dotfiles/config/zsh/zshrc.d/config/*.zsh) source $config
-
-##############################################################
 # Set Interactive shell options
 ##############################################################
 
