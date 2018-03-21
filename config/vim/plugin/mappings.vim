@@ -139,8 +139,8 @@ nmap <c-g> :call functions#SynStack()<CR>
 
 map <leader>r :call functions#RenameFile()<cr>
 
-nnoremap _$ :call functions#Preserve("%s/\\s\\+$//e")<CR>
-nnoremap _= :call functions#Preserve("normal gg=G")<CR>
+nnoremap <leader>$ :call functions#Preserve("%s/\\s\\+$//e")<CR>
+nnoremap <leader>= :call functions#Preserve("normal gg=G")<CR>
 
 map <silent> <Leader>he :call functions#HtmlEscape()<CR>
 map <silent> <Leader>hu :call functions#HtmlUnEscape()<CR>
