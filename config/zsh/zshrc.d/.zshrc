@@ -18,16 +18,16 @@ source ~/.zplug/init.zsh
 # ------------------------------------------------------------
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "filipekiss/pure", depth:1, use:"{async,pure}.zsh", as:"theme"
-zplug "zdharma/fast-syntax-highlighting"
-zplug "zsh-users/zsh-autosuggestions", defer:1
-zplug "zsh-users/zsh-history-substring-search"
-zplug "filipekiss/z", use:"z.sh", depth:1, defer:1
+zplug "filipekiss/pure", use:"{async,pure}.zsh", as:"theme"
+zplug "filipekiss/z", use:"z.sh"
 zplug "docker/cli", use:contrib/completion/zsh
 zplug "docker/compose", use:contrib/completion/zsh
 zplug "chriskempson/base16-shell", use:"scripts/base16-${ZSH_BASE16_THEME:-gruvbox-dark-soft}.sh"
-zplug "zsh-users/zsh-completions", defer:1
-zplug "molovo/tipz", defer:2
+zplug "molovo/tipz"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zdharma/fast-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-completions"
 
 # ------------------------------------------------------------
 # Install missing modules
@@ -127,7 +127,3 @@ ERROR_SYMBOLS=(
 export PURE_PROMPT_SYMBOL="${SYMBOLS[$RANDOM % ${#SYMBOLS[@]}]}"
 export PURE_PROMPT_SYMBOL_ERROR="${ERROR_SYMBOLS[$RANDOM % ${#ERROR_SYMBOLS[@]}]}"
 
-
-
-# Disable warning if a nested var is in scope
-# _comp_options="${_comp_options/NO_warnnestedvar/}"
