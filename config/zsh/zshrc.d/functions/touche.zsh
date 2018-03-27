@@ -5,7 +5,7 @@ function touche() {
     fi
     local filePath="$1"
     local fileLocation="${filePath:h}"
-    # [[ ! -d $fileLocation ]] && (echo "Created ${fileLocation}…" && mkdir -p ${fileLocation} || (echo "Error when trying to create ${fileLocation}. Aborting…" && return 1))
-    # [[ ! -f $filePath ]] && (touch $filePath && echo "Created ${filePath}. Opening using '${EDITOR}'" || (echo "Error creating ${filePath:t}. Aborting…" && exit 1))
-    time nvim -c ':q!' $filePath
+    [[ ! -d $fileLocation ]] && (echo "Created ${fileLocation}…" && mkdir -p ${fileLocation} || (echo "Error when trying to create ${fileLocation}. Aborting…" && return 1))
+    [[ ! -f $filePath ]] && (touch $filePath && echo "Created ${filePath}. Opening using '${EDITOR}'" || (echo "Error creating ${filePath:t}. Aborting…" && exit 1))
+    $EDITOR $filePath
 }
