@@ -1,10 +1,9 @@
-🐛                 | :bug:
+🐛                | :bug:
 git               | git:
 homebrew          | brew:
 iterm             | iterm:
-linux             | :penguin:
-macos             | :apple:
 meta              | meta:
+misc              | misc:
 readme, docs, etc | :books:
 tmux              | tmux:
 utils             | utils:
