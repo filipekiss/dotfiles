@@ -21,7 +21,6 @@ brew 'ahmedelgabri/battery/battery', args: ['HEAD']
 brew 'editorconfig'
 brew 'exa'
 brew 'mas'
-brew 'reattach-to-user-namespace'
 brew 'universal-ctags', args: ['HEAD']
 
 # Casks
