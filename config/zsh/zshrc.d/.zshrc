@@ -11,6 +11,7 @@ if [[ ! -f ~/.zplug/init.zsh ]]; then
   fi
 fi
 
+export ZPLUG_HOME="${HOME}/.zplug"
 source ~/.zplug/init.zsh
 
 # ------------------------------------------------------------
