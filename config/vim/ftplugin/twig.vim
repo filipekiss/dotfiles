@@ -5,7 +5,8 @@ if exists('b:match_words')
                 \ ['block', 'endblock'],
                 \ ['for', 'endfor'],
                 \ ['macro', 'endmacro'],
-                \ ['if', 'elseif', 'else', 'endif']
+                \ ['if', 'elseif', 'else', 'endif'],
+                \ ['set', 'endset']
                 \]
     for element in b:twigMatchWords
         let pattern = ''
@@ -18,13 +19,13 @@ if exists('b:match_words')
             let pattern .= '{%\s*\<' . tag . '\>\s*[^}]\{-}%}'
             "               ││ │  │            │ │ │    │
             "               ││ │  │            │ │ │    └───── \{-} - match as many as needed until next char
-            "               ││ │  │            │ │ └────────── . - match any character
-            "               ││ │  │            │ └──────────── \s* - match zero or more whitespaces
-            "               ││ │  │            └────────────── \> - vim's word delimiter end
-            "               ││ │  └─────────────────────────── \> - vim's word delimiter start
-            "               ││ └────────────────────────────── \s* - match zero or more whitespaces
-            "               │└──────────────────────────────── % - match a literal %
-            "               └───────────────────────────────── { - match a literal {
+            "               ││ │  │            │ │ └────────── [^}] - match until a close bracket is found, excluding
+            "               ││ │  │            │ └──────────── \s*  - match zero or more whitespaces
+            "               ││ │  │            └────────────── \>   - vim's word delimiter end
+            "               ││ │  └─────────────────────────── \>   - vim's word delimiter start
+            "               ││ └────────────────────────────── \s*  - match zero or more whitespaces
+            "               │└──────────────────────────────── %    - match a literal %
+            "               └───────────────────────────────── {    - match a literal {
             "
         endfor
         let pattern .= ':{%\s*\<' . element[-1:][0] . '\>\s*.\{-}%}'
