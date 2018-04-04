@@ -16,11 +16,11 @@ if exists('b:match_words')
             endif
             " This pattern is a little weird but it's vim's own pattern. See below for what every
             " piece does
-            let pattern .= '{%\s*\<' . tag . '\>\s*\(.*=\)\@![^}]\{-}%}'
-            "               ││ │  │            │ │  │        │    │
-            "               ││ │  │            │ │  │        │    └───── \{-}       - match as many as needed until next char
-            "               ││ │  │            │ │  │        └────────── [^}]       - match until a close bracket is found, excluding
-            "               ││ │  │            │ │  └─────────────────── \(.*=\)\@! - Negative lookahead - Don't try to match if there's an equal sign at the opening tag
+            let pattern .= '{%\s*\<' . tag . '\>\s*\%(.*=\)\@![^}]\{-}%}'
+            "               ││ │  │            │ │  │         │    │
+            "               ││ │  │            │ │  │         │    └──── \{-}       - match as many as needed until next char
+            "               ││ │  │            │ │  │         └───────── [^}]       - match until a close bracket is found, excluding
+            "               ││ │  │            │ │  └─────────────────── \%(.*=\)\@! - Negative lookahead (% means non-capturing) - Don't try to match if there's an equal sign at the opening tag
             "               ││ │  │            │ └────────────────────── \s*        - match zero or more whitespaces
             "               ││ │  │            └──────────────────────── \>         - vim's word delimiter end
             "               ││ │  └───────────────────────────────────── \>         - vim's word delimiter start
