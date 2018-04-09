@@ -31,7 +31,6 @@ function! packages#init() abort
     " }}} ---------------------------------------- System Plugins
 
     " Syntax and Language-related Plugins ---------------------------------------- {{{
-    Plug 'moll/vim-node', { 'for': ['javascript', 'javascript.jsx'] }             " JS and Node productivity
     Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'sass', 'scss', 'stylus'] } " Show color on color declarations in CSS files
     Plug 'sheerun/vim-polyglot'                                                   " Multiple languages syntax
     Plug 'stephenway/postcss.vim', { 'for': ['css'] }                             " More modern CSS syntax, don't use the one in Polyglot
