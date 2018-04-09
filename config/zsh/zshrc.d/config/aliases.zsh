@@ -63,4 +63,4 @@ fi
 #[[ $TMUX == *"tmux"* ]] && alias ssh="TERM=xterm-256color ssh"
 
 ## Add default arguments to a few command
-#(( $+commands[rg] )) && alias rg="${commands[rg]} --hidden"
+(( $+commands[rg] )) && alias rg="${commands[rg]} --hidden"

@@ -34,15 +34,6 @@ unsetopt CHECK_JOBS
 # Remove path separtor from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
 
-# Set less or more as the default pager.
-if (( ! ${+PAGER} )); then
-  if (( ${+commands[less]} )); then
-    export PAGER=less
-  else
-    export PAGER=more
-  fi
-fi
-
 # sets the window title and updates upon directory change
 # more work probably needs to be done here to support multiplexers
 if (($+ztermtitle)); then
