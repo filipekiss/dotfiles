@@ -42,3 +42,8 @@ aug omnicomplete
     autocmd FileType html,htmldjango,jinja2 setl omnifunc=emmet#completeTag
   endif
 aug END
+
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END

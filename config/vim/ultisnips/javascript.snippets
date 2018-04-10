@@ -9,3 +9,17 @@ endsnippet
 snippet jsc "JSX Comment"
 {/* ${0:${VISUAL}} */}
 endsnippet
+
+snippet recom "React Component"
+import React, { Component } from 'react';
+
+class ${1:MyComponent} extends Component {
+    render() {
+        return (
+            ${2:<div></div>}
+        );
+    }
+}
+
+export default $1;
+endsnippet
