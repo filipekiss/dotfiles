@@ -3,3 +3,4 @@
 *.zwc
 *.old
 .zcompcache
+.zcalc_history
