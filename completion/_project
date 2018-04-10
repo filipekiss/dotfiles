@@ -1,0 +1,90 @@
+#compdef project
+
+# vim:ft=sh:
+
+# project completion
+# --------------------------------------------------------------------------------------------------
+
+# Description
+# -----------
+ # Makes my project function a little smarter
+# --------------------------------------------------------------------------------------------------
+# Authors
+# -------
+# Filipe Kiss <eu@filipekiss.com.br> http://github.com/filipekiss
+# --------------------------------------------------------------------------------------------------
+
+_project() {
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments \
+        ':Commands:->commands'\
+        ':Project Namespace:->namespace'\
+        ':Project Name:'
+
+    case $state in
+        (commands)
+            _arguments '1:Command:__zsh_complete_command'
+            ;;
+        (namespace)
+            _arguments '2:Project Namespace:__zsh_complete_namespace'
+            ;;
+    esac
+}
+
+__zsh_complete_command() {
+    local -a command_list
+    command_list=('create:create a new project')
+    _describe -t commands "Commands" command_list
+}
+
+__zsh_complete_namespace() {
+    local namespaces
+    _description=($(_list_available_namespaces))
+    _describe -t namespace "Project Namespace" _description
+}
+
+__zsh_complete_project() {
+    _description=($(_list_available_projects $words[2]))
+    _project_path=$(_get_project_path ${words[2]})
+    _describe -t project "Listing projects ${_project_path/#${HOME}/~}" _description
+}
+
+
+_list_available_namespaces() {
+    local home_namespaces project_namespaces _has_projects_folder _description
+    _description=()
+    [[ -z $PROJECTS ]] && PROJECTS=$HOME
+
+    if [[ -n $PROJECTS ]]; then
+        project_namespaces=($(find ${PROJECTS}/* -maxdepth 0 -type d -not -path '*/\.*' -printf '%f\n'))
+        for namespace in $project_namespaces; do
+            [[ -n $_has_projects_folder ]] && prefix="projects/"
+            _description+=("${namespace}:${PROJECTS}/${namespace}")
+        done;
+    fi
+
+    echo ${(iF)_description}
+}
+
+_list_available_projects() {
+    local _selected_namespace _description
+    _selected_namespace="$1"
+    _description=()
+    NAMESPACE_PATH=$(_get_project_path $_selected_namespace)
+    _projects_available=($(find ${NAMESPACE_PATH}/* -maxdepth 0 -type d))
+    for project in $_projects_available; do
+        _description+=("${project:t}:${project/#${HOME}/~}")
+    done;
+    echo ${(iF)_description}
+}
+
+_get_project_path() {
+    local NAMESPACE_PATH _selected_namespace
+    _selected_namespace="$1"
+    [[ -d ${PROJECTS}/${_selected_namespace} ]] && NAMESPACE_PATH=${PROJECTS}/${_selected_namespace} || NAMESPACE_PATH=${HOME}/${_selected_namespace}
+    echo $NAMESPACE_PATH
+}
+
+_project "$@"
