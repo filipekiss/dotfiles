@@ -17,6 +17,7 @@ tap 'tavianator/tap'
 tap "ahmedelgabri/homebrew-battery"
 
 # Brews
+brew 'awscli'
 brew 'ahmedelgabri/battery/battery', args: ['HEAD']
 brew 'editorconfig'
 brew 'exa'
