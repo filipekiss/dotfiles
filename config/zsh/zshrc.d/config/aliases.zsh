@@ -14,7 +14,7 @@ alias server="sudo python -m SimpleHTTPServer 80"
 alias type="${saliases[type]:-type} -a"
 alias gulp="nocorrect gulp"
 alias weechat="weechat --dir=$HOME/.dotfiles/irc/.weechat"
-alias work="mx saraiva"
+alias work="mx stoodi"
 alias dots="cd ${DOTFILES:-${HOME}/.dotfiles}"
 
 ## File Download
