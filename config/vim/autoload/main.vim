@@ -1,4 +1,7 @@
 " vim: ft=vim
+"
+" +TODO: Try to find what's breaking when the plugins are not installed
+" +BODY: I have to run vim a few times before it actually works
 
 function! main#init() abort
     call packages#init()

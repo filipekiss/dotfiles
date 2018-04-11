@@ -11,7 +11,6 @@ function! packages#init() abort
     if has('nvim')
         Plug 'filipekiss/nvim-completion-manager'                                      " Auto complete pop-up
         Plug 'roxma/nvim-cm-tern', { 'do': 'yarn global add tern && yarn' }            " JavaScript and Node autocompletion source using Tern.js
-        Plug 'calebeby/ncm-css', {  'for': ['css', 'less', 'sass', 'scss', 'stylus'] } " CSS completion source
         Plug 'Shougo/neco-vim', { 'for': ['vim'] }                                     " Vimscript completion source
     endif
     " }}} ---------------------------------------- Nvim Specific Plugins
@@ -78,7 +77,6 @@ function! packages#init() abort
 
     " ColorSchemes and cool stuff ---------------------------------------- {{{
     Plug 'morhetz/gruvbox'       " Gruvbox colorscheme
-    Plug 'wakatime/vim-wakatime' " Time tracker
     Plug 'dracula/vim'           " Dracula colorscheme
     " }}} ---------------------------------------- ColorSchemes and cool stuff
 
