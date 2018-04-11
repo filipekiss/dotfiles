@@ -13,7 +13,6 @@ tap 'caskroom/cask'
 tap 'caskroom/fonts'
 tap 'caskroom/versions'
 tap 'universal-ctags/universal-ctags'
-tap 'tavianator/tap'
 tap "ahmedelgabri/homebrew-battery"
 
 # Brews
@@ -25,8 +24,9 @@ brew 'mas'
 brew 'universal-ctags', args: ['HEAD']
 
 # Casks
-cask '1password-beta'
+cask '1password'
 cask 'aerial'
+cask 'discord'
 cask 'docker'
 cask 'dropbox'
 cask 'firefox'
@@ -44,16 +44,10 @@ cask 'quicklook-json'
 cask 'sequel-pro'
 cask 'setapp'
 cask 'skitch'
-cask 'skype'
-cask 'slack'
 cask 'spotify'
-brew 'tavianator/tap/bfs'
-cask 'transmission'
-cask 'whatsapp'
 
 
 # Mas
-mas 'Sip', id: 507257563
 mas 'Telegram', id: 747648890
 mas 'Tweetbot', id: 557168941
 mas 'Magnet', id: 441258766

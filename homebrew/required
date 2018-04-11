@@ -9,7 +9,6 @@
 
 # Taps
 tap 'homebrew/bundle'
-tap 'homebrew/dupes'
 
 # Brews
 brew 'git', args: ['without-completions']
@@ -24,4 +23,3 @@ brew 'findutils', args: ['with-default-names']
 brew 'stow'
 brew 'transcrypt'
 brew 'zsh'
-brew 'zsh-completions'

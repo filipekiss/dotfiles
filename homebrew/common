@@ -2,7 +2,6 @@
 
 # Taps
 tap 'homebrew/services'
-tap 'homebrew/php'
 
 # Brews
 brew 'aria2', ARGS: ['with-libssh2']
