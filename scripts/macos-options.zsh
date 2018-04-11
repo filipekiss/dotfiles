@@ -22,11 +22,14 @@ e_header "General UI/UX"
 
 # Set computer name (as done via System Preferences → Sharing)
 #
-# I've commented this out because I use different names for my machines. Maybe add an option to ask for user input?
-#sudo scutil --set ComputerName "the-shire"
-#sudo scutil --set HostName "the-shire"
-#sudo scutil --set LocalHostName "the-shire"
-#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "the-shire"
+e_info "Type in the machine name"
+vared -p '  Machine Name:' -c machine_name
+sudo scutil --set ComputerName "${machine_name}"
+(( ! $+functions[regexp-replace] )) && autoload -U regexp-replace
+regexp-replace machine_name '[^a-zA-Z0-9.-]' '-'
+sudo scutil --set HostName "${machine_name:l}"
+sudo scutil --set LocalHostName "${machine_name:l}"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${machine_name:l}"
 
 e_info 'Set standby delay to 24 hours (default is 1 hour)'
 sudo pmset -a standbydelay 86400
