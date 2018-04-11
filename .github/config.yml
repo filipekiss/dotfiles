@@ -1,4 +1,4 @@
 todo:
-  keyword: '+TODO'
-  bodyKeyword: '+BODY'
+  keyword: 'TODO'
+  bodyKeyword: 'BODY'
   label: false
