@@ -7,9 +7,8 @@ unalias g 2>/dev/null
 
 function g() {
     if [[ $# -eq 0 ]]; then
-        last_commit_info &&
-        git status --short --branch || \
-        e_header "No commits yet"
+        last_commit_info
+        git status --short --branch 2>/dev/null || e_header "Not a git repository"
     else
         git "$@"
     fi
