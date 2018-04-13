@@ -16,7 +16,6 @@ node:
 	-@zsh ./scripts/node-packages.zsh
 
 ruby:
-	-@gem install bundler
 	-@bundle install --system --gemfile=./config/ruby/Gemfile
 
 macos:
