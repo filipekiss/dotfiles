@@ -1,4 +1,4 @@
-all: italics brew permissions python ruby node vim iterm private
+all: italics brew permissions python ruby node vim iterm keybase private
 
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
