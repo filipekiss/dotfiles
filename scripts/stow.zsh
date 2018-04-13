@@ -17,7 +17,7 @@ function validate_stow() {
 function link_config() {
     IFS=$'\n'
     local files
-    files=($(git --work-tree=$DOTFILES --git-dir=$DOTFILES/.git ls-files config/**/*))
+    files=($(git --work-tree=$DOTFILES --git-dir=$DOTFILES/.git ls-files config))
     local stow_paths
     stow_paths=($(find $DOTFILES/config -maxdepth 1 -mindepth 1 -type d))
     local managed_folders
