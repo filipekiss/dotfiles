@@ -141,7 +141,7 @@ endfunction
 " Show ALE on statusline
 " See https://github.com/w0rp/ale#faq-statusline
 function! statusline#LinterStatus() abort
-    if !exists(':ALEToggle')
+    if !exists(':ALEInfo')
         return ''
     endif
   let l:error_symbol = '⨉'
