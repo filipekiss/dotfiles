@@ -36,7 +36,7 @@
     dw = diff --color-words
     full-status = status --porcelain --untracked-files=all
     gr = log --graph --full-history --all --color --decorate
-    ici = commit --allow-empty -m \":tada: Initial Commit\"
+    ici = commit --allow-empty -m \":tada: Initial Commit\" --no-verify
     ignored = ls-files --others -i --exclude-standard
     last = log --pretty=format:'%s' --abbrev-commit -1
     latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
