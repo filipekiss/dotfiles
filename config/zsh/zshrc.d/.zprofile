@@ -132,5 +132,6 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 #
 
 export PROJECTS="${HOME}/code"
+[[ ! -d "$PROJECTS" ]] && mkdir -p ${PROJECTS}
 
 [[ -f ~/.zsh_base16_theme ]] && . ~/.zsh_base16_theme
