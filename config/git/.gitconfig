@@ -164,6 +164,21 @@
     pushInsteadOf = http://gitlab.com/filipekiss/
     pushInsteadOf = git://gitlab.com/filipekiss/
 
+
+[url "git@bitbucket.org:"]
+    insteadOf     = bb:
+    pushInsteadOf = bitbucket:
+    pushInsteadOf = git://bitbucket.org/
+
+[url "git://bitbucket.org/"]
+    insteadOf = bitbucket:
+    insteadOf = https://bitbucket.org/
+    pushInsteadOf = https://bitbucket.org
+
+[url "git@bitbucket.org:stoodiDev/"]
+    insteadOf = "stoodi:"
+    pushInsteadOf = "stoodi:"
+
 [merge]
     conflictstyle = diff3
 	stat = true # Show diffstat after every merge
