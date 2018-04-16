@@ -14,38 +14,34 @@
 # Filipe Kiss <eu@filipekiss.com.br> http://github.com/filipekiss
 # --------------------------------------------------------------------------------------------------
 
-_project() {
-    local curcontext="$curcontext" state line
-    typeset -A opt_args
 
-    _arguments \
-        ':Commands:->commands'\
-        ':Project Namespace:->namespace'\
-        ':Project Name:'
-
-    case $state in
-        (commands)
-            _arguments '1:Command:__zsh_complete_command'
-            ;;
-        (namespace)
-            _arguments '2:Project Namespace:__zsh_complete_namespace'
-            ;;
-    esac
-}
-
-__zsh_complete_command() {
+__project_describe_commands() {
     local -a command_list
-    command_list=('create:create a new project')
+    command_list=('create:create a new project' 'clone:clone a project')
     _describe -t commands "Commands" command_list
 }
 
-__zsh_complete_namespace() {
-    local namespaces
+__project_argument_generic() {
+    case $words[1] in
+        (create)
+            _arguments \
+                "1:namespace:__project_describe_namespace" && ret=0
+            ;;
+        (clone)
+            _arguments \
+                "1:namespace:__project_describe_namespace" && ret=0
+            ;;
+    esac
+    return $ret
+}
+
+__project_describe_namespace() {
+    local namespaces title
     _description=($(_list_available_namespaces))
     _describe -t namespace "Project Namespace" _description
 }
 
-__zsh_complete_project() {
+__project_describe_projects() {
     _description=($(_list_available_projects $words[2]))
     _project_path=$(_get_project_path ${words[2]})
     _describe -t project "Listing projects ${_project_path/#${HOME}/~}" _description
@@ -85,6 +81,30 @@ _get_project_path() {
     _selected_namespace="$1"
     [[ -d ${PROJECTS}/${_selected_namespace} ]] && NAMESPACE_PATH=${PROJECTS}/${_selected_namespace} || NAMESPACE_PATH=${HOME}/${_selected_namespace}
     echo $NAMESPACE_PATH
+}
+
+
+_project() {
+    local curcontext="$curcontext" state line help="-h --help"
+    integer ret=1
+    typeset -A opt_args
+
+    _arguments \
+        "($help -): :->command" \
+        "($help -)*:: :->argument" && ret=0
+
+    case $state in
+        (command)
+            __project_describe_commands && ret=0
+            ;;
+        (argument)
+            curcontext=${curcontext%:*:*}:${completion_name}-$words[1]:
+            __project_argument_generic $words[1] && ret=0
+            ;;
+    esac
+
+    return ret
+
 }
 
 _project "$@"
