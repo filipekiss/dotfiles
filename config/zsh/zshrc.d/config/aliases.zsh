@@ -26,6 +26,8 @@ elif (( $+commands[wget] )); then
   alias get='wget --continue --progress=bar --timestamping'
 fi
 
+(( $+commands[hub] )) && alias git="hub"
+
 if (( $+commands[htop] )); then
   alias top=htop
 fi
