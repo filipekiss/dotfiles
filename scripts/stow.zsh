@@ -40,7 +40,7 @@ function do_stow() {
     stow_path="$1"
     if [[ -d "${DOTFILES}/config/${stow_path}" ]]; then
         e_info "Stowing ${YELLOW}${stow_path}${RESET}"
-        stow --ignore ".DS_Store" --target="$HOME" --dir="${DOTFILES}/config" $stow_path
+        stow --restow --ignore ".DS_Store" --target="$HOME" --dir="${DOTFILES}/config" $stow_path
     fi
 }
 
