@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>aliasNames</key>
+	<dict>
+		<key>ODLBPathItem:/</key>
+		<string>Root /</string>
+		<key>ODLBPathItem:/Volumes</key>
+		<string>Mounted Volumes</string>
+		<key>ODLBPathItem:/usr/bin</key>
+		<string>usr/bin</string>
+		<key>ODLBPathItem:/usr/local</key>
+		<string>usr/local</string>
+		<key>ODLBPathItem:/usr/local/bin</key>
+		<string>usr/local/bin</string>
+		<key>ODLBPathItem:/usr/sbin</key>
+		<string>usr/sbin</string>
+	</dict>
+	<key>disabledItems</key>
+	<array/>
+	<key>itemIdentifierVersion</key>
+	<integer>5</integer>
+	<key>rules</key>
+	<array>
+		<dict>
+			<key>className</key>
+			<string>ODLBEmojiRule</string>
+		</dict>
+		<dict>
+			<key>abbreviatedPath</key>
+			<string>_safariHistoryPath</string>
+			<key>className</key>
+			<string>ODLBHistoryRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBTagsRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBThemesRule</string>
+		</dict>
+		<dict>
+			<key>aliasName</key>
+			<string>Search Templates (ISO Latin 1)</string>
+			<key>className</key>
+			<string>ODLBSearchTemplatesRule</string>
+			<key>defaultStringEncoding</key>
+			<integer>5</integer>
+			<key>templates</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>Apple Developer Connection</string>
+					<key>templateURL</key>
+					<string>https://developer.apple.com/cgi-bin/search.pl?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Cocoa Mailing List Archive</string>
+					<key>templateURL</key>
+					<string>http://www.cocoabuilder.com/archive/search/1?l=cocoa&amp;q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Connect to Local AFP Server</string>
+					<key>templateURL</key>
+					<string>afp://*.local</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Excite</string>
+					<key>templateURL</key>
+					<string>http://msxml.excite.com/info.xcite/search/web/*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Internet Movie Database</string>
+					<key>templateURL</key>
+					<string>http://www.imdb.com/find?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Linguee</string>
+					<key>templateURL</key>
+					<string>http://www.linguee.de/search?direction=auto&amp;query=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Make TinyURL</string>
+					<key>templateURL</key>
+					<string>http://tinyurl.com/create.php?url=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Merriam-Webster Dictionary</string>
+					<key>templateURL</key>
+					<string>http://www.merriam-webster.com/cgi-bin/dictionary?book=Dictionary&amp;va=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Merriam-Webster Thesaurus</string>
+					<key>templateURL</key>
+					<string>http://www.merriam-webster.com/cgi-bin/thesaurus?book=Thesaurus&amp;va=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>PHP Documentation</string>
+					<key>templateURL</key>
+					<string>http://www.php.net/*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Xcode Mailing List Archive</string>
+					<key>templateURL</key>
+					<string>http://www.cocoabuilder.com/archive/search/1?l=xcode&amp;q=*</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBActionsRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBWorkflowsRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBSafariReadingListRule</string>
+		</dict>
+		<dict>
+			<key>abbreviatedPath</key>
+			<string>~</string>
+			<key>className</key>
+			<string>ODLBFolderContentsRule</string>
+			<key>subfolderLevels</key>
+			<integer>0</integer>
+			<key>typeCollectionIdentifier</key>
+			<string>@folder</string>
+		</dict>
+		<dict>
+			<key>abbreviatedSpecificPlaces</key>
+			<array>
+				<string>/Applications</string>
+				<string>/System/Library/CoreServices</string>
+				<string>~/Applications</string>
+				<string>~/Library/Printers</string>
+			</array>
+			<key>className</key>
+			<string>ODLBApplicationsRule</string>
+		</dict>
+		<dict>
+			<key>aliasName</key>
+			<string>Unix Executables</string>
+			<key>className</key>
+			<string>ODLBListRule</string>
+			<key>list</key>
+			<array>
+				<string>/bin/date</string>
+				<string>/sbin/ping</string>
+				<string>/usr/bin/cal</string>
+				<string>/usr/bin/dig</string>
+				<string>/usr/bin/ftp</string>
+				<string>/usr/bin/host</string>
+				<string>/usr/bin/hostinfo</string>
+				<string>/usr/bin/man</string>
+				<string>/usr/bin/sftp</string>
+				<string>/usr/bin/ssh</string>
+				<string>/usr/bin/su</string>
+				<string>/usr/bin/telnet</string>
+				<string>/usr/bin/top</string>
+				<string>/usr/bin/uptime</string>
+				<string>/usr/sbin/netstat</string>
+				<string>/usr/sbin/traceroute</string>
+			</array>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBServicesRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBCategoriesRule</string>
+		</dict>
+		<dict>
+			<key>abbreviatedPath</key>
+			<string>~/Documents</string>
+			<key>className</key>
+			<string>ODLBFolderContentsRule</string>
+			<key>skipQualifiers</key>
+			<array>
+				<string>iTunes Music</string>
+			</array>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBOnePasswordRule</string>
+			<key>enabled</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBSafariTopSitesRule</string>
+		</dict>
+		<dict>
+			<key>abbreviatedPath</key>
+			<string>_safariBookmarksPath</string>
+			<key>className</key>
+			<string>ODLBBookmarksRule</string>
+		</dict>
+		<dict>
+			<key>aliasName</key>
+			<string>Search Templates (UTF-8)</string>
+			<key>className</key>
+			<string>ODLBSearchTemplatesRule</string>
+			<key>templates</key>
+			<array>
+				<dict>
+					<key>name</key>
+					<string>Abbreviation Search</string>
+					<key>templateURL</key>
+					<string>x-launchbar:select?abbreviation=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search Amazon for Books</string>
+					<key>templateURL</key>
+					<string>http://www.amazon.com/s?ie=UTF8&amp;index=books&amp;keywords=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search Amazon for DVDs</string>
+					<key>templateURL</key>
+					<string>http://www.amazon.com/s?ie=UTF8&amp;index=dvd&amp;keywords=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search Amazon for Music</string>
+					<key>templateURL</key>
+					<string>http://www.amazon.com/s?ie=UTF8&amp;index=music&amp;keywords=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search Amazon.com</string>
+					<key>templateURL</key>
+					<string>http://www.amazon.com/s?ie=UTF8&amp;index=blended&amp;keywords=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Amazon Deutschland (Bücher)</string>
+					<key>templateURL</key>
+					<string>http://www.amazon.de/s?ie=UTF8&amp;index=books&amp;keywords=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Amazon Deutschland (DVDs)</string>
+					<key>templateURL</key>
+					<string>http://www.amazon.de/s?ie=UTF8&amp;index=dvd&amp;keywords=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Amazon Deutschland (Musik)</string>
+					<key>templateURL</key>
+					<string>http://www.amazon.de/s?ie=UTF8&amp;index=music&amp;keywords=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Amazon Deutschland</string>
+					<key>templateURL</key>
+					<string>http://www.amazon.de/s?ie=UTF8&amp;index=blended&amp;keywords=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Ask.com</string>
+					<key>templateURL</key>
+					<string>http://www.ask.com/web?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Bing</string>
+					<key>templateURL</key>
+					<string>https://www.bing.com/search?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Bing Images</string>
+					<key>templateURL</key>
+					<string>https://www.bing.com/images/search?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Convert EUR to USD</string>
+					<key>templateURL</key>
+					<string>http://www.oanda.com/currency/classic-converter?exch=EUR&amp;expr=USD&amp;value=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Convert USD to EUR</string>
+					<key>templateURL</key>
+					<string>http://www.oanda.com/currency/classic-converter?exch=USD&amp;expr=EUR&amp;value=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>DuckDuckGo</string>
+					<key>templateURL</key>
+					<string>https://duckduckgo.com/?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>ebay</string>
+					<key>templateURL</key>
+					<string>http://search.ebay.com/*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Flickr</string>
+					<key>templateURL</key>
+					<string>https://www.flickr.com/search/?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Go to</string>
+					<key>templateURL</key>
+					<string>x-launchbar:select?file=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Lucky Google</string>
+					<key>templateURL</key>
+					<string>https://www.google.com/search?btnI&amp;q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Google Blog Search</string>
+					<key>templateURL</key>
+					<string>http://blogsearch.google.com/blogsearch?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Google Exact Phrase</string>
+					<key>templateURL</key>
+					<string>https://www.google.com/search?q=%22*%22</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Google Face Search</string>
+					<key>templateURL</key>
+					<string>http://images.google.com/images?imgtype=face&amp;q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Google Groups</string>
+					<key>templateURL</key>
+					<string>http://groups.google.com/groups?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Google Images</string>
+					<key>templateURL</key>
+					<string>http://images.google.com/images?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Google Japan</string>
+					<key>templateURL</key>
+					<string>https://www.google.co.jp/search?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Google Maps</string>
+					<key>templateURL</key>
+					<string>https://maps.google.com/maps?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Google Video</string>
+					<key>templateURL</key>
+					<string>https://www.google.com/search?tbm=vid&amp;q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>last.fm</string>
+					<key>templateURL</key>
+					<string>http://www.last.fm/music/?q=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>LEO English-German Dictionary</string>
+					<key>templateURL</key>
+					<string>https://dict.leo.org/?search=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Mac OS X Hints</string>
+					<key>templateURL</key>
+					<string>http://www.macosxhints.com/search.php?query=*&amp;type=stories&amp;mode=search&amp;keyType=all</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Manual Page</string>
+					<key>templateURL</key>
+					<string>x-man-page://*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>MacUpdate</string>
+					<key>templateURL</key>
+					<string>https://www.macupdate.com/find/mac/*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>OpenThesaurus</string>
+					<key>templateURL</key>
+					<string>http://www.openthesaurus.de/overview.php?search=1&amp;word=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search iTunes Store</string>
+					<key>templateURL</key>
+					<string>itms://phobos.apple.com/WebObjects/MZSearch.woa/wa/search?term=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search iTunes Store for Album</string>
+					<key>templateURL</key>
+					<string>itms://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?albumTerm=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search iTunes Store for Artist</string>
+					<key>templateURL</key>
+					<string>itms://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?artistTerm=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search iTunes Store for Composer</string>
+					<key>templateURL</key>
+					<string>itms://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?composerTerm=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Search iTunes Store for Song</string>
+					<key>templateURL</key>
+					<string>itms://phobos.apple.com/WebObjects/MZSearch.woa/wa/advancedSearchResults?songTerm=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Technorati Search</string>
+					<key>templateURL</key>
+					<string>http://www.technorati.com/search/*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Wolfram Alpha</string>
+					<key>templateURL</key>
+					<string>http://www.wolframalpha.com/input/?i=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Yahoo! Japan</string>
+					<key>templateURL</key>
+					<string>http://search.yahoo.co.jp/search?ei=UTF-8&amp;p=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Yahoo!</string>
+					<key>templateURL</key>
+					<string>http://search.yahoo.com/search?p=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Yahoo! Images</string>
+					<key>templateURL</key>
+					<string>http://images.search.yahoo.com/search/images?p=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Yahoo! Stock Quotes</string>
+					<key>templateURL</key>
+					<string>http://finance.yahoo.com/q?s=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>Yahoo! Video</string>
+					<key>templateURL</key>
+					<string>http://video.search.yahoo.com/search/video?p=*</string>
+				</dict>
+				<dict>
+					<key>name</key>
+					<string>YouTube</string>
+					<key>templateURL</key>
+					<string>https://www.youtube.com/results?search_query=*</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBDockRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBSafariCloudTabsRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBPrefPanesRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBMusicRule</string>
+			<key>includeLovedSongsInBestOfLists</key>
+			<integer>0</integer>
+			<key>removeFormationFromArtistName</key>
+			<integer>0</integer>
+			<key>removeParenthesizedTextFromArtistName</key>
+			<integer>0</integer>
+			<key>splitArtists</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBMountedVolumesRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBNetworkLocationsRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBCloudDocumentsRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBSnippetsRule</string>
+		</dict>
+		<dict>
+			<key>abbreviatedPath</key>
+			<string>~/Desktop</string>
+			<key>className</key>
+			<string>ODLBFolderContentsRule</string>
+		</dict>
+		<dict>
+			<key>aliasName</key>
+			<string>Unix Directories</string>
+			<key>className</key>
+			<string>ODLBListRule</string>
+			<key>list</key>
+			<array>
+				<string>/bin</string>
+				<string>/etc</string>
+				<string>/sbin</string>
+				<string>/tmp</string>
+				<string>/usr</string>
+				<string>/usr/bin</string>
+				<string>/usr/sbin</string>
+				<string>/usr/local</string>
+				<string>/usr/local/bin</string>
+				<string>/var</string>
+			</array>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBUserAccountsRule</string>
+		</dict>
+		<dict>
+			<key>className</key>
+			<string>ODLBPhotoRule</string>
+		</dict>
+	</array>
+	<key>typeCollections</key>
+	<array>
+		<dict>
+			<key>definition</key>
+			<string>'CWWP', cwk</string>
+			<key>identifier</key>
+			<string>3</string>
+			<key>name</key>
+			<string>AppleWorks Documents</string>
+		</dict>
+		<dict>
+			<key>definition</key>
+			<string>'RTF ', 'SLD8', 'TEXT', 'W6BN', 'W8BN', 'WDBN', 'XLS8', doc, docx, pps, ppsx, ppt, pptx, rtf, txt, xls, xlsx</string>
+			<key>identifier</key>
+			<string>4</string>
+			<key>name</key>
+			<string>MS Office Documents</string>
+		</dict>
+		<dict>
+			<key>definition</key>
+			<string>c, cpp, h, java, m, nib, php, php3, php4, pl</string>
+			<key>identifier</key>
+			<string>2</string>
+			<key>name</key>
+			<string>Source Files</string>
+		</dict>
+		<dict>
+			<key>definition</key>
+			<string>htm, html, htmld</string>
+			<key>identifier</key>
+			<string>1</string>
+			<key>name</key>
+			<string>HTML Files</string>
+		</dict>
+	</array>
+	<key>version</key>
+	<integer>18</integer>
+</dict>
+</plist>
