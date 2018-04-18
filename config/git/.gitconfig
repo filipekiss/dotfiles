@@ -42,6 +42,7 @@
     latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
     lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
     unmerged = branch --no-merged
+    merged = branch --merged
     ours = "!f() { git checkout --ours $@ && git add $@; }; f"
     patch = add -v -p
     ps = push
