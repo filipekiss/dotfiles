@@ -74,6 +74,45 @@ function fzf_gr() {
   cut -d$'\t' -f1
 }
 
+# Git stash
+function fzf-gs-widget() {
+  is_in_git_repo || return
+  emulate -L sh
+  local out q k sha
+  while out=$(
+    git stash list --pretty="%C(yellow)%gd %C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
+    fzf-down --ansi --no-sort --query="$q" --print-query \
+        --preview-window up:50%:wrap \
+        --header "Ctrl-a: apply stash | Ctrl-d: diff | Ctrl-b: create branch | Ctrl-s: drop | Ctrl-p: Pop" \
+        --preview "echo {} | grep -o '[a-f0-9]\{7\}' | head -1 | xargs -I % sh -c 'git stash show --color=always % | head -200 '" \
+        --expect=ctrl-d,ctrl-b,ctrl-s,ctrl-a,ctrl-p);
+  do
+    out=( "${(@f)out}")
+    q="${out[0]}"
+    k="${out[1]}"
+    stashLine="${out[-1]}"
+    stashIdx="${stashLine%% *}"
+    sha="${stashLine#${stashIdx} }"
+    sha="${sha%% *}"
+    [[ -z "$sha" ]] && continue
+    if [[ "$k" == 'ctrl-d' ]]; then
+      git diff $sha
+    elif [[ "$k" == 'ctrl-b' ]]; then
+      git stash branch "${FSTASH_BRANCH_PREFIX:-stash-}$sha" $sha
+      break;
+    elif [[ "$k" == 'ctrl-s' ]]; then
+      git stash drop $stashIdx
+    elif [[ "$k" == 'ctrl-a' ]]; then
+      git stash apply $sha
+      break;
+    elif [[ "$k" == 'ctrl-p' ]]; then
+      git stash pop $stashIdx
+      break;
+    fi
+  done
+  zle reset-prompt
+}
+
 function join-lines() {
   local item
   while read item; do
@@ -92,3 +131,6 @@ function bind-git-helper() {
 
 bind-git-helper g b t r h f u
 unset -f bind-git-helper
+# Stash helper works kinda different, so he needs it's own binding rule
+zle -N fzf-gs-widget
+bindkey '^g^s' fzf-gs-widget
