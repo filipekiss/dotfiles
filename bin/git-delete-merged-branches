@@ -1,0 +1,130 @@
+#!/usr/bin/env sh
+# git-delete-merged-branches
+# --------------------------------------------------------------------------------------------------
+# Description
+# -----------
+# Description of the project
+# --------------------------------------------------------------------------------------------------
+# Authors
+# -------
+# Filipe Kiss <eu@filipekiss.com.br> http://github.com/filipekiss
+# --------------------------------------------------------------------------------------------------
+# Usage
+# -----
+# Add this to your $PATH and invoke as a git command:
+#
+#   git delete-merged-branches
+#
+# Or simply run ./git-delete-merged-branches
+# --------------------------------------------------------------------------------------------------
+# Options
+# -------
+#
+# --remote
+# Run against remote branches. Default is running on local
+#
+# --dry-run, -n
+# Don't actually delete anythin. Useful for checking what would be deleted
+#
+# --master-branch [master]
+# Use this to pass the name of the branch that act as a master, in case your repository uses
+# a different name.
+#
+# --origin [origin]
+# Set the name of the remote to run against. Defaults to origin
+#
+# --force
+# Force deletion of branches. You shouldn't need this option, ever
+# --------------------------------------------------------------------------------------------------
+# Arguments
+# ---------
+# [branch name]
+# The only argument this command accepts is the branch name to compare other branches against.
+# Defaults to origin/master (or whatever remote you pass using the --origin option)
+
+
+_parse_arguments() {
+    local    arg
+    while (( $# > 0 ))
+    do
+        arg="$1"
+        case "$arg" in
+            --remote|--remotes)
+                _use_remotes="-r"
+                ;;
+            --dry-run|-n)
+                _dry_run="1"
+                ;;
+            --master-branch=*)
+                _master_branch=$(echo $arg | cut -d '=' -f2)
+                ;;
+            --master-branch)
+                _master_branch=$2
+                shift
+                ;;
+            --origin=*)
+                _origin=$(echo $arg | cut -d '=' -f2)
+                ;;
+            --origin)
+                _origin=$2
+                shift
+                ;;
+            --force)
+                _force_delete="-D"
+                ;;
+            --*)
+                # Inexistent dashed option, do nothing
+                ;;
+            -*)
+                # Inexistent dashed option, do nothing
+                ;;
+            "")
+                ;;
+            *)
+                [[ -z ${_branch_name:-} ]] && _branch_name="$arg"
+                ;;
+        esac
+        shift
+    done
+    return 0
+}
+
+_get_branches() {
+    git branch ${_use_remotes:-} --merged ${_branch_name:-"${_origin:-"origin"}/${_master_branch:-"master"}"} | grep -v '*' | grep -v HEAD
+}
+
+_validate_branch() {
+    [[ $1 = $2 ]] && return 1 || return 0
+}
+
+_delete_remote_branch() {
+    local branch="$1"
+    local push_name="$(echo $branch | cut -d '/' -f2-)"
+    git push ${_origin:-"origin"} --delete $push_name
+}
+
+_delete_local_branch() {
+    local branch="$1"
+    git branch ${_force_delete:-"-d"} $branch
+}
+
+main() {
+    _parse_arguments $@
+    _branch_list=($(_get_branches))
+    [[ -z $_branch_list ]] && echo "No merged branches!" && exit 0
+    for branch in ${_branch_list[@]}; do
+        if _validate_branch $branch ${_master_branch:-"master"}; then
+            if [[ -n ${_dry_run:-} ]]; then
+                echo "Would Deleted: $branch"
+                continue;
+            fi
+            if [[ -n ${_use_remotes:-} ]]; then
+                _delete_remote_branch $branch
+                continue;
+            fi
+            _delete_local_branch $branch
+        fi
+    done;
+}
+
+main "$@"
