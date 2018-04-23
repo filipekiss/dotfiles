@@ -33,11 +33,13 @@ _mx() {
 
 __zsh_complete_namespace() {
     local namespaces
-    _description=($(_list_available_namespaces))
+    [[ -n $DOTFILES ]] && _description=("dotfiles:$DOTFILES") || typeset -a _description
+    _description+=($(_list_available_namespaces))
     _describe -t namespace "Project Namespace" _description
 }
 
 __zsh_complete_project() {
+    [[ $words[2] == "dotfiles" ]] && return 0
     _description=($(_list_available_projects $words[2]))
     _project_path=$(_get_project_path ${words[2]})
     _describe -t project "Listing projects ${_project_path/#${HOME}/~}" _description
