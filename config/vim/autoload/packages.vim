@@ -38,7 +38,7 @@ function! packages#init() abort
     Plug 'Valloric/MatchTagAlways'                                                " Highlight matching tags.
     Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)'] }               " Aesthetically pleasing align made easy
     Plug 'junegunn/vader.Vim'                                                     " Test suit for VimScript
-    Plug 'w0rp/ale', { 'do': 'yarn global add prettier' }                         " Linting for various languages
+    Plug 'w0rp/ale', { 'do': 'yarn global add prettier xo' }                         " Linting for various languages
     Plug 'tpope/vim-sleuth'                                                       " Set expandtab, shiftwidth and more based on current buffer
     " }}} ---------------------------------------- Syntax and Language-related Plugins
 
