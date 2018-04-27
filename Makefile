@@ -3,9 +3,6 @@ all: brew keybase private stow permissions python ruby node iterm italics macos
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
 
-requirements:
-	-@zsh ./scripts/brew.zsh "required"
-
 brew:
 	-@zsh ./scripts/brew.zsh
 

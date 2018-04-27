@@ -143,7 +143,7 @@ function run_softwareupdate() {
 
 
 function validate_git() {
-    # Homebrew or Linuxbrew should be installed at this point, and, consequently, git. If not, try
+    # Homebrew should be installed at this point, and, consequently, git. If not, try
     # to install it via brew. Otherwise, abort
     if (( ! $+commands[git] )); then
         e_info "Installing Git"
@@ -159,17 +159,8 @@ function validate_git() {
 
 function validate_homebrew() {
     # Install homebrew
-    install_linuxbrew
     install_homebrew
     hash -r
-}
-
-function install_linuxbrew() {
-    if (( ! $+commands[brew] )) && is_linux; then
-        sudo apt-get install -y build-essential curl file git python-setuptools ruby
-        e_info "Installing Linuxbrew"
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-    fi
 }
 
 function install_homebrew() {
@@ -179,9 +170,9 @@ function install_homebrew() {
     fi
 }
 
-function validate_requirements() {
+function install_brewfile() {
     cd $DOTFILES
-    make requirements
+    make brew
 }
 
 
@@ -240,8 +231,6 @@ function install_dotfiles() {
 
 function update_path() {
     # Add binaries into the path
-    PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
-    PATH=${HOME}/.linuxbrew/bin:$PATH
     export PATH=${HOME}/.dotfiles/bin:$PATH
 }
 
@@ -278,9 +267,9 @@ function main() {
     show_script_info
     validate_homebrew
     update_path
+    install_brewfile
     validate_git
     install_dotfiles
-    validate_requirements
     link_config
     # all done!
     e_success "Make sure you change your shell to homebrew's zsh: ${YELLOW}chsh -s $(brew --prefix)/bin/zsh"

@@ -1,0 +1,92 @@
+# vim:ft=ruby:
+
+# Taps
+tap 'homebrew/bundle'
+tap 'homebrew/services'
+tap 'caskroom/cask'
+tap 'caskroom/fonts'
+tap 'caskroom/versions'
+tap 'universal-ctags/universal-ctags'
+tap "ahmedelgabri/homebrew-battery"
+
+# Brews
+brew 'git', args: ['without-completions']
+brew 'gcc'
+brew 'awk'
+brew 'python'
+brew 'python@2'
+brew 'icu4c'
+brew 'node'
+brew 'coreutils'
+brew 'findutils', args: ['with-default-names']
+brew 'stow'
+brew 'transcrypt'
+brew 'zsh'
+brew 'aria2', ARGS: ['with-libssh2']
+brew 'asciinema'
+brew 'curl'
+brew 'diff-so-fancy'
+brew 'ffmpeg'
+brew 'fortune'
+brew 'fzf'
+brew 'gnu-sed'
+brew 'gnupg2'
+brew 'grep'
+brew 'htop'
+brew 'highlight'
+brew 'hub'
+brew 'jq'
+brew 'less'
+brew 'lesspipe'
+brew 'nvm'
+brew 'neovim', ARGS: ['HEAD']
+brew 'ruby'
+brew 'ripgrep'
+brew 'ssh-copy-id'
+brew 'tldr'
+brew 'tmux'
+brew 'transcrypt'
+brew 'tree'
+brew 'unrar'
+brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
+brew 'watch'
+brew 'wget'
+brew 'yarn'
+brew 'youtube-dl'
+brew 'awscli'
+brew 'ahmedelgabri/battery/battery', args: ['HEAD']
+brew 'editorconfig'
+brew 'exa'
+brew 'mas'
+brew 'universal-ctags', args: ['HEAD']
+
+# Casks
+
+cask '1password'
+cask 'aerial'
+cask 'discord'
+cask 'docker'
+cask 'dropbox'
+cask 'firefox'
+cask 'font-fira-code'
+cask 'google-chrome'
+cask 'itau'
+cask 'iterm2-nightly'
+cask 'karabiner-elements'
+cask 'keka'
+cask 'keybase'
+cask 'launchbar'
+cask 'macdown'
+cask 'polymail'
+cask 'qlstephen'
+cask 'quicklook-json'
+cask 'sequel-pro'
+cask 'setapp'
+cask 'skitch'
+cask 'spotify'
+
+# Mac App Store
+
+mas 'Telegram', id: 747648890
+mas 'Tweetbot', id: 557168941
+mas 'Magnet', id: 441258766
