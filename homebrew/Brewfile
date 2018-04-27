@@ -16,7 +16,6 @@ brew 'awk'
 brew 'python'
 brew 'python@2'
 brew 'icu4c'
-brew 'node'
 brew 'coreutils'
 brew 'findutils', args: ['with-default-names']
 brew 'stow'
@@ -38,7 +37,6 @@ brew 'hub'
 brew 'jq'
 brew 'less'
 brew 'lesspipe'
-brew 'nvm'
 brew 'neovim', ARGS: ['HEAD']
 brew 'ruby'
 brew 'ripgrep'
@@ -51,7 +49,7 @@ brew 'unrar'
 brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
 brew 'watch'
 brew 'wget'
-brew 'yarn'
+brew 'yarn', args: ['without-node']
 brew 'youtube-dl'
 brew 'awscli'
 brew 'ahmedelgabri/battery/battery', args: ['HEAD']

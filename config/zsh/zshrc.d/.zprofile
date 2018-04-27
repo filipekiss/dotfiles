@@ -84,7 +84,7 @@ path=(
 
 # Add yarn bin to path
 if (( $+commands[yarn] )); then
-  path+=($(yarn global bin))
+    path+=($(yarn global dir)/node_modules/.bin)
 fi
 
 # Add python binaries to path

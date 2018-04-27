@@ -19,6 +19,9 @@ source ~/.zplug/init.zsh
 # ------------------------------------------------------------
 
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
+
+NVM_LAZY_LOAD=true
+zplug "lukechilds/zsh-nvm", use:"zsh-nvm.plugin.zsh"
 zplug "filipekiss/pure", use:"{async,pure}.zsh", as:"theme"
 zplug "filipekiss/z", use:"z.sh"
 zplug "docker/cli", use:contrib/completion/zsh
@@ -90,7 +93,6 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 
 export HOMEBREW_INSTALL_BADGE="⚗️"
 export HOMEBREW_NO_ANALYTICS=1
-
 
 # ------------------------------------------------------------
 # Source config and aliases and stuff
