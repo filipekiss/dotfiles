@@ -63,7 +63,7 @@ ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 # Ignore some commands and set history size
 HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
-HISTSIZE=100000
+HISTSIZE=1000000
 SAVEHIST=$HISTSIZE
 
 
