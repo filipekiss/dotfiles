@@ -16,6 +16,7 @@ alias gulp="nocorrect gulp"
 alias weechat="weechat --dir=$HOME/.dotfiles/irc/.weechat"
 alias work="mx stoodi"
 alias dots="cd ${DOTFILES:-${HOME}/.dotfiles}"
+alias getPath='echo $PATH | tr -s ":" "\n"'
 
 ## File Download
 if (( $+commands[aria2c] )); then
