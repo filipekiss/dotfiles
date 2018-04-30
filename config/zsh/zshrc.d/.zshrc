@@ -21,6 +21,7 @@ source ~/.zplug/init.zsh
 zplug "zplug/zplug", hook-build:"zplug --self-manage"
 
 NVM_LAZY_LOAD=true
+NVM_AUTO_USE=true
 zplug "lukechilds/zsh-nvm", use:"zsh-nvm.plugin.zsh"
 zplug "filipekiss/pure", use:"{async,pure}.zsh", as:"theme"
 zplug "filipekiss/z", use:"z.sh"

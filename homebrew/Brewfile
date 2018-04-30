@@ -38,6 +38,7 @@ brew 'jq'
 brew 'less'
 brew 'lesspipe'
 brew 'neovim', ARGS: ['HEAD']
+brew 'node', ARGS: ['without-npm']
 brew 'ruby'
 brew 'ripgrep'
 brew 'ssh-copy-id'
@@ -49,7 +50,7 @@ brew 'unrar'
 brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
 brew 'watch'
 brew 'wget'
-brew 'yarn', args: ['without-node']
+brew 'yarn'
 brew 'youtube-dl'
 brew 'awscli'
 brew 'ahmedelgabri/battery/battery', args: ['HEAD']
