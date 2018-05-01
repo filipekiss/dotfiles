@@ -3,3 +3,4 @@
 # This will always point to the source file and not the symlink location
 _zshenv_location="${${(%):-%N}:A:h}"
 ZDOTDIR="${_zshenv_location}/${ZSHRCD:-zshrc.d}"
+ZMODULES="${_zshenv_location}/modules"

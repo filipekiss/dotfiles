@@ -46,6 +46,9 @@ export LC_ALL='en_US.UTF-8'
 ##############################################################
 fpath=(
   "${HOME}/.dotfiles/completion"
+  "${ZMODULES}/docker/cli/contrib/completion/zsh"
+  "${ZMODULES}/docker/compose/contrib/completion/zsh"
+  "${ZMODULES}/zsh-users/zsh-completions/src"
   '/usr/local/share/zsh/site-functions'
   $fpath
 )
