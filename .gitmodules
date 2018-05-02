@@ -37,3 +37,6 @@
 [submodule "config/zsh/modules/zsh-users/zsh-completions"]
 	path = config/zsh/modules/zsh-users/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
+[submodule "config/zsh/modules/filipekiss/zemojify"]
+	path = config/zsh/modules/filipekiss/zemojify
+	url = me:zemojify
