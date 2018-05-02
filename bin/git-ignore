@@ -11,7 +11,7 @@ main() {
   ((!$#)) && help_message && exit 1
   for file_to_ignore in "$@"; do
     e_info "Ignored ${file_to_ignore}"
-    echo "${file_to_ignore}" >> .gitignore
+    echo "${file_to_ignore}" | tee -a '.gitignore'
   done;
 }
 
