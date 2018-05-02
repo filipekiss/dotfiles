@@ -15,10 +15,6 @@ PACKAGES=(
 )
 
 for package in "${PACKAGES[@]}"; do
-    if [[ $package == "pip" ]]; then
-        pip3 install --upgrade pip
-        pip2 install --upgrade pip
-        continue
-    fi
-    pip3 install --user --upgrade "$package" && pip2 install --user --upgrade "${package}"
+    [[ $package == "pip" ]] && FLAGS="--upgrade" || FLAGS="--user"
+    pip3 install "$FLAGS" "$package" && pip2 install "$FLAGS" "${package}"
 done;
