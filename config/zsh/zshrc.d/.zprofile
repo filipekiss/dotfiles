@@ -53,14 +53,7 @@ fpath=(
   $fpath
 )
 
-# Ensure linuxbrew can be found if installed
-[[ -d /home/linuxbrew/.linuxbrew ]] && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
-
-# Brew prefix
-(( $+commands[brew] )) && HOMEBREW_ROOT=$(brew --prefix)
-
-
-
+HOMEBREW_ROOT="/usr/local"
 
 # GNU Coreutils
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
@@ -87,7 +80,7 @@ path=(
 
 # Add yarn bin to path
 if (( $+commands[yarn] )); then
-    path+=($(yarn global dir)/node_modules/.bin)
+    path+=($HOME/.config/yarn/global/node_modules/.bin)
 fi
 
 # Add python binaries to path
