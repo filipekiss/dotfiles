@@ -179,6 +179,9 @@
 [url "git@bitbucket.org:stoodiDev/"]
     insteadOf = "stoodi:"
     pushInsteadOf = "stoodi:"
+    pushInsteadOf = http://bitbucket.org/stoodiDev/
+    pushInsteadOf = https://bitbucket.org/stoodiDev/
+    pushInsteadOf = git://bitbucket.org/stoodiDev/
 
 [merge]
     conflictstyle = diff3
