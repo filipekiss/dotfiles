@@ -65,7 +65,7 @@ source "${ZMODULES}/filipekiss/z/z.sh"
 if [ $(command -v direnv) ]; then
 
     export NODE_VERSIONS="${HOME}/.node-versions"
-    export NODE_VERSION_PREFIX="v"	  export NODE_VERSION_PREFIX=""
+    export NODE_VERSION_PREFIX=""
 
     eval "$(direnv hook zsh)"
 fi
