@@ -10,14 +10,6 @@ if [[ $DOTFILES_BIN ]]; then
 fi
 
 # ------------------------------------------------------------
-# NVM
-# ------------------------------------------------------------
-NVM_LAZY_LOAD=true
-NVM_AUTO_USE=true
-# Source nvm plugin
-source "${ZMODULES}/lukechilds/zsh-nvm/zsh-nvm.plugin.zsh"
-
-# ------------------------------------------------------------
 # Source ZSH Plugins, modules and shell theme
 # ------------------------------------------------------------
 source "${ZMODULES}/filipekiss/pure/async.zsh"
@@ -71,7 +63,11 @@ source "${ZMODULES}/filipekiss/z/z.sh"
 
 # Direnv
 if [ $(command -v direnv) ]; then
-  eval "$(direnv hook zsh)"
+
+    export NODE_VERSIONS="${HOME}/.node-versions"
+    export NODE_VERSION_PREFIX="v"	  export NODE_VERSION_PREFIX=""
+
+    eval "$(direnv hook zsh)"
 fi
 
 # ------------------------------------------------------------
