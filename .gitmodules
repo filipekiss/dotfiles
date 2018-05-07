@@ -4,9 +4,6 @@
 [submodule "fonts"]
 	path = fonts
 	url = keybase://private/filipekiss/fonts
-[submodule "config/zsh/modules/lukechilds/zsh-nvm"]
-	path = config/zsh/modules/lukechilds/zsh-nvm
-	url = https://github.com/lukechilds/zsh-nvm.git
 [submodule "config/zsh/modules/filipekiss/pure"]
 	path = config/zsh/modules/filipekiss/pure
 	url = https://github.com/filipekiss/pure.git
