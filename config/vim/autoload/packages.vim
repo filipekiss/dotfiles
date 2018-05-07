@@ -27,6 +27,7 @@ function! packages#init() abort
     Plug 'mhinz/vim-startify'                    " Show a nice start screen when you open vim but no files
     Plug 'kana/vim-textobj-user'
                 \ | Plug 'kana/vim-textobj-line' " Allows custom text objects \| Add a `whole line` text-object
+    Plug 'direnv/direnv.vim'                     " Direnv support
     " }}} ---------------------------------------- System Plugins
 
     " Syntax and Language-related Plugins ---------------------------------------- {{{

@@ -3,3 +3,5 @@ backups/*
 tags
 .DS_Store
 .tags
+.envrc
+.direnv

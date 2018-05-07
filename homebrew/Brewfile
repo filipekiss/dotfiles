@@ -25,6 +25,7 @@ brew 'aria2', ARGS: ['with-libssh2']
 brew 'asciinema'
 brew 'curl'
 brew 'diff-so-fancy'
+brew 'direnv'
 brew 'ffmpeg'
 brew 'fortune'
 brew 'fzf'

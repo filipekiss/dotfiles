@@ -69,6 +69,11 @@ export HOMEBREW_NO_ANALYTICS=1
 # Z (Autojumtp)
 source "${ZMODULES}/filipekiss/z/z.sh"
 
+# Direnv
+if [ $(command -v direnv) ]; then
+  eval "$(direnv hook zsh)"
+fi
+
 # ------------------------------------------------------------
 # Random prompt symbol
 # ------------------------------------------------------------
