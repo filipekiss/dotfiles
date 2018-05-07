@@ -25,7 +25,7 @@ endif
 " set shiftwidth=4                      " spaces per tab (when shifting)
 " set nowrap                            " no wrap
 
-set textwidth=100
+set textwidth=80
 set colorcolumn=+1
 
 syntax sync minlines=256 " start highlighting from 256 lines backwards
