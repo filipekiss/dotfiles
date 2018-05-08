@@ -121,25 +121,29 @@ if ! (tmux has-session -t "${SESSION}" > /dev/null 2>&1); then
     fi
 
     tmux new-session -s "$SESSION" -n editor -d -c $WORKINGDIR -x $twidth -y $theight
-    # The default configuration for my workspace is as follows:
-    # If the total width is below 120 columns wide, a window with no splits is open
-    # If the total width is between 120 and 200, a 50/50 split is made
-    # If the total width is larger than 200, set the right column to be 80 columns and the left
-    # column will take as many columns as possible
-    if [[ $twidth -ge 200 ]]; then
-        SPLIT_ARGS="-h -l 80"
-    elif [[ $twidth -ge 120 ]]; then
-        SPLIT_ARGS="-h -p 50"
-    fi
+    if [[ -x "${WORKINGDIR}/.mx-start" ]]; then
+        tmux send-keys -t "$SESSION" "./.mx-start" C-m
+    else
+        # The default configuration for my workspace is as follows:
+        # If the total width is below 120 columns wide, a window with no splits is open
+        # If the total width is between 120 and 200, a 50/50 split is made
+        # If the total width is larger than 200, set the right column to be 80 columns and the left
+        # column will take as many columns as possible
+        if [[ $twidth -ge 200 ]]; then
+            SPLIT_ARGS="-h -l 80"
+        elif [[ $twidth -ge 120 ]]; then
+            SPLIT_ARGS="-h -p 50"
+        fi
 
-    tmux send-keys -t "$SESSION" "e" C-m
-    if [[ -n $SPLIT_ARGS ]]; then
-        tmux split-window $SPLIT_ARGS -c "$WORKINGDIR" -t "$SESSION"
-    fi
-    tmux new-window -d -n 'shell' -t "$SESSION" -c $WORKINGDIR
+        tmux send-keys -t "$SESSION" "e" C-m
+        if [[ -n $SPLIT_ARGS ]]; then
+            tmux split-window $SPLIT_ARGS -c "$WORKINGDIR" -t "$SESSION"
+        fi
+        tmux new-window -d -n 'shell' -t "$SESSION" -c $WORKINGDIR
 
-    tmux select-window -t 1
-    tmux select-pane -t 1
+        tmux select-window -t 1
+        tmux select-pane -t 1
+    fi
 fi
 
 if [[ -n $MX_BG ]]; then
