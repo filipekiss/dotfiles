@@ -5,7 +5,7 @@ alias   gci="git commit"
 unalias gco 2> /dev/null
 alias   gco="git checkout"
 unalias gps 2> /dev/null
-alias   gps="git push"
+alias   gps="git push --set-upstream"
 unalias gpf 2> /dev/null
 alias   gpf="git push --force-with-lease"
 unalias gpr 2> /dev/null

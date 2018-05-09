@@ -14,7 +14,6 @@
 
 [alias]
     a = add -v
-    all = add -v .
     amend = commit --amend -C HEAD
     ap = add -p
     assume = update-index --assume-unchanged
@@ -29,38 +28,30 @@
     current = "!git branch-name"
     d = diff --patch-with-stat
     dc = diff --patch-with-stat --staged
-    diffc = diff --cached
     discard = checkout --
     # Diff minified files
     dm = diff --patch-with-stat --word-diff-regex=.
-    dw = diff --color-words
-    full-status = status --porcelain --untracked-files=all
     gr = log --graph --full-history --all --color --decorate
     ici = commit --allow-empty -m \":tada: Initial Commit\" --no-verify
     ignored = ls-files --others -i --exclude-standard
-    last = log --pretty=format:'%s' --abbrev-commit -1
     latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
     lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
     unmerged = branch --no-merged
     merged = branch --merged
     ours = "!f() { git checkout --ours $@ && git add $@; }; f"
-    patch = add -v -p
-    ps = push
+    ps = push --set-upstream
     purr = pull --rebase
     rba = rebase --abort
     rbc = rebase --continue
     rbs = rebase --skip
     rci = commit --amend --no-edit
-    recommit = commit --amend --no-edit
     root = rev-parse --show-toplevel
     st = status -sb
     tags = tag -l
     theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
-    track = push origin -u HEAD
     unassume = update-index --no-assume-unchanged
     unpushed = log @{u}..
     unstage = reset HEAD
-    update-commit = "!git a . && git ci --amend --no-edit"
     update-submodules = "!git submodule -q foreach git pull -q origin master"
     van = add -vAn
     w = whatchanged  --pretty=format:\"%C(blue)%h %Creset- %C(green)(%cr) %C(cyan)<%aN> %Creset%aE %C(magenta)%d %n %C(yellow)%s %n%Creset\" --date=short
