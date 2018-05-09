@@ -1,6 +1,6 @@
 [user]
 	name = Filipe Kiss
-	email = eu@filipekiss.com.br
+	useConfigOnly = true
 
 [dotfiles]
     decrypted = false
