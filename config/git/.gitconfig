@@ -79,27 +79,36 @@
     ui = true
 
 [color "branch"]
-    current = blue bold ul
-    local = yellow italic
+    current = magenta italic bold reverse # I know, I know
+    local = cyan
     remote = green
 
 [color "diff"]
-    meta = yellow
-    frag = cyan
+    meta = yellow italic
+    frag = magenta italic dim
     old = red strike
-    new = green bold
-    whitespace = yellow reverse
+    new = green italic
+    commit = blue italic
+    whitespace = red reverse
+    oldmoved = cyan strike dim
+    oldmovedalternative = yellow strike dim
+    newmoved = cyan italic dim
+    newmovedalternative = yellow italic dim
 
 [color "status"]
+    header = yellow bold italic dim
     added = green bold
     changed = blue bold
-    untracked = red
+    untracked = red bold
 
 [color "diff-highlight"]
     oldNormal = red bold
     oldHighlight = red bold 52
     newNormal = green bold
     newHighlight = green bold 22
+
+[color "interactive"]
+    prompt = blue italic
 
 [branch]
     autosetuprebase = always
