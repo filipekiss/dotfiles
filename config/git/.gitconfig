@@ -122,7 +122,7 @@
 ; Git System Settings
 ; -------------------
 [core]
-    excludesfile = ~/.gitignore_global
+    excludesfile = ~/.dotfiles/config/git/.gitignore
     filemode = false
     mergeoptions = --no-edit
     untrackedCache = true ; https://news.ycombinator.com/item?id=11388479
