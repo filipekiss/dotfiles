@@ -1,16 +1,19 @@
+; ----------------
+; General Settings
+; ----------------
 [user]
     name = Filipe Kiss
     useConfigOnly = true
 
+[github]
+    user = filipekiss
+
 [dotfiles]
     decrypted = false
 
-[commit]
-    gpgsign = true
-    verbose = true
-
 [include]
     path = ~/.gitconfig.local
+
 
 [alias]
     a = add -v
@@ -60,19 +63,9 @@
     wipe = !git reset --hard HEAD && git clean -fd
     ctags = !~/.dotfiles/config/git/hooks/utils/ctags
 
-[push]
-    default = current
-
-[core]
-    excludesfile = ~/.gitignore_global
-    filemode = false
-    mergeoptions = --no-edit
-    # https://news.ycombinator.com/item?id=11388479
-    untrackedCache = true
-    editor = $EDITOR
-    whitespace = trailing-space,space-before-tab # Git will check for whitespace at $ and mixed spaces and tabs
-    hooksPath = ~/.dotfiles/config/git/hooks
-
+; --
+; UI
+; --
 [color]
     diff = auto
     interactive = auto
@@ -110,58 +103,79 @@
 [color "interactive"]
     prompt = blue italic
 
-[branch]
-    autosetuprebase = always
-    autosetupmerge = always
-
-[fetch]
-    prune = true
-
-[merge]
-    conflictstyle = diff3
-    stat = true # Show diffstat after every merge
-
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
     show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
 
-[github]
-    user = filipekiss
+; Disable a few of Git help messages
+[advice]
+    statusHints = false ; Disable "how to stage/unstage/add" hints
+    pushNonFastForward = false ; Disable fast-forward advice (Still show the push was rejected)
+    waitingForEditor = false ; Disable the "hint... waiting for your editor" message
+
+; This will format the text when rebasing interactively like the example below:
+; pick a5bce56 [Filipe K..] Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
+[rebase]
+    instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
+
+; -------------------
+; Git System Settings
+; -------------------
+[core]
+    excludesfile = ~/.gitignore_global
+    filemode = false
+    mergeoptions = --no-edit
+    untrackedCache = true ; https://news.ycombinator.com/item?id=11388479
+    editor = $EDITOR
+    whitespace = trailing-space,space-before-tab ; Git will check for whitespace at $ and mixed spaces and tabs
+    hooksPath = ~/.dotfiles/config/git/hooks
+
+; --------------
+; Best Practices
+; --------------
+[tag]
+	forceSignAnnotated = true ; Always force annotated tags to be gpg signed
+
+[commit]
+    gpgsign = true ; always sign the commit with the gpg key
+    verbose = true ; show the full-diff when editing the commit message
+
+[push]
+    default = current ; by default push to a branch of the same name as the current
+    followTags = true ; push tags automatically
+
+[fetch]
+    prune = true ; remove orphan references
+
+[branch]
+    autosetuprebase = always
+    autosetupmerge = always
+
+[merge]
+    conflictstyle = diff3
+    stat = true ; show diffstat after every merge
+    log = 1000 ; append commit messages to merge message
 
 [pull]
-    rebase = true
-
-# ------------------------------
-# Disable a few of Git help messages
-# ------------------------------
-[advice]
-    statusHints = false # Disable "how to stage/unstage/add" hints
-    pushNonFastForward = false # Disable fast-forward advice (Still show the push was rejected)
-    waitingForEditor = false # Disable the "hint... waiting for your editor" message
+    rebase = true ; rebase by default
 
 [diff]
-    renames = copies # Allow git to do basic copy/rename detection
-    mnemonicprefix = true # Git Diff uses mnemonics (<i>ndex, <w>ork tree…) instead of a/b notation
-    colorMoved = zebra
+    renames = copies ; allow git to do basic copy/rename detection
+    mnemonicprefix = true ; git diff uses mnemonics (<i>ndex, <w>ork tree…) instead of a/b notation
+    colorMoved = zebra ; show moved hunks in two different colors
+    algorithm = histogram ; histogram is kinda faster than the default
 
-# ------------------------------
-# Record resolved conflicts
-#
-# This option allows git to record steps to resolve conflicts, so identical hunks will be
-# automatically resolved later on
-# ------------------------------
+; Record resolved conflicts
+; -------------------------
+; This option allows git to record steps to resolve conflicts, so identical
+; hunks will be automatically resolved later on
 [rerere]
     enabled = true
 
 [protocol "keybase"]
     allow = always
 
-[rebase]
-    # This will format the text when rebasing interactively like the example below:
-    # pick a5bce56 [Filipe K..] Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
-    instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
-
-# URL shorthands
+; URL shorthands
 [url "git@github.com:"]
     insteadOf     = gh:
     pushInsteadOf = github:
@@ -224,4 +238,3 @@
     pushInsteadOf = http://bitbucket.org/stoodiDev/
     pushInsteadOf = https://bitbucket.org/stoodiDev/
     pushInsteadOf = git://bitbucket.org/stoodiDev/
-
