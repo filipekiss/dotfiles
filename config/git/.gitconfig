@@ -1,13 +1,13 @@
 [user]
-	name = Filipe Kiss
-	useConfigOnly = true
+    name = Filipe Kiss
+    useConfigOnly = true
 
 [dotfiles]
     decrypted = false
 
 [commit]
     gpgsign = true
-	verbose = true
+    verbose = true
 
 [include]
     path = ~/.gitconfig.local
@@ -58,7 +58,7 @@
     wip = rebase -i @{u}
     who = shortlog -sne
     wipe = !git reset --hard HEAD && git clean -fd
-	ctags = !~/.dotfiles/config/git/hooks/utils/ctags
+    ctags = !~/.dotfiles/config/git/hooks/utils/ctags
 
 [push]
     default = current
@@ -68,10 +68,10 @@
     filemode = false
     mergeoptions = --no-edit
     # https://news.ycombinator.com/item?id=11388479
-	untrackedCache = true
+    untrackedCache = true
     editor = $EDITOR
-	whitespace = trailing-space,space-before-tab # Git will check for whitespace at $ and mixed spaces and tabs
-	hooksPath = ~/.dotfiles/config/git/hooks
+    whitespace = trailing-space,space-before-tab # Git will check for whitespace at $ and mixed spaces and tabs
+    hooksPath = ~/.dotfiles/config/git/hooks
 
 [color]
     diff = auto
@@ -103,13 +103,55 @@
 
 [branch]
     autosetuprebase = always
-
-[dotfiles]
-    managed = true
+    autosetupmerge = always
 
 [fetch]
-	prune = true
+    prune = true
+
+[merge]
+    conflictstyle = diff3
+    stat = true # Show diffstat after every merge
+
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
+    show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
+
+[github]
+    user = filipekiss
+
+[pull]
+    rebase = true
+
+# ------------------------------
+# Disable a few of Git help messages
+# ------------------------------
+[advice]
+    statusHints = false # Disable "how to stage/unstage/add" hints
+    pushNonFastForward = false # Disable fast-forward advice (Still show the push was rejected)
+    waitingForEditor = false # Disable the "hint... waiting for your editor" message
+
+[diff]
+    renames = copies # Allow git to do basic copy/rename detection
+    mnemonicprefix = true # Git Diff uses mnemonics (<i>ndex, <w>ork tree…) instead of a/b notation
+    colorMoved = zebra
+
+# ------------------------------
+# Record resolved conflicts
 #
+# This option allows git to record steps to resolve conflicts, so identical hunks will be
+# automatically resolved later on
+# ------------------------------
+[rerere]
+    enabled = true
+
+[protocol "keybase"]
+    allow = always
+
+[rebase]
+    # This will format the text when rebasing interactively like the example below:
+    # pick a5bce56 [Filipe K..] Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
+    instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
+
 # URL shorthands
 [url "git@github.com:"]
     insteadOf     = gh:
@@ -174,43 +216,3 @@
     pushInsteadOf = https://bitbucket.org/stoodiDev/
     pushInsteadOf = git://bitbucket.org/stoodiDev/
 
-[merge]
-    conflictstyle = diff3
-	stat = true # Show diffstat after every merge
-
-[pager]
-    diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
-    show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
-
-[github]
-	user = filipekiss
-
-
-[pull]
-	rebase = true
-# ------------------------------
-# Disable a few of Git help messages
-# ------------------------------
-[advice]
-	statusHints = false # Disable "how to stage/unstage/add" hints
-	pushNonFastForward = false # Disable fast-forward advice (Still show the push was rejected)
-
-[diff]
-	renames = copies # Allow git to do basic copy/rename detection
-	mnemonicprefix = true # Git Diff uses mnemonics (<i>ndex, <w>ork tree…) instead of a/b notation
-# ------------------------------
-# Record resolved conflicts
-#
-# This option allows git to record steps to resolve conflicts, so identical hunks will be
-# automatically resolved later on
-# ------------------------------
-[rerere]
-	enabled = true
-
-[protocol "keybase"]
-	allow = always
-
-[rebase]
-    # This will format the text when rebasing interactively like the example below:
-    # pick a5bce56 [Filipe K..] Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
-    instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
