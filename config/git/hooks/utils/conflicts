@@ -2,7 +2,7 @@
 
 # Look for files that still have conflict markers (>|< repeated 7 times)
 
-HAS_CONFLICTS="$(command git diff --cached --name-only --color=always --pickaxe-regex -S'[>|<]{7}')"
+HAS_CONFLICTS="$(command git diff --diff-filter=d --cached --name-only --color=always --pickaxe-regex -S'[>|<]{7}')"
 
 [[ -n ${SKIP_CONFLICT_CHECK} ]] && echo "Conflict check skipped…"
 if [[ -n "$HAS_CONFLICTS" && -z ${SKIP_CONFLICT_CHECK} ]]; then
