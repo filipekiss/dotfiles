@@ -17,7 +17,7 @@ function! StatusLine()
     let l:sline='%1* %{statusline#getMode(mode())} %*' " Show current mode
     let l:sline.='%2* %{statusline#fileprefix()}%*' " Show path prefix to file
     let l:sline.='%3*%t' " Show file name
-	let l:sline.='%{statusline#modified()}' " Modified indicator
+    let l:sline.='%{statusline#modified()}' " Modified indicator
     let l:sline.='%{statusline#readOnly()} %w%2*' " Read-only indicator (%w shows [Preview] if the window is a preview)
     let l:sline.='%=' " Add space to align the rest at the right side of the statusline
     let l:sline.=statusline#LinterStatus() " Show linting status
@@ -37,6 +37,6 @@ execute 'hi! link User4 TabLine'
 
 " This is here to ensure proper statusline redraw when changing modes
 augroup statusline
-  autocmd!
-  autocmd InsertEnter,InsertLeave * call statusline#getMode(mode())
+    autocmd!
+    autocmd InsertEnter,InsertLeave * call statusline#getMode(mode())
 augroup END

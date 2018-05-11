@@ -16,7 +16,7 @@ let g:javascript_conceal_NaN                  = 'ℕ'
 let s:package_lock = findfile('package-lock.json', expand('%:p').';')
 
 if filereadable(s:package_lock)
-  setlocal makeprg=npm
+    setlocal makeprg=npm
 else
-  setlocal makeprg=yarn
+    setlocal makeprg=yarn
 endif

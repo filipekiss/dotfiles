@@ -26,7 +26,6 @@ command! FormatJSON %!python -m json.tool
 " -----------------------------------------------------
 command! -range -nargs=? AddHR <line1>,<line2>call functions#TextHR(<f-args>)
 
-
 " Commands to toggle ALE Fixers.
 " See https://github.com/w0rp/ale/issues/1353
 command! ALEDisableFixers       let g:ale_fix_on_save=0

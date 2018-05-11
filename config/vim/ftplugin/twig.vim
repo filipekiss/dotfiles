@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 setlocal commentstring={#\ \ %s\ #}
 
 if exists('b:match_words')
@@ -8,15 +10,15 @@ if exists('b:match_words')
                 \ ['if', 'elseif', 'else', 'endif'],
                 \ ['set', 'endset']
                 \]
-    for element in b:twigMatchWords
-        let pattern = ''
-        for tag in element[:-2]
-            if pattern != ''
-                let pattern .= ':'
+    for s:element in b:twigMatchWords
+        let s:pattern = ''
+        for s:tag in s:element[:-2]
+            if s:pattern !=? ''
+                let s:pattern .= ':'
             endif
             " This pattern is a little weird but it's vim's own pattern. See below for what every
             " piece does
-            let pattern .= '{%\s*\<' . tag . '\>\s*\%(.*=\)\@![^}]\{-}%}'
+            let s:pattern .= '{%\s*\<' . s:tag . '\>\s*\%(.*=\)\@![^}]\{-}%}'
             "               ││ │  │            │ │  │         │    │
             "               ││ │  │            │ │  │         │    └──── \{-}       - match as many as needed until next char
             "               ││ │  │            │ │  │         └───────── [^}]       - match until a close bracket is found, excluding
@@ -29,7 +31,7 @@ if exists('b:match_words')
             "               └─────────────────────────────────────────── {          - match a literal {
             "
         endfor
-        let pattern .= ':{%\s*\<' . element[-1:][0] . '\>\s*.\{-}%}'
-        let b:match_words .= ',' . pattern
+        let s:pattern .= ':{%\s*\<' . s:element[-1:][0] . '\>\s*.\{-}%}'
+        let b:match_words .= ',' . s:pattern
     endfor
 endif

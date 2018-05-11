@@ -1,5 +1,5 @@
 if has('termguicolors')
-  set termguicolors
+    set termguicolors
 end
 
 set background=dark
@@ -24,21 +24,21 @@ hi OverLength ctermbg=red ctermfg=white guibg=#592929
 " Adjust highlighting for MatchParen
 hi! link MatchParen CursorLineNr
 
-function! s:CheckColorScheme()
+" function! s:CheckColorScheme()
 
-    let s:config_file = expand('~/.vimrc_bg')
+"     let s:config_file = expand('~/.vimrc_bg')
 
-    if filereadable(s:config_file)
-        execute 'source ' . s:config_file
-    else
-        try
-            colorscheme gruvbox
-        catch
-            colorscheme ron
-        endtry
-    endif
-endfunction
+"     if filereadable(s:config_file)
+"         execute 'source ' . s:config_file
+"     else
+try
+    colorscheme gruvbox
+catch
+    colorscheme ron
+endtry
+" endif
+" endfunction
 
-call s:CheckColorScheme()
+" call s:CheckColorScheme()
 
-autocmd FocusGained * call s:CheckColorScheme()
+" autocmd FocusGained * call s:CheckColorScheme()
