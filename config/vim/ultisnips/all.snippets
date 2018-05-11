@@ -12,16 +12,16 @@ endsnippet
 snippet :shead "Header for scripts and small bins" b
 
 ${1:Project Name}
---------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 Description
 -----------
 ${2:Description of the project}
---------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Authors
 -------
 ${3}
---------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 endsnippet
 
 snippet :aut "author for scripts, readmes etc"
@@ -29,14 +29,14 @@ ${1:Name} ${2:<${3:user@email.com}>} ${4:http://${5:github.com/${6:username}}}
 endsnippet
 
 snippet banner "add ascii banner"
-# --------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 $1
-# --------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 $0
 endsnippet
 
 snippet hr- "same line separator used on banner"
-# --------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 endsnippet
 
 snippet :cmd
@@ -44,6 +44,10 @@ snippet :cmd
 endsnippet
 
 snippet :alt
+⌥
+endsnippet
+
+snippet :opt
 ⌥
 endsnippet
 
@@ -82,7 +86,7 @@ endsnippet
 snippet mit "MIT license"
 The MIT License (MIT)
 
-Copyright (c) `date "+Y"` $0
+Copyright (c) `date +"%Y"` ${1:`echo ${FULL_NAME:-${GITHUB_AUTHOR_NAME:-}}`}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -111,4 +115,10 @@ ${0:${VISUAL}}
 }}} ---------------------------------------- $1
 endsnippet
 
+snippet todo "Add a todo with date and github user" b
+@TODO: ${1:Do something} (`date +"%d-%m-%y %H:%M"`${2: - `echo $GITHUB_USER`})
+$0
+endsnippet
+
 # vim:ft=snippets:
+

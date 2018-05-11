@@ -1,7 +1,7 @@
 " Abolish abbreviations.
 
 if !exists(':Abolish')
-  finish
+    finish
 endif
 
 Abolish ret{run,unr}    return

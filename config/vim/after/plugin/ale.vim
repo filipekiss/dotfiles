@@ -1,7 +1,7 @@
 scriptencoding utf-8
 
 if !exists(':ALEInfo')
-  finish
+    finish
 endif
 
 let g:ale_javascript_eslint_suppress_eslintignore = 1
@@ -25,44 +25,44 @@ let g:ale_javascript_xo_use_global = 1
 let g:ale_javascript_xo_options = '--prettier'
 
 let g:ale_linter_aliases = {
-      \ 'mail': 'markdown'
-      \}
+            \ 'mail': 'markdown'
+            \}
 
 let g:ale_linters = {
-      \ 'javascript': ['xo', 'eslint'],
-      \}
+            \ 'javascript': ['xo', 'eslint'],
+            \}
 
 let g:ale_fixers = {
-      \   'markdown': [
-      \       'prettier',
-      \   ],
-      \   'javascript': [
-      \       'prettier',
-      \   ],
-      \   'json': [
-      \ 'prettier',
-      \ ],
-      \   'css': [
-      \       'prettier',
-      \   ],
-      \   'scss': [
-      \       'prettier',
-      \   ],
-      \}
+            \   'markdown': [
+            \       'prettier',
+            \   ],
+            \   'javascript': [
+            \       'prettier',
+            \   ],
+            \   'json': [
+            \ 'prettier',
+            \ ],
+            \   'css': [
+            \       'prettier',
+            \   ],
+            \   'scss': [
+            \       'prettier',
+            \   ],
+            \}
 
 " Don't auto fix (format) files inside `node_modules`, minified files and jquery (for legacy codebases)
 let g:ale_pattern_options_enabled = 1
 let g:ale_pattern_options = {
-      \   '\.min\.(js\|css)$': {
-      \       'ale_linters': [],
-      \       'ale_fixers': []
-      \   },
-      \   'jquery.*': {
-      \       'ale_linters': [],
-      \       'ale_fixers': []
-      \   },
-      \   'node_modules/.*': {
-      \       'ale_linters': [],
-      \       'ale_fixers': []
-      \   }
-      \}
+            \   '\.min\.(js\|css)$': {
+            \       'ale_linters': [],
+            \       'ale_fixers': []
+            \   },
+            \   'jquery.*': {
+            \       'ale_linters': [],
+            \       'ale_fixers': []
+            \   },
+            \   'node_modules/.*': {
+            \       'ale_linters': [],
+            \       'ale_fixers': []
+            \   }
+            \}

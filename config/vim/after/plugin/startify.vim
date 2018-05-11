@@ -5,20 +5,20 @@ endif
 
 if has('nvim')
     let g:startify_ascii = [
-                \ "      .            .      ",
+                \ '      .            .      ',
                 \ "    .,;'           :,.    ",
-                \ "  .,;;;,,.         ccc;.  ",
+                \ '  .,;;;,,.         ccc;.  ',
                 \ ".;c::::,,,'        ccccc: ",
-                \ ".::cc::,,,,,.      cccccc.",
+                \ '.::cc::,,,,,.      cccccc.',
                 \ ".cccccc;;;;;;'     llllll.",
-                \ ".cccccc.,;;;;;;.   llllll.",
+                \ '.cccccc.,;;;;;;.   llllll.',
                 \ ".cccccc  ';;;;;;'  oooooo.",
                 \ "'lllllc   .;;;;;;;.oooooo'",
                 \ "'lllllc     ,::::::looooo'",
                 \ "'llllll      .:::::lloddd'",
-                \ ".looool       .;::coooodo.",
+                \ '.looool       .;::coooodo.',
                 \ "  .cool         'ccoooc.  ",
-                \ "    .co          .:o:.    ",
+                \ '    .co          .:o:.    ',
                 \ "      .           .'      ",
                 \]
 else
@@ -44,17 +44,16 @@ endif
 let g:startify_custom_header = map(g:startify_ascii, '"     ".v:val')
 
 let g:startify_skiplist = [
-      \ 'COMMIT_EDITMSG',
-      \ '^/tmp',
-      \ escape(fnamemodify(resolve($VIMRUNTIME), ':p'), '\') .'doc',
-      \ 'bundle/.*/doc',
-      \ ]
+            \ 'COMMIT_EDITMSG',
+            \ '^/tmp',
+            \ escape(fnamemodify(resolve($VIMRUNTIME), ':p'), '\') .'doc',
+            \ 'bundle/.*/doc',
+            \ ]
 
 let g:startify_padding_left = 5
 let g:startify_relative_path = 1
 let g:startify_fortune_use_unicode = 1
 let g:startify_change_to_vcs_root = 1
-" let g:startify_session_autoload = 1
 let g:startify_update_oldfiles = 1
 let g:startify_use_env = 0
 
@@ -65,4 +64,16 @@ hi! link StartifySlash StartifyPath
 hi! link StartifyBracket StartifyPath
 hi! link StartifyNumber Title
 
-autocmd User Startified setlocal cursorline
+augroup StartifyCustom
+    autocmd User Startified setlocal cursorline
+    if has('nvim')
+        autocmd TabNewEntered * Startify
+    else
+        autocmd VimEnter * let t:startify_new_tab = 1
+        autocmd BufEnter *
+                    \ if !exists('t:startify_new_tab') && empty(expand('%')) |
+                    \   let t:startify_new_tab = 1 |
+                    \   Startify |
+                    \ endif
+    endif
+augroup END

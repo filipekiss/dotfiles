@@ -45,7 +45,6 @@ function! packages#init() abort
 
     " General Productivity plugins ---------------------------------------- {{{
     Plug 'editorconfig/editorconfig-vim'                                   " Support for .editorconfig files
-    Plug 'AndrewRadev/splitjoin.Vim'                                       " use gS and gJ to split/join syntax aware code lines
     Plug 'airblade/vim-gitgutter'                                          " Add git marks to gutter
     Plug 'SirVer/ultisnips'                                                " Snippets plugin
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install --all' }
@@ -78,7 +77,6 @@ function! packages#init() abort
 
     " ColorSchemes and cool stuff ---------------------------------------- {{{
     Plug 'morhetz/gruvbox'       " Gruvbox colorscheme
-    Plug 'dracula/vim'           " Dracula colorscheme
     " }}} ---------------------------------------- ColorSchemes and cool stuff
 
     " Writing Plugins ---------------------------------------- {{{
@@ -86,7 +84,6 @@ function! packages#init() abort
     Plug 'junegunn/limelight.vim', { 'on': ['Limelight'] } " Context highlight
     Plug 'mzlogin/vim-markdown-toc'                        " Generate TOC for Markdown files
     " }}} ---------------------------------------- Writing Plugins
-
 
     call plug#end()
 
