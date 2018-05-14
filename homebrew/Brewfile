@@ -4,7 +4,6 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
 tap 'caskroom/cask'
-tap 'caskroom/fonts'
 tap 'caskroom/versions'
 tap 'universal-ctags/universal-ctags'
 tap "ahmedelgabri/homebrew-battery"
@@ -22,14 +21,12 @@ brew 'stow'
 brew 'transcrypt'
 brew 'zsh'
 brew 'aria2', ARGS: ['with-libssh2']
-brew 'asciinema'
 brew 'curl'
 brew 'diff-so-fancy'
 brew 'direnv'
 brew 'ffmpeg'
-brew 'fortune'
 brew 'fzf'
-brew 'gnu-sed'
+brew 'gnu-sed', ARGS: ['with-default-names']
 brew 'gnupg2'
 brew 'grep', ARGS: ['with-default-names']
 brew 'htop'
@@ -39,7 +36,7 @@ brew 'jq'
 brew 'less'
 brew 'lesspipe'
 brew 'neovim', ARGS: ['HEAD']
-brew 'node', ARGS: ['without-npm']
+brew 'node'
 brew 'ruby'
 brew 'ripgrep'
 brew 'ssh-copy-id'
@@ -49,7 +46,6 @@ brew 'transcrypt'
 brew 'tree'
 brew 'unrar'
 brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
-brew 'watch'
 brew 'wget'
 brew 'yarn'
 brew 'youtube-dl'
@@ -61,14 +57,11 @@ brew 'mas'
 brew 'universal-ctags', args: ['HEAD']
 
 # Casks
-
 cask '1password'
-cask 'aerial'
 cask 'discord'
 cask 'docker'
 cask 'dropbox'
 cask 'firefox'
-cask 'font-fira-code'
 cask 'google-chrome'
 cask 'itau'
 cask 'iterm2-nightly'
@@ -86,7 +79,6 @@ cask 'skitch'
 cask 'spotify'
 
 # Mac App Store
-
 mas 'Telegram', id: 747648890
 mas 'Tweetbot', id: 557168941
 mas 'Magnet', id: 441258766
