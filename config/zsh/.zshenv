@@ -3,7 +3,6 @@
 # This will always point to the source file and not the symlink location
 export DOTFILES="${HOME}/.dotfiles"
 export ZDOTDIR="${${(%):-%N}:A:h}"
-export ZMODULES="${ZDOTDIR}/modules"
 export XDG_CONFIG_HOME="${HOME}/.config"
 export GOPATH="${HOME}/.go"
 
@@ -23,12 +22,9 @@ export GOPATH="${HOME}/.go"
 typeset -gU cdpath fpath manpath path
 
 fpath=(
-${ZDOTDIR:-${HOME}}/rc.d/completion(N-/)
-${ZMODULES}/docker/cli/contrib/completion/zsh(N-/)
-${ZMODULES}/docker/compose/contrib/completion/zsh(N-/)
-${ZMODULES}/zsh-users/zsh-completions/src(N-/)
-/usr/local/share/zsh/site-functions(N-/)
-$fpath
+    ${ZDOTDIR:-${HOME}}/rc.d/completion(N-/)
+    /usr/local/share/zsh/site-functions(N-/)
+    $fpath
 )
 
 # Get the original manpath, then modify it.

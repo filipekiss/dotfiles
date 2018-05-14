@@ -1,3 +1,45 @@
+# ------------------------------------------
+# ZPLUGIN https://github.com/zdharma/zplugin
+# ------------------------------------------
+
+if [[ ! -f ~/.zplugin/bin/zplugin.zsh ]]; then
+  if (( $+commands[git] )); then
+    git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin
+  else
+    echo 'git not found' >&2
+    exit 1
+  fi
+fi
+
+source ~/.zplugin/bin/zplugin.zsh
+
+zplugin ice compile"(pure|async).zsh" src"pure.zsh" pick"async.zsh"
+zplugin light "filipekiss/pure"
+
+zplugin ice "filipekiss/z" pick"z.sh"
+zplugin light "filipekiss/z"
+
+zplugin light "zsh-users/zsh-history-substring-search"
+
+# https://github.com/zdharma/zplugin#turbo-mode-zsh--53
+zplugin ice wait"1" lucid atload"_zsh_autosuggest_start"
+zplugin light "zsh-users/zsh-autosuggestions"
+
+zplugin ice wait"0" lucid blockf
+zplugin light "zsh-users/zsh-completions"
+
+zplugin ice wait"0" lucid atinit"zpcompinit; zpcdreplay"
+zplugin light "zdharma/fast-syntax-highlighting"
+
+zplugin ice wait"0" lucid src"scripts/base16-gruvbox-dark-soft.sh"
+zplugin light "chriskempson/base16-shell"
+
+zplugin ice lucid blockf wait'[[ -n ${ZLAST_COMMANDS[(r)docker-*]} ]]'
+zplugin light "docker/compose"
+
+zplugin ice wait"0" lucid as"program" mv"zemojify -> emojify" pick"zemojify" atload"export PAGER='emojify |  $PAGER'"
+zplugin light "filipekiss/zemojify"
+
 # ------------------------------------------------------------
 # Source config and aliases and stuff
 # ------------------------------------------------------------
@@ -7,16 +49,6 @@ if [[ $DOTFILES_BIN ]]; then
   source $DOTFILES_BIN "source"
   for func (${ZDOTDIR}/rc.d/functions/*.zsh) source $func
 fi
-
-# ------------------------------------------------------------
-# Source ZSH Plugins, modules and shell theme
-# ------------------------------------------------------------
-source "${ZMODULES}/filipekiss/pure/async.zsh"
-source "${ZMODULES}/filipekiss/pure/pure.zsh"
-source "${ZMODULES}/chriskempson/base16-shell/scripts/base16-${ZSH_BASE16_THEME:-gruvbox-dark-soft}.sh"
-source "${ZMODULES}/zsh-users/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "${ZMODULES}/zdharma/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
-source "${ZMODULES}/zsh-users/zsh-history-substring-search/zsh-history-substring-search.zsh"
 
 # ------------------------------------------------------------
 # Bind keys to substring search
@@ -49,9 +81,6 @@ export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 # Homebrew options
 export HOMEBREW_INSTALL_BADGE="⚗️"
 export HOMEBREW_NO_ANALYTICS=1
-
-# Z (Autojumtp)
-source "${ZMODULES}/filipekiss/z/z.sh"
 
 # Direnv
 if [ $(command -v direnv) ]; then
