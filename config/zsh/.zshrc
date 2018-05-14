@@ -51,7 +51,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
 export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
-[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 # Homebrew options
 export HOMEBREW_INSTALL_BADGE="⚗️"
@@ -92,4 +91,8 @@ export PURE_PROMPT_SYMBOL_ERROR="${ERROR_SYMBOLS[$RANDOM % ${#ERROR_SYMBOLS[@]}]
 # Load custom configs
 # ------------------------------------------------------------
 
+[[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 [[ -f ${HOME}/.zshrc.local ]] && source $HOME/.zshrc.local
+[[ -z "${HOMEBREW_GITHUB_API_TOKEN}" ]] && echo "⚠ HOMEBREW_GITHUB_API_TOKEN not set. Set it on ~/.zshrc.local"
+[[ -z "${GITHUB_TOKEN}" ]] && echo "⚠ GITHUB_TOKEN not set. Set it on ~/.zshrc.local"
+[[ -z "${GITHUB_USER}" ]] && echo "⚠ GITHUB_USER not set. Set it on ~/.zshrc.local"
