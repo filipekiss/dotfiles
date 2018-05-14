@@ -135,3 +135,6 @@ esac
 export GIT_MERGE_AUTOEDIT=no
 
 export RIPGREP_CONFIG_PATH="$DOTFILES/config/misc/ripgreprc"
+
+# Ensure UID is exported so Docker can use it
+export UID=$UID
