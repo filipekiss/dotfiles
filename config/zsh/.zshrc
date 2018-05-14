@@ -5,8 +5,7 @@
 DOTFILES_BIN=$(which dotfiles)
 if [[ $DOTFILES_BIN ]]; then
   source $DOTFILES_BIN "source"
-  for config ($DOTFILES/config/zsh/zshrc.d/config/*.zsh) source $config
-  for func ($DOTFILES/config/zsh/zshrc.d/functions/*.zsh) source $func
+  for func (${ZDOTDIR}/rc.d/functions/*.zsh) source $func
 fi
 
 # ------------------------------------------------------------
@@ -63,10 +62,8 @@ source "${ZMODULES}/filipekiss/z/z.sh"
 
 # Direnv
 if [ $(command -v direnv) ]; then
-
     export NODE_VERSIONS="${HOME}/.node-versions"
     export NODE_VERSION_PREFIX=""
-
     eval "$(direnv hook zsh)"
 fi
 

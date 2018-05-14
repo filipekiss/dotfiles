@@ -1,4 +1,5 @@
 # Don't link the files/folders below
+\.gitignore
 \.md # Readme, License, etc…
 # These folders are used by vim, but there's no need to symlink them. Vim will look for them here.
 ftplugin
