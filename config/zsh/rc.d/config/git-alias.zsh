@@ -5,7 +5,7 @@ alias   gci="git commit"
 unalias gco 2> /dev/null
 alias   gco="git checkout"
 unalias gps 2> /dev/null
-alias   gps="git push --set-upstream"
+alias   gps="git push"
 unalias gpf 2> /dev/null
 alias   gpf="git push --force-with-lease"
 unalias gpr 2> /dev/null
@@ -18,5 +18,3 @@ unalias gbr 2> /dev/null
 alias   gbr="git branch"
 unalias gri 2> /dev/null
 alias   gri="git rebase --interactive"
-unalias gar 2> /dev/null
-alias   gar="git add -v \$(git rev-parse --show-toplevel)"
