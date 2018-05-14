@@ -51,6 +51,3 @@ fi
 ## Useful stuff
 alias "?"="pwd"
 alias flushcache="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
-
-## Add default arguments to a few command
-(( $+commands[rg] )) && alias rg="${commands[rg]} --hidden"

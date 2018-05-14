@@ -133,3 +133,5 @@ esac
 
 # Git options
 export GIT_MERGE_AUTOEDIT=no
+
+export RIPGREP_CONFIG_PATH="$DOTFILES/config/misc/ripgreprc"
