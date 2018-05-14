@@ -1,6 +1,6 @@
-#
+############################
 # Configures history options
-#
+############################
 
 # sets the location of the history file
 HISTFILE="${ZDOTDIR:-${HOME}}/.zhistory"
@@ -8,6 +8,7 @@ HISTFILE="${ZDOTDIR:-${HOME}}/.zhistory"
 # limit of history entries
 HISTSIZE=10000
 SAVEHIST=10000
+HISTORY_IGNORE='(ls|ls *|cd|cd -|-|clear|pwd|exit|date|* —help)'
 
 # Perform textual history expansion, csh-style, treating the character ‘!’ specially.
 setopt BANG_HIST

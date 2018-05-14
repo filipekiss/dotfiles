@@ -34,12 +34,6 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 
-# Ignore some commands and set history size
-HISTORY_IGNORE='(ls|ls *|cd|cd -|-|clear|pwd|exit|date|* —help)'
-HISTSIZE=1000000
-SAVEHIST=$HISTSIZE
-
-
 # ------------------------------------------------------------
 # Tools
 # ------------------------------------------------------------
