@@ -1,7 +1,6 @@
-# @TODO: Organize this file, it's a mess
-#
-# generic options and environment settings
-#
+##########################################
+# Generic options and environment settings
+##########################################
 
 # use smart URL pasting and escaping
 autoload -Uz bracketed-paste-url-magic
@@ -32,6 +31,21 @@ unsetopt HUP
 # NO_CHECK_JOBS is best used only in combination with NO_HUP, else such jobs will be killed automatically.
 unsetopt CHECK_JOBS
 
+# Disable start (C-s) and stop (C-q) characters
+setopt noflowcontrol
+
+# Allow comments, even in interactive shells
+setopt interactivecomments
+
+# For non-zero exit status
+# setopt printexitvalue
+
+# Expire a duplicate event first when trimming history.
+setopt HIST_EXPIRE_DUPS_FIRST
+
+# Suggest command corrections
+setopt CORRECT
+
 # Remove path separtor from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
 
@@ -46,9 +60,16 @@ if (($+ztermtitle)); then
   esac
 fi
 
-#
-# Less
-#
+##########
+# Language
+##########
+
+export LANG='en_US.UTF-8'
+export LC_ALL='en_US.UTF-8'
+
+##############
+# Less Options
+##############
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
@@ -62,9 +83,9 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
     (( $+commands[pygmentize] )) && export LESSCOLORIZER=pygmentize
 fi
 
-#
+#################
 # Temporary Files
-#
+#################
 
 if [[ ! -d "$TMPDIR" ]]; then
     export TMPDIR="/tmp/$LOGNAME"
@@ -73,36 +94,27 @@ fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
 
-#
+######################
 # Custom env variables
-#
+######################
 
-export PROJECTS="${HOME}/code"
-[[ ! -d "$PROJECTS" ]] && mkdir -p ${PROJECTS}
-
-[[ -f ~/.zsh_base16_theme ]] && . ~/.zsh_base16_theme
-
-# Executes commands at login pre-zshrc.
-
-##############################################################
-# Set Interactive shell options
-##############################################################
-
-setopt noflowcontrol   # disable start (C-s) and stop (C-q) characters
-setopt interactivecomments  # allow comments, even in interactive shells
-setopt printexitvalue       # for non-zero exit status
-setopt HIST_EXPIRE_DUPS_FIRST    # Expire a duplicate event first when trimming history.
-setopt CORRECT
+if [[ ! -d "$PROJECTS" ]]; then
+    export PROJECTS="${HOME}/code"
+    mkdir -p ${PROJECTS}
+fi
 
 # Better spell checking & auto correction prompt
 export SPROMPT="zsh: correct %F{red}'%R'%f to %F{blue}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
 
-#
+#########
 # Editors
+#########
+
 # Set nvim as editor or use vim if nvim is not available
 (( $+commands[nvim] )) && export EDITOR=$commands[nvim] || export EDITOR=vim
 export VISUAL=$EDITOR
 export GIT_EDITOR=$EDITOR
+
 # Set less or more as the default pager.
 if (( ${+commands[emojify]} )); then
     export PAGER="emojify | less"
@@ -111,15 +123,13 @@ elif (( ${+commands[less]} )); then
 else
     export PAGER=more
 fi
-(( $+commands[nvim] )) && export MANPAGER="nvim -c 'set ft=man' -"
 
+# Set MANPAGER based on $EDITOR
+case $EDITOR in
+    nvim) export MANPAGER="nvim +'set ft=man' -" ;;
+     vim) export MANPAGER="/bin/sh -c \"col -b | vim -c 'set ft=man' -\"" ;;
+       *) export MANPAGER='less' ;;
+esac
 
 # Git options
 export GIT_MERGE_AUTOEDIT=no
-
-#
-# Language
-#
-
-export LANG='en_US.UTF-8'
-export LC_ALL='en_US.UTF-8'

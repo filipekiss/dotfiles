@@ -1,7 +1,6 @@
-#
+##################################
 # Editor and input char assignment
-#
-
+##################################
 
 # Return if requirements are not found.
 if [[ ${TERM} == 'dumb' ]]; then
