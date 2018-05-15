@@ -46,7 +46,6 @@ e_activity_end() {
 
 
 LINE_BREAK="\n"
-LINE_BREAK="\n"
 # // Log functions
 
 [[ "$1" == "source" ]] || e_header "Dotfiles Filipe Kiss"
@@ -54,19 +53,6 @@ LINE_BREAK="\n"
 ###########################################
 # GENERAL PURPOSE EXPORTED VARS / FUNCTIONS
 ###########################################
-
-# Where the magic happens.
-export DOTFILES=~/.dotfiles
-
-#simple function to test if we have access to other functions
-function has_dotfiles_function() {
-    echo "" || return 1
-}
-
-# Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
-function is_dotfiles_bin() {
-    [[ -d $DOTFILES && $SCRIPT_NAME == $DOTFILES_BINARY_NAME ]] || return 1
-}
 
 # OS detection
 function is_macos() {
@@ -78,6 +64,22 @@ function is_linux() {
 }
 
 
+# simple function to test if we have access to other functions
+# I use this in a few scripts, like scripts/python.zsh
+function has_dotfiles_function() {
+    echo "" || return 1
+}
+# If this file was being sourced, exit now.
+[[ "$1" == "source" ]] && return
+#
+# Where the magic happens.
+DOTFILES="${DOTFILES:-${HOME}/.dotfiles}"
+
+# Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
+function is_dotfiles_bin() {
+    [[ -d $DOTFILES && $SCRIPT_NAME == $DOTFILES_BINARY_NAME ]] || return 1
+}
+
 function get_os() {
     for os in macos linux; do
         is_$os; [[ $? == ${1:-0} ]] && echo $os
@@ -88,12 +90,17 @@ function is_dotfiles_running() {
     [[ -e $DOTFILES_BIN_PID ]] || return 1
 }
 
-# If this file was being sourced, exit now.
-[[ "$1" == "source" ]] && return
-
 ########################
 # INSTALLATION FUNCTIONS
 ########################
+function sudo_keepalive() {
+    # Ask for the administrator password upfront.
+    sudo -v
+
+    # Keep-alive: update existing `sudo` time stamp until the script has finished.
+    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+}
+
 function show_script_header() {
     e_line
     e_line " ██████╗  ██████╗ ████████╗███████╗██╗██╗     ███████╗███████╗ " "${BOLD}${WHITE}"
@@ -128,19 +135,13 @@ function show_git_info() {
     DOTFILES_GIT_INFO_AUTHOR=$(git log -n 1 --pretty=format:'%C(cyan)author:  %an')
     DOTFILES_GIT_INFO_MESSAGE=$(git log -n 1 --pretty=format:'%C(green)message: %s')
 
-    e_header "Last Commit Info"
+    e_header "Last Local Commit Info"
     e_info "$DOTFILES_GIT_INFO_COMMIT${LOG_COLOR}"
     e_info "$DOTFILES_GIT_INFO_DATE${LOG_COLOR}"
     e_info "$DOTFILES_GIT_INFO_AUTHOR${LOG_COLOR}"
     e_info "$DOTFILES_GIT_INFO_MESSAGE${LOG_COLOR}"
     e_line
 }
-
-function run_softwareupdate() {
-    cd "$HOME"
-    softwareupdate --verbose --install --all
-}
-
 
 function validate_git() {
     # Homebrew should be installed at this point, and, consequently, git. If not, try
@@ -170,19 +171,13 @@ function install_homebrew() {
     fi
 }
 
-function install_brewfile() {
-    cd $DOTFILES
-    make brew
-}
-
-
 function install_dotfiles() {
     # Initialize.
     local prev_head current_head
     if [[ ! -d "$DOTFILES" ]]; then
         e_info "$DOTFILES doesn't exists."
         mkdir "$DOTFILES"
-        git clone --recursive https://github.com/${DOTFILES_GH_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles cloned"
+        git clone --recursive https://github.com/${GITHUB_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && e_success "${GITHUB_USER:-filipekiss}/dotfiles cloned"
         if [[ ! -d "$DOTFILES" ]]; then
             e_error "Error when cloning dotfiles repository. Try again"
             exit 1
@@ -195,7 +190,7 @@ function install_dotfiles() {
         exit 0
     elif [[ "$1" != "restart" ]]; then
         prev_head="$(git rev-parse HEAD)"
-        e_info "Updating ${DOTFILES_GH_USER:-filipekiss}/dotfiles"
+        e_info "Updating ${GITHUB_USER:-filipekiss}/dotfiles"
         cd $DOTFILES && \
             e_info "Stashing local changes..." && \
             git add . && \
@@ -211,7 +206,7 @@ function install_dotfiles() {
         git checkout - && \
             e_info "Applying stashed changes..." && \
             git stash pop && \
-            e_success "${DOTFILES_GH_USER:-filipekiss}/dotfiles updated"
+            e_success "${GITHUB_USER:-filipekiss}/dotfiles updated"
         if [[ "$1" != "restart" ]]; then
             current_head="$(git rev-parse HEAD)"
             if [[ $current_head != $prev_head ]]; then
@@ -234,10 +229,6 @@ function update_path() {
     export PATH=${HOME}/.dotfiles/bin:$PATH
 }
 
-function link_config() {
-    make stow
-}
-
 function main() {
     touch $DOTFILES_BIN_PID
     trap zshexit EXIT INT
@@ -245,7 +236,7 @@ function main() {
         e_info "Usage: dotfiles"
         e_info "See the README for documentation."
         e_info "https://github.com/filipekiss/dotfiles"
-        e_info "Copyright (c) 2017 Filipe Kiss"
+        e_info "Copyright (c) 2017-$(date +"%Y") Filipe Kiss"
         e_info "Licensed under the MIT license."
         e_line
         show_script_info
@@ -253,26 +244,17 @@ function main() {
         exit
     fi
 
-    # Ask for the administrator password upfront.
-    sudo -v
-
-    # Keep-alive: update existing `sudo` time stamp until the script has finished.
-    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-    if is_macos; then
-        run_softwareupdate
-    fi
+    sudo_keepalive
 
     show_script_header
     show_script_info
     validate_homebrew
     update_path
-    install_brewfile
     validate_git
     install_dotfiles
-    link_config
     # all done!
-    e_success "Make sure you change your shell to homebrew's zsh: ${YELLOW}chsh -s $(brew --prefix)/bin/zsh"
+    # Change shell if needed
+    [[ $SHELL != "$(brew --prefix)/bin/zsh" ]] && e_info "Changing \$SHELL to $(brew --prefix)/bin/zsh"&& exec chsh -s $(brew --prefix)/bin/zsh
     e_success "Don't forget to run ${YELLOW}make all${RESET}"
 }
 
