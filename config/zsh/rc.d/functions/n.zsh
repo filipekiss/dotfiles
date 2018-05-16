@@ -129,9 +129,11 @@ function n::update_path() {
         export PATH=$(n::path_remove "${_n_options[node_versions_location]}")
         return
     fi
-    echo "updating path"
     [[ $PATH =~ $path_to_add ]] && return
-    export PATH="${_n_options[node_versions_location]}/${_n_options[requested_node_version]}/bin:${PATH}"
+    path=(
+        "${_n_options[node_versions_location]}/${_n_options[requested_node_version]}/bin"
+        "$path[@]"
+    )
 }
 
 function n::path_remove() {
@@ -205,5 +207,3 @@ function n() {
     n::update_path
     unset _n_options
 }
-
-n "$@"
