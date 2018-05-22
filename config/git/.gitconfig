@@ -129,6 +129,7 @@
     editor = $EDITOR
     whitespace = trailing-space,space-before-tab ; Git will check for whitespace at $ and mixed spaces and tabs
     hooksPath = ~/.dotfiles/config/git/hooks
+	eol = lf
 
 ; --------------
 ; Best Practices
@@ -155,6 +156,7 @@
     conflictstyle = diff3
     stat = true ; show diffstat after every merge
     log = 1000 ; append commit messages to merge message
+	renormalize = true
 
 [pull]
     rebase = true ; rebase by default
@@ -233,3 +235,11 @@
     pushInsteadOf = https://bitbucket.org
 [diff "plist"]
 	textconv = plutil -convert xml1 -o -
+[filter "spabs"]
+	clean = expand -t 4
+	smudge = expand -t 4
+	required = true
+[filter "tabace"]
+	clean = unexpand -t 4
+	smudge = unexpand -t 4
+	required = true
