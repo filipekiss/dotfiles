@@ -290,7 +290,6 @@ function! functions#prettierSettings(...)
         if s:optionValue !=# '1'
             call add(s:cliOptions,  s:optionValue)
         endif
-        echo 'Update ' . s:pKey . ' to ' . s:optionValue
         let s:optionValue = ''
     endfor
     let g:ale_javascript_prettier_options = join(s:cliOptions, ' ')
