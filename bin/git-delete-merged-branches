@@ -94,7 +94,12 @@ _get_branches() {
 }
 
 _validate_branch() {
-    [[ $1 = $2 ]] && return 1 || return 0
+    local targetBranch="${1}"
+    local masterBranch="${2}"
+    if [[ ${_use_remotes:-} ]]; then
+        masterBranch="${_origin:-"origin"}/${2}"
+    fi
+    [[ $targetBranch = $masterBranch ]] && return 1 || return 0
 }
 
 _delete_remote_branch() {

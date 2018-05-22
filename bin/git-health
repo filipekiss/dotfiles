@@ -47,12 +47,12 @@ function buildCommand() {
             UPDATE_REMOTES="yes"
             ;;
         -all)
-            REF_PATTERN="refs/remotes refs/heads"
+            REF_PATTERN=("refs/remotes" "refs/heads")
             SORT_ORDER="-committerdate"
             UPDATE_REMOTES="yes"
             ;;
         *)
-            REF_PATTERN="refs/remotes refs/heads"
+            REF_PATTERN=("refs/remotes" "refs/heads")
             SORT_ORDER="committerdate"
             UPDATE_REMOTES="yes"
             ;;
@@ -64,7 +64,7 @@ function listBranches() {
     if [[ "yes" == ${UPDATE_REMOTES:-no} ]]; then
         updateRemotes;
     fi
-    command git for-each-ref --sort="${SORT_ORDER}" "${REF_PATTERN}" --format="%(color:yellow)%(refname:short)%(color:reset) %(color:green)%(committerdate:relative)%(color:reset)"
+    command git for-each-ref --sort="${SORT_ORDER}" ${REF_PATTERN} --format="%(color:yellow)%(refname:short)%(color:reset) %(color:green)%(committerdate:relative)%(color:reset)"
 }
 
 listBranches "$@"
