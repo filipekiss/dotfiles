@@ -1,3 +1,7 @@
 *.private  filter=crypt diff=crypt
 com.googlecode.iterm2.plist filter=crypt diff=crypt
 *.plist diff=plist
+.editorconfig  text eol=lf filter=spabs
+.gitattributes text eol=lf filter=spabs
+.gitignore     text eol=lf filter=spabs
+Makefile       text eol=lf filter=tabace
