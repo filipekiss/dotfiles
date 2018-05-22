@@ -20,9 +20,10 @@ let g:ale_sign_style_warning  = g:ale_sign_error
 let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
 let g:ale_echo_msg_format = '[%linter%] [%code%] %s'
 let g:ale_javascript_prettier_use_local_config = 1
-let g:ale_javascript_prettier_options = '--config-precedence prefer-file --no-editorconfig --prose-wrap always --use-tabs --tab-width 4 --single-quote --trailing-comma es5 --arrow-parens avoid'
 let g:ale_javascript_xo_use_global = 1
 let g:ale_javascript_xo_options = '--prettier'
+call functions#prettierSettings({'print-width': &textwidth})
+au! OptionSet textwidth call functions#prettierSettings({'print-width': &textwidth})
 
 let g:ale_linter_aliases = {
             \ 'mail': 'markdown'

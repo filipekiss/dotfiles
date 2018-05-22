@@ -264,3 +264,34 @@ function! functions#fckALEToggle(...)
 	let g:ale_fix_on_save=s:fckALEStatus['global']
 	let b:ale_fix_on_save=s:fckALEStatus['buffer']
 endfunction
+
+function! functions#prettierSettings(...)
+    let s:prettierDefaultOptions = {
+                \ 'tab-width': '4',
+                \ 'single-quote': 1,
+                \ 'use-tabs': 0,
+                \ 'trailing-comma': 'es5',
+                \ 'arrow-parens': 'always',
+                \ 'no-bracket-spacing': 1,
+                \ 'prose-wrap': 'always',
+                \ 'no-editorconfig': 1,
+                \ 'config-precedence': 'prefer-file',
+                \ 'print-width': &textwidth
+                \ }
+    let a:newOptions = get(a:, 1, {})
+    let s:prettierFinalOptions = extend(s:prettierDefaultOptions, a:newOptions)
+    let s:cliOptions=[]
+    for s:pKey in keys(s:prettierDefaultOptions)
+        let s:optionValue=s:prettierDefaultOptions[s:pKey]
+        if s:optionValue ==# '0'
+            continue
+        endif
+        call add(s:cliOptions, '--'.s:pKey)
+        if s:optionValue !=# '1'
+            call add(s:cliOptions,  s:optionValue)
+        endif
+        echo 'Update ' . s:pKey . ' to ' . s:optionValue
+        let s:optionValue = ''
+    endfor
+    let g:ale_javascript_prettier_options = join(s:cliOptions, ' ')
+endfunction
