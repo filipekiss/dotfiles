@@ -1,6 +1,0 @@
-# Don't link the files/folders below
-\.gitignore
-\.md # Readme, License, etc…
-rc.d # ZSH will look for the config directly from the repo, no need to symlink everything from now on
-modules # These were managed by zplug before, but I'm trying to speed-up startup time
-\.zshrc
