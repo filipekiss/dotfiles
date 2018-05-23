@@ -4,3 +4,6 @@
 [submodule "sidekicks/keys"]
 	path = sidekicks/keys
 	url = keybase://private/filipekiss/private-keys
+[submodule ".zshero"]
+	path = .zshero
+	url = https://github.com/filipekiss/zshero
