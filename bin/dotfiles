@@ -158,6 +158,19 @@ function validate_git() {
     fi
 }
 
+function validate_stow() {
+    if (( ! $+commands[stow] )); then
+        e_info "Installing Stow"
+        brew install stow
+        hash -r
+    fi
+    # If Stow isn't installed by now, something exploded. We gots to quit!
+    if (( ! $+commands[git] )); then
+        e_error "Stow should be installed. It isn't. Aborting."
+        exit 1
+    fi
+}
+
 function validate_homebrew() {
     # Install homebrew
     install_homebrew
@@ -224,6 +237,12 @@ function install_dotfiles() {
     cd ${DOTFILES}
 }
 
+function setup_zshero() {
+    curl -fsSL https://raw.githubusercontent.com/filipekiss/zshero/master/zshero-installer | zsh
+    source .zshero/init.zsh
+    zshero install
+}
+
 function update_path() {
     # Add binaries into the path
     export PATH=${HOME}/.dotfiles/bin:$PATH
@@ -244,14 +263,16 @@ function main() {
         exit
     fi
 
-    sudo_keepalive
+    # sudo_keepalive
 
     show_script_header
     show_script_info
     validate_homebrew
     update_path
     validate_git
+    validate_stow
     install_dotfiles
+    setup_zshero
     # all done!
     # Change shell if needed
     [[ $SHELL != "$(brew --prefix)/bin/zsh" ]] && e_info "Changing \$SHELL to $(brew --prefix)/bin/zsh"&& exec chsh -s $(brew --prefix)/bin/zsh

@@ -1,4 +1,4 @@
-all: brew keybase stow private permissions python ruby node italics macos
+all: brew keybase private permissions python ruby node italics macos
 
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
@@ -21,9 +21,6 @@ macos:
 private:
 	-@zsh ./scripts/transcrypt-config.zsh
 
-stow:
-	-@zsh ./scripts/stow.zsh
-
 keybase:
 	-@zsh ./scripts/keybase.zsh
 
@@ -32,4 +29,4 @@ italics:
 	-@tic -o ~/.terminfo ./terminfo/tmux-256color.terminfo
 	-@echo `tput sitm`italics`tput ritm` `tput smso`standout`tput rmso`
 
-PHONY: all brew permissions python macos requirements stow keybase italics node
+PHONY: all brew permissions python macos requirements keybase italics node
