@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+
+function _hook() {
+    _hook_setup $@
+    _run_global_hooks $_global_hooks_folder $@
+    _run_local_hooks $hookname $@
+}
+
+function _run_global_hooks() {
+    local hooks_folder="$1"
+    shift
+    if [[ -d ${~hooks_folder} ]]; then
+        # This is made so the hooks can exit with anything that's non-zero and the global hook will
+        # abort the rest of the process. Pass the result of find to xargs and run, for each result,
+        # once, hence the -L 1. Since I use mainly ZSH, I've written this for ZSH and portability is
+        # not my main concern, but fell free to improve
+        find ${~hooks_folder} -type f -or -type l -print0 | xargs -0 -L 1 -Ihook zsh "hook" $@ || exit 1
+    fi
+}
+
+
+function _run_local_hooks() {
+    local hookname="$1"
+    shift
+    if [ -f "${GIT_DIR}/hooks/${hookname}" ]; then
+        exec ${GIT_DIR}/hooks/${hookname} || exit 1
+    fi
+    exit 0
+}
+
+function _hook_setup() {
+    if [[ $hookname == "post-rewrite" && $1 == "rebase" ]]; then
+        hookname="post-merge"
+    fi
+    _global_hooks_location="$(command git config --get core.hooksPath || echo "$HOME/.dotfiles/sidekicks/git/hooks")"
+    _global_hooks_location=${_global_hooks_location//\~/${HOME}} # Ensure home is properly set on path
+    _global_hooks_folder="${_global_hooks_location}/${hookname}.d"
+    export GIT_TOPLEVEL="$(command git rev-parse --show-toplevel)"
+    GIT_DIR="${GIT_TOPLEVEL}/.git"
+}
+
+hookname=$(basename $0)
+_hook $@ && exit 0
