@@ -1,6 +1,6 @@
 #compdef mx
 
-# vim:ft=sh:
+# vim:ft=zsh:
 
 # mx completion
 # --------------------------------------------------------------------------------------------------
@@ -40,9 +40,8 @@ __zsh_complete_namespace() {
 
 __zsh_complete_project() {
     [[ $words[2] == "dotfiles" ]] && return 0
-    _description=($(_list_available_projects $words[2]))
-    _project_path=$(_get_project_path ${words[2]})
-    _describe -t project "Listing projects ${_project_path/#${HOME}/~}" _description
+    _description=("${(@f)$(_list_available_projects $words[2])}")
+    _describe -t project "Listing projects | ${words[2]}" _description
 }
 
 
@@ -81,15 +80,21 @@ __fzf_complete_mx_project(){
 }
 
 _list_available_namespaces() {
-    local home_namespaces project_namespaces _has_projects_folder _description
+    local home_namespaces project_namespaces _description
     _description=()
     [[ -z $PROJECTS ]] && PROJECTS=$HOME
 
     if [[ -n $PROJECTS ]]; then
-        project_namespaces=($(find ${PROJECTS}/* -maxdepth 0 -type d -not -path '*/\.*' -printf '%f\n'))
+        project_namespaces=($(find ${PROJECTS}/* -maxdepth 0 -type d -not -path '*/\.*' -not -iwholename '*/forks' -printf '%f\n'))
+        if [[ -d "${PROJECTS}/forks" ]]; then
+            [[ -n $project_namespaces ]] && _excluded_from_forks="-not -iwholename '*/${(j:' -not -iwholename '\*\/:)project_namespaces}'"
+            forks_namespaces=($(eval "find ${PROJECTS}/forks/* -maxdepth 0 -type d ${_excluded_from_forks:-} -not -path '*/\.*' -printf '%f\n'"))
+        fi
         for namespace in $project_namespaces; do
-            [[ -n $_has_projects_folder ]] && prefix="projects/"
             _description+=("${namespace}:${PROJECTS}/${namespace}")
+        done;
+        for namespace in $forks_namespaces; do
+            _description+=("${namespace}:${PROJECTS}/forks/${namespace}")
         done;
     fi
 
@@ -99,13 +104,20 @@ _list_available_namespaces() {
 _list_available_projects() {
     local _selected_namespace _description
     _selected_namespace="$1"
-    _description=()
-    NAMESPACE_PATH=$(_get_project_path $_selected_namespace)
-    _projects_available=($(find ${NAMESPACE_PATH}/* -maxdepth 0 -type d))
+    typeset -a _description
+    if [[ -d ${PROJECTS}/${_selected_namespace} ]]; then
+        _projects_available=($(find ${PROJECTS}/${_selected_namespace}/* -maxdepth 0 -type d))
+    fi
+    if [[ -d ${PROJECTS}/forks/${_selected_namespace} ]]; then
+        _projects_available+=($(find ${PROJECTS}/forks/${_selected_namespace}/* -maxdepth 0 -type d))
+    fi
     for project in $_projects_available; do
-        _description+=("${project:t}:${project/#${HOME}/~}")
+        _session_description="${project/#${HOME}/~}"
+        if tmux has-session -t "${_selected_namespace}/${project:t}" > /dev/null 2>&1; then
+            _session_description="→ Go to session"
+        fi
+        echo "${project:t}:${_session_description}"
     done;
-    echo ${(iF)_description}
 }
 
 _get_project_path() {
@@ -114,5 +126,3 @@ _get_project_path() {
     [[ -d ${PROJECTS}/${_selected_namespace} ]] && NAMESPACE_PATH=${PROJECTS}/${_selected_namespace} || NAMESPACE_PATH=${HOME}/${_selected_namespace}
     echo $NAMESPACE_PATH
 }
-
-_mx "$@"

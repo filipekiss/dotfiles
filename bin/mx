@@ -17,7 +17,7 @@
 #
 # Version
 # -------
-# 5.0.0
+# 6.0.0
 # --------------------------------------------------------------------------------------------------
 #
 # Usage
@@ -81,7 +81,8 @@ else
         exec $_try_command
         exit 0
     fi
-  SESSION="$1"
+    NAMESPACE="$1"
+    SESSION="$1"
 fi
 
 # tmux 1.9a+ doesn't like .'s in session names
@@ -106,15 +107,19 @@ if ! (tmux has-session -t "${SESSION}" > /dev/null 2>&1); then
         theight=$(tmux display-message -p '#{window_height}')
     fi
 
+
     if [[ "$SESSION" == 'dotfiles' && -d "$HOME/.dotfiles" ]]; then
         e_info "Using dotfiles settings"
         WORKINGDIR="${HOME}/.dotfiles"
-    elif [ -d "$PROJECTS"/"$SESSION"/"$PROJECT_NAME" ]; then
-        e_info "Found project at ${HOME}/${SESSION}/$PROJECT_NAME"
-        WORKINGDIR="$PROJECTS"/"$SESSION"/"$PROJECT_NAME"
-    elif [ -d "$PROJECTS"/"$SESSION" ]; then
-        e_info "Found project at ${PROJECTS}/${SESSION}"
-        WORKINGDIR="$PROJECTS"/"$SESSION"
+    elif [ -d "${PROJECTS}/forks/${NAMESPACE}/${PROJECT_NAME}" ]; then
+        e_info "Found fork at ${PROJECTS}/forks/${NAMESPACE}/${PROJECT_NAME}"
+        WORKINGDIR="${PROJECTS}/forks/${NAMESPACE}/${PROJECT_NAME}"
+    elif [ -d "${PROJECTS}/${NAMESPACE}/$PROJECT_NAME" ]; then
+        e_info "Found project at ${HOME}/${NAMESPACE}/$PROJECT_NAME"
+        WORKINGDIR="${PROJECTS}/${NAMESPACE}/$PROJECT_NAME"
+    elif [ -d "${PROJECTS}/${NAMESPACE}" ]; then
+        e_info "Found project at ${PROJECTS}/${NAMESPACE}"
+        WORKINGDIR="${PROJECTS}/${NAMESPACE}"
     else
         e_info "Using current directory: $PWD"
         WORKINGDIR="$PWD"
