@@ -38,7 +38,8 @@
     ici = commit --allow-empty -m \":tada: Initial Commit\" --no-verify
     ignored = ls-files --others -i --exclude-standard
     latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
-    lg = log --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
+    lg = log --all --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
+    l  = log --abbrev-commit --oneline
     unmerged = branch --no-merged
     merged = branch --merged
     ours = "!f() { git checkout --ours $@ && git add $@; }; f"
