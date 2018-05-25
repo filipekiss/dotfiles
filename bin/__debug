@@ -18,6 +18,13 @@ function __debug() {
     fi
     [[ ! -f ${__debug_file} ]] && touch ${__debug_file}
     __timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+
+    if [[ ${1:-} == "-" ]]; then
+        while read line; do
+            echo "[${__timestamp}] - $line" | tee -a ${__debug_file:-$HOME/.__debug_${__debug_start_time}.log} > /dev/null
+        done < /dev/stdin
+        return
+    fi
     echo "[${__timestamp}] - $@" | tee -a ${__debug_file:-$HOME/.__debug_${__debug_start_time}.log} > /dev/null
 }
 
@@ -33,6 +40,10 @@ function __tail_debug() {
     tail -f ${__debug_file} -n 0
 }
 
+function __file_debug() {
+    echo ${__debug_file:-$HOME/.__debug_${__debug_start_time}.log}
+}
+
 
 function main() {
     if [[ $# -eq 0 ]]; then
@@ -40,6 +51,7 @@ function main() {
         echo " USAGE: __debug start [file.log]"
         echo "        __debug [file.log] \"Debug message\""
         echo "        __debug tail [file.log]"
+        echo "        __debug file"
         echo " "
         echo " file.log is an optional argument. If you don't pass a file to write to, debug will"
         echo " generate a file named after the pattern \$HOME/.__debug_\$__debug_start_time.log"
@@ -61,6 +73,10 @@ function main() {
         (tail)
             shift
             __tail_debug "$@"
+            ;;
+        (file)
+            shift
+            __file_debug
             ;;
         *)
             __debug "$@"
