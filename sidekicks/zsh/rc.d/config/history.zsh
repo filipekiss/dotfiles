@@ -31,6 +31,9 @@ setopt HIST_IGNORE_DUPS
 # the older command is removed from the list (even if it is not the previous event).
 setopt HIST_IGNORE_ALL_DUPS
 
+# Ignore already seen entries when cycling
+setopt HIST_FIND_NO_DUPS
+
 # Remove command lines from the history list when the first character on the line is a space,
 # or when one of the expanded aliases contains a leading space.
 setopt HIST_IGNORE_SPACE
