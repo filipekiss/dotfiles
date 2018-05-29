@@ -21,7 +21,7 @@ let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
 let g:ale_echo_msg_format = '[%linter%] [%code%] %s'
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_javascript_xo_use_global = 1
-let g:ale_javascript_xo_options = '--prettier'
+let g:ale_javascript_xo_options = '--prettier --space=4'
 call functions#prettierSettings({'print-width': &textwidth})
 au! OptionSet textwidth call functions#prettierSettings({'print-width': &textwidth})
 
