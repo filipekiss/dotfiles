@@ -5,7 +5,7 @@ endif
 
 " Enable experimental transmute module
 " See https://github.com/andymass/vim-matchup#d1-parallel-transmutation
-let g:matchup_transmute_enabled = 1
+let g:matchup_transmute_enabled = 0
 
 " Deferred highlight for performance reasons
 let g:matchup_matchparen_deferred = 1

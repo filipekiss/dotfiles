@@ -28,6 +28,7 @@ function! packages#init() abort
     Plug 'kana/vim-textobj-user'
                 \ | Plug 'kana/vim-textobj-line' " Allows custom text objects \| Add a `whole line` text-object
     Plug 'direnv/direnv.vim'                     " Direnv support
+    Plug 'majutsushi/tagbar', { 'on': ['Tagbar'] }
     " }}} ---------------------------------------- System Plugins
 
     " Syntax and Language-related Plugins ---------------------------------------- {{{

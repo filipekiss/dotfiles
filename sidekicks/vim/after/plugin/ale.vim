@@ -25,6 +25,7 @@ let g:ale_javascript_xo_options = '--prettier --space=4'
 call functions#prettierSettings({'print-width': &textwidth})
 au! OptionSet textwidth call functions#prettierSettings({'print-width': &textwidth})
 
+let g:ale_linters_explicit = 1
 let g:ale_linter_aliases = {
             \ 'mail': 'markdown'
             \}
