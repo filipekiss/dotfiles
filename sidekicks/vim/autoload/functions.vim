@@ -129,7 +129,7 @@ function! functions#should_quit_on_q()
 	return functions#hasFileType(g:fckQuitBlackList)
 endfunction
 
-let g:fckNoColorColumn = ['qf', 'fzf', 'netrw', 'help', 'markdown', 'startify', 'GrepperSide', 'txt']
+let g:fckNoColorColumn = ['qf', 'fzf', 'netrw', 'help', 'markdown', 'startify', 'GrepperSide', 'txt', 'gitconfig', 'gitrebase']
 function! functions#should_turn_off_colorcolumn()
 	return functions#hasFileType(g:fckNoColorColumn)
 endfunction

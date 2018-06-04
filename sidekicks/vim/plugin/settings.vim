@@ -23,7 +23,22 @@ endif
 " set nowrap                            " no wrap
 
 set textwidth=80
-set colorcolumn=+1
+" set colorcolumn=+1
+augroup MyLongLinesHighlight
+  autocmd!
+  autocmd! BufWinEnter,BufEnter ?* if functions#should_turn_off_colorcolumn()
+          \ | match NONE
+        \ | else
+          \ | highlight link OverLength Error
+          \ | execute 'match OverLength /\%>'. &textwidth .'v.*/'
+        \ | endif
+  autocmd! OptionSet textwidth if functions#should_turn_off_colorcolumn()
+          \ | match NONE
+        \ | else
+          \ | highlight link OverLength Error
+          \ | execute 'match OverLength /\%>'. &textwidth .'v.*/'
+        \ | endif
+augroup END
 
 syntax sync minlines=256 " start highlighting from 256 lines backwards
 set synmaxcol=300        " do not highlith very long lines
