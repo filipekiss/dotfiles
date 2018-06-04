@@ -1,11 +1,13 @@
+" vim: set ts=4 sw=4 tw=0 et :
 scriptencoding utf-8
+set encoding=utf-8
+set fileencoding=utf-8
 
 if !has('nvim')
     set nocompatible
-    set autoindent                        " maintain indent of current line
-    set backspace=indent,start,eol        " allow unrestricted backspacing in insert mode
-    " Display as much as possibe of a window's last line.
-    set display+=lastline
+    set autoindent                 " maintain indent of current line
+    set backspace=indent,start,eol " allow unrestricted backspacing in insert mode
+    set display+=lastline          " Display as much as possibe of a window's last line.
     set laststatus=2
     set ttyfast
     if &term =~# '^tmux'
@@ -15,43 +17,32 @@ if !has('nvim')
 endif
 
 " Testing vim-sleuth.
-" set expandtab                         " always use spaces instead of tabs
-" set tabstop=4                         " spaces per tab
-" set softtabstop=4
-" set shiftround                        " always indent by multiple of shiftwidth
-" set shiftwidth=4                      " spaces per tab (when shifting)
-" set nowrap                            " no wrap
+" set expandtab    " always use spaces instead of tabs
+" set tabstop=3    " spaces per tab
+" set softtabstop=2
+" set shiftround   " always indent by multiple of shiftwidth
+" set shiftwidth=1 " spaces per tab (when shifting)
+" set nowrap       " no wrap
 
 set textwidth=80
-" set colorcolumn=+1
+
 augroup MyLongLinesHighlight
-  autocmd!
-  autocmd! BufWinEnter,BufEnter ?* if functions#should_turn_off_colorcolumn()
-          \ | match NONE
-        \ | else
-          \ | highlight link OverLength Error
-          \ | execute 'match OverLength /\%>'. &textwidth .'v.*/'
-        \ | endif
-  autocmd! OptionSet textwidth if functions#should_turn_off_colorcolumn()
-          \ | match NONE
-        \ | else
-          \ | highlight link OverLength Error
-          \ | execute 'match OverLength /\%>'. &textwidth .'v.*/'
-        \ | endif
+  autocmd! BufWinEnter,BufEnter ?* call functions#setOverLength()
+  autocmd! OptionSet textwidth call functions#setOverLength()
 augroup END
 
 syntax sync minlines=256 " start highlighting from 256 lines backwards
 set synmaxcol=300        " do not highlith very long lines
 
 if has('showcmd')
-    set showcmd                         " extra info at end of command line
+    set showcmd          " extra info at end of command line
 endif
 
-set noshowmode                        " Don't Display the mode you're in. since it's already shown on the statusline
+set noshowmode           " Don't Display the mode you're in. since it's already shown on the statusline
 
 set wildmenu
 " show a navigable menu for tab completion
-set wildmode=longest:full,list,full
+set wildmode=list:full,full
 " Ignore files that are…
 set wildignore+=.hg,.git,.svn                                                " …from Version control
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg                               " …binary images

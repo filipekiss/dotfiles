@@ -131,7 +131,7 @@ endfunction
 
 let g:fckNoColorColumn = ['qf', 'fzf', 'netrw', 'help', 'markdown', 'startify', 'GrepperSide', 'txt', 'gitconfig', 'gitrebase']
 function! functions#should_turn_off_colorcolumn()
-	return functions#hasFileType(g:fckNoColorColumn)
+	return &textwidth == 0 || functions#hasFileType(g:fckNoColorColumn)
 endfunction
 
 let g:fckKeepWhiteSpace = ['markdown']
@@ -293,4 +293,35 @@ function! functions#prettierSettings(...)
         let s:optionValue = ''
     endfor
     let g:ale_javascript_prettier_options = join(s:cliOptions, ' ')
+endfunction
+
+function! AppendModeline()
+  let l:modeline = printf(" %s: set ts=%d sw=%d tw=%d %set :",
+        \  "vim", &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+  call append(0, l:modeline)
+endfunction
+
+function! functions#setOverLength()
+    if functions#should_turn_off_colorcolumn()
+        match NONE
+    else
+        " Stolen from https://github.com/whatyouhide/vim-lengthmatters/blob/74e248378544ac97fb139803b39583001c83d4ef/plugin/lengthmatters.vim#L17-L33
+        let s:overlengthCmd = 'highlight OverLength'
+        for md in ['cterm', 'term', 'gui']
+            let bg = synIDattr(hlID('Comment'), 'fg', md)
+            let fg = synIDattr(hlID('Normal'), 'bg', md)
+
+            if has('gui_running') && md !=# 'gui'
+                continue
+            endif
+
+            if !empty(bg) | let s:overlengthCmd .= ' ' . md . 'bg=' . bg | endif
+            if !empty(fg) | let s:overlengthCmd .= ' ' . md . 'fg=' . fg | endif
+        endfor
+        exec s:overlengthCmd
+        " Use tw + 1 so invisble characters are not marked
+        let s:overlengthSize = &textwidth + 1
+        execute 'match OverLength /\%>'. s:overlengthSize .'v.*/'
+    endif
 endfunction

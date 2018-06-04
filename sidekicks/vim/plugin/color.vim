@@ -15,8 +15,5 @@ endtry
 " Italics
 hi! Comment cterm=italic gui=italic
 
-" Highlight long lines
-hi! link OverLength ErrorMsg
-
 " Adjust highlighting for MatchParen
 hi! link MatchParen CursorLineNr
