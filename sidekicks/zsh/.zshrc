@@ -31,7 +31,7 @@ zplugin light "zsh-users/zsh-completions"
 zplugin ice wait"0" lucid atinit"zpcompinit; zpcdreplay"
 zplugin light "zdharma/fast-syntax-highlighting"
 
-zplugin ice wait"0" lucid src"scripts/base16-gruvbox-dark-soft.sh"
+zplugin ice wait"0" lucid src"scripts/base16-dracula.sh"
 zplugin light "chriskempson/base16-shell"
 
 zplugin ice lucid blockf wait'[[ -n ${ZLAST_COMMANDS[(r)docker-*]} ]]'

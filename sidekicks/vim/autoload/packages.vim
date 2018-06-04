@@ -79,7 +79,8 @@ function! packages#init() abort
     " }}} ---------------------------------------- General Productivity plugins
 
     " ColorSchemes and cool stuff ---------------------------------------- {{{
-    Plug 'morhetz/gruvbox'       " Gruvbox colorscheme
+    Plug 'morhetz/gruvbox'                  " Gruvbox colorscheme
+    Plug 'dracula/vim', { 'as': 'dracula' } " Dracula colorscheme
     " }}} ---------------------------------------- ColorSchemes and cool stuff
 
     " Writing Plugins ---------------------------------------- {{{
