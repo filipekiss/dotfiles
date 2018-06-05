@@ -12,7 +12,6 @@ alias ping="${aliases[ping]:-ping} -c 4"
 alias pubkey='cat $HOME/.ssh/id_rsa.pub'
 alias rm="${aliases[rm]:-rm} -i"
 alias rsync="${aliases[rsync]:-rsync} -rpltDv"
-alias server="sudo python -m SimpleHTTPServer 80"
 alias type="${aliases[type]:-type} -a"
 alias work="mx stoodi"
 alias dots="cd ${DOTFILES:-${HOME}/.dotfiles}"
@@ -29,6 +28,11 @@ fi
 
 if (( $+commands[htop] )); then
   alias top=htop
+fi
+
+# Python Simple HTTP Server
+if (( $+commands[python3] )); then
+    alias server="sudo python3 -m http.server 80"
 fi
 
 ## Resource Usage
