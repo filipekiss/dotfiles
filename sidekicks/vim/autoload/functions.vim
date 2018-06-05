@@ -302,12 +302,8 @@ function! AppendModeline()
   call append(0, l:modeline)
 endfunction
 
-function! functions#setOverLength(...)
-    if ! exists(b:overlengthManualDisable)
-        let b:overlengthManualDisable = get(a:, 1, 0)
-    endif
-    if b:overlengthManualDisable > 0 || functions#should_turn_off_colorcolumn() |
-        let b:overlengthManualDisable = 1
+function! functions#setOverLength()
+    if  get(b:, 'overlengthManualDisable', 0) > 0 || functions#should_turn_off_colorcolumn()
         match NONE
     else
         " Stolen from https://github.com/whatyouhide/vim-lengthmatters/blob/74e248378544ac97fb139803b39583001c83d4ef/plugin/lengthmatters.vim#L17-L33
@@ -327,5 +323,29 @@ function! functions#setOverLength(...)
         " Use tw + 1 so invisble characters are not marked
         let s:overlengthSize = &textwidth + 1
         execute 'match OverLength /\%>'. s:overlengthSize .'v.*/'
+    endif
+endfunction
+
+function! functions#fckOverlengthToggle(...)
+    let s:disableOverlength = get(a:, 1, 2)
+    if s:disableOverlength > 1
+        if get(b:, 'overlengthManualDisable', 1) > 0
+            let s:disableOverlength = 'on'
+        else
+            let s:disableOverlength = 'off'
+        endif
+    endif
+    if s:disableOverlength ==# "on"
+        let b:overlengthManualDisable = 0
+    endif
+    if s:disableOverlength ==# "off"
+        let b:overlengthManualDisable = 1
+    endif
+    if &textwidth > 0
+        call functions#setOverLength()
+    else
+		echohl WarningMsg
+        echo "-> textwidth is set to 0! no OverLength applied"
+        echohl None
     endif
 endfunction

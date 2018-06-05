@@ -34,3 +34,9 @@ command! ALEDisableFixersBuffer let b:ale_fix_on_save=0
 command! ALEEnableFixersBuffer  let b:ale_fix_on_save=0
 command! ALEToggleFixers call functions#fckALEToggle('global')
 command! ALEToggleFixersBuffer call functions#fckALEToggle('buffer')
+
+" Disable and enable overlength
+" This works on a buffer based scope. There's no global option
+command! OverlengthToggle call functions#fckOverlengthToggle()
+command! OverlengthDisable call functions#fckOverlengthToggle('off')
+command! OverlengthEnable call functions#fckOverlengthToggle('on')
