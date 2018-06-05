@@ -42,7 +42,7 @@ set noshowmode           " Don't Display the mode you're in. since it's already 
 
 set wildmenu
 " show a navigable menu for tab completion
-set wildmode=list:full,full
+set wildmode=longest:full,list,full
 " Ignore files that are…
 set wildignore+=.hg,.git,.svn                                                " …from Version control
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg                               " …binary images

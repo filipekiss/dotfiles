@@ -129,7 +129,7 @@ function! functions#should_quit_on_q()
 	return functions#hasFileType(g:fckQuitBlackList)
 endfunction
 
-let g:fckNoColorColumn = ['qf', 'fzf', 'netrw', 'help', 'markdown', 'startify', 'GrepperSide', 'txt', 'gitconfig', 'gitrebase']
+let g:fckNoColorColumn = ['qf', 'fzf', 'netrw', 'help', 'markdown', 'startify', 'GrepperSide', 'txt', 'gitconfig', 'gitrebase', 'html', 'htmldjango']
 function! functions#should_turn_off_colorcolumn()
 	return &textwidth == 0 || functions#hasFileType(g:fckNoColorColumn)
 endfunction
@@ -302,8 +302,12 @@ function! AppendModeline()
   call append(0, l:modeline)
 endfunction
 
-function! functions#setOverLength()
-    if functions#should_turn_off_colorcolumn()
+function! functions#setOverLength(...)
+    if ! exists(b:overlengthManualDisable)
+        let b:overlengthManualDisable = get(a:, 1, 0)
+    endif
+    if b:overlengthManualDisable > 0 || functions#should_turn_off_colorcolumn() |
+        let b:overlengthManualDisable = 1
         match NONE
     else
         " Stolen from https://github.com/whatyouhide/vim-lengthmatters/blob/74e248378544ac97fb139803b39583001c83d4ef/plugin/lengthmatters.vim#L17-L33

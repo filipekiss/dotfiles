@@ -4,6 +4,7 @@ if !exists(':ALEInfo')
     finish
 endif
 
+let g:ale_html_tidy_executable='/usr/local/bin/tidy'
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_javascript_eslint_suppress_missing_config = 1
 let g:ale_fix_on_save = 1
@@ -31,25 +32,26 @@ let g:ale_linter_aliases = {
             \}
 
 let g:ale_linters = {
+            \ 'html': ['tidy'],
             \ 'javascript': ['xo', 'eslint'],
             \}
 
 let g:ale_fixers = {
-            \   'markdown': [
-            \       'prettier',
-            \   ],
-            \   'javascript': [
-            \       'prettier',
-            \   ],
-            \   'json': [
-            \ 'prettier',
+            \ 'markdown': [
+            \   'prettier',
             \ ],
-            \   'css': [
-            \       'prettier',
-            \   ],
-            \   'scss': [
-            \       'prettier',
-            \   ],
+            \ 'javascript': [
+            \   'prettier',
+            \ ],
+            \ 'json': [
+            \   'prettier',
+            \ ],
+            \ 'css': [
+            \   'prettier',
+            \ ],
+            \ 'scss': [
+            \   'prettier',
+            \ ],
             \}
 
 " Don't auto fix (format) files inside `node_modules`, minified files and jquery (for legacy codebases)

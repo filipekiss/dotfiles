@@ -29,11 +29,9 @@ function! StatusLine()
     return l:sline
 endfunction
 
-
-
-execute 'hi! link User2 SpecialKey'
-execute 'hi! link User3 LineNr'
-execute 'hi! link User4 TabLine'
+execute 'hi! link User1 Comment'
+execute 'hi! link User2 LineNr'
+execute 'hi! link User3 Constant'
 
 " This is here to ensure proper statusline redraw when changing modes
 augroup statusline
