@@ -3,6 +3,8 @@ setl concealcursor=
 
 " Highlight JSDocs style comments
 let g:javascript_plugin_jsdoc = 1
+" Flow syntax support
+let g:javascript_plugin_flow = 1
 
 " # Conceal characters
 let g:javascript_conceal_function             = 'ƒ'

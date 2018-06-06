@@ -188,7 +188,7 @@ function! functions#SetProjectDir(...)
 	" If we have a folder set and the folder is not the current folder, change to it
 	if (!empty(s:projectFolder))
 		lcd `=s:projectFolder`
-		let b:ale_javascript_xo_options='--cwd=' . s:projectFolder . ' ' . g:ale_javascript_xo_options
+		" let b:ale_javascript_xo_options='--cwd=' . s:projectFolder . ' ' . g:ale_javascript_xo_options
 		silent echom 'Changed project folder to ' . s:projectFolder
 	endif
 endfunction

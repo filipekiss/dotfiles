@@ -1,4 +1,9 @@
 " vim: ft=vim
+function! packages#If(cond, ...) abort
+  let l:opts = get(a:000, 0, {})
+  return a:cond ? l:opts : extend(l:opts, { 'on': [], 'for': [] })
+endfunction
+
 function! packages#init() abort
     call packages#installPlug()
 
@@ -10,7 +15,7 @@ function! packages#init() abort
     " Nvim Specific Plugins ---------------------------------------- {{{
     if has('nvim')
         Plug 'filipekiss/nvim-completion-manager'                                      " Auto complete pop-up
-        Plug 'roxma/nvim-cm-tern', { 'do': 'yarn global add tern && yarn' }            " JavaScript and Node autocompletion source using Tern.js
+	Plug 'roxma/nvim-cm-tern', packages#If(!executable('flow'), { 'do': 'yarn global add tern && yarn' })
         Plug 'Shougo/neco-vim', { 'for': ['vim'] }                                     " Vimscript completion source
     endif
     " }}} ---------------------------------------- Nvim Specific Plugins

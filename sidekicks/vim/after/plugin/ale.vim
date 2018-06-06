@@ -33,7 +33,7 @@ let g:ale_linter_aliases = {
 
 let g:ale_linters = {
             \ 'html': ['tidy'],
-            \ 'javascript': ['xo', 'eslint'],
+            \ 'javascript': ['eslint', 'flow'],
             \}
 
 let g:ale_fixers = {
