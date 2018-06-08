@@ -92,14 +92,12 @@ function! packages#init() abort
     Plug 'machakann/vim-sandwich'                                   " Better vim.surround
     Plug 'mjbrownie/swapit'                                         " Swap between words from a specific list
     Plug 'luochen1990/rainbow'                                      " Multicolored parens
-    let g:rainbow_active = 1                                        " Enable rainbow parens by default
     Plug 'gerw/vim-HiLinkTrace'                                     " Really useful plugin that shows what highlight groups are linked to the current synStack
     Plug 'lifepillar/vim-colortemplate'                             " Vim Colorscheme generator
     " }}} ---------------------------------------- General Productivity plugins
 
     " ColorSchemes and cool stuff ---------------------------------------- {{{
     Plug 'morhetz/gruvbox'                                          " Gruvbox colorscheme
-    Plug 'dracula/vim', { 'as': 'dracula' }                         " Dracula colorscheme
     " }}} ---------------------------------------- ColorSchemes and cool stuff
 
     " Writing Plugins ---------------------------------------- {{{

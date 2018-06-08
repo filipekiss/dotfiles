@@ -119,7 +119,7 @@ if has('nvim')
 endif
 
 nnoremap <silent> <leader>z :call functions#ZoomToggle()<CR>
-nmap <c-g> :call functions#SynStack()<CR>
+nmap <c-g> :HLT <CR>
 
 " Removes trailing spaces
 nnoremap <leader>$ :call functions#Preserve("%s/\\s\\+$//e")<CR>

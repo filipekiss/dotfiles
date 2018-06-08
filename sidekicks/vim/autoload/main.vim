@@ -14,8 +14,8 @@ function! main#init() abort
             let g:python3_host_prog = '/usr/local/bin/python3'
         endif
     endif
-    call packages#init()
     call main#pluginSettings()
+    call packages#init()
     call functions#SetupNCM()
     call main#pathSettings()
     call main#overrides()
@@ -41,6 +41,13 @@ function! main#pluginSettings() abort
                 \ 'javascript' : 1,
                 \ 'javascript.jsx' : 1,
                 \}
+    " Config indent guide lines
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_guide_size = 1
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_exclude_filetypes = ['help', 'startify']
+    " Enable rainbow parens by default
+    let g:rainbow_active = 1
 endfunction
 
 function! main#pathSettings() abort
