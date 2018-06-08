@@ -60,7 +60,7 @@ brew 'universal-ctags', args: ['HEAD']
 # Casks
 cask '1password'
 cask 'discord'
-cask 'docker'
+cask 'docker', args: ['without-completions']
 cask 'dropbox'
 cask 'firefox'
 cask 'google-chrome'
