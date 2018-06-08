@@ -1,17 +1,17 @@
 # ------------------------------------------
 # ZPLUGIN https://github.com/zdharma/zplugin
 # ------------------------------------------
-
-if [[ ! -f ~/.zplugin/bin/zplugin.zsh ]]; then
+ZPLUGIN_PATH="$HOME/.zplugin"
+if [[ ! -f ${ZPLUGIN_PATH}/bin/zplugin.zsh ]]; then
   if (( $+commands[git] )); then
-    git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin
+    git clone https://github.com/zdharma/zplugin.git ${ZPLUGIN_PATH}/bin
   else
     echo 'git not found' >&2
     exit 1
   fi
 fi
 
-source ~/.zplugin/bin/zplugin.zsh
+source ${ZPLUGIN_PATH}/bin/zplugin.zsh
 
 zplugin ice compile"(pure|async).zsh" src"pure.zsh" pick"async.zsh"
 zplugin light "filipekiss/pure"
