@@ -1,5 +1,4 @@
 setl conceallevel=2
-setl concealcursor=
 
 " Highlight JSDocs style comments
 let g:javascript_plugin_jsdoc = 1
