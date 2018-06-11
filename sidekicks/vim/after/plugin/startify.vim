@@ -34,6 +34,7 @@ let g:startify_skiplist = [
             \ '^/tmp',
             \ escape(fnamemodify(resolve($VIMRUNTIME), ':p'), '\') .'doc',
             \ 'bundle/.*/doc',
+            \ 'plugged/.*/doc',
             \ ]
 
 

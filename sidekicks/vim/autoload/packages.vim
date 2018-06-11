@@ -12,7 +12,13 @@ function! packages#init() abort
 
     call plug#begin(s:VIM_PLUG_FOLDER)
 
-    " Nvim Specific Plugins ---------------------------------------- {{{
+    " Autocomplete ---------------------------------------- {{{
+    Plug 'autozimu/LanguageClient-neovim',
+                \ {
+                \ 'branch': 'next',
+                \ 'do': 'bash ./install.sh'
+                \ }                                                 " Language Server Client
+    Plug 'othree/csscomplete.vim'                                   " Better CSS completion
     if has('nvim')
         Plug 'filipekiss/nvim-completion-manager'                   " Auto complete pop-up
         Plug 'roxma/nvim-cm-tern',
@@ -20,7 +26,7 @@ function! packages#init() abort
                     \ { 'do': 'yarn global add tern && yarn' })     " TernJS auto-completion
         Plug 'Shougo/neco-vim', { 'for': ['vim'] }                  " Vimscript completion source
     endif
-    " }}} ---------------------------------------- Nvim Specific Plugins
+    " }}} ---------------------------------------- Autocomplete
 
     " System Plugins ---------------------------------------- {{{
     Plug 'christoomey/vim-tmux-navigator'                           " Transparent navigation between vim buffers and tmux panes
@@ -55,7 +61,7 @@ function! packages#init() abort
     Plug 'Valloric/MatchTagAlways'                                  " Highlight matching tags.
     Plug 'junegunn/vim-easy-align', { 'on': ['<Plug>(EasyAlign)'] } " Aesthetically pleasing align made easy
     Plug 'junegunn/vader.Vim'                                       " Test suit for VimScript
-    Plug 'w0rp/ale', { 'do': 'yarn global add prettier xo' }        " Linting for various languages
+    Plug 'w0rp/ale', { 'do': 'yarn global add prettier eslint' }        " Linting for various languages
     Plug 'tpope/vim-sleuth'                                         " Set expandtab, shiftwidth and more based on current buffer
     " }}} ---------------------------------------- Syntax and Language-related Plugins
 
