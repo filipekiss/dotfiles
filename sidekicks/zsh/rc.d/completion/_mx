@@ -87,7 +87,7 @@ _list_available_namespaces() {
     if [[ -n $PROJECTS ]]; then
         project_namespaces=($(find ${PROJECTS}/* -maxdepth 0 -type d -not -path '*/\.*' -not -iwholename '*/forks' -printf '%f\n'))
         if [[ -d "${PROJECTS}/forks" ]]; then
-            [[ -n $project_namespaces ]] && _excluded_from_forks="-not -iwholename '*/${(j:' -not -iwholename '\*\/:)project_namespaces}'"
+            [[ -n $project_namespaces ]] && _excluded_from_forks="-not -iwholename '*/${(j:' -not -iwholename '*\/:)project_namespaces}'"
             forks_namespaces=($(eval "find ${PROJECTS}/forks/* -maxdepth 0 -type d ${_excluded_from_forks:-} -not -path '*/\.*' -printf '%f\n'"))
         fi
         for namespace in $project_namespaces; do
