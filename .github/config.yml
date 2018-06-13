@@ -1,5 +1,6 @@
 todo:
-  keyword: 'TODO'
-  bodyKeyword: 'BODY'
+  keyword: [ '@TODO', 'TODO' ]
+  bodyKeyword: [ '@BODY', 'BODY' ]
   label: false
   reopenClosed: false
+  autoAssign: true
