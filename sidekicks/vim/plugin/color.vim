@@ -25,8 +25,5 @@ hi! link MatchParen CursorLineNr
 hi! link gitcommitSummary Normal
 hi! link gitcommitOverflow ErrorMsg
 
-" Ensure IncSearch and Search are equal
-hi! link Search IncSearch
-
 " Spellcheck
 hi! link SpellBad WarningMsg
