@@ -47,5 +47,3 @@ _list_available_sessions() {
     done;
     echo ${(iF)_description}
 }
-
-_ks "$@"
