@@ -34,6 +34,11 @@ augroup MyAutoCmds
     " Update cd for current window
     autocmd BufEnter * call functions#SetProjectDir()
 
+    " Ensure Sleuth is run
+    if exists(':Sleuth')
+        autocmd BufEnter * :Sleuth
+    endif
+
 augroup END
 
 aug omnicomplete
