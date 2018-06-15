@@ -106,6 +106,10 @@ function! packages#init() abort
 
     " ColorSchemes and cool stuff ---------------------------------------- {{{
     Plug 'https://github.com/morhetz/gruvbox'                                 " Gruvbox colorscheme
+    Plug 'https://github.com/nightsense/vimspectr', {
+          \ 'do':
+          \ 'ln -s ' .$VIMHOME. '/plugged/vimspectr/shell ~/.vimspectr-shell'
+          \ }                                                                 " VimSpectr theme collection
     " }}} ---------------------------------------- ColorSchemes and cool stuff
 
     " Writing Plugins ---------------------------------------- {{{
