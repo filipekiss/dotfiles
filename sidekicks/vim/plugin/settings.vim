@@ -164,8 +164,9 @@ endif
 
 set listchars+=extends:»
 set listchars+=precedes:«
-set nojoinspaces                      " don't autoinsert two spaces after '.', '?', '!' for join command
-set concealcursor=n                 " Keep it concealed in normal mode, unconceal otherwise
+set nojoinspaces    " don't autoinsert two spaces after '.', '?', '!' for join command
+set concealcursor=n " Keep it concealed in normal mode, unconceal otherwise
+set conceallevel=2  " Conceal everything that is concealable
 
 
 if has('windows')
