@@ -246,3 +246,5 @@
 	clean = unexpand -t 4
 	smudge = unexpand -t 4
 	required = true
+[submodule]
+	recurse = true
