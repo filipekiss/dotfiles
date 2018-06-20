@@ -120,6 +120,7 @@
 ; pick a5bce56 [Filipe K..] Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
 [rebase]
     instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
+	autosquash = true
 
 ; -------------------
 ; Git System Settings
