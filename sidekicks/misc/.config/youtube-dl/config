@@ -5,10 +5,10 @@
 --restrict-filenames
 
 # Save video thumbnails next to video
---write-thumbnail
+# --write-thumbnail
 
 # Save video description to a .description file
---write-description
+# --write-description
 
 # display progress in console title bar (useful for background downloading)
 --console-title
