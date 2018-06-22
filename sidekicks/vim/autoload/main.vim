@@ -48,9 +48,6 @@ function! main#pluginSettings() abort
     let g:indent_guides_exclude_filetypes = ['help', 'startify']
     " Enable rainbow parens by default
     let g:rainbow_active = 1
-
-    " Disable .local.vim overrides for the following filetypes
-    let g:fck_disable_override = ['help', 'startify', 'fzf', 'newtr']
 endfunction
 
 function! main#pathSettings() abort
@@ -61,29 +58,16 @@ function! main#pathSettings() abort
     set path+=.**
 endfunction
 
-function main#overrides(...) abort
-
-    if !exists('g:fck_disable_override')
-        let g:fck_disable_override = []
-    endif
-
-    if index(g:fck_disable_override, &filetype) != -1
-        return
-    endif
-
-    let s:projectPath = get(a:, 1, $PWD)
-
+function main#overrides() abort
     " Local overrides
     let s:vimrc_local = $HOME . '/.local.vim'
     if filereadable(s:vimrc_local)
         execute 'source ' . s:vimrc_local
-        let b:fck_loaded_local_vim=s:vimrc_local
     endif
 
     " Project specific override
-    let s:vimrc_project = s:projectPath . '/.local.vim'
-    if filereadable(s:vimrc_project) && !exists('b:fck_loaded_project_vim')
+    let s:vimrc_project = $PWD . '/.local.vim'
+    if filereadable(s:vimrc_project)
         execute 'source ' . s:vimrc_project
-        let b:fck_loaded_project_vim=1
     endif
 endfunction

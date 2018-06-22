@@ -23,7 +23,7 @@ augroup MyAutoCmds
     endif
 
     autocmd BufWritePre * if functions#should_strip_whitespace() | call functions#Preserve("%s/\\s\\+$//e") | endif
-
+    " autocmd VimEnter,ColorScheme * call functions#change_iterm2_profile()
     autocmd InsertLeave,WinEnter * if (!exists('g:isGoyoActive')) | set relativenumber | endif
     autocmd InsertEnter,WinLeave * if (!exists('g:isGoyoActive')) | set norelativenumber | endif
 
@@ -33,8 +33,6 @@ augroup MyAutoCmds
 
     " Update cd for current window
     autocmd BufEnter * call functions#SetProjectDir()
-    " Ensure we load proper overrides for the current file
-    autocmd BufEnter * call main#overrides(getcwd())
 
     " Ensure Sleuth is run
     if exists(':Sleuth')
