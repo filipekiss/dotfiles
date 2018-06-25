@@ -1,0 +1,34 @@
+snippet jquery "jQuery Scoped Function" b
+jQuery(function($){
+    'use strict';
+
+    ${0:${VISUAL}}
+});
+endsnippet
+
+snippet jsc "JSX Comment"
+{/* ${0:${VISUAL}} */}
+endsnippet
+
+snippet react "Import React" b
+import React${1:, \{Component\}} from 'react';
+endsnippet
+snippet recom "React Component"
+import React, { Component } from 'react';
+
+class ${1:MyComponent} extends Component {
+    render() {
+        return (
+            ${2:<div></div>}
+        );
+    }
+}
+
+export default $1;
+endsnippet
+
+snippet iife "(function())()" b
+(function(){
+$0
+})
+endsnippet
