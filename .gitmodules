@@ -7,3 +7,6 @@
 [submodule ".zshero"]
 	path = .zshero
 	url = https://github.com/filipekiss/zshero
+[submodule "sidekicks/vim"]
+	path = sidekicks/vim
+	url = me:vimfiles.git
