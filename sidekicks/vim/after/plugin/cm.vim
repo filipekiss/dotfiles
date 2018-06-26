@@ -1,5 +1,5 @@
 if !exists('*cm#enable_for_buffer')
-  finish
+    finish
 end
 
 let g:cm_complete_popup_delay = 20

@@ -27,8 +27,8 @@ endif
 set textwidth=80
 
 augroup MyLongLinesHighlight
-  autocmd! BufWinEnter,BufEnter ?* call functions#setOverLength()
-  autocmd! OptionSet textwidth call functions#setOverLength()
+    autocmd! BufWinEnter,BufEnter ?* call functions#setOverLength()
+    autocmd! OptionSet textwidth call functions#setOverLength()
 augroup END
 
 syntax sync minlines=256 " start highlighting from 256 lines backwards
@@ -170,7 +170,9 @@ set conceallevel=2  " Conceal everything that is concealable
 
 
 if has('windows')
-    set fillchars=diff:⣿,vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
+    set fillchars=diff:⣿
+    set fillchars+=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
+    set fillchars+=fold:─
 endif
 
 if has('linebreak')

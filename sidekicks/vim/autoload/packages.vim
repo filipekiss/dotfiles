@@ -1,7 +1,7 @@
 " vim: set ts=8 sw=2 tw=80 et ft=vim fdm=markers
 function! packages#If(cond, ...) abort
-  let l:opts = get(a:000, 0, {})
-  return a:cond ? l:opts : extend(l:opts, { 'on': [], 'for': [] })
+    let l:opts = get(a:000, 0, {})
+    return a:cond ? l:opts : extend(l:opts, { 'on': [], 'for': [] })
 endfunction
 
 function! packages#init() abort
@@ -108,9 +108,9 @@ function! packages#init() abort
     " ColorSchemes and cool stuff ---------------------------------------- {{{
     Plug 'https://github.com/morhetz/gruvbox'                                 " Gruvbox colorscheme
     Plug 'https://github.com/nightsense/vimspectr', {
-          \ 'do':
-          \ 'ln -s ' .$VIMHOME. '/plugged/vimspectr/shell ~/.vimspectr-shell'
-          \ }                                                                 " VimSpectr theme collection
+                \ 'do':
+                \ 'ln -s ' .$VIMHOME. '/plugged/vimspectr/shell ~/.vimspectr-shell'
+                \ }                                                                 " VimSpectr theme collection
     " }}} ---------------------------------------- ColorSchemes and cool stuff
 
     " Writing Plugins ---------------------------------------- {{{
