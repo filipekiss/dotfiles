@@ -28,7 +28,7 @@ fpath=(
 )
 
 # Get the original manpath, then modify it.
-MANPATH="`manpath`"
+(( $+commands[manpath] )) && MANPATH="`manpath`"
 manpath=(
     ${HOMEBREW_ROOT:-/usr/local}/opt/coreutils/libexec/gnuman(N-/)
     "$manpath[@]"

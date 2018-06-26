@@ -48,8 +48,8 @@ zplugin light "filipekiss/zshero"
 # Source config and aliases and stuff
 # ------------------------------------------------------------
 
-DOTFILES_BIN=$(which dotfiles)
-if [[ $DOTFILES_BIN ]]; then
+DOTFILES_BIN=$(command -v dotfiles)
+if [[ -n $DOTFILES_BIN ]]; then
   source $DOTFILES_BIN "source"
   for func (${ZDOTDIR}/rc.d/functions/*.zsh) source $func
 fi

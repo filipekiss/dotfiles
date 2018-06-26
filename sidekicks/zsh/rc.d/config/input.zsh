@@ -85,8 +85,8 @@ bindkey "." double-dot-expand
 bindkey "${key_info[Delete]}" delete-char
 bindkey "${key_info[Backspace]}" backward-delete-char
 
-bindkey "${key_info[Left]}" backward-char
-bindkey "${key_info[Right]}" forward-char
+(( $+key_info[Left] )) && bindkey "${key_info[Left]}" backward-char
+(( $+key_info[Right] )) && bindkey "${key_info[Right]}" forward-char
 
 # Expandpace.
 bindkey ' ' magic-space
