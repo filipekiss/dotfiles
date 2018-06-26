@@ -9,4 +9,4 @@
 	url = https://github.com/filipekiss/zshero
 [submodule "sidekicks/vim"]
 	path = sidekicks/vim
-	url = me:vimfiles.git
+	url = git@github.com:filipekiss/vimfiles.git
