@@ -1,8 +1,0 @@
-#compdef theme
-
-# _files: generic zsh file completion
-# -g: only complete files matching the following pattern
-# -W: folder where files I want to complete from are located
-_files \
-  -g "vimspectr*-dark" \
-  -W "$HOME/.vimspectr-shell"
