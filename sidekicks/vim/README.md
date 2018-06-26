@@ -89,3 +89,4 @@ This is part of my [dotfiles] repository.
     https://raw.githubusercontent.com/filipekiss/vimfiles/master/screenshots/markdown.png
 [vim project files screenshot]:
     https://raw.githubusercontent.com/filipekiss/vimfiles/master/screenshots/fuzzy-files.png
+[dotfiles]: https://github.com/filipekiss/dotfiles
