@@ -15,7 +15,8 @@
     also supported with Python and Ruby)
 -   [nvr]
 -   [Git]
--   [Zsh] - [Syntax Highlight], [Tab Completion], [Substring Search]…
+-   [ZDOTDIR][zshfiles] - [Zsh] with [Syntax Highlight], [Tab Completion],
+    [Substring Search]…
 
 The config files are managed using [zshero]
 
@@ -70,3 +71,4 @@ Don't forget to trust said keys.
 [zshero]: https://github.com/filipekiss/zshero
 [filipe kiss]: https://twitter.com/filipekiss
 [vimfiles]: https://github.com/filipekiss/vimfiles
+[zshfiles]: https://github.com/filipekiss/zdotdir
