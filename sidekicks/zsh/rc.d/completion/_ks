@@ -1,0 +1,49 @@
+#compdef ks
+
+# vim:ft=sh:
+
+# ks completion
+# --------------------------------------------------------------------------------------------------
+
+# Description
+# -----------
+# Auto-complete tmux session names
+# --------------------------------------------------------------------------------------------------
+# Authors
+# -------
+# Filipe Kiss <eu@filipekiss.com.br> http://github.com/filipekiss
+# --------------------------------------------------------------------------------------------------
+
+_ks() {
+    local curcontext="$curcontext" state line
+    typeset -A opt_args
+
+    _arguments \
+        ':Session:->session'
+
+    case $state in
+        (session)
+            _arguments '1:TMUX Sessions:__zsh_complete_tmux_sessions'
+            ;;
+    esac
+}
+
+__zsh_complete_tmux_sessions() {
+    local sessions
+    _description=($(_list_available_sessions))
+    _describe -t session "TMUX Sessions" _description
+}
+
+_list_available_sessions() {
+    local _description
+    _sessions_available=($(tmux list-sessions -F "#{session_name}"));
+    _description=()
+    if [[ -n "$TMUX" ]]; then
+        local current_session
+        current_session=$(tmux display-message -p '#S')
+    fi
+    for session in $_sessions_available; do
+        [[ $session != \_* ]] && [[ $session != ${current_session:-} ]] && _description+=("${session}")
+    done;
+    echo ${(iF)_description}
+}
