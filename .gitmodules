@@ -13,3 +13,6 @@
 [submodule "sidekicks/zsh"]
 	path = sidekicks/zsh
 	url = git@github.com:filipekiss/zdotdir
+[submodule "sidekicks/hammerspoon"]
+	path = sidekicks/hammerspoon
+	url = me:spoon
