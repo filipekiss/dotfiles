@@ -66,3 +66,4 @@ npm-debug.log*
 *.map
 .mx-start
 .envrc
+*.bkp
