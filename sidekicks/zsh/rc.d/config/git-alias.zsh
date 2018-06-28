@@ -2,6 +2,8 @@
 
 unalias gap 2> /dev/null
 alias   gap="git add -p"
+unalias gas 2>/dev/null
+alias   gas="git rebase --interactive --autosquash"
 unalias gbr 2> /dev/null
 alias   gbr="git branch"
 unalias gbc 2> /dev/null
