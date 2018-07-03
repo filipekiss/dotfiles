@@ -58,3 +58,4 @@ alias flushcache="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 
 # SSH when in TMUX needs to explicitly pass $TERM
 [[ $TERM == *"tmux"* ]] && alias ssh="TERM=xterm-256color ssh"
+[[ $TERM == *"tmux"* ]] && alias wtf="TERM=xterm-256color wtf"
