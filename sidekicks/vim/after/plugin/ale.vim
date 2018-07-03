@@ -25,6 +25,7 @@ let g:ale_javascript_xo_use_global = 1
 let g:ale_javascript_xo_options = '--prettier --space=4'
 call functions#prettierSettings({'print-width': &textwidth})
 au! OptionSet textwidth call functions#prettierSettings({'print-width': &textwidth})
+let g:ale_python_flake8_use_global = 1
 
 let g:ale_linters_explicit = 1
 let g:ale_linter_aliases = {
@@ -34,6 +35,7 @@ let g:ale_linter_aliases = {
 let g:ale_linters = {
             \ 'html': ['tidy'],
             \ 'javascript': ['eslint', 'flow'],
+            \ 'python': ['flake8']
             \}
 
 let g:ale_fixers = {
@@ -52,6 +54,7 @@ let g:ale_fixers = {
             \ 'scss': [
             \   'prettier',
             \ ],
+            \ 'python': ['yapf']
             \}
 
 " Don't auto fix (format) files inside `node_modules`, minified files and jquery (for legacy codebases)
