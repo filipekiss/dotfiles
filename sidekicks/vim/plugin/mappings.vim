@@ -93,9 +93,6 @@ nnoremap <Leader>n :e <C-R>=expand("%:p:h") . "/" <CR>
 nnoremap <tab>   :bnext<CR>
 nnoremap <S-tab> :bprevious<CR>
 
-" use tab to toggle folds
-nnoremap <Enter> za
-
 " qq to record, Q to replay
 nnoremap Q @q
 
