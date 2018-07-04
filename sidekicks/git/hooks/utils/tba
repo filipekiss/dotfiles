@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Look for files that have TBA in them (To be Added).
+# I use this to put information I still need to receveive from someone else
+
+HAS_TBA_MARKERS="$(command git diff --diff-filter=d --cached --name-only --color=always --pickaxe-regex -S'TBA' @{u})"
+
+[[ -n ${SKIP_TBA_MARKER_CHECK} ]] && echo "TBA Check Skipped..."
+if [[ -n "$HAS_TBA_MARKERS" && -z ${SKIP_TBA_MARKER_CHECK} ]]; then
+    echo "These files have TBA markers in them:"
+    echo $HAS_TBA_MARKERS
+    exit 1
+fi
