@@ -1,4 +1,4 @@
-" vim: set ts=8 sw=2 tw=80 et ft=vim fdm=markers
+" vim: set ts=8 sw=2 tw=80 et ft=vim fdm=marker
 function! packages#If(cond, ...) abort
     let l:opts = get(a:000, 0, {})
     return a:cond ? l:opts : extend(l:opts, { 'on': [], 'for': [] })
@@ -30,7 +30,7 @@ function! packages#init() abort
         Plug 'ncm2/ncm2-abbrfuzzy' " Fuzzy abbreviation match
         Plug 'ncm2/ncm2-cssomni' " Css completion
         Plug 'ncm2/ncm2-tagprefix' " Tag (prefix) completion
-        Plug 'ncm2/ncm2-tern' " JS Completion via Tern
+        Plug 'ncm2/ncm2-tern', { 'do': 'yarn global add tern && yarn' } " JS Completion via Tern
         Plug 'ncm2/ncm2-ultisnips' " Ultisnips completion
         Plug 'ncm2/ncm2-markdown-subscope' " Markdown subscope
     endif
@@ -62,7 +62,6 @@ function! packages#init() abort
                 \   'scss',
                 \   'stylus']
                 \ }                                                           " Show color on color declarations in CSS files
-    Plug 'https://github.com/sheerun/vim-polyglot'                            " Multiple languages syntax
     Plug 'https://github.com/stephenway/postcss.vim', { 'for': ['css'] }      " More modern CSS syntax, don't use the one in Polyglot
     Plug 'https://github.com/davidhalter/jedi', { 'for': ['python'] }         " Python autocompletion
     Plug 'https://github.com/tpope/vim-commentary'                            " Toggle commentaries in multiple languages
