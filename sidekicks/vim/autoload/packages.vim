@@ -19,12 +19,20 @@ function! packages#init() abort
                 \ 'do': 'bash ./install.sh'
                 \ }                                                           " Language Server Clien
     Plug 'https://github.com/othree/csscomplete.vim'                          " Better CSS completion
-    if has('nvim')
-        Plug 'https://github.com/filipekiss/nvim-completion-manager'          " Auto complete pop-up
-        Plug 'https://github.com/roxma/nvim-cm-tern',
-                    \ packages#If(!executable('flow'),
-                    \ { 'do': 'yarn global add tern && yarn' })               " TernJS auto-completion
-        Plug 'https://github.com/Shougo/neco-vim', { 'for': ['vim'] }         " Vimscript completion source
+    if has('nvim') && has('python3')
+        Plug 'https://github.com/roxma/nvim-yarp' " Remote Interface, NCM2 depends on this
+        Plug 'https://github.com/ncm2/ncm2' " Completion Manager
+        Plug 'ncm2/ncm2-bufword' " Complete words from buffer
+        Plug 'ncm2/ncm2-tmux' " Complete words from other tmux panes
+        Plug 'ncm2/ncm2-path' " Complete paths
+        Plug 'ncm2/ncm2-jedi' " Python completion
+        Plug 'ncm2/ncm2-html-subscope' " JS/CSS completion inside html blocks
+        Plug 'ncm2/ncm2-abbrfuzzy' " Fuzzy abbreviation match
+        Plug 'ncm2/ncm2-cssomni' " Css completion
+        Plug 'ncm2/ncm2-tagprefix' " Tag (prefix) completion
+        Plug 'ncm2/ncm2-tern' " JS Completion via Tern
+        Plug 'ncm2/ncm2-ultisnips' " Ultisnips completion
+        Plug 'ncm2/ncm2-markdown-subscope' " Markdown subscope
     endif
     " }}} ---------------------------------------- Autocomplete
 

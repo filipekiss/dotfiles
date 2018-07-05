@@ -81,6 +81,8 @@ endif
 set whichwrap=b,h,l,s,<,>,[,],~       " allow <BS>/h/l/<Left>/<Right>/<Space>, ~ to cross line boundaries
 
 set completeopt+=menuone
+set completeopt+=noinsert
+set completeopt+=noselect
 set completeopt-=preview
 
 " highlight current line in insert mode, don't bother otherwise

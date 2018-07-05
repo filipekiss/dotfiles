@@ -41,8 +41,9 @@ augroup MyAutoCmds
 
 augroup END
 
-aug omnicomplete
+aug completionCmd
     autocmd!
+    autocmd BufEnter * call ncm2#enable_for_buffer()
     if exists('g:plugs["emmet-vim"]')
         autocmd FileType html,htmldjango,jinja2 setl omnifunc=emmet#completeTag
     endif
