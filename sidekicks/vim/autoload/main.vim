@@ -24,8 +24,6 @@ endfunction
 function! main#pluginSettings() abort
     " Enable highlight only when search for something
     let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-    " Use ,, to expand emmet abbreviation
-    let g:user_emmet_leader_key=','
     " Use tmux reported events
     let g:diminactive_enable_focus = 1
     " Disable CSS from polyglot, we'll use the post-css syntax

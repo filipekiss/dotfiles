@@ -65,6 +65,11 @@ nnoremap <leader>m  :<c-u><c-r>='let @'. v:register .' = '. string(getreg(v:regi
 inoremap jj <ESC>
 inoremap kk <ESC>
 
+" Easily move to beggining and end of the line
+" https://github.com/shelldandy/dotfiles/blob/master/config/nvim/keys.vim#L114
+nnoremap H ^
+nnoremap L $
+
 " nnoremap <silent> <leader>d :20Lex<CR>
 
 if has('macunix')
@@ -187,3 +192,9 @@ noremap - <C-x>
 " Visual mode too
 xnoremap + g<C-a>
 xnoremap - g<C-x>
+
+if has_key(g:plugs, 'emmet-vim')
+  let g:user_emmet_leader_key='<C-M>'
+  nnoremap <Leader>em :call emmet#expandAbbr(0, "")<CR>
+  imap ,, <C-M>,
+endif
