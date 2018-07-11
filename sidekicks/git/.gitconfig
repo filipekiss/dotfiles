@@ -65,6 +65,7 @@
     who = shortlog -sne
     wipe = !git reset --hard HEAD && git clean -fd
     ctags = !~/.dotfiles/sidekicks/git/hooks/utils/ctags
+	unpushed-branches = log --branches --not --remotes --no-walk --decorate --oneline
 
 ; --
 ; UI
