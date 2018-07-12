@@ -1,0 +1,12 @@
+.git*
+# Don't link the files/folders below
+*.md
+rc.d
+.zshrc
+.zlogin
+.zprofile
+.zhistory
+.zcompcache
+.zcompdump*
+.*.zwc
+.*.zwc.old
