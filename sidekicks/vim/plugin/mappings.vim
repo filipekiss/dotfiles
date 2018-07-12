@@ -194,7 +194,22 @@ xnoremap + g<C-a>
 xnoremap - g<C-x>
 
 if has_key(g:plugs, 'emmet-vim')
-  let g:user_emmet_leader_key='<C-M>'
-  nnoremap <Leader>em :call emmet#expandAbbr(0, "")<CR>
-  imap ,, <C-M>,
+    let g:user_emmet_leader_key='<C-M>'
+    nnoremap <Leader>em :call emmet#expandAbbr(0, "")<CR>
+    imap ,, <C-M>,
+endif
+
+if has_key(g:plugs, 'vimwiki')
+    " Open default wiki
+    nmap <Leader>ww <Plug>VimwikiIndex
+    " Select which wiki to open
+    nmap <Leader>wq <Plug>VimwikiUISelect
+    " Open default diary index
+    nmap <Leader>di <Plug>VimwikiDiaryIndex
+    " Make a new note in today's diary
+    nmap <Leader>dn <Plug>VimwikiMakeDiaryNote
+    " Make a new note in yesterday's diary
+    nmap <Leader>dy <Plug>VimwikiMakeYesterdayDiaryNote
+    " Make a new note in tomorrows diary
+    nmap <Leader>dt <Plug>VimwikiMakeTomorrowDiaryNote
 endif

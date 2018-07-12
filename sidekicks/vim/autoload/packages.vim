@@ -124,6 +124,7 @@ function! packages#init() abort
     Plug 'https://github.com/junegunn/goyo.vim', { 'on': ['Goyo']}            " Distraction free writing
     Plug 'https://github.com/junegunn/limelight.vim', { 'on': ['Limelight'] } " Context highlight
     Plug 'https://github.com/mzlogin/vim-markdown-toc'                        " Generate TOC for Markdown files
+    Plug 'https://github.com/vimwiki/vimwiki'                                 " Personal Wiki IDE
     " }}} ---------------------------------------- Writing Plugins
 
     call plug#end()
