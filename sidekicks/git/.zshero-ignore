@@ -2,6 +2,4 @@
 # ignore list, taken from
 # http://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html,
 # to exclude the gitignore line
-
-\.git
 hooks
