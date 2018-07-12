@@ -75,6 +75,7 @@ source dotfiles "source"
 
 if [ -z "$1" ]; then
   SESSION="${PWD##*/}"
+  NAMESPACE="${SESSION}"
 else
     _try_command="mx-$1"
     if [[ -n $(type -p $_try_command) ]]; then
