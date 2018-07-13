@@ -194,9 +194,8 @@ xnoremap + g<C-a>
 xnoremap - g<C-x>
 
 if has_key(g:plugs, 'emmet-vim')
-    let g:user_emmet_leader_key='<C-M>'
     nnoremap <Leader>em :call emmet#expandAbbr(0, "")<CR>
-    imap ,, <C-M>,
+    imap ,, <C-y>,
 endif
 
 if has_key(g:plugs, 'vimwiki')
