@@ -46,7 +46,7 @@ function! main#pluginSettings() abort
     let g:indent_guides_exclude_filetypes = ['help', 'startify']
     " Enable rainbow parens by default
     let g:rainbow_active = 1
-    let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=json', 'ruby', 'sass', 'scss=sass', 'xml', 'html', 'python', 'stylus=css', 'less=css', 'zsh=sh', 'bash=sh', 'sh']
+    let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=json', 'ruby', 'sass', 'scss=sass', 'xml', 'html', 'python', 'stylus=css', 'less=css', 'zsh=sh', 'bash=sh', 'sh', 'vim', 'react=javascript']
     let g:markdown_conceal = 0
     let g:markdown_frontmatter=1
     let g:ncm2#popup_delay = 20
