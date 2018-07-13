@@ -49,8 +49,9 @@ function! main#pluginSettings() abort
     let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=json', 'ruby', 'sass', 'scss=sass', 'xml', 'html', 'python', 'stylus=css', 'less=css', 'zsh=sh', 'bash=sh', 'sh']
     let g:markdown_conceal = 0
     let g:markdown_frontmatter=1
+    let g:ncm2#popup_delay = 20
     let g:ncm2#matcher = 'abbrfuzzy'
-
+    let g:ncm2#sorter = 'abbrfuzzy'
 endfunction
 
 function! main#pathSettings() abort
