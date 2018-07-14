@@ -27,7 +27,6 @@ function! packages#init() abort
         Plug 'ncm2/ncm2-path' " Complete paths
         Plug 'ncm2/ncm2-jedi' " Python completion
         Plug 'ncm2/ncm2-html-subscope' " JS/CSS completion inside html blocks
-        Plug 'ncm2/ncm2-abbrfuzzy' " Fuzzy abbreviation match
         Plug 'ncm2/ncm2-cssomni' " Css completion
         Plug 'ncm2/ncm2-tagprefix' " Tag (prefix) completion
         Plug 'ncm2/ncm2-tern', { 'do': 'yarn global add tern && yarn' } " JS Completion via Tern

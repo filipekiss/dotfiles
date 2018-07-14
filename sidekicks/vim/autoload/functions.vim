@@ -175,7 +175,7 @@ function! functions#SetupNCM()
         xmap <c-u> <Plug>(ultisnips_expand)
         smap <c-u> <Plug>(ultisnips_expand)
         imap <C-Space> <Plug>(ncm2_manual_trigger)
-
+        let g:ncm2#popup_delay = 20
     endif
 endfunction
 
