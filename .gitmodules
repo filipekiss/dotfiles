@@ -1,15 +1,20 @@
-[submodule "fonts"]
+[subodule "fonts"]
 	path = fonts
 	url = keybase://private/filipekiss/fonts
+	branch = master
 [submodule "sidekicks/keys"]
 	path = sidekicks/keys
 	url = keybase://private/filipekiss/private-keys
+	branch = master
 [submodule ".zshero"]
 	path = .zshero
 	url = https://github.com/filipekiss/zshero
+	branch = master
 [submodule "sidekicks/vim"]
 	path = sidekicks/vim
 	url = git@github.com:filipekiss/vimfiles.git
+	branch = master
 [submodule "sidekicks/zsh"]
 	path = sidekicks/zsh
 	url = git@github.com:filipekiss/zdotdir
+	branch = master
