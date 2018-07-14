@@ -347,3 +347,40 @@ function! functions#fckOverlengthToggle(...)
         echohl None
     endif
 endfunction
+
+function! functions#SetupVimwiki()
+    let s:default_options = {
+                \ 'auto_toc': 1,
+                \ 'nested_syntaxes' : {
+                \ 'react': 'javascript',
+                \ 'bash': 'sh'
+                \ },
+                \ 'automatic_nested_syntax': 1
+                \ }
+
+    let s:personal_wiki = extend({
+                \ 'path': '~/vimwiki'
+                \ }, s:default_options)
+
+    let s:work_wiki = extend({
+                \ 'path': '~/code/stoodi/notes'
+                \ }, s:default_options)
+
+    let g:vimwiki_list = [s:personal_wiki, s:work_wiki]
+
+    let g:vimwiki_hl_cb_checked = 1
+
+    let g:vimwiki_listsyms = '✗○◐●✓'
+
+    let g:vimwiki_listsym_rejected = '⊘'
+
+    let g:vimwiki_folding = 'expr:quick'
+
+    let g:vimwiki_dir_link = 'index'
+
+    let g:vimwiki_html_header_numbering_sym = '. '
+
+    let g:vimwiki_autowriteall = 1
+
+    let g:vimwiki_auto_chdir = 1
+endfunction
