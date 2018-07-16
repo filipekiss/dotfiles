@@ -370,7 +370,7 @@ function! functions#SetupVimwiki()
 
     let g:vimwiki_hl_cb_checked = 1
 
-    let g:vimwiki_listsyms = '✗○◐●✓'
+    let g:vimwiki_listsyms = ' ○◐●✓'
 
     let g:vimwiki_listsym_rejected = '⊘'
 
