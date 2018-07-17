@@ -3,11 +3,34 @@
 # Look for files that have TBA in them (To be Added).
 # I use this to put information I still need to receveive from someone else
 
-HAS_TBA_MARKERS="$(command git diff --diff-filter=d --cached --name-only --color=always --pickaxe-regex -S'TBA' @{u})"
+[[ -n ${SKIP_TBA_MARKER_CHECK} ]] && echo "TBA Check Skipped..." && exit 0
+[[ -t 1 ]] || exit 0
 
-[[ -n ${SKIP_TBA_MARKER_CHECK} ]] && echo "TBA Check Skipped..."
-if [[ -n "$HAS_TBA_MARKERS" && -z ${SKIP_TBA_MARKER_CHECK} ]]; then
-    echo "These files have TBA markers in them:"
-    echo $HAS_TBA_MARKERS
-    exit 1
-fi
+# Useful vars
+RED='\033[0;31m'
+YELLOW='\033[0;33m'
+RESET='\033[0m'
+
+validate_tba() {
+    local MESSAGE="The files below have TBA markers in them"
+    FILES_TO_CHECK=($(command git --no-pager diff --diff-filter=d --cached --name-only))
+    OFFENDING_FILES=$(grep -El ".{0,40}TBA.{0,40}" $FILES_TO_CHECK 2>/dev/null)
+    if [[ -n $OFFENDING_FILES ]]; then
+        echo -n "⚠️  ${RED}ATTENTION${RESET} ⚠️"
+        echo "  ${YELLOW}${MESSAGE}${RESET}"
+        has_errors=1
+        for offending_file in $OFFENDING_FILES; do
+            echo "${CYAN}${offending_file}"
+        done;
+    fi
+}
+
+main() {
+	has_errors=0
+    [[ -z $GIT_ROOT ]] && GIT_ROOT=$(git rev-parse --show-toplevel)
+    validate_tba
+    [[ $has_errors -gt 0 ]] && return 1
+    return 0
+}
+
+main && exit 0
