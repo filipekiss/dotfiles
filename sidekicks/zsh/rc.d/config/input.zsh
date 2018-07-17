@@ -44,49 +44,15 @@ key_info=(
 
 # Bind the keys
 
-local key
-for key in "${(s: :)key_info[ControlLeft]}"; do
-  bindkey ${key} backward-word
-done
-for key in "${(s: :)key_info[ControlRight]}"; do
-  bindkey ${key} forward-word
-done
+# Vim mode
+bindkey -v
 
-if [[ -n "${key_info[Home]}" ]]; then
-  bindkey "${key_info[Home]}" beginning-of-line
-fi
-
-if [[ -n "${key_info[End]}" ]]; then
-  bindkey "${key_info[End]}" end-of-line
-fi
-
-if [[ -n "${key_info[PageUp]}" ]]; then
-  bindkey "${key_info[PageUp]}" up-line-or-history
-fi
-
-if [[ -n "${key_info[PageDown]}" ]]; then
-  bindkey "${key_info[PageDown]}" down-line-or-history
-fi
-
-if [[ -n "${key_info[Insert]}" ]]; then
-  bindkey "${key_info[Insert]}" overwrite-mode
-fi
-
-double-dot-expand() {
-  if [[ ${LBUFFER} == *.. ]]; then
-    LBUFFER+='/..'
-  else
-    LBUFFER+='.'
-  fi
-}
-zle -N double-dot-expand
-bindkey "." double-dot-expand
-
-bindkey "${key_info[Delete]}" delete-char
-bindkey "${key_info[Backspace]}" backward-delete-char
-
-(( $+key_info[Left] )) && bindkey "${key_info[Left]}" backward-char
-(( $+key_info[Right] )) && bindkey "${key_info[Right]}" forward-char
+bindkey '^P' up-history
+bindkey '^N' down-history
+bindkey '^?' backward-delete-char
+bindkey '^h' backward-delete-char
+bindkey '^w' backward-kill-word
+bindkey '^r' history-incremental-search-backward
 
 # Expandpace.
 bindkey ' ' magic-space
@@ -98,6 +64,17 @@ bindkey "${key_info[Control]}L" clear-screen
 if [[ -n "${key_info[BackTab]}" ]]; then
   bindkey "${key_info[BackTab]}" reverse-menu-complete
 fi
+
+# Automatically expand ... to ../..
+double-dot-expand() {
+  if [[ ${LBUFFER} == *.. ]]; then
+    LBUFFER+='/..'
+  else
+    LBUFFER+='.'
+  fi
+}
+zle -N double-dot-expand
+bindkey "." double-dot-expand
 
 # Redisplay after completing, and avoid blank prompt after <Tab><Tab><Ctrl-C>
 expand-or-complete-with-redisplay() {
@@ -121,3 +98,6 @@ zle-line-finish() {
 }
 zle -N zle-line-init
 zle -N zle-line-finish
+
+# Ensure no delay when changing modes
+export KEYTIMEOUT=1
