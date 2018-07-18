@@ -7,11 +7,11 @@ alias   gas="git rebase --interactive --autosquash"
 unalias gbr 2> /dev/null
 alias   gbr="git branch"
 unalias gbc 2> /dev/null
-alias   gcb="git checkout -b"
+ealias  gcb="git checkout -b"
 unalias gci 2> /dev/null
-alias   gci="git commit"
+ealias  gci="git commit"
 unalias gco 2> /dev/null
-alias   gco="git checkout"
+ealias  gco="git checkout"
 unalias gfa 2> /dev/null
 alias   gfa="git fetch --all"
 unalias gfo 2> /dev/null
@@ -19,7 +19,7 @@ alias   gfo="git fetch origin"
 unalias gph 2> /dev/null
 alias   gph="git push -u origin HEAD"
 unalias gpf 2> /dev/null
-alias   gpf="git push --force-with-lease"
+ealias  gpf="git push --force-with-lease"
 unalias gpr 2> /dev/null
 alias   gpr="git pull --rebase"
 unalias gps 2> /dev/null

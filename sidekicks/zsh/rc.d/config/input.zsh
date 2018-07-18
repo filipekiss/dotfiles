@@ -54,9 +54,6 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 
-# Expandpace.
-bindkey ' ' magic-space
-
 # Clear
 bindkey "${key_info[Control]}L" clear-screen
 
@@ -101,3 +98,23 @@ zle -N zle-line-finish
 
 # Ensure no delay when changing modes
 export KEYTIMEOUT=1
+
+########################################################################
+# Expand aliases
+# http://www.math.cmu.edu/~gautam/sj/blog/20140625-zsh-expand-alias.html
+# https://github.com/ninrod/dotfiles/blob/master/zsh/expand-alias.zsh
+########################################################################
+
+function expand-ealias() {
+  if [[ $LBUFFER =~ "(^|[;|&])\s*(${(j:|:)ealiases})\$" ]]; then
+	zle _expand_alias
+	zle expand-word
+  fi
+  zle magic-space
+}
+
+zle -N expand-ealias
+
+bindkey -M viins ' '        expand-ealias
+bindkey -M viins '^ '       magic-space     # control-space to bypass completion
+bindkey -M isearch " "      magic-space     # normal space during searches
