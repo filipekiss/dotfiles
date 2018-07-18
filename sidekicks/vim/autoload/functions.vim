@@ -176,6 +176,16 @@ function! functions#SetupNCM()
         smap <c-u> <Plug>(ultisnips_expand)
         imap <C-Space> <Plug>(ncm2_manual_trigger)
         let g:ncm2#popup_delay = 20
+
+        " This is here to prevent functionality breaking due to NCM and
+        " AutoPairs conflicts.
+        " See https://github.com/jiangmiao/auto-pairs/issues/91#issuecomment-241692588
+        " for more information
+        if exists('g:AutoPairsLoaded')
+            let g:AutoPairsMapCR = 0
+        endif
+
+        imap <expr> <CR> pumvisible() && empty(v:completed_item) ? "\<C-y>\<Plug>(expand_or_cr)" : exists('g:AutoPairsLoaded') ? "\<CR>\<Plug>AutoPairsReturn" : "\<CR>"
     endif
 endfunction
 

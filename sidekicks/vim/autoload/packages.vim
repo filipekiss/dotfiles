@@ -72,6 +72,7 @@ function! packages#init() abort
                 \ { 'do': 'yarn global add prettier eslint' }                 " Linting for various languages
     Plug 'https://github.com/tpope/vim-sleuth'                                " Set expandtab, shiftwidth and more based on current buffer
     Plug 'https://github.com/tweekmonster/django-plus.vim'                    " Better Django Support
+    Plug 'https://github.com/jiangmiao/auto-pairs'                            " Auto-pair quotes, braces, parens…
     " }}} ---------------------------------------- Syntax and Language-related Plugins
 
     " General Productivity plugins ---------------------------------------- {{{
