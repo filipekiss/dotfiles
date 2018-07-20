@@ -123,6 +123,7 @@
 [rebase]
     instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
 	autosquash = true
+	autoStash = true
 
 ; -------------------
 ; Git System Settings
