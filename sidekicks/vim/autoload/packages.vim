@@ -17,26 +17,37 @@ function! packages#init() abort
                 \ {
                 \ 'branch': 'next',
                 \ 'do': 'bash ./install.sh'
-                \ }                                                           " Language Server Clien
+                \ }                                                           " Language Server Client
     Plug 'https://github.com/othree/csscomplete.vim'                          " Better CSS completion
     if has('nvim') && has('python3')
-        Plug 'https://github.com/roxma/nvim-yarp' " Remote Interface, NCM2 depends on this
-        Plug 'https://github.com/ncm2/ncm2' " Completion Manager
-        Plug 'ncm2/ncm2-bufword' " Complete words from buffer
-        Plug 'ncm2/ncm2-tmux' " Complete words from other tmux panes
-        Plug 'ncm2/ncm2-path' " Complete paths
-        Plug 'ncm2/ncm2-jedi' " Python completion
-        Plug 'ncm2/ncm2-html-subscope' " JS/CSS completion inside html blocks
-        Plug 'ncm2/ncm2-cssomni' " Css completion
-        Plug 'ncm2/ncm2-tagprefix' " Tag (prefix) completion
-        Plug 'ncm2/ncm2-tern', { 'do': 'yarn global add tern && yarn' } " JS Completion via Tern
-        Plug 'ncm2/ncm2-ultisnips' " Ultisnips completion
-        Plug 'ncm2/ncm2-markdown-subscope' " Markdown subscope
+        Plug 'https://github.com/roxma/nvim-yarp'                             " Remote Interface, NCM2 depends on this
+        Plug 'https://github.com/ncm2/ncm2'                                   " Completion Manager
+        Plug 'https://github.com/ncm2/ncm2-bufword'                           " Complete words from buffer
+        Plug 'https://github.com/ncm2/ncm2-tmux'                              " Complete words from other tmux panes
+        Plug 'https://github.com/ncm2/ncm2-path'                              " Complete paths
+        Plug 'https://github.com/ncm2/ncm2-jedi', {'for': ['python']}         " Python completion
+        Plug 'https://github.com/ncm2/ncm2-html-subscope',
+                    \ { 'for': [
+                    \   'html',
+                    \   'htmldjango'
+                    \ ]}                                                      " JS/CSS completion inside html blocks
+        Plug 'https://github.com/ncm2/ncm2-cssomni'                           " Css completion
+        Plug 'https://github.com/ncm2/ncm2-tagprefix'                         " Tag (prefix) completion
+        Plug 'https://github.com/ncm2/ncm2-tern', {
+                    \ 'do': 'yarn global add tern && yarn',
+                    \ 'for': ['javascript']
+                    \ }                                                       " JS Completion via Tern
+        Plug 'https://github.com/ncm2/ncm2-ultisnips'                         " Ultisnips completion
+        Plug 'https://github.com/ncm2/ncm2-markdown-subscope', {
+                    \ 'for': ['markdown']
+                    \ }                                                       " Markdown subscope
+        Plug 'https://github.com/filipekiss/ncm2-look.vim', {
+                    \ 'for': ['markdown', 'gitcommit']
+                    \ }                                                       " English Word Completion
     endif
     " }}} ---------------------------------------- Autocomplete
 
     " System Plugins ---------------------------------------- {{{
-    Plug 'https://github.com/christoomey/vim-tmux-navigator'                  " Transparent navigation between vim buffers and tmux panes
     Plug 'https://github.com/tpope/vim-eunuch'                                " Utilities for file manipulation
     Plug 'https://github.com/duggiefresh/vim-easydir'                         " Easily handling of dirs inside vim
     Plug 'https://github.com/jaawerth/nrun.vim'                               " Node modules aware run and which commands with fallback to PATH
@@ -70,7 +81,6 @@ function! packages#init() abort
     Plug 'https://github.com/junegunn/vader.Vim'                              " Test suit for VimScript
     Plug 'https://github.com/w0rp/ale',
                 \ { 'do': 'yarn global add prettier eslint' }                 " Linting for various languages
-    Plug 'https://github.com/tpope/vim-sleuth'                                " Set expandtab, shiftwidth and more based on current buffer
     Plug 'https://github.com/tweekmonster/django-plus.vim'                    " Better Django Support
     Plug 'https://github.com/jiangmiao/auto-pairs'                            " Auto-pair quotes, braces, parens…
     " }}} ---------------------------------------- Syntax and Language-related Plugins
@@ -102,7 +112,6 @@ function! packages#init() abort
     Plug 'https://github.com/bronson/vim-visual-star-search'                  " Start a star search (*) from visually selected text
     Plug 'https://github.com/nathanaelkane/vim-indent-guides'                 " Show indentation guides
     Plug 'https://github.com/tpope/tpope-vim-abolish'                         " This is basically auto-correct that works
-    Plug 'https://github.com/justinmk/vim-sneak'                              " Like f, but use two characters instead
     Plug 'https://github.com/blueyed/vim-diminactive'                         " Dim inactive panes
     Plug 'https://github.com/tpope/vim-fugitive'                              " Add a few git commands and git support
     Plug 'https://github.com/machakann/vim-sandwich'                          " Better vim.surround
@@ -114,10 +123,6 @@ function! packages#init() abort
 
     " ColorSchemes and cool stuff ---------------------------------------- {{{
     Plug 'https://github.com/morhetz/gruvbox'                                 " Gruvbox colorscheme
-    Plug 'https://github.com/nightsense/vimspectr', {
-                \ 'do':
-                \ 'ln -s ' .$VIMHOME. '/plugged/vimspectr/shell ~/.vimspectr-shell'
-                \ }                                                                 " VimSpectr theme collection
     " }}} ---------------------------------------- ColorSchemes and cool stuff
 
     " Writing Plugins ---------------------------------------- {{{
@@ -125,7 +130,6 @@ function! packages#init() abort
     Plug 'https://github.com/junegunn/limelight.vim', { 'on': ['Limelight'] } " Context highlight
     Plug 'https://github.com/mzlogin/vim-markdown-toc'                        " Generate TOC for Markdown files
     Plug 'https://github.com/vimwiki/vimwiki'                                 " Personal Wiki IDE
-    Plug 'https://github.com/filipekiss/ncm2-look.vim'                      " English Word Completion
     " }}} ---------------------------------------- Writing Plugins
 
     call plug#end()
