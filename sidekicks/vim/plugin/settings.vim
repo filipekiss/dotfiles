@@ -16,13 +16,12 @@ if !has('nvim')
     endif
 endif
 
-" Testing vim-sleuth.
-" set expandtab    " always use spaces instead of tabs
-" set tabstop=3    " spaces per tab
-" set softtabstop=2
-" set shiftround   " always indent by multiple of shiftwidth
-" set shiftwidth=1 " spaces per tab (when shifting)
-" set nowrap       " no wrap
+set expandtab     " always use spaces instead of tabs
+set tabstop=4     " units per tab
+set softtabstop=4 " spaces per tab
+set shiftround    " always indent by multiple of shiftwidth
+set shiftwidth=4  " spaces per tab (when shifting)
+set nowrap        " no wrap
 
 set textwidth=80
 
@@ -158,11 +157,7 @@ set list
 set listchars=nbsp:░
 set listchars+=eol:¬
 set listchars+=trail:·
-if &expandtab
-    set listchars+=tab:··
-else
-    set listchars+=tab:\ \ ,
-endif
+set listchars=tab:▸\ ,
 
 set listchars+=extends:»
 set listchars+=precedes:«
