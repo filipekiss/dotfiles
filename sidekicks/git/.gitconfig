@@ -252,3 +252,5 @@
 	required = true
 [submodule]
 	recurse = true
+[log]
+	mailmap = true
