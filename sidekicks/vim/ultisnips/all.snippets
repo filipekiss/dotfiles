@@ -2,7 +2,7 @@ snippet :date "1989-12-09"
 `date "+%Y-%m-%d"`
 endsnippet
 
-snippet bang
+snippet bang b
 #!/usr/bin/env ${1:sh}
 
 $0
@@ -120,5 +120,8 @@ snippet todo "Add a todo with date and github user" b
 $0
 endsnippet
 
+snippet sign "Add a signature to be used in  comments or such"
+${1:`echo ${FULLNAME:-Your Name}`} - ${2:`echo ${EMAIL:-email@domain.com}`}
+endsnippet
 # vim:ft=snippets:
 

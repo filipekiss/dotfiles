@@ -162,12 +162,11 @@ function! functions#NeatFoldText()
     return l:dashes . l:foldchar . l:foldchar . ' ' . l:lines . ': ' . l:first . ' '
 endfunction
 
-
 function! functions#SetupNCM()
     if has('nvim')
         let g:UltiSnipsExpandTrigger		= '<Plug>(ultisnips_expand)'
-        let g:UltiSnipsJumpForwardTrigger	= '<c-j>'
-        let g:UltiSnipsJumpBackwardTrigger	= '<c-k>'
+        let g:UltiSnipsJumpForwardTrigger	= '<C-j>'
+        let g:UltiSnipsJumpBackwardTrigger	= '<C-k>'
         let g:UltiSnipsRemoveSelectModeMappings = 0
         inoremap <silent> <c-u> <c-r>=ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)")<cr>
         inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
@@ -184,8 +183,7 @@ function! functions#SetupNCM()
         if exists('g:AutoPairsLoaded')
             let g:AutoPairsMapCR = 0
         endif
-
-        imap <expr> <CR> pumvisible() && empty(v:completed_item) ? "\<C-y>\<Plug>(expand_or_cr)" : exists('g:AutoPairsLoaded') ? "\<CR>\<Plug>AutoPairsReturn" : "\<CR>"
+        imap <expr> <CR> pumvisible() && empty(v:completed_item) ? "\<C-y>\<CR>" : exists('g:AutoPairsLoaded') ? "\<CR>\<Plug>AutoPairsReturn" : "\<CR>"
     endif
 endfunction
 
