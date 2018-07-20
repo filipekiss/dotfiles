@@ -362,10 +362,14 @@ function! functions#SetupVimwiki()
     let s:default_options = {
                 \ 'auto_toc': 1,
                 \ 'nested_syntaxes' : {
-                \ 'react': 'javascript',
-                \ 'bash': 'sh'
+                \ 'bash': 'sh',
+                \ 'html': 'html',
+                \ 'javascript': 'javascript.jsx',
+                \ 'python': 'python',
+                \ 'react': 'javascript.jsx',
+                \ 'sh': 'sh',
+                \ 'zsh': 'zsh',
                 \ },
-                \ 'automatic_nested_syntax': 1
                 \ }
 
     let s:personal_wiki = extend({
