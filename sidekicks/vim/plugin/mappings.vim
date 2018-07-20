@@ -70,6 +70,11 @@ inoremap kk <ESC>
 nnoremap H ^
 nnoremap L $
 
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
+
 " nnoremap <silent> <leader>d :20Lex<CR>
 
 if has('macunix')
@@ -132,6 +137,9 @@ nnoremap <leader><CR> :call functions#Preserve("g/^$/,/./-j")<CR>
 
 map <silent> <Leader>he :call functions#HtmlEscape()<CR>
 map <silent> <Leader>hu :call functions#HtmlUnEscape()<CR>
+
+" Since J joins two lines, K splits at current cursor position
+nnoremap K ik$
 
 " maintain the same shortcut as vim-gtfo becasue it's in my muscle memory.
 nmap <silent> gof :call functions#OpenFileFolder()<CR>

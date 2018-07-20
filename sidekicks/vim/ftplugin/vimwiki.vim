@@ -14,3 +14,5 @@ nmap <silent><buffer> LL <Plug>VimwikiIncreaseLvlWholeItem
 nmap <silent><buffer> << <Plug>VimwikiDecreaseLvlSingleItem
 nmap <silent><buffer> KK <Plug>VimwikiDecreaseLvlWholeItem
 
+" Make list toggler also work in normal mode
+nmap <silent><buffer> <C-l><C-m> i<C-l><C-m><C-[>
