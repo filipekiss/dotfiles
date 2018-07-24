@@ -16,3 +16,4 @@ nmap <silent><buffer> KK <Plug>VimwikiDecreaseLvlWholeItem
 
 " Make list toggler also work in normal mode
 nmap <silent><buffer> <C-l><C-m> i<C-l><C-m><C-[>
+command! Index :VimwikiDiaryGenerateLinks
