@@ -67,6 +67,7 @@
     ctags = !~/.dotfiles/sidekicks/git/hooks/utils/ctags
 	unpushed-branches = log --branches --not --remotes --no-walk --decorate --oneline
 	ff = merge --ff-only
+	undo-last = reset head~
 
 ; --
 ; UI
