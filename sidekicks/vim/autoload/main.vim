@@ -49,7 +49,8 @@ function! main#pluginSettings() abort
     let g:rainbow_active = 1
     let g:rainbow_conf = {
                 \ 'separately' : {
-                    \ 'vimwiki': 0
+                    \ 'vimwiki': 0,
+                    \ 'htmldjango': 0,
                     \ }
                 \ }
     let g:markdown_fenced_languages = ['css', 'erb=eruby', 'javascript', 'js=javascript', 'json=json', 'ruby', 'sass', 'scss=sass', 'xml', 'html', 'python', 'stylus=css', 'less=css', 'zsh=sh', 'bash=sh', 'sh', 'vim', 'react=javascript']

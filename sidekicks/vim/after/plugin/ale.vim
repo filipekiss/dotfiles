@@ -54,7 +54,7 @@ let g:ale_fixers = {
             \ 'scss': [
             \   'prettier',
             \ ],
-            \ 'python': ['yapf']
+            \ 'python': []
             \}
 
 " Don't auto fix (format) files inside `node_modules`, minified files and jquery (for legacy codebases)
