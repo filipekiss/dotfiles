@@ -66,7 +66,7 @@ function! main#pathSettings() abort
     set path+=.**
 endfunction
 
-function main#overrides() abort
+function! main#overrides() abort
     " Local overrides
     let s:vimrc_local = $HOME . '/.local.vim'
     if filereadable(s:vimrc_local)
@@ -74,7 +74,7 @@ function main#overrides() abort
     endif
 
     " Project specific override
-    let s:vimrc_project = $PWD . '/.local.vim'
+    let s:vimrc_project = getcwd() . '/.local.vim'
     if filereadable(s:vimrc_project)
         execute 'source ' . s:vimrc_project
     endif

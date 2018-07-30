@@ -33,6 +33,7 @@ augroup MyAutoCmds
 
     " Update cd for current window
     autocmd BufEnter * call functions#SetProjectDir()
+    autocmd BufEnter * call main#overrides()
 
     " Ensure Sleuth is run
     if exists(':Sleuth')
