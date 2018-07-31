@@ -13,13 +13,13 @@ function! packages#init() abort
     call plug#begin(s:VIM_PLUG_FOLDER)
 
     " Autocomplete ---------------------------------------- {{{
-    Plug 'https://github.com/autozimu/LanguageClient-neovim',
-                \ {
-                \ 'branch': 'next',
-                \ 'do': 'bash ./install.sh'
-                \ }                                                           " Language Server Client
     Plug 'https://github.com/othree/csscomplete.vim'                          " Better CSS completion
     if has('nvim') && has('python3')
+        Plug 'https://github.com/autozimu/LanguageClient-neovim',
+                    \ {
+                    \ 'branch': 'next',
+                    \ 'do': 'bash ./install.sh'
+                    \ }                                                       " Language Server Client
         Plug 'https://github.com/roxma/nvim-yarp'                             " Remote Interface, NCM2 depends on this
         Plug 'https://github.com/ncm2/ncm2'                                   " Completion Manager
         Plug 'https://github.com/ncm2/ncm2-bufword'                           " Complete words from buffer
@@ -112,7 +112,6 @@ function! packages#init() abort
     Plug 'https://github.com/bronson/vim-visual-star-search'                  " Start a star search (*) from visually selected text
     Plug 'https://github.com/nathanaelkane/vim-indent-guides'                 " Show indentation guides
     Plug 'https://github.com/tpope/tpope-vim-abolish'                         " This is basically auto-correct that works
-    Plug 'https://github.com/blueyed/vim-diminactive'                         " Dim inactive panes
     Plug 'https://github.com/tpope/vim-fugitive'                              " Add a few git commands and git support
     Plug 'https://github.com/machakann/vim-sandwich'                          " Better vim.surround
     Plug 'https://github.com/mjbrownie/swapit'                                " Swap between words from a specific list

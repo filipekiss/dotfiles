@@ -192,15 +192,6 @@ nnoremap <Leader>o moGGo
 " Do not show stupid q: window
 map q: :q
 
-" Taken from https://github.com/ahmedelgabri/dotfiles/blob/1389afb250a0d234ab279e36fc3bc9b1d2dc80fd/vim/.vim/plugin/mappings.vim#L143-L149
-" inc & dec numbers
-" :h nrformats
-noremap + <C-a>
-noremap - <C-x>
-" Visual mode too
-xnoremap + g<C-a>
-xnoremap - g<C-x>
-
 if has_key(g:plugs, 'emmet-vim')
     nnoremap <Leader>em :call emmet#expandAbbr(0, "")<CR>
     imap ,, <C-y>,
