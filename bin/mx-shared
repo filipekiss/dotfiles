@@ -35,7 +35,7 @@ function create_shared_session() {
 
 function link_session() {
     local TARGET_SESSION="${1:-}"
-    local SOURCE_SESSION="${2:_shared}"
+    local SOURCE_SESSION="${2:dotfiles}"
     if [[ -z $TARGET_SESSION && -z $TMUX ]]; then
         echo "You must run this inside a TMUX session"
         return
@@ -50,7 +50,7 @@ function link_session() {
 }
 
 
-SESSION="_shared"
+SESSION="dotfiles"
 if ! (tmux has-session -t "${SESSION}" > /dev/null 2>&1); then
     create_shared_session $SESSION ${DOTFILES:-${HOME}/.dotfiles}
 fi
