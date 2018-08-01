@@ -175,6 +175,7 @@ function! functions#SetupNCM()
         smap <c-u> <Plug>(ultisnips_expand)
         imap <C-Space> <Plug>(ncm2_manual_trigger)
         let g:ncm2#popup_delay = 20
+        let g:ncm2#matcher = 'substrfuzzy'
 
         " This is here to prevent functionality breaking due to NCM and
         " AutoPairs conflicts.
