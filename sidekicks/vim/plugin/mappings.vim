@@ -57,7 +57,8 @@ nnoremap <silent> <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>j :<c-u>execute 'move +'. v:count1<cr>
 nnoremap <leader>k :<c-u>execute 'move -1-'. v:count1<cr>
 
-nnoremap <leader>q :quit<CR>
+" If vim is in diff mode, close all buffers. Otherwhise, :quit
+nnoremap <expr><silent> <leader>q &diff ? ":windo bd<CR>" : ":quit<CR>"
 
 " https://github.com/mhinz/vim-galore#quickly-edit-your-macros
 nnoremap <leader>m  :<c-u><c-r>='let @'. v:register .' = '. string(getreg(v:register))<cr><c-f><left>
