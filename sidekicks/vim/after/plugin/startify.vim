@@ -46,17 +46,3 @@ hi! link StartifyPath LineNr
 hi! link StartifySlash StartifyPath
 hi! link StartifyBracket StartifyPath
 hi! link StartifyNumber Title
-
-augroup StartifyCustom
-    autocmd User Startified setlocal cursorline
-    if has('nvim')
-        autocmd TabNewEntered * Startify
-    else
-        autocmd VimEnter * let t:startify_new_tab = 1
-        autocmd BufEnter *
-                    \ if !exists('t:startify_new_tab') && empty(expand('%')) |
-                    \   let t:startify_new_tab = 1 |
-                    \   Startify |
-                    \ endif
-    endif
-augroup END
