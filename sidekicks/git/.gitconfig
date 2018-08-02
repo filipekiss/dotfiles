@@ -258,7 +258,11 @@
 	mailmap = true
 
 [mergetool "fugitive"]
-	cmd = nvr --remote-wait-silent -s -c \"Gdiff\" \"$MERGED\"
+    cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c \"wincmd H | wincmd =\"
 
 [difftool "fugitive"]
-	cmd = nvr --remote-wait-silent -s -c \"Gdiff HEAD\" \"$MERGED\"
+    cmd = nvr -s -d $LOCAL $REMOTE -c \"wincmd H | wincmd =\"
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
