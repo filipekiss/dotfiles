@@ -83,6 +83,7 @@ function! packages#init() abort
                 \ { 'do': 'yarn global add prettier eslint' }                 " Linting for various languages
     Plug 'https://github.com/tweekmonster/django-plus.vim'                    " Better Django Support
     Plug 'https://github.com/jiangmiao/auto-pairs'                            " Auto-pair quotes, braces, parens…
+    Plug 'https://github.com/chr4/nginx.vim'                                  " Nginx Syntax
     " }}} ---------------------------------------- Syntax and Language-related Plugins
 
     " General Productivity plugins ---------------------------------------- {{{
