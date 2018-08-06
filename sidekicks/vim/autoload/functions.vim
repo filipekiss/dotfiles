@@ -124,7 +124,7 @@ function! functions#hasFileType(list)
     return index(a:list, &filetype) != -1
 endfunction
 
-let g:fckQuitBlackList = ['preview', 'qf', 'fzf', 'netrw', 'help']
+let g:fckQuitBlackList = ['preview', 'qf', 'fzf', 'netrw', 'help', 'tagbar']
 function! functions#should_quit_on_q()
     return functions#hasFileType(g:fckQuitBlackList)
 endfunction
@@ -137,6 +137,11 @@ endfunction
 let g:fckKeepWhiteSpace = ['markdown']
 function! functions#should_strip_whitespace()
     return functions#hasFileType(g:fckKeepWhiteSpace)
+endfunction
+
+let g:fckNoLineNumbers = ['tagbar', 'gitcommit', 'fzf']
+function! functions#shouldDisplayLineNumbers()
+    return !functions#hasFileType(g:fckNoLineNumbers)
 endfunction
 
 

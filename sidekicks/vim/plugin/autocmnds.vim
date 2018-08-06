@@ -24,8 +24,8 @@ augroup MyAutoCmds
 
     autocmd BufWritePre * if functions#should_strip_whitespace() | call functions#Preserve("%s/\\s\\+$//e") | endif
     " autocmd VimEnter,ColorScheme * call functions#change_iterm2_profile()
-    autocmd InsertLeave,WinEnter * if (!exists('g:isGoyoActive')) | set relativenumber | endif
-    autocmd InsertEnter,WinLeave * if (!exists('g:isGoyoActive')) | set norelativenumber | endif
+    autocmd InsertLeave,WinEnter * if functions#shouldDisplayLineNumbers() | set relativenumber | endif
+    autocmd InsertEnter,WinLeave * if functions#shouldDisplayLineNumbers() | set norelativenumber | endif
 
     autocmd FileType crontab setlocal bkc=yes
 
