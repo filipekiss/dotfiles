@@ -189,6 +189,9 @@ nnoremap <Leader>R :w<CR> :source % \| echom "Reloaded " . expand("%") <CR>
 nnoremap <Leader>O mOggO
 nnoremap <Leader>o moGGo
 
+" Make zC fold recursively
+nnoremap zC :foldc! \| .,+1foldc!<CR>
+
 " Shamelessly stolen from https://github.com/jessfraz/.vim/blob/master/vimrc#L286
 " Do not show stupid q: window
 map q: :q
