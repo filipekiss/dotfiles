@@ -32,3 +32,16 @@ snippet iife "(function())()" b
 $0
 })
 endsnippet
+
+snippet foro "for item of collection"
+for (let ${1:item} of ${2:collection}) {
+	${0:${VISUAL}}
+}
+endsnippet
+
+
+snippet foreach
+${1:${VISUAL:collection}}.forEach(${2:item} => {
+    $0
+})
+endsnippet
