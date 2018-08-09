@@ -63,6 +63,10 @@ function! packages#init() abort
     " }}} ---------------------------------------- System Plugins
 
     " Syntax and Language-related Plugins ---------------------------------------- {{{
+    Plug 'https://github.com/pangloss/vim-javascript',
+                \ {
+                \ 'for': ['javascript']
+                \ }                                                           " Better Javascript Support
     Plug 'https://github.com/ap/vim-css-color',
                 \ {
                 \ 'for': [
