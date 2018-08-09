@@ -29,12 +29,15 @@ function! StatusLine()
     return l:sline
 endfunction
 
-execute 'hi! link User1 Comment'
-execute 'hi! link User2 LineNr'
-execute 'hi! link User3 Constant'
+
+execute 'hi! link User1 fcksMode'
+execute 'hi! link User2 fcksDim'
+execute 'hi! link User3 fcksHighlight'
+
 
 " This is here to ensure proper statusline redraw when changing modes
 augroup statusline
     autocmd!
     autocmd InsertEnter,InsertLeave * call statusline#getMode(mode())
+    autocmd ColorScheme * call statusline#updateColors()
 augroup END

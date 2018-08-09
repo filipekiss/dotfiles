@@ -1,5 +1,15 @@
 scriptencoding utf-8
 
+
+" https://stackoverflow.com/a/18776976/708359
+function! statusline#getColor(higroup, ...)
+    let l:fgOrBg = get(a:, 1, 'fg')
+    let l:displayAs = get(a:, 2, l:fgOrBg)
+    let l:colorCodeGui = synIDattr(synIDtrans(hlID(a:higroup)), l:fgOrBg, 'gui')
+    let l:colorCodeCterm = synIDattr(synIDtrans(hlID(a:higroup)), l:fgOrBg, 'cterm')
+    return 'gui' . l:displayAs . '=' . l:colorCodeGui . ' cterm' . l:displayAs . '=' . l:colorCodeCterm
+endfunction
+
 function! statusline#left_pad(string, padSize, ...) abort
     let l:padWith=get(a:, 1, ' ')
 
@@ -102,7 +112,7 @@ let s:dictmode= {'n': ['N', '4'],
 
 " DEFINE COLORS FOR STATUSBAR
 let s:dictstatuscolor={
-            \ '1': 'hi! User1 guibg=#f84b3c guifg=NONE',
+            \ '1': 'hi! link User1 fcksMode',
             \ '2': 'hi! link User1 IncSearch',
             \ '3': 'hi! User1 guibg=#ebdab4 guifg=NONE',
             \ '4': 'hi! link User1 StatusLine',
@@ -131,11 +141,14 @@ endfunction
 
 function! statusline#fileprefix()
     let l:basename=expand('%:h')
-    if l:basename ==? '' || l:basename ==? '.'
+    let l:pathPrefix=get(b:, 'fckBufPrefix', '')
+    if l:basename ==? ''
         return ''
+    elseif  l:basename ==? '.'
+        return l:pathPrefix
     else
         " Make sure we show $HOME as ~.
-        return substitute(l:basename . '/', '\C^' . $HOME, '~', '')
+        return l:pathPrefix . substitute(l:basename . '/', '\C^' . $HOME, '~', '')
     endif
 endfunction
 
@@ -148,24 +161,34 @@ function! statusline#LinterStatus() abort
     let l:error_symbol = '⨉'
     let l:style_symbol = '●'
     let l:counts = ale#statusline#Count(bufnr(''))
-    let l:ale_linter_status = ''
+    let l:ale_linter_status = []
 
     if l:counts.total == 0
-        return printf('%%#GitGutterAdd#%s', l:style_symbol)
+        return printf('%%#fcksSuccess#%s', l:style_symbol)
     endif
 
     if l:counts.error
-        let l:ale_linter_status .= printf('%%#GitGutterDelete#%d %s', l:counts.error, l:error_symbol)
+        call add(l:ale_linter_status , printf('%%#fcksError#%d %s', l:counts.error, l:error_symbol))
     endif
     if l:counts.warning
-        let l:ale_linter_status .= printf('%%#GitGutterChange#%d %s', l:counts.warning, l:error_symbol)
+        call add(l:ale_linter_status , printf('%%#fcksWarning#%d %s', l:counts.warning, l:error_symbol))
     endif
     if l:counts.style_error
-        let l:ale_linter_status .= printf('%%#GitGutterDelete#%d %s', l:counts.style_error, l:style_symbol)
+        call add(l:ale_linter_status , printf('%%#fcksError#%d %s', l:counts.style_error, l:style_symbol))
     endif
     if l:counts.style_warning
-        let l:ale_linter_status .= printf('%%#GitGutterChange#%d %s', l:counts.style_warning, l:style_symbol)
+        call add(l:ale_linter_status , printf('%%#fcksWarning#%d %s', l:counts.style_warning, l:style_symbol))
     endif
 
-    return l:ale_linter_status
+    return join(l:ale_linter_status)
+endfunction
+
+function! statusline#updateColors() abort
+    let s:statusLineBgColor = ' ' . statusline#getColor('CursorLineNr', 'bg')
+    execute 'hi! fcksMode ' . statusline#getColor('Comment') . s:statusLineBgColor
+    execute 'hi! fcksDim ' .  statusline#getColor('LineNr')  . s:statusLineBgColor
+    execute 'hi! fcksHighlight ' . statusline#getColor('Constant') . s:statusLineBgColor
+    execute 'hi! fcksSuccess ' . statusline#getColor('DiffAdd') . s:statusLineBgColor
+    execute 'hi! fcksWarning ' . statusline#getColor('DiffText') . s:statusLineBgColor
+    execute 'hi! fcksError ' . statusline#getColor('DiffDelete') . s:statusLineBgColor
 endfunction
