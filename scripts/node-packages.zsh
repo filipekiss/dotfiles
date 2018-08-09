@@ -2,12 +2,17 @@
 (( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
 
 PACKAGES=(
+    "eslint"
+    "eslint-config-airbnb"
+    "eslint-config-prettier"
+    "eslint-plugin-import"
+    "eslint-plugin-react"
+    "eslint-plugin-prettier"
     "flow-language-server"
     "jscpd"
     "neovim"
     "prettier"
     "tern"
-    "xo"
 )
 
 for package in "${PACKAGES[@]}"; do
