@@ -7,56 +7,114 @@
 # --------------------------------------------------------------------------------------------------
 # Usage
 # -----
-# git health [all|local|remote]
+# git health [all|local|remote] --stale
 #
-# By default, git health will be run against all branches. You can pass local to only check local
-# branches and remote to only check remote branches.
+# By default, git health will be run against local branches. You can pass local to only check local
+# branches and remote to only check remote branches and all to check all
+# branches.
 #
 # The branches will be sorted by last activity, from the most recently active to the least recent
 # active. You can use a dash prefix to invert the order, so git health -all will list all branches
 # with the most stale branch on top and the most recent active branch on the bottom
+#
+# If you pass the --stale option, only stale branches will be listed. By
+# default, branches are considered stale if no commit was made to them in the
+# past 3 months. You can pass a value to stale, so '--stale "15 days ago"' will
+# list branches with no commits in the last 15 days.
+#
 # --------------------------------------------------------------------------------------------------
 # Authors
 # -------
 # Filipe Kiss <eu@filipekiss.com.br> http://github.com/filipekiss
 # --------------------------------------------------------------------------------------------------
+#
+
+function hasActivity() {
+    branches=($(command git for-each-ref --sort="${SORT_ORDER}" ${REF_PATTERN} --format="%(refname:short)"))
+    for branch in $branches;
+    do;
+        hasAct=$(git log --date=relative --after="${STALE_DATE}" -1 $branch)
+        if [ -z $hasAct ]; then;
+            git --no-pager log -1 $branch --format="%C(blue)%D%C(reset) %C(yellow)%cr %C(reset)"
+        fi
+    done;
+}
 
 function updateRemotes() {
     command git fetch --all > /dev/null 2>&1
 }
 
 function buildCommand() {
-    local branchType=${1:-all}
-    case "$branchType" in
-        local)
-            REF_PATTERN="refs/heads"
-            SORT_ORDER="committerdate"
-            ;;
-        -local)
-            REF_PATTERN="refs/heads"
-            SORT_ORDER="-committerdate"
-            ;;
-        remote)
-            REF_PATTERN="refs/remotes"
-            SORT_ORDER="committerdate"
-            UPDATE_REMOTES="yes"
-            ;;
-        -remote)
-            REF_PATTERN="refs/remotes"
-            SORT_ORDER="-committerdate"
-            UPDATE_REMOTES="yes"
-            ;;
-        -all)
-            REF_PATTERN=("refs/remotes" "refs/heads")
-            SORT_ORDER="-committerdate"
-            UPDATE_REMOTES="yes"
-            ;;
-        *)
-            REF_PATTERN=("refs/remotes" "refs/heads")
-            SORT_ORDER="committerdate"
-            UPDATE_REMOTES="yes"
-            ;;
-    esac
+    local arg
+    while (( $# > 0 ))
+    do
+        arg="$1"
+        case "$arg" in
+            local)
+                [[ -n ${branchOrdered:-} ]] && continue
+                REF_PATTERN="refs/heads"
+                SORT_ORDER="committerdate"
+                branchOrdered="yes"
+                ;;
+            -local)
+                [[ -n ${branchOrdered:-} ]] && continue
+                REF_PATTERN="refs/heads"
+                SORT_ORDER="-committerdate"
+                branchOrdered="yes"
+                ;;
+            remote)
+                [[ -n ${branchOrdered:-} ]] && continue
+                REF_PATTERN="refs/remotes"
+                SORT_ORDER="committerdate"
+                UPDATE_REMOTES="yes"
+                branchOrdered="yes"
+                ;;
+            -remote)
+                [[ -n ${branchOrdered:-} ]] && continue
+                REF_PATTERN="refs/remotes"
+                SORT_ORDER="-committerdate"
+                UPDATE_REMOTES="yes"
+                branchOrdered="yes"
+                ;;
+            all)
+                [[ -n ${branchOrdered:-} ]] && continue
+                REF_PATTERN=("refs/remotes" "refs/heads")
+                SORT_ORDER="committerdate"
+                UPDATE_REMOTES="yes"
+                ALL_BRANCHES="yes"
+                branchOrdered="yes"
+                ;;
+            -all)
+                [[ -n ${branchOrdered:-} ]] && continue
+                REF_PATTERN=("refs/remotes" "refs/heads")
+                SORT_ORDER="-committerdate"
+                UPDATE_REMOTES="yes"
+                ALL_BRANCHES="yes"
+                branchOrdered="yes"
+                ;;
+            --stale=*)
+                STALE_DATE=$(echo $arg | cut -d '=' -f2)
+                ;;
+            --stale)
+                STALE_DATE=${2:-"3 months ago"}
+                ;;
+            --*)
+                # Inexistent dashed option, alert the user
+                echo "Unrecognized option ${arg}"
+                ;;
+            -*)
+                # Inexistent dashed option, alert the user
+                echo "Unrecognized option ${arg}"
+                ;;
+        esac
+        shift
+    done
+    if [[ -z ${branchOrdered:-} ]]; then
+        REF_PATTERN="refs/heads"
+        SORT_ORDER="committerdate"
+        branchOrdered="yes"
+    fi
+    return 0
 }
 
 function listBranches() {
@@ -64,7 +122,11 @@ function listBranches() {
     if [[ "yes" == ${UPDATE_REMOTES:-no} ]]; then
         updateRemotes;
     fi
-    command git for-each-ref --sort="${SORT_ORDER}" ${REF_PATTERN} --format="%(color:yellow)%(refname:short)%(color:reset) %(color:green)%(committerdate:relative)%(color:reset)"
+    if [[ -z ${STALE_DATE:-} ]]; then
+        command git for-each-ref --sort="${SORT_ORDER}" ${REF_PATTERN} --format="%(color:yellow)%(refname:short)%(color:reset) %(color:green)%(committerdate:relative)%(color:reset)"
+    else
+        hasActivity
+    fi
 }
 
 listBranches "$@"
