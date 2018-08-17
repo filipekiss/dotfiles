@@ -5,8 +5,6 @@ if !exists(':ALEInfo')
 endif
 
 let g:ale_html_tidy_executable='/usr/local/bin/tidy'
-let g:ale_javascript_eslint_suppress_eslintignore = 1
-let g:ale_javascript_eslint_suppress_missing_config = 1
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_on_enter = 0
@@ -20,6 +18,7 @@ let g:ale_sign_style_error  = '●'
 let g:ale_sign_style_warning  = g:ale_sign_error
 let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
 let g:ale_echo_msg_format = '[%linter%] [%code%] %s'
+let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_prettier_use_global = 1
 let g:ale_javascript_prettier_use_local_config = 1
 call functions#prettierSettings({'print-width': &textwidth})
