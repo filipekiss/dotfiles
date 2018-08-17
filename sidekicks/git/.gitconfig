@@ -256,6 +256,7 @@
 	recurse = true
 [log]
 	mailmap = true
+	date = local
 
 [mergetool "fugitive"]
     cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c \"wincmd H | wincmd =\"
@@ -266,3 +267,6 @@
 	prompt = false
 [mergetool]
 	prompt = false
+
+[status]
+	showUntrackedFiles = all
