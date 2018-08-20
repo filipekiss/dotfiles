@@ -24,6 +24,7 @@ brew 'aria2', ARGS: ['with-libssh2']
 brew 'curl'
 brew 'diff-so-fancy'
 brew 'direnv'
+brew 'docker-compose', ARGS['without-docker', 'without-docker-machine']
 brew 'fd'
 brew 'ffmpeg'
 brew 'fzf'
@@ -61,7 +62,7 @@ brew 'universal-ctags', args: ['HEAD']
 # Casks
 cask '1password'
 cask 'discord'
-cask 'docker', args: ['without-completions']
+cask 'docker'
 cask 'dropbox'
 cask 'firefox'
 cask 'google-chrome'
