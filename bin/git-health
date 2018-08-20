@@ -96,7 +96,11 @@ function buildCommand() {
                 STALE_DATE=$(echo $arg | cut -d '=' -f2)
                 ;;
             --stale)
-                STALE_DATE=${2:-"3 months ago"}
+                _is_option "$2" && STALE_DATE="3 months ago"
+                STALE_DATE=${STALE_DATE:-${2:-"3 months ago"}}
+                ;;
+            --skip-fetch)
+                SKIP_FETCH="yes"
                 ;;
             --*)
                 # Inexistent dashed option, alert the user
@@ -117,9 +121,13 @@ function buildCommand() {
     return 0
 }
 
+function _is_option() {
+    [[ ${1} =~ "--*" ]] && return 0 || return 1
+}
+
 function listBranches() {
     buildCommand "$@"
-    if [[ "yes" == ${UPDATE_REMOTES:-no} ]]; then
+    if [[ "yes" == ${UPDATE_REMOTES:-no} && "no" == ${SKIP_FETCH:-no} ]]; then
         updateRemotes;
     fi
     if [[ -z ${STALE_DATE:-} ]]; then
