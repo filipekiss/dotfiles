@@ -118,3 +118,6 @@ zle -N expand-ealias
 bindkey -M viins ' '        expand-ealias
 bindkey -M viins '^ '       magic-space     # control-space to bypass completion
 bindkey -M isearch " "      magic-space     # normal space during searches
+
+# FZF Folder Widget
+bindkey '^q' fzf-cd-widget
