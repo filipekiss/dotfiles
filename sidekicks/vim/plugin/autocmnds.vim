@@ -45,9 +45,6 @@ augroup END
 aug completionCmd
     autocmd!
     autocmd InsertEnter * call ncm2#enable_for_buffer()
-    if exists('g:plugs["emmet-vim"]')
-        autocmd FileType html,htmldjango,jinja2 setl omnifunc=emmet#completeTag
-    endif
 aug END
 
 augroup javascript_folding

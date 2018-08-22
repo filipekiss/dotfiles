@@ -11,3 +11,4 @@ Abolish seconde{,s}     second{,s}
 Abolish relatvie        relative
 Abolish haeder          header
 Abolish realted         related
+Abolish withouth        without
