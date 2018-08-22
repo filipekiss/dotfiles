@@ -38,7 +38,7 @@ snippet :time "08:40" b
 `date "+%R"`
 endsnippet
 
-snippet bang "Shebang for scripts definitions" b
+snippet :bang "Shebang for scripts definitions" b
 #!/usr/bin/env ${1:sh}
 
 $0
@@ -63,62 +63,58 @@ snippet :aut "author for scripts, readmes etc"
 ${1:Name} ${2:<${3:user@email.com}>} ${4:http://${5:github.com/${6:username}}}
 endsnippet
 
-snippet banner "add ascii banner"
+snippet :banner "Ascii banner"
 # ------------------------------------------------------------------------------
-$1
+${1:${VISUAL}}
 # ------------------------------------------------------------------------------
 $0
 endsnippet
 
-snippet hr- "same line separator used on banner"
+snippet :hr "same line separator used on banner"
 # ------------------------------------------------------------------------------
 endsnippet
 
-snippet :cmd
+snippet :cmd "⌘" i
 ⌘
 endsnippet
 
-snippet :alt
+snippet :alt "⌥" i
 ⌥
 endsnippet
 
-snippet :opt
+snippet :opt "⌥" i
 ⌥
 endsnippet
 
-snippet :shift
+snippet :shift "⇧" i
 ⇧
 endsnippet
 
-snippet :esc
+snippet :esc "⎋" i
 ⎋
 endsnippet
 
-snippet :caps
+snippet :caps "⇪" i
 ⇪
 endsnippet
 
-snippet :ret
+snippet :return "⏎" i
 ⏎
 endsnippet
 
-snippet :return
-⏎
-endsnippet
-
-snippet :del
+snippet :del "⌫" i
 ⌫
 endsnippet
 
-snippet :tab
+snippet :tab "⇥" i
 ⇥
 endsnippet
 
-snippet mode
+snippet :mode "Vim Mode Line" b
 # vim:ft=${1}:
 endsnippet
 
-snippet mit "MIT license"
+snippet :mit "MIT license"
 The MIT License (MIT)
 
 Copyright (c) `date +"%Y"` ${1:`echo ${FULL_NAME:-${GITHUB_AUTHOR_NAME:-}}`}
@@ -142,7 +138,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 endsnippet
 
-snippet vimfold "fold comment" b
+snippet :vimfold "Add fold comment markers" b
 ${1:Fold title} ---------------------------------------- {{{
 
 ${0:${VISUAL}}
@@ -150,12 +146,12 @@ ${0:${VISUAL}}
 }}} ---------------------------------------- $1
 endsnippet
 
-snippet todo "Add a todo with date and github user" b
+snippet :todo "Add a todo with date and github user" b
 @TODO: ${1:Do something} (`date +"%d-%m-%y %R"`${2: - `echo $GITHUB_USER`})
 $0
 endsnippet
 
-snippet sign "Add a signature to be used in  comments or such"
+snippet :sign "Add a signature to be used in  comments or such"
 ${1:`echo ${FULLNAME:-Your Name}`} - ${2:`echo ${EMAIL:-email@domain.com}`} (`date +"%Y-%m-%d %R"`)
 endsnippet
 

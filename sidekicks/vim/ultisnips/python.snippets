@@ -3,12 +3,17 @@ encoding: utf-8
 $0
 endsnippet
 
-snippet def
+snippet def "def method"
 def ${1:method}:
 	$0
 endsnippet
 
-snippet class
+snippet "^def" "def method" rbA
+def ${1:method}:
+	$0
+endsnippet
+
+snippet "^class" "class MyClass" rbA
 class ${1:MyClass}(${2:object}):
 	def __init__(self$3):
 		$0

@@ -1,14 +1,14 @@
-snippet this
+snippet this "$this"
 $this${0}
 endsnippet
 
-snippet this-
+snippet this- "$this->"
 $this->${0}
 endsnippet
 
-snippet php "<?php ?>"
+snippet php "<?php ?>" s
 <?php
-	${0}
-?>
+${0:${VISUAL}}
+${1:?>}
 endsnippet
 # vim:ft=snippets:

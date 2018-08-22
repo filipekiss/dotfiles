@@ -1,4 +1,4 @@
-snippet jquery "jQuery Scoped Function" b
+snippet "^jquery" "jQuery Scoped Function" rbA
 jQuery(function($){
     'use strict';
 
@@ -10,10 +10,15 @@ snippet jsc "JSX Comment"
 {/* ${0:${VISUAL}} */}
 endsnippet
 
-snippet react "Import React" b
+snippet "^react" "Import React" rbA
 import React${1:, \{Component\}} from 'react';
 endsnippet
-snippet recom "React Component"
+
+snippet :react "Import React" b
+import React${1:, \{Component\}} from 'react';
+endsnippet
+
+snippet "^recom" "React Component" rbA
 import React, { Component } from 'react';
 
 class ${1:MyComponent} extends Component {
@@ -27,28 +32,64 @@ class ${1:MyComponent} extends Component {
 export default $1;
 endsnippet
 
-snippet iife "(function())()" b
-(function(){
-$0
-})
+snippet :recom "React Component" b
+import React, { Component } from 'react';
+
+class ${1:MyComponent} extends Component {
+    render() {
+        return (
+            ${2:<div></div>}
+        );
+    }
+}
+
+export default $1;
 endsnippet
 
-snippet foro "for item of collection"
+snippet "^iife" "(function())()" rbA
+(function(${1:window}){
+$0
+})($1)
+endsnippet
+
+snippet :iife "(function())()" b
+(function(${1:window}){
+$0
+})($1)
+endsnippet
+
+snippet :foro "for item of collection"
 for (let ${1:item} of ${2:collection}) {
 	${0:${VISUAL}}
 }
 endsnippet
 
-
-snippet foreach
+snippet :foreach "forEach"
 ${1:${VISUAL:collection}}.forEach(${2:item} => {
     $0
 })
 endsnippet
 
-
-snippet eslint "Description" b
+snippet "^eslint" "ESLint Disable" rbA
 /* eslint-disable ${1:no-console} */
 ${0:${VISUAL}}
 /* eslint-enable $1 */
+endsnippet
+
+snippet :eslint "ESLint Disable" b
+/* eslint-disable ${1:no-console} */
+${0:${VISUAL}}
+/* eslint-enable $1 */
+endsnippet
+
+snippet :esln "ESLint Disable Next Line" b
+// eslint-disable-next-line ${1:no-console}
+endsnippet
+
+snippet "^esln" "ESLint Disable Next Line" rbA
+// eslint-disable-next-line ${1:no-console}
+endsnippet
+
+snippet :esll "ESLint Disable Current Line"
+// eslint-disable-line ${1:no-console}
 endsnippet

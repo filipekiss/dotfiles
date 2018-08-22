@@ -1,15 +1,15 @@
 # Generic Tags
-snippet %
+snippet % "{% %}" i
 {% ${0:${VISUAL}} %}
 endsnippet
 
-snippet wrap
+snippet wrap "Wrap in block" i
 {% ${1:tag_name} %}
 	${0:${VISUAL}}
 {% end$1 %}
 endsnippet
 
-snippet var
+snippet var "Print var to template" i
 {{ ${1:${VISUAL}} }}${0}
 endsnippet
 
@@ -27,11 +27,11 @@ snippet block
 {% endblock $1 %}
 endsnippet
 
-snippet #
-{# ${1:comment} #}
+snippet # "Comment"
+{# ${1:${VISUAL}} #}
 endsnippet
 
-snippet comment
+snippet comment "Multi Line Comment"
 {% comment %}
 	${0:${VISUAL}}
 {% endcomment %}
@@ -139,98 +139,96 @@ endsnippet
 
 # Template Filters
 
-# Note: Since SnipMate can't determine which template filter you are
-# expanding without the "|" character, these do not add the "|"
-# character.  These save a few keystrokes still.
-
-# Note: Template tags that take no arguments are not implemented.
-
 snippet add
-add:"${1}"
+| add:"${1}"
 endsnippet
 
 snippet center
-center:"${1}"
+| center:"${1}"
 endsnippet
 
 snippet cut
-cut:"${1}"
+| cut:"${1}"
 endsnippet
 
 snippet date
-date:"${1}"
+| date:"${1}"
 endsnippet
 
 snippet default
-default:"${1}"
+| default:"${1}"
 endsnippet
 
 snippet defaultifnone
-default_if_none:"${1}"
+| default_if_none:"${1}"
 endsnippet
 
 snippet dictsort
-dictsort:"${1}"
+| dictsort:"${1}"
 endsnippet
 
 snippet dictsortrev
-dictsortreversed:"${1}"
+| dictsortreversed:"${1}"
 endsnippet
 
 snippet divisibleby
-divisibleby:"${1}"
+| divisibleby:"${1}"
 endsnippet
 
 snippet floatformat
-floatformat:"${1}"
+| floatformat:"${1}"
 endsnippet
 
 snippet getdigit
-get_digit:"${1}"
+| get_digit:"${1}"
 endsnippet
 
 snippet join
-join:"${1}"
+| join:"${1}"
 endsnippet
 
 snippet lengthis
-length_is:"${1}"
+| length_is:"${1}"
 endsnippet
 
 snippet pluralize
-pluralize:"${1}"
+| pluralize:"${1}"
 endsnippet
 
 snippet removetags
-removetags:"${1}"
+| removetags:"${1}"
 endsnippet
 
 snippet slice
-slice:"${1}"
+| slice:"${1}"
 endsnippet
 
 snippet stringformat
-stringformat:"${1}"
+| stringformat:"${1}"
 endsnippet
 
 snippet time
-time:"${1}"
+| time:"${1}"
 endsnippet
 
 snippet truncatewords
-truncatewords:${1}
+| truncatewords:${1}
 endsnippet
 
 snippet truncatewordshtml
-truncatewords_html:${1}
+| truncatewords_html:${1}
 endsnippet
 
 snippet urlizetrunc
-urlizetrunc:${1}
+| urlizetrunc:${1}
 endsnippet
 
 snippet wordwrap
-wordwrap:${1}
+| wordwrap:${1}
+endsnippet
+
+snippet yn "yesno filter" i
+| yesno:"${1:yes},${2:no${3:,${4:none}}}"
 endsnippet
 
 # vim:ft=snippets:
