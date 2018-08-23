@@ -2,15 +2,12 @@ if has('termguicolors')
     set termguicolors
 end
 
-set background=dark
-syntax enable
-filetype plugin indent on
+" set background=dark
+" syntax enable
+" filetype plugin indent on
 
 try
-    let g:gruvbox_italic=1
-    let g:gruvbox_hls_cursor="blue"
-    let g:gruvbox_invert_selection=0
-    colorscheme gruvbox
+    colorscheme falcon
 catch
     colorscheme ron
 endtry

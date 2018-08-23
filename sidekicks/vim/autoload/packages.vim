@@ -127,6 +127,7 @@ function! packages#init() abort
 
     " ColorSchemes and cool stuff ---------------------------------------- {{{
     Plug 'https://github.com/morhetz/gruvbox'                                 " Gruvbox colorscheme
+    Plug 'fenetikm/falcon'
     " }}} ---------------------------------------- ColorSchemes and cool stuff
 
     " Writing Plugins ---------------------------------------- {{{
