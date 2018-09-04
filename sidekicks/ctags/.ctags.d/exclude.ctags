@@ -23,6 +23,7 @@
 --exclude=log
 --exclude=min
 --exclude=node_modules
+--exclude=flow-typed
 --exclude=tags
 --exclude=tmp
 --exclude=vendor

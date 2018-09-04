@@ -45,7 +45,6 @@ dump/
 *.un~
 tags
 .tags
-tags.*
 .tags.*
 *.tags
 .local.vim
