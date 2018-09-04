@@ -167,30 +167,16 @@ function! functions#NeatFoldText()
     return l:dashes . l:foldchar . l:foldchar . ' ' . l:lines . ': ' . l:first . ' '
 endfunction
 
-function! functions#SetupNCM()
-    if has('nvim')
-        let g:UltiSnipsExpandTrigger		= "<Plug>(ultisnips_expand)"
-        let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-        let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-        let g:UltiSnipsRemoveSelectModeMappings = 0
-        let g:ncm2#popup_delay = 20
-        let g:ncm2#matcher = 'substrfuzzy'
-        imap <silent> <expr> <c-u> ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
-        smap <c-u> <Plug>(ultisnips_expand)
-        xmap <c-u> <Plug>(ultisnips_expand)
-        inoremap <expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
-        inoremap <expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
-        imap <C-Space> <Plug>(ncm2_auto_trigger)
-
-        " This is here to prevent functionality breaking due to NCM and
-        " AutoPairs conflicts.
-        " See https://github.com/jiangmiao/auto-pairs/issues/91#issuecomment-241692588
-        " for more information
-        if exists('g:AutoPairsLoaded')
-            let g:AutoPairsMapCR = 0
-        endif
-        imap <expr> <CR> pumvisible() && empty(v:completed_item) ? "\<C-y>" : exists('g:AutoPairsLoaded') ? "\<CR>\<Plug>AutoPairsReturn" : "\<CR>"
-    endif
+function! functions#SetupCOC()
+    let g:UltiSnipsExpandTrigger		= "<c-u>"
+    let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
+    let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
+    let g:coc_snippet_next = '<c-j>'
+    let g:coc_snippet_prev = '<c-k>'
+    inoremap <silent><expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
+    inoremap <silent><expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
+    inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+    inoremap <silent><expr> <c-space> coc#refresh()
 endfunction
 
 function! functions#SetProjectDir(...)

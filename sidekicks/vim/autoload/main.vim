@@ -16,7 +16,7 @@ function! main#init() abort
     endif
     call main#pluginSettings()
     call functions#SetupVimwiki()
-    call functions#SetupNCM()
+    call functions#SetupCOC()
     call packages#init()
     call main#pathSettings()
     call main#overrides()

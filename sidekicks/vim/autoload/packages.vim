@@ -14,37 +14,7 @@ function! packages#init() abort
 
     " Autocomplete ---------------------------------------- {{{
     Plug 'https://github.com/othree/csscomplete.vim'                          " Better CSS completion
-    if has('nvim') && has('python3')
-        Plug 'https://github.com/autozimu/LanguageClient-neovim',
-                    \ {
-                    \ 'branch': 'next',
-                    \ 'do': 'bash ./install.sh'
-                    \ }                                                       " Language Server Client
-        Plug 'https://github.com/roxma/nvim-yarp'                             " Remote Interface, NCM2 depends on this
-        Plug 'https://github.com/ncm2/ncm2'                                   " Completion Manager
-        Plug 'https://github.com/ncm2/ncm2-bufword'                           " Complete words from buffer
-        Plug 'https://github.com/ncm2/ncm2-tmux'                              " Complete words from other tmux panes
-        Plug 'https://github.com/ncm2/ncm2-path'                              " Complete paths
-        Plug 'https://github.com/ncm2/ncm2-jedi', {'for': ['python']}         " Python completion
-        Plug 'https://github.com/ncm2/ncm2-html-subscope',
-                    \ { 'for': [
-                    \   'html',
-                    \   'htmldjango'
-                    \ ]}                                                      " JS/CSS completion inside html blocks
-        Plug 'https://github.com/ncm2/ncm2-cssomni'                           " Css completion
-        Plug 'https://github.com/ncm2/ncm2-tagprefix'                         " Tag (prefix) completion
-        Plug 'https://github.com/ncm2/ncm2-tern', {
-                    \ 'do': 'yarn global add tern && yarn',
-                    \ 'for': ['javascript']
-                    \ }                                                       " JS Completion via Tern
-        Plug 'https://github.com/ncm2/ncm2-ultisnips'                         " Ultisnips completion
-        Plug 'https://github.com/ncm2/ncm2-markdown-subscope', {
-                    \ 'for': ['markdown']
-                    \ }                                                       " Markdown subscope
-        Plug 'https://github.com/filipekiss/ncm2-look.vim', {
-                    \ 'for': ['markdown', 'gitcommit']
-                    \ }                                                       " English Word Completion
-    endif
+    Plug 'https://github.com/neoclide/coc.nvim', {'do': { -> coc#util#install()}}
     " }}} ---------------------------------------- Autocomplete
 
     " System Plugins ---------------------------------------- {{{

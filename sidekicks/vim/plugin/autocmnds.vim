@@ -29,8 +29,6 @@ augroup MyAutoCmds
 
     autocmd FileType crontab setlocal bkc=yes
 
-    autocmd VimEnter * call functions#SetupNCM()
-
     " Update cd for current window
     autocmd BufEnter * call functions#SetProjectDir()
     autocmd BufEnter * call main#overrides()
@@ -41,11 +39,6 @@ augroup MyAutoCmds
     endif
 
 augroup END
-
-aug completionCmd
-    autocmd!
-    autocmd InsertEnter * call ncm2#enable_for_buffer()
-aug END
 
 augroup javascript_folding
     au!
