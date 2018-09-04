@@ -321,12 +321,12 @@ function! functions#setOverLength()
         " Stolen from https://github.com/whatyouhide/vim-lengthmatters/blob/74e248378544ac97fb139803b39583001c83d4ef/plugin/lengthmatters.vim#L17-L33
         let s:overlengthCmd = 'highlight OverLength'
         for md in ['cterm', 'term', 'gui']
-            let bg = synIDattr(hlID('Comment'), 'fg', md)
-            let fg = synIDattr(hlID('Normal'), 'bg', md)
+            let bg = synIDattr(hlID('WildMenu'), 'bg', md)
+            let fg = synIDattr(hlID('WildMenu'), 'fg', md)
 
-            if has('gui_running') && md !=# 'gui'
-                continue
-            endif
+            " if has('gui_running') && md !=# 'gui'
+            "     continue
+            " endif
 
             if !empty(bg) | let s:overlengthCmd .= ' ' . md . 'bg=' . bg | endif
             if !empty(fg) | let s:overlengthCmd .= ' ' . md . 'fg=' . fg | endif

@@ -7,6 +7,6 @@ let g:user_emmet_settings = {
             \}
 
 augroup EmmetConf
-    autocmd FileType html,css,htmldjango,jinja2,twig EmmetInstall
-    autocmd FileType html,css,htmldjango,jinja2,twig imap <tab> <plug>(emmet-expand-abbr)
+    autocmd FileType html,css,javascript.jsx,htmldjango,jinja2,twig EmmetInstall
+    autocmd FileType html,css,javascript.jsx,htmldjango,jinja2,twig imap <tab> <plug>(emmet-expand-abbr)
 augroup END

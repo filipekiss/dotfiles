@@ -66,7 +66,11 @@ function! packages#init() abort
     Plug 'https://github.com/pangloss/vim-javascript',
                 \ {
                 \ 'for': ['javascript']
-                \ }                                                           " Better Javascript Support
+                \ }                                                         " Better Javascript Support
+    Plug 'https://github.com/mxw/vim-jsx',
+                \ {
+                \ 'for': ['javascript']
+                \ }                                                         " JSX Support
     Plug 'https://github.com/ap/vim-css-color',
                 \ {
                 \ 'for': [
