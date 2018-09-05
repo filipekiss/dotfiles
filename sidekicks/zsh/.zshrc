@@ -21,10 +21,9 @@ zplugin light "filipekiss/z"
 
 zplugin light "zsh-users/zsh-history-substring-search"
 
-# https://github.com/zdharma/zplugin#turbo-mode-zsh--53
-zplugin ice wait"1" lucid atload"_zsh_autosuggest_start"
 zplugin light "zsh-users/zsh-autosuggestions"
 
+# https://github.com/zdharma/zplugin#turbo-mode-zsh--53
 zplugin ice wait"0" lucid blockf
 zplugin light "zsh-users/zsh-completions"
 
@@ -37,9 +36,6 @@ zplugin light "docker/cli"
 
 zplugin ice lucid blockf wait'[[ -n ${ZLAST_COMMANDS[(r)docker-*]} ]]'
 zplugin light "docker/compose"
-
-zplugin ice wait"0" lucid as"program" mv"zemojify -> emojify" pick"zemojify" atload"export PAGER='emojify |  $PAGER'"
-zplugin light "filipekiss/zemojify"
 
 zplugin ice lucid wait'[[ -n ${ZLAST_COMMANDS[(r)zshe*]} ]]'
 zplugin light "filipekiss/zshero"
