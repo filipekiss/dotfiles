@@ -1,0 +1,6 @@
+{
+    "coc.preferences.triggerAfterInsertEnter": false,
+    "coc.source.emoji.enable": true,
+    "coc.source.emoji.filetypes": ["markdown", "gitcommit"],
+    "coc.source.emoji.triggerCharacters": [":"]
+}
