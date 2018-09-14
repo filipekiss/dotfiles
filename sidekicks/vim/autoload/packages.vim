@@ -73,16 +73,7 @@ function! packages#init() abort
                 \ | Plug 'junegunn/fzf.vim'                                   " FZF Plugin for vim
     Plug 'https://github.com/junegunn/vim-peekaboo'                           " Register panel when using \" and @
     Plug 'https://github.com/kshenoy/vim-signature'                           " Better marks
-    Plug 'https://github.com/mattn/emmet-vim',
-                \ {
-                \ 'for': [
-                \   'html',
-                \   'htmldjango',
-                \   'jinja',
-                \   'jinja2',
-                \   'twig',
-                \   'javascript.jsx'
-                \ ] }                                                         " Generate markup from CSS-like strings
+    Plug 'https://github.com/mattn/emmet-vim'                                 " Generate markup from CSS-like strings
     Plug 'https://github.com/mbbill/undotree', { 'on': ['UndotreeToggle'] }   " File history using undofile
     Plug 'https://github.com/mhinz/vim-sayonara', { 'on': 'Sayonara' }        " Better way to close buffers
     Plug 'https://github.com/wellle/targets.vim'                              " More vim text object targets
