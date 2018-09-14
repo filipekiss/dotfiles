@@ -116,9 +116,7 @@ export VISUAL=$EDITOR
 export GIT_EDITOR=$EDITOR
 
 # Set less or more as the default pager.
-if (( ${+commands[emojify]} )); then
-    export PAGER="emojify | less"
-elif (( ${+commands[less]} )); then
+if (( ${+commands[less]} )); then
     export PAGER=less
 else
     export PAGER=more
