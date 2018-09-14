@@ -294,8 +294,8 @@ function! functions#prettierSettings(...)
 endfunction
 
 function! AppendModeline()
-    let l:modeline = printf(" %s: set ts=%d sw=%d tw=%d %set :",
-                \  "vim", &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+    let l:modeline = printf(" %s: set ts=%d sw=%d tw=%d ft=%s %set :",
+                \  "vim", &tabstop, &shiftwidth, &textwidth, &filetype, &expandtab ? '' : 'no')
     let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
     call append(0, l:modeline)
 endfunction
