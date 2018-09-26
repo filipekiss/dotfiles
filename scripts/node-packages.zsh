@@ -2,6 +2,7 @@
 (( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
 
 PACKAGES=(
+    "alex"
     "eslint"
     "eslint-config-airbnb"
     "eslint-config-prettier"
