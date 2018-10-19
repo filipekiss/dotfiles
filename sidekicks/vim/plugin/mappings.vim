@@ -141,9 +141,6 @@ nnoremap <leader><CR> :call functions#Preserve("g/^$/,/./-j")<CR>
 map <silent> <Leader>he :call functions#HtmlEscape()<CR>
 map <silent> <Leader>hu :call functions#HtmlUnEscape()<CR>
 
-" Since J joins two lines, K splits at current cursor position
-nnoremap K ik$
-
 " maintain the same shortcut as vim-gtfo becasue it's in my muscle memory.
 nmap <silent> gof :call functions#OpenFileFolder()<CR>
 
