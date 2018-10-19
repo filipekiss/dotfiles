@@ -1,0 +1,4 @@
+{
+    "coc.preferences.triggerAfterInsertEnter": false,
+    "coc.preferences.diagnostic.enable": false
+}

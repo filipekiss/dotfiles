@@ -177,6 +177,33 @@ function! functions#SetupCOC()
     inoremap <silent><expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
     inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
     inoremap <silent><expr> <c-space> coc#refresh()
+    " Goto commands
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+    " Show documentation in preview window
+    nnoremap <silent> K :call CocAction('doHover')<CR>
+
+    " Show signature help while editing
+    autocmd CursorHoldI * silent! call CocAction('showSignatureHelp')
+
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Remap for rename current word
+    nmap <leader>rn <Plug>(coc-rename)
+
+    " Remap for format selected region
+    vmap <leader>f  <Plug>(coc-format-selected)
+    nmap <leader>f  <Plug>(coc-format-selected)
+
+    " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+    vmap <leader>a  <Plug>(coc-codeaction-selected)
+    nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+    " Remap for do codeAction of current line
+    nmap <leader>ac  <Plug>(coc-codeaction)
 endfunction
 
 function! functions#SetProjectDir(...)
