@@ -36,7 +36,7 @@ function _hook_setup() {
     _global_hooks_location=${_global_hooks_location//\~/${HOME}} # Ensure home is properly set on path
     _global_hooks_folder="${_global_hooks_location}/${hookname}.d"
     export GIT_TOPLEVEL="$(command git rev-parse --show-toplevel)"
-    GIT_DIR="${GIT_TOPLEVEL}/.git"
+    GIT_DIR="$(git rev-parse --git-dir)"
 }
 
 hookname=$(basename $0)
