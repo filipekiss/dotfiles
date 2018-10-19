@@ -16,15 +16,18 @@
 [[ -z $__is_nvr_installed ]] && alias e=$EDITOR && return 0
 
 unalias e 2>/dev/null
+unalias :e 2>/dev/null
 
 function e() {
     __socket_name=$(__e_get_current_socket_name)
     __e_prepare_socket $__socket_name
-    # Use nvr to start or send the current received arguments to the current window nvim instance
+    # Use nvr to start or send the current received arguments to the current
+    # window nvim instance
     # Options:
     # -s: supress the message shown if nvr needs to create the instance
     # --servername: The current window socket
-    # --remote-silent is the same as --remote (use a existing instance), but throws no error if no
+    # --remote-silent is the same as --remote (use a existing instance), but
+    # throws no error if no
     # process is found
     nvr --servername=${__socket_name} --remote-silent -s $@
 }
@@ -32,7 +35,8 @@ function e() {
 function __e_prepare_socket() {
     local __socket_name="$1"
     if ! __e_check_socket $__socket_name; then
-        # The socket $__socket_name is currently invalid. Remove it and let nvr create a new one
+        # The socket $__socket_name is currently invalid. Remove it and let nvr
+        # create a new one
         rm -rf $__socket_name
     fi
 }
@@ -53,9 +57,11 @@ function __e_check_socket {
     return 1
 }
 
-# Let's export the $EDITOR and NVIM_LISTEN_ADDRESS to use nvr and the current session socket. Mainly so git also benefits
-# from nvr
+alias :e="e"
+
+# Let's export the $EDITOR and NVIM_LISTEN_ADDRESS to use nvr and the current
+# session socket. Mainly so git also benefits from nvr
 export NVIM_LISTEN_ADDRESS=$(__e_get_current_socket_name)
 export EDITOR="nvr"
 export VISUAL=$EDITOR
-export GIT_EDITOR="$EDITOR --remote-wait-silent -s"
+export GIT_EDITOR="$EDITOR --remote-wait-silent -s --servername=$NVIM_LISTEN_ADDRESS"
