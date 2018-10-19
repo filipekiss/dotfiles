@@ -14,6 +14,9 @@ function! main#init() abort
             let g:python3_host_prog = '/usr/local/bin/python3'
         endif
     endif
+    " Disable NetRW
+    let g:loaded_netrw       = 1
+    let g:loaded_netrwPlugin = 1
     call main#pluginSettings()
     call functions#SetupVimwiki()
     call functions#SetupCOC()
