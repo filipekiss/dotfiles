@@ -15,12 +15,43 @@ LOG_STATUS_SUCCESS="✔"
 LOG_STATUS_ERROR="✖"
 LOG_STATUS_INFO="→"
 
-e_header() { e_line "--------------------------------------------------------------------------------" "${BOLD}" && e_line "${1}" "${BOLD}" && e_line "--------------------------------------------------------------------------------" "${BOLD}"; }
-e_line() { [[ $LINE_BREAK != "" ]] && LINE_BREAK="\n"; printf "${4}%b${RESET}${2}%b${RESET}${LINE_BREAK}" "${3}" "${1}"; }
+e_header() {
+    print_full_line() {
+        local LABEL="$1"
+        local CLEAR_LABEL=$(echo $LABEL | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | sed "s/\x0f//g" )
+        local COLS=$(($2-${#CLEAR_LABEL}-2))
+        local space=$(printf ' %.0s' {1..${COLS}})
+        e_line "┃ ${LABEL} ${space}┃"
+    }
+
+
+
+    local COLS=$(tput cols);
+    if [[ ${COLS} -gt 80 ]]; then
+        COLS=80
+    fi
+    COLS=$((${COLS}-2))
+    local header=$(printf '━%.0s' {1..${COLS}})
+    e_line "┏${header}┓"
+    local words=($@)
+    for word in "${words[@]}"; do
+        print_full_line "${word}" "${COLS}"
+    done
+    e_line "┗${header}┛"
+}
+
+e_line() {
+    [[ $LINE_BREAK != "" ]] && LINE_BREAK="\n";
+    printf "${4}%b${RESET}${2}%b${RESET}${LINE_BREAK}" "${3}" "${1}";
+}
 e_success() { e_line "$1" "${GREEN}" "${LOG_STATUS_SUCCESS} " "${GREEN}"; }
 e_error() { e_line "$1" "${RED}" "${LOG_STATUS_ERROR} " "${RED}"; }
 e_info() { e_line "$1" "" "${LOG_STATUS_INFO} " "${BLUE}"; }
-e_reset_line() { local COLS=$(tput cols); printf "\r" && printf "%${COLS}s\r"; LINE_BREAK="\n"; }
+e_reset_line() {
+    local COLS=$(tput cols);
+    printf "\r" && printf "%${COLS}s\r";
+    LINE_BREAK="\n";
+}
 e_set_inline() { LINE_BREAK=""; }
 e_spinner() {
   local spinstr='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
