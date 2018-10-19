@@ -18,6 +18,8 @@ let g:ale_sign_style_error  = '●'
 let g:ale_sign_style_warning  = g:ale_sign_error
 let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
 let g:ale_echo_msg_format = '[%linter%] [%code%] %s'
+let g:ale_javascript_eslint_suppress_missing_config = 1
+let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_prettier_use_global = 1
 let g:ale_javascript_prettier_use_local_config = 1
@@ -33,7 +35,9 @@ let g:ale_linter_aliases = {
 let g:ale_linters = {
             \ 'html': ['tidy'],
             \ 'javascript': ['eslint', 'flow'],
-            \ 'python': ['flake8']
+            \ 'typescript': ['eslint', 'tsserver'],
+            \ 'python': ['flake8'],
+            \ 'markdown': ['alex'],
             \}
 
 let g:ale_fixers = {
@@ -44,6 +48,9 @@ let g:ale_fixers = {
             \   'prettier',
             \   'eslint',
             \ ],
+            \ 'typescript': [
+            \   'prettier',
+            \ ],
             \ 'json': [
             \   'prettier',
             \ ],
@@ -53,7 +60,8 @@ let g:ale_fixers = {
             \ 'scss': [
             \   'prettier',
             \ ],
-            \ 'python': []
+            \ 'python': [],
+            \ 'graphql': ['prettier']
             \}
 
 " Don't auto fix (format) files inside `node_modules`, minified files and jquery (for legacy codebases)
