@@ -41,6 +41,10 @@ function! packages#init() abort
                 \ {
                 \ 'for': ['javascript']
                 \ }                                                         " JSX Support
+    Plug 'https://github.com/styled-components/vim-styled-components',
+                \ {
+                \ 'branch': 'main'
+                \ }                                                           " Styled Components Syntax
     Plug 'https://github.com/ap/vim-css-color',
                 \ {
                 \ 'for': [
@@ -50,6 +54,7 @@ function! packages#init() abort
                 \   'scss',
                 \   'stylus']
                 \ }                                                           " Show color on color declarations in CSS files
+    Plug 'https://github.com/jparise/vim-graphql'                             " GraphQL Syntax
     Plug 'https://github.com/stephenway/postcss.vim', { 'for': ['css'] }      " More modern CSS syntax, don't use the one in Polyglot
     Plug 'https://github.com/davidhalter/jedi', { 'for': ['python'] }         " Python autocompletion
     Plug 'https://github.com/tpope/vim-commentary'                            " Toggle commentaries in multiple languages
@@ -62,6 +67,7 @@ function! packages#init() abort
     Plug 'https://github.com/tweekmonster/django-plus.vim'                    " Better Django Support
     Plug 'https://github.com/jiangmiao/auto-pairs'                            " Auto-pair quotes, braces, parens…
     Plug 'https://github.com/chr4/nginx.vim'                                  " Nginx Syntax
+    Plug 'https://github.com/leafgarland/typescript-vim'                      " TypeScript Support
     " }}} ---------------------------------------- Syntax and Language-related Plugins
 
     " General Productivity plugins ---------------------------------------- {{{
@@ -101,6 +107,7 @@ function! packages#init() abort
     Plug 'https://github.com/mzlogin/vim-markdown-toc'                        " Generate TOC for Markdown files
     Plug 'https://github.com/vimwiki/vimwiki'                                 " Personal Wiki IDE
     " }}} ---------------------------------------- Writing Plugins
+    Plug 'Shougo/denite.nvim'
 
     call plug#end()
 
