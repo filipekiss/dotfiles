@@ -14,7 +14,7 @@ function! VimPlugDiffFold(lnum)
         return '>1'
     endif
 
-    if getline(a:lnum) =~? '\v^\s+(\*|\|).*$'
+    if getline(a:lnum) =~? '\v^\s+(\*?|\|).*$'
         return '1'
     endif
 
