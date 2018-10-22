@@ -1,13 +1,13 @@
 #########
 # Aliases
 #########
-alias cp="${aliases[cp]:-cp} -ir"
+alias cp="${aliases[cp]:-cp} -irv"
 alias ll="${aliases[ll]:-ll} -v"
-alias ln="${aliases[ln]:-ln} -i"
+alias ln="${aliases[ln]:-ln} -iv"
 alias ls="${aliases[ls]:-ls} -v"
 alias la="${aliases[la]:-ls} -la"
 alias mkdir="${aliases[mkdir]:-mkdir} -p"
-alias mv="${aliases[mv]:-mv} -i"
+alias mv="${aliases[mv]:-mv} -iv"
 alias ping="${aliases[ping]:-ping} -c 4"
 alias pubkey='cat $HOME/.ssh/id_rsa.pub'
 alias rm="${aliases[rm]:-rm} -i"
