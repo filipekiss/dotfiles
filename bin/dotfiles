@@ -245,7 +245,7 @@ function install_dotfiles() {
         git checkout ${DOTFILES_GH_BRANCH:-master} && \
             git reset --hard origin/${DOTFILES_GH_BRANCH:-master} && \
             e_info "Updating submodules..." && \
-            git submodule update --init --recursive && \
+            git submodule update --init --remote --recursive && \
             e_info "Returning to your branch"
         git checkout - && \
             e_info "Applying stashed changes..." && \
