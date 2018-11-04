@@ -1,2 +1,2 @@
 #!/bin/sh
-exec chmod +x -v "$@"
+exec chmod -v +x "$@"
