@@ -171,10 +171,10 @@ function! functions#SetupCOC()
     let g:UltiSnipsExpandTrigger		= "<c-u>"
     let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
     let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-    let g:coc_snippet_next = '<c-j>'
-    let g:coc_snippet_prev = '<c-k>'
-    inoremap <silent><expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
-    inoremap <silent><expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
+    " let g:coc_snippet_next = '<c-j>'
+    " let g:coc_snippet_prev = '<c-k>'
+    " inoremap <silent><expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
+    " inoremap <silent><expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
     inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
     inoremap <silent><expr> <c-space> coc#refresh()
     " Goto commands
