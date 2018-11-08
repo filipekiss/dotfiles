@@ -415,3 +415,8 @@ function! functions#SetupVimwiki()
 
     let g:vimwiki_auto_chdir = 1
 endfunction
+
+function! functions#enableGutentags(path) abort
+    return fnamemodify(a:path, ':e') != 'typescript'
+endfunction
+
