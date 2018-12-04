@@ -50,6 +50,21 @@ keybase pgp export --secret | gpg --allow-secret-key-import --import
 gpg --edit-key <you@email.com>
 ```
 
+Get the long key ID:
+
+```sh
+gpg --list-secret-keys --keyid-format LONG <you@email.com>
+```
+
+The string you need will be something like 'rsa4096/<LONG KEY HERE>' (You don't
+need anything from the slash backwards)
+
+Add to your LOCAL `.gitconfig` file:
+
+```sh
+git config -f ~/.gitconfig.local user.signingkey <LONG KEY>
+```
+
 Don't forget to trust said keys.
 
 ## Authors
