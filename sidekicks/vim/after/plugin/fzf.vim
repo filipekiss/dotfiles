@@ -38,6 +38,17 @@ function! s:fzf_statusline()
     setlocal statusline=%4*\ fzf\ %6*V:\ ctrl-v,\ H:\ ctrl-x
 endfunction
 
+" Stolen from here
+" https://github.com/ahmedelgabri/dotfiles/blob/f4423acc248e891f7b0314e193028c50ab2e8214/files/.vim/after/plugin/fzf.vim#L38-L45
 augroup fzfStatusLine
     autocmd! User FzfStatusLine call <SID>fzf_statusline()
 augroup END
+
+function! FzfSpellSink(word)
+  exe 'normal! "_ciw'.a:word
+endfunction
+function! FzfSpell()
+  let suggestions = spellsuggest(expand("<cword>"))
+  return fzf#run({'source': suggestions, 'sink': function("FzfSpellSink"), 'down': 10 })
+endfunction
+nnoremap z= :call FzfSpell()<CR>
