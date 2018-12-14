@@ -1,5 +1,14 @@
 {
     "coc.preferences.triggerAfterInsertEnter": false,
     "coc.preferences.diagnostic.enable": false,
-    "coc.preferences.noselect": false
+    "coc.preferences.noselect": false,
+    "languageserver": {
+        "php": {
+            "command": "php",
+            "args": [
+                "vendor/felixfbecker/language-server/bin/php-language-server.php"
+            ],
+            "filetypes": ["php"]
+        }
+    }
 }

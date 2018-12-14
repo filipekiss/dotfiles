@@ -69,6 +69,7 @@ function! packages#init() abort
     Plug 'https://github.com/jiangmiao/auto-pairs'                            " Auto-pair quotes, braces, parens…
     Plug 'https://github.com/chr4/nginx.vim'                                  " Nginx Syntax
     Plug 'https://github.com/leafgarland/typescript-vim'                      " TypeScript Support
+    Plug 'https://github.com/StanAngeloff/php.vim'                            " PHP Syntax
     " }}} ---------------------------------------- Syntax and Language-related Plugins
 
     " General Productivity plugins ---------------------------------------- {{{
