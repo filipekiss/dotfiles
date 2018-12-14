@@ -125,7 +125,6 @@ if has('nvim')
         tnoremap <a-k>      <c-\><c-n><c-w>k
         tnoremap <a-l>      <c-\><c-n><c-w>l
     endif
-    autocmd BufEnter term://* startinsert
 endif
 
 nnoremap <silent> <leader>z :call functions#ZoomToggle()<CR>
