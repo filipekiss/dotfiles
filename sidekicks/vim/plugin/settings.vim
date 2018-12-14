@@ -151,6 +151,7 @@ set sidescroll=3
 
 " yank and paste with the system clipboard
 set clipboard=unnamed
+set clipboard+=unnamedplus
 
 " show trailing whitespace
 set list
