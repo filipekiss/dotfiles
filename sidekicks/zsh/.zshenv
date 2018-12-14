@@ -41,8 +41,10 @@ cdpath=(
 # Set the list of directories that Zsh searches for programs.
 path=(
     ${DOTFILES}/bin(N-/)
+    ./bin(N-/)
     ./node_modules/.bin
     ${HOMEBREW_ROOT:-/usr/local}/opt/python/libexec/bin(N-/)
+    ${HOME}/.local/bin/(Nn[-1]-/)
     /usr/local/{bin,sbin}
     ${HOMEBREW_ROOT:-/usr/local}/opt/coreutils/libexec/gnubin(N-/)
     ${XDG_CONFIG_HOME}/yarn/global/node_modules/.bin(N-/)
