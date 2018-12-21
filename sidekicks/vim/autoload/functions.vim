@@ -420,3 +420,16 @@ function! functions#enableGutentags(path) abort
     return fnamemodify(a:path, ':e') != 'typescript'
 endfunction
 
+" Taken from https://github.com/ahmedelgabri/dotfiles/blob/ef0923e0af23c7ec443a028f3d405e57c716610f/files/.vim/autoload/functions.vim#L277
+function! functions#open() abort
+   " Linux/BSD
+   if executable('xdg-open')
+     return 'xdg-open'
+   endif
+   " MacOS
+   if executable('open')
+     return 'open'
+   endif
+   " Windows
+   return 'explorer'
+ endfunction
