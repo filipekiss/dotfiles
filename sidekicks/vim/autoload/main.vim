@@ -8,10 +8,10 @@ function! main#init() abort
         let g:python_host_skip_check = 1
         let g:python3_host_skip_check = 1
         if executable('python2')
-            let g:python_host_prog = main#which('python2')
+            let g:python_host_prog = exepath('python2')
         endif
         if executable('python3')
-            let g:python3_host_prog = main#which('python3')
+            let g:python3_host_prog = exepath('python3')
         endif
     endif
     " Disable NetRW
@@ -23,15 +23,6 @@ function! main#init() abort
     call packages#init()
     call main#pathSettings()
     call main#overrides()
-endfunction
-
-function! main#which(cmd) abort
-    let l:sysWhich = system('which ' . a:cmd)
-    let l:execPath = substitute(l:sysWhich, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
-    if executable(l:execPath)
-        return l:execPath
-    endif
-    echo 'not found'
 endfunction
 
 function! main#pluginSettings() abort
