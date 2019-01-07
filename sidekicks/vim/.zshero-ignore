@@ -1,6 +1,6 @@
 # Don't link the files/folders below
 .git.*
-\.md
+.*\.md
 \.mailmap
 \.editorconfig
 screenshots
