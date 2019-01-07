@@ -1,12 +1,12 @@
-.git*
-# Don't link the files/folders below
-*.md
+.git.*
+.mailmap
+.*.md
 rc.d
 .zshrc
 .zlogin
 .zprofile
 .zhistory
 .zcompcache
-.zcompdump*
+.zcompdump.*
 .*.zwc
 .*.zwc.old
