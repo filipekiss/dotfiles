@@ -45,10 +45,22 @@ $ git clone https://github.com/filipekiss/dotfiles.git ~/.dotfiles && cd ~/.dotf
 
 Exported from `keybase`:
 
+`keybase pgp pull-private`
+
+Follow the instructions on screen
+
+### Manually
+
+Assuming your private key is in a file named `my_private_key.pgp`
+
 ```sh
-keybase pgp export --secret | gpg --allow-secret-key-import --import
+cat my_private_key.pgp | gpg --allow-secret-key-import --import
 gpg --edit-key <you@email.com>
 ```
+
+Select your key (type the number and press enter) and `trust`
+
+### Configuring Git to use the key
 
 Get the long key ID:
 
@@ -64,8 +76,6 @@ Add to your LOCAL `.gitconfig` file:
 ```sh
 git config -f ~/.gitconfig.local user.signingkey <LONG KEY>
 ```
-
-Don't forget to trust said keys.
 
 ## Authors
 
