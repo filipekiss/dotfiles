@@ -1,4 +1,4 @@
-[subodule "fonts"]
+[submodule "fonts"]
 	path = fonts
 	url = keybase://private/filipekiss/fonts
 	branch = master
