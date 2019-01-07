@@ -54,6 +54,9 @@ bindkey '^h' backward-delete-char
 bindkey '^w' backward-kill-word
 bindkey '^r' history-incremental-search-backward
 
+# Remove ^G (list-expand) so we can use our fzf-widgets
+bindkey -r '^G'
+
 # Clear
 bindkey "${key_info[Control]}L" clear-screen
 
