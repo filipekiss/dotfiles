@@ -9,14 +9,14 @@ tap 'universal-ctags/universal-ctags'
 tap "ahmedelgabri/homebrew-battery"
 
 # Brews
-brew 'git', args: ['without-completions']
+brew 'git', ARGS: ['without-completions']
 brew 'gcc'
 brew 'awk'
 brew 'python'
 brew 'python@2'
 brew 'icu4c'
 brew 'coreutils'
-brew 'findutils', args: ['with-default-names']
+brew 'findutils', ARGS: ['with-default-names']
 brew 'stow'
 brew 'transcrypt'
 brew 'zsh'
@@ -24,7 +24,7 @@ brew 'aria2', ARGS: ['with-libssh2']
 brew 'curl'
 brew 'diff-so-fancy'
 brew 'direnv'
-brew 'docker-compose', ARGS['without-docker', 'without-docker-machine']
+brew 'docker-compose', ARGS: ['without-docker', 'without-docker-machine']
 brew 'fd'
 brew 'ffmpeg'
 brew 'fzf'
@@ -48,16 +48,16 @@ brew 'tmux'
 brew 'transcrypt'
 brew 'tree'
 brew 'unrar'
-brew 'vim', args: ['with-lua', 'with-python3', 'with-override-system-vi']
+brew 'vim', ARGS: ['with-lua', 'with-python3', 'with-override-system-vi']
 brew 'wget'
 brew 'yarn'
 brew 'youtube-dl'
 brew 'awscli'
-brew 'ahmedelgabri/battery/battery', args: ['HEAD']
+brew 'ahmedelgabri/battery/battery', ARGS: ['HEAD']
 brew 'editorconfig'
 brew 'exa'
 brew 'mas'
-brew 'universal-ctags', args: ['HEAD']
+brew 'universal-ctags', ARGS: ['HEAD']
 
 # Casks
 cask '1password'
