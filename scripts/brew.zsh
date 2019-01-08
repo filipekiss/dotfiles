@@ -2,7 +2,7 @@
 (( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
 
 function install_brewfile() {
-    BREWFILE="${DOTFILES}/homebrew/Brewfile"
+    BREWFILE="${PWD}/homebrew/Brewfile"
     if [[ -f ${BREWFILE} ]]; then
         check_brew_update
         e_info "Installing ${BREWFILE}"

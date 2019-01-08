@@ -281,7 +281,7 @@ function zshero_install() {
 function setup_private_keys() {
     git submodule update --init --remote sidekicks/keys
     zshero_install "keys"
-    keybase pgp pull-private
+    keybase pgp pull-private --all
     make permissions
 }
 
@@ -293,10 +293,10 @@ function setup_keybase() {
     brew tap 'caskroom/cask'
     brew tap 'caskroom/versions'
     brew cask install keybase
-    keybase login
 }
 
 function change_shell() {
+	brew install zsh
     [[ $SHELL != "$(brew --prefix)/bin/zsh" ]] && \
         e_info "Changing \$SHELL to $(brew --prefix)/bin/zsh" && \
         e_info "Your password might be needed" && \
@@ -334,6 +334,7 @@ function main() {
     validate_stow
     install_dotfiles
     setup_keybase
+    keybase login
     setup_zshero
     zshero_install "git"
     setup_private_keys
