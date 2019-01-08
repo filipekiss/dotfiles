@@ -220,8 +220,7 @@ function install_dotfiles() {
     local prev_head current_head
     if [[ ! -d "$DOTFILES" ]]; then
         e_info "$DOTFILES doesn't exists."
-        mkdir "$DOTFILES"
-        git clone --recursive https://github.com/${GITHUB_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && e_success "${GITHUB_USER:-filipekiss}/dotfiles cloned"
+        git clone https://github.com/${GITHUB_USER:-filipekiss}/dotfiles.git --branch="${DOTFILES_GH_BRANCH:-master}" "$DOTFILES" && e_success "${GITHUB_USER:-filipekiss}/dotfiles cloned"
         if [[ ! -d "$DOTFILES" ]]; then
             e_error "Error when cloning dotfiles repository. Try again"
             exit 1
@@ -245,7 +244,7 @@ function install_dotfiles() {
         git checkout ${DOTFILES_GH_BRANCH:-master} && \
             git reset --hard origin/${DOTFILES_GH_BRANCH:-master} && \
             e_info "Updating submodules..." && \
-            git submodule update --init --remote --recursive && \
+            git submodule update --remote --recursive && \
             e_info "Returning to your branch"
         git checkout - && \
             e_info "Applying stashed changes..." && \
@@ -269,9 +268,40 @@ function install_dotfiles() {
 }
 
 function setup_zshero() {
-    curl -fsSL https://raw.githubusercontent.com/filipekiss/zshero/master/zshero-installer | zsh
-    source .zshero/init.zsh
-    zshero install
+    git submodule update --init --remote .zshero
+    source ${DOTFILES}/.zshero/init.zsh
+}
+
+function zshero_install() {
+    local PACKAGE=${1:-}
+    [[ -z $PACKAGE ]] && return 0
+    zshero install $PACKAGE
+}
+
+function setup_private_keys() {
+    git submodule update --init --remote sidekicks/keys
+    zshero_install "keys"
+    keybase pgp pull-private
+    make permissions
+}
+
+function setup_submodules() {
+    git submodule update --init --remote
+}
+
+function setup_keybase() {
+    brew tap 'caskroom/cask'
+    brew tap 'caskroom/versions'
+    brew cask install keybase
+    keybase login
+}
+
+function change_shell() {
+    [[ $SHELL != "$(brew --prefix)/bin/zsh" ]] && \
+        e_info "Changing \$SHELL to $(brew --prefix)/bin/zsh" && \
+        e_info "Your password might be needed" && \
+        echo "$(brew --prefix)/bin/zsh" | sudo tee -a /etc/shells && \
+        exec chsh -s $(brew --prefix)/bin/zsh
 }
 
 function update_path() {
@@ -303,10 +333,15 @@ function main() {
     validate_git
     validate_stow
     install_dotfiles
+    setup_keybase
     setup_zshero
+    zshero_install "git"
+    setup_private_keys
+    setup_submodules
+    zshero_install "all"
     # all done!
     # Change shell if needed
-    [[ $SHELL != "$(brew --prefix)/bin/zsh" ]] && e_info "Changing \$SHELL to $(brew --prefix)/bin/zsh"&& exec chsh -s $(brew --prefix)/bin/zsh
+    change_shell
     e_success "Don't forget to run ${YELLOW}make all${RESET}"
 }
 
