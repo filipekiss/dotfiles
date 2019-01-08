@@ -15,7 +15,7 @@ e_info "Setting up transcrypt"
 
 transcrypt
 
-IS_DECRYPTED=$(command git config --get -f $DOTFILES/config/git/.gitconfig.private dotfiles.decrypted || command git config --get dotfiles.decrypted)
+IS_DECRYPTED=$(command git config --get -f $DOTFILES/sidekicks/git/.gitconfig.private dotfiles.decrypted || command git config --get dotfiles.decrypted)
 
 e_info "Decrypted: ${IS_DECRYPTED}"
 

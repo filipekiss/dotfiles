@@ -1,4 +1,4 @@
-all: brew python node italics macos
+all: brew private python node italics macos
 
 permissions:
 	-@zsh ./scripts/file-permissions.zsh
@@ -8,6 +8,9 @@ brew:
 
 python:
 	-@zsh ./scripts/python-packages.zsh
+
+private:
+	-@zsh ./scripts/transcrypt-config.zsh
 
 node:
 	-@zsh ./scripts/node-packages.zsh
@@ -23,4 +26,4 @@ italics:
 	-@tic -o ~/.terminfo ./terminfo/tmux-256color.terminfo
 	-@echo `tput sitm`italics`tput ritm` `tput smso`standout`tput rmso`
 
-PHONY: all permissions brew python node macos keybase italics
+PHONY: all permissions brew private python node macos keybase italics
