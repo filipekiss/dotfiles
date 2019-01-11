@@ -47,6 +47,7 @@ path=(
     ${HOME}/.local/bin/(Nn[-1]-/)
     /usr/local/{bin,sbin}
     ${HOMEBREW_ROOT:-/usr/local}/opt/coreutils/libexec/gnubin(N-/)
+    ${HOMEBREW_ROOT:-/usr/local}/opt/findutils/libexec/gnubin(N-/)
     ${XDG_CONFIG_HOME}/yarn/global/node_modules/.bin(N-/)
     ${GOPATH}/bin(N-/)
     ${HOME}/Library/Python/3.*/bin(Nn[-1]-/)
