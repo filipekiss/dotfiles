@@ -1,0 +1,6 @@
+.zcompdump
+.zhistory
+*.zwc
+*.old
+.zcompcache
+.zcalc_history
