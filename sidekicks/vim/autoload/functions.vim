@@ -433,3 +433,8 @@ function! functions#open() abort
    " Windows
    return 'explorer'
  endfunction
+
+ function! functions#isGit() abort
+    silent call system('git rev-parse')
+    return v:shell_error == 0
+ endfunction

@@ -26,7 +26,7 @@ command! -bang -nargs=* Rga
             \           : fzf#vim#with_preview('right:50%:hidden', '?'),
             \   <bang>0)
 
-nnoremap <silent> <leader><leader> :Files<cr>
+nnoremap <silent><expr> <leader><leader> functions#isGit() ? ':GFiles<CR>' : ':Files<CR>'
 nnoremap <silent> <Leader>c :Colors<cr>
 nnoremap <silent> <Leader>b :Buffers<cr>
 nnoremap <silent> <Leader>h :Helptags<cr>
