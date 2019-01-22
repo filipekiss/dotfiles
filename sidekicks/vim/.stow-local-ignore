@@ -1,0 +1,14 @@
+# Don't link the files/folders below
+\.gitignore
+\.md # Readme, License, etc…
+screenshots # Repository screenshots, not needed
+# These folders are used by vim, but there's no need to symlink them. Vim will look for them here.
+ftplugin
+plugged
+spell
+ftdetect
+plugin
+ultisnips
+autoload
+after
+tmp
