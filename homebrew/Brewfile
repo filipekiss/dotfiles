@@ -60,7 +60,7 @@ brew 'mas'
 brew 'universal-ctags', ARGS: ['HEAD']
 
 # Casks
-cask '1password'
+cask '1password6'
 cask 'discord'
 cask 'docker'
 cask 'dropbox'
@@ -83,6 +83,8 @@ cask 'spotify'
 cask 'ynab'
 
 # Mac App Store
+mas 'Denied', id: 909257784
+mas 'Magnet', id: 441258766
+mas 'Relax', id: 1440712920
 mas 'Telegram', id: 747648890
 mas 'Tweetbot', id: 557168941
-mas 'Magnet', id: 441258766
