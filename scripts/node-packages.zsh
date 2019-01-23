@@ -11,7 +11,7 @@ PACKAGES=(
     "eslint-plugin-prettier"
     "flow-language-server"
     "typescript"
-    "vscode-html-langaugeserver-bin"
+    "vscode-html-languageserver-bin"
     "css-langserver"
     "vscode-json-languageserver"
     "javascript-typescript-langserver"

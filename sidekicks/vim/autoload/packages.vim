@@ -13,6 +13,10 @@ function! packages#init() abort
     call plug#begin(s:VIM_PLUG_FOLDER)
 
     " Autocomplete ---------------------------------------- {{{
+    Plug 'https://github.com/autozimu/LanguageClient-neovim', {
+                \ 'branch': 'next',
+                \ 'do': 'bash install.sh',
+                \ }                                                           " LSP Client
     Plug 'https://github.com/othree/csscomplete.vim'                          " Better CSS completion
     Plug 'https://github.com/roxma/nvim-yarp'                                 " Yarp Protocol for NCM
     Plug 'https://github.com/ncm2/ncm2'                                       " NCM2 Completion
@@ -21,7 +25,7 @@ function! packages#init() abort
     Plug 'https://github.com/ncm2/ncm2-cssomni'                               " CSS Complete
     Plug 'https://github.com/ncm2/ncm2-vim'                                   " Vim Completion
     Plug 'https://github.com/Shougo/neco-vim'                                 " Vim Compeltion
-    Plug 'https://github.com/mhartington/nvim-typescript'                     " TypeScript/Javascript completion
+    Plug 'https://github.com/mhartington/nvim-typescript', {'do': './install.sh'}
     Plug 'https://github.com/wellle/tmux-complete.vim'                        " Complete from other TMUX panes
     Plug 'https://github.com/Shougo/neco-syntax'                              " Completion from syntax
     Plug 'https://github.com/ncm2/ncm2-syntax'                                " Completion from syntax
