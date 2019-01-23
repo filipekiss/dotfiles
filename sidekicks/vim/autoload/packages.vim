@@ -14,7 +14,22 @@ function! packages#init() abort
 
     " Autocomplete ---------------------------------------- {{{
     Plug 'https://github.com/othree/csscomplete.vim'                          " Better CSS completion
-    Plug 'https://github.com/neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+    Plug 'https://github.com/roxma/nvim-yarp'                                 " Yarp Protocol for NCM
+    Plug 'https://github.com/ncm2/ncm2'                                       " NCM2 Completion
+    Plug 'https://github.com/ncm2/ncm2-bufword'                               " Complete words from Buffer
+    Plug 'https://github.com/ncm2/ncm2-path'                                  " Complete Paths
+    Plug 'https://github.com/ncm2/ncm2-cssomni'                               " CSS Complete
+    Plug 'https://github.com/ncm2/ncm2-vim'                                   " Vim Completion
+    Plug 'https://github.com/Shougo/neco-vim'                                 " Vim Compeltion
+    Plug 'https://github.com/mhartington/nvim-typescript'                     " TypeScript/Javascript completion
+    Plug 'https://github.com/wellle/tmux-complete.vim'                        " Complete from other TMUX panes
+    Plug 'https://github.com/Shougo/neco-syntax'                              " Completion from syntax
+    Plug 'https://github.com/ncm2/ncm2-syntax'                                " Completion from syntax
+    Plug 'https://github.com/phpactor/phpactor' ,  {'do': 'composer install', 'for': 'php'}
+    Plug 'https://github.com/phpactor/ncm2-phpactor'                          " PHP Completion
+    Plug 'https://github.com/ncm2/ncm2-ultisnips'
+    Plug 'https://github.com/ncm2/ncm2-html-subscope'
+    Plug 'https://github.com/ncm2/ncm2-markdown-subscope'
     " }}} ---------------------------------------- Autocomplete
 
     " System Plugins ---------------------------------------- {{{

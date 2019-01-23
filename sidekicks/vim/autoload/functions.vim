@@ -167,43 +167,40 @@ function! functions#NeatFoldText()
     return l:dashes . l:foldchar . l:foldchar . ' ' . l:lines . ': ' . l:first . ' '
 endfunction
 
-function! functions#SetupCOC()
-    let g:UltiSnipsExpandTrigger		= "<c-u>"
-    let g:UltiSnipsJumpForwardTrigger	= "<c-j>"
-    let g:UltiSnipsJumpBackwardTrigger	= "<c-k>"
-    " let g:coc_snippet_next = '<c-j>'
-    " let g:coc_snippet_prev = '<c-k>'
-    " inoremap <silent><expr> <c-j> pumvisible() ? "\<C-n>" : "\<c-j>"
-    " inoremap <silent><expr> <c-k> pumvisible() ? "\<C-p>" : "\<c-k>"
-    inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<cr>"
-    inoremap <silent><expr> <c-space> coc#refresh()
-    " Goto commands
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
-    " Show documentation in preview window
-    nnoremap <silent> K :call CocAction('doHover')<CR>
+function! functions#SetupCompletion()
+    if has('nvim') && has('python3')
+        try
+            " enable ncm2
+            augroup COMPLETION_SETUP
+                au!
+                autocmd BufEnter * call ncm2#enable_for_buffer()
+                autocmd TextChangedI * call ncm2#auto_trigger()
+            augroup END
 
-    " Show signature help while editing
-    autocmd CursorHoldI * silent! call CocAction('showSignatureHelp')
+            let g:UltiSnipsExpandTrigger = '<c-u>'
+            let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_expand)'
+            let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_backward)'
+            let g:UltiSnipsListSnippets = '<Plug>(ultisnips_list)'
+            let g:UltiSnipsRemoveSelectModeMappings = 0
 
-    " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
+            inoremap <silent> <expr> <CR> ((pumvisible() && empty(v:completed_item)) ?  "\<c-y>\<cr>" : (!empty(v:completed_item) ? ncm2_ultisnips#expand_or("\<cr>", 'n') : "\<CR>" ))
+            imap <C-Space> <Plug>(ncm2_manual_trigger)
 
-    " Remap for rename current word
-    nmap <leader>rn <Plug>(coc-rename)
+            imap <silent> <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-r>=UltiSnips#ExpandSnippetOrJump()\<cr>\<Plug>(ultisnip_expand_or_jump_result)"
+            vnoremap <expr> <Plug>(ultisnip_expand_or_jump_result) g:ulti_expand_or_jump_res ? '' : "\<C-j>"
+            inoremap <expr> <Plug>(ultisnip_expand_or_jump_result) g:ulti_expand_or_jump_res ? '' : "\<C-j>"
+            xmap <C-j> <Plug>(ultisnips_expand)
+            smap <C-j> <Plug>(ultisnips_expand)
 
-    " Remap for format selected region
-    vmap <leader>f  <Plug>(coc-format-selected)
-    nmap <leader>f  <Plug>(coc-format-selected)
-
-    " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-    vmap <leader>a  <Plug>(coc-codeaction-selected)
-    nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-    " Remap for do codeAction of current line
-    nmap <leader>ac  <Plug>(coc-codeaction)
+            imap <silent> <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-r>=UltiSnips#JumpBackwards()\<cr>\<Plug>(ultisnips_backwards_result)"
+            vnoremap <expr> <Plug>(ultisnips_backwards_result) g:ulti_jump_backwards_res ? '' : "\<C-k>"
+            inoremap <expr> <Plug>(ultisnips_backwards_result) g:ulti_jump_backwards_res ? '' : "\<C-k>"
+            xmap <C-k> <Plug>(ultisnips_backward)
+            smap <C-k> <Plug>(ultisnips_backward)
+        catch
+            echom "ncm2 couldn't load"
+        endtry
+    endif
 endfunction
 
 function! functions#SetProjectDir(...)
@@ -422,19 +419,19 @@ endfunction
 
 " Taken from https://github.com/ahmedelgabri/dotfiles/blob/ef0923e0af23c7ec443a028f3d405e57c716610f/files/.vim/autoload/functions.vim#L277
 function! functions#open() abort
-   " Linux/BSD
-   if executable('xdg-open')
-     return 'xdg-open'
-   endif
-   " MacOS
-   if executable('open')
-     return 'open'
-   endif
-   " Windows
-   return 'explorer'
- endfunction
+    " Linux/BSD
+    if executable('xdg-open')
+        return 'xdg-open'
+    endif
+    " MacOS
+    if executable('open')
+        return 'open'
+    endif
+    " Windows
+    return 'explorer'
+endfunction
 
- function! functions#isGit() abort
+function! functions#isGit() abort
     silent call system('git rev-parse')
     return v:shell_error == 0
- endfunction
+endfunction
