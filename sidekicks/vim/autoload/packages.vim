@@ -29,8 +29,8 @@ function! packages#init() abort
     Plug 'https://github.com/wellle/tmux-complete.vim'                        " Complete from other TMUX panes
     Plug 'https://github.com/Shougo/neco-syntax'                              " Completion from syntax
     Plug 'https://github.com/ncm2/ncm2-syntax'                                " Completion from syntax
-    Plug 'https://github.com/phpactor/phpactor' ,  {'do': 'composer install', 'for': 'php'}
-    Plug 'https://github.com/phpactor/ncm2-phpactor'                          " PHP Completion
+    Plug 'https://github.com/phpactor/phpactor', { 'do': ':call phpactor#Update()', 'for': 'php'}
+    Plug 'https://github.com/phpactor/ncm2-phpactor', {'for': 'php'}
     Plug 'https://github.com/ncm2/ncm2-ultisnips'
     Plug 'https://github.com/ncm2/ncm2-html-subscope'
     Plug 'https://github.com/ncm2/ncm2-markdown-subscope'

@@ -435,3 +435,10 @@ function! functions#isGit() abort
     silent call system('git rev-parse')
     return v:shell_error == 0
 endfunction
+
+function! functions#plugExists(plugin, ...) abort
+    let s:VIM_PLUG_FOLDER = $VIMHOME . '/plugged'
+    let s:plugin_file = get(a:, 1, a:plugin . '.vim')
+    let s:plugin_path = s:VIM_PLUG_FOLDER . '/' . a:plugin . '/plugin/' . s:plugin_file
+    return !empty(glob(s:plugin_path))
+endfunction
