@@ -18,7 +18,7 @@ LOG_STATUS_INFO="→"
 e_header() {
     print_full_line() {
         local LABEL="$1"
-        local CLEAR_LABEL=$(echo $LABEL | sed "s,\x1B\[[0-9;]*[a-zA-Z],,g" | sed "s/\x0f//g" )
+        local CLEAR_LABEL=$(echo $LABEL | sed "s,\[[0-9;]*[a-zA-Z],,g")
         local COLS=$(($2-${#CLEAR_LABEL}-2))
         local space=$(printf ' %.0s' {1..${COLS}})
         e_line "┃ ${LABEL} ${space}┃"
@@ -350,3 +350,6 @@ SCRIPT_NAME="$(basename $0)"
 DOTFILES_BINARY_NAME="dotfiles"
 DOTFILES_BIN_PID="/tmp/dotfiles.pid"
 main "$1"
+
+
+

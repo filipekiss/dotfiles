@@ -15,11 +15,18 @@ function g() {
 }
 
 last_commit_info() {
-    local GIT_INFO_AUTHOR GIT_INFO_COMMIT GIT_INFO_MESSAGE
-    GIT_INFO_MESSAGE=$(git log --color=always -n 1 --pretty=format:'%C(yellow)%h %C(green)%s %C(cyan)(%an %ad)' --date=relative 2>/dev/null)
-
+    local GIT_INFO_MESSAGE GIT_INFO_HASH GIT_INFO_TIME COLS
+    COLS=$(tput cols)
+    if [[ $COLS -gt 80 ]]; then
+        COLS=72
+    else
+        COLS=$(($COLS-8))
+    fi
+    GIT_INFO_HASH=$(git log --color=always -n 1 --pretty=format:'%C(yellow)%h%C(reset)' --date=relative 2>/dev/null)
+    GIT_INFO_MESSAGE=$(git log --color=always -n 1 --pretty=format:"%C(green)%<($COLS,trunc)%s%C(reset)" --date=relative 2>/dev/null)
+    GIT_INFO_TIME=$(git log --color=always -n 1 --pretty=format:'%C(cyan)%an - %ad%C(reset)' --date=relative 2>/dev/null)
     [[ -n $GIT_INFO_MESSAGE ]] && \
-    e_header "Last Commit Info" "$GIT_INFO_MESSAGE" && \
+        e_header "Last Commit Info ${GIT_INFO_HASH}" "${GIT_INFO_MESSAGE}" "${GIT_INFO_TIME}" && \
     return 0
     return 1
 }
