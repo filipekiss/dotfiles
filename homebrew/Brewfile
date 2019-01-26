@@ -6,7 +6,6 @@ tap 'homebrew/services'
 tap 'caskroom/cask'
 tap 'caskroom/versions'
 tap 'universal-ctags/universal-ctags'
-tap "ahmedelgabri/homebrew-battery"
 
 # Brews
 brew 'git', ARGS: ['without-completions']
@@ -53,7 +52,6 @@ brew 'wget'
 brew 'yarn'
 brew 'youtube-dl'
 brew 'awscli'
-brew 'ahmedelgabri/battery/battery', ARGS: ['HEAD']
 brew 'editorconfig'
 brew 'exa'
 brew 'mas'
