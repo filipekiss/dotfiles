@@ -40,7 +40,7 @@ function! functions#TextHR(...) range
         if len(l:commentStringEnd) > 0
             let l:maxLineSize -= len(l:spacer . l:commentStringEnd)
         endif
-        let l:separator = strpart(l:prefix . l:hrString, 0, l:maxLineSize) . l:suffix
+        let l:separator = strcharpart(l:prefix . l:hrString, 0, l:maxLineSize) . l:suffix
         let l:macroText = '"0yy"0pC' . l:separator
         exec 'normal! ' . l:macroText
         let l:skipLine = 1
