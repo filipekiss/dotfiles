@@ -22,9 +22,11 @@ last_commit_info() {
     else
         COLS=$(($COLS-8))
     fi
-    GIT_INFO_HASH=$(git log --color=always -n 1 --pretty=format:'%C(yellow)%h%C(reset)' --date=relative 2>/dev/null)
-    GIT_INFO_MESSAGE=$(git log --color=always -n 1 --pretty=format:"%C(green)%<($COLS,trunc)%s%C(reset)" --date=relative 2>/dev/null)
-    GIT_INFO_TIME=$(git log --color=always -n 1 --pretty=format:'%C(cyan)%an - %ad%C(reset)' --date=relative 2>/dev/null)
+    GIT_LAST_COMMIT_INFO=$(git log --color=always -n 1 --pretty=format:"%C(yellow)%h%C(reset)|%C(green)%<($COLS,trunc)%s%C(reset)|%C(cyan)%an - %ad%C(reset) " --date=relative 2>/dev/null)
+
+    GIT_INFO_HASH=$(echo $GIT_LAST_COMMIT_INFO | cut -d '|' -f1)
+    GIT_INFO_MESSAGE=$(echo $GIT_LAST_COMMIT_INFO | cut -d '|' -f2)
+    GIT_INFO_TIME=$(echo $GIT_LAST_COMMIT_INFO | cut -d '|' -f3)
     [[ -n $GIT_INFO_MESSAGE ]] && \
         e_header "Last Commit Info ${GIT_INFO_HASH}" "${GIT_INFO_MESSAGE}" "${GIT_INFO_TIME}" && \
     return 0
