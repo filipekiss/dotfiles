@@ -13,7 +13,6 @@ alias pubkey='cat $HOME/.ssh/id_rsa.pub'
 alias rm="${aliases[rm]:-rm} -i"
 alias rsync="${aliases[rsync]:-rsync} -rpltDv"
 alias type="${aliases[type]:-type} -a"
-alias work="mx stoodi"
 alias dots="cd ${DOTFILES:-${HOME}/.dotfiles}"
 alias getPath='echo $PATH | tr -s ":" "\n"'
 
