@@ -44,16 +44,23 @@ function __set_size () {
     tmux resize-pane ${direction} ${size}
 }
 
+function __current_session() {
+    tmux display-message -p '#S'
+}
+
 function main() {
     local ACTION
     ACTION=${1:-}
     shift
     case $ACTION in
-        "split-args")
+        split-args)
             __split_args
             ;;
-        "resize")
+        resize)
             __set_size $@
+            ;;
+        current-session|current-session-name)
+            __current_session
     esac
 }
 
