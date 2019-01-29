@@ -79,7 +79,8 @@ if [ -z "$1" ]; then
 else
     _try_command="mx-$1"
     if [[ -n $(type -p $_try_command) ]]; then
-        exec $_try_command
+        shift
+        exec $_try_command $@
         exit 0
     fi
     NAMESPACE="$1"
