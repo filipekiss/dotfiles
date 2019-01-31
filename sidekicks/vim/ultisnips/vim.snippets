@@ -1,0 +1,13 @@
+snippet ext "Extensions Bootstrap" b
+" vim: ft=vim :tw=80 :sw=4
+
+scriptencoding utf-8
+
+if extensions#isInstalling()
+	call extensions#loadExtension('${2:https://github.com/${1:user/repo}}')
+	finish
+endif
+
+$0
+endsnippet
+
