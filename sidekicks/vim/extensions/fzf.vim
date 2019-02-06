@@ -25,7 +25,7 @@ command! Plugs call fzf#run({
 
 command! IMaps call fzf#vim#maps('i')
 
-nnoremap <silent> <leader><leader> :Files<cr>
+nnoremap <silent><expr> <leader><leader> functions#isGit() ? ':GFiles<CR>' : ':Files<CR>'
 nnoremap <silent> <Leader>c :Colors<cr>
 nnoremap <silent> <Leader>b :Buffers<cr>
 nnoremap <silent> <Leader>h :Helptags<cr>
