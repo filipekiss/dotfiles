@@ -15,7 +15,19 @@ function! setup#init() abort
     call extensions#install()
     call setup#pathSettings()
     call setup#overrides()
+    call setup#load('settings')
+    call setup#load('colors')
+    call setup#load('commands')
+    call setup#load('mappings')
+    call setup#load('autocmds')
     call extensions#configure()
+endfunction
+
+function! setup#load(file) abort
+    let s:filePath = $VIMHOME . '/config/' . a:file . '.vim'
+    if filereadable(s:filePath)
+        execute 'source ' . s:filePath
+    endif
 endfunction
 
 function! setup#overrides() abort
