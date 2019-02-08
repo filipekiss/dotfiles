@@ -6,7 +6,6 @@
 " ┃ set these automatically, so there's no need to do it manually              ┃
 " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 if !has('nvim')
-    set nocompatible                                                      " https://superuser.com/questions/543317/what-is-compatible-mode-in-vim
     set autoindent                                                        " maintain indent of current line
     set backspace=indent,start,eol                                        " allow unrestricted backspacing in insert mode
     set display+=lastline                                                 " Display as much as possibe of a window's last line.
@@ -27,7 +26,7 @@ if empty(glob($VIMHOME.'/tmp'))
     call system('mkdir -p '.$VIMHOME.'/tmp/{view,backup,swap,undo,info}') " Create $VIMHOME/tmp folders (undo, swap, etc)
 endif
 if exists('$SUDO_USER')
-                                                                          " Don't create root owned files for…
+    " Don't create root owned files for…
     set nobackup nowritebackup backupcopy=no                              " …backup
     set noswapfile                                                        " …swap
     if has('persistent_undo')
@@ -40,11 +39,11 @@ if exists('$SUDO_USER')
     endif
 else
     if has('nvim')
-                                                                          " Configure where to write the ShaDa file
+        " Configure where to write the ShaDa file
         execute "set shada=!,'100,<500,:10000,/10000,s10,h,n".$VIMHOME.'/tmp/main.shada'
         autocmd CursorHold,FocusGained,FocusLost * rshada|wshada          " read and write shada files
     else
-                                                                          " Configure where to write viminfo file
+        " Configure where to write viminfo file
         execute "set viminfo=!,'100,<500,:10000,/10000,s10,h,n".$VIMHOME.'/tmp/viminfo'
     endif
     let &backupdir=$VIMHOME.'/tmp/backup/'                                " keep backup files out of the way
@@ -167,7 +166,6 @@ set shiftround                                                            " alwa
 set shiftwidth=4                                                          " spaces per tab (when shifting)
 set nowrap                                                                " no wrap
 set textwidth=80                                                          " maximum text width
-set smartindent                                                           " keep indentation when pressing <Enter> to add a new line
 if has('folding')
     set foldtext=functions#NeatFoldText()                                 " Use custom folding function
     set foldmethod=indent                                                 " not as cool as syntax, but faster
