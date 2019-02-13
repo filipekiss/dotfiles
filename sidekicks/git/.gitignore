@@ -61,6 +61,7 @@ undodir/
 # Stuff     #
 #############
 npm-debug.log*
+*.pyo
 *.pyc
 *.map
 .mx-start
