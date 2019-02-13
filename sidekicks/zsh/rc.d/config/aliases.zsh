@@ -16,6 +16,12 @@ alias type="${aliases[type]:-type} -a"
 alias dots="cd ${DOTFILES:-${HOME}/.dotfiles}"
 alias getPath='echo $PATH | tr -s ":" "\n"'
 
+## Ranger file explorer
+if (( $+commands[ranger] )); then
+    unalias r 2>/dev/null
+    alias r=ranger
+fi
+
 ## File Download
 if (( $+commands[aria2c] )); then
   alias get='aria2c --continue --remote-time --file-allocation=none'
@@ -40,8 +46,14 @@ alias du='du -kh'
 
 ##Global Aliases
 alias -g C='| pbcopy'
-alias -g G='|grep -i '
-alias -g X='| xargs'
+if (( $+commands[rg] )); then
+    alias -g G='| rg'
+else
+    alias -g G='|grep -i '
+fi
+if (( $+comands[xargs] )); then
+    alias -g X='| xargs'
+fi
 
 if (( $+commands[exa] )); then
   alias ll="exa --tree"
@@ -57,4 +69,3 @@ alias flushcache="dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 
 # SSH when in TMUX needs to explicitly pass $TERM
 [[ $TERM == *"tmux"* ]] && alias ssh="TERM=xterm-256color ssh"
-[[ $TERM == *"tmux"* ]] && alias wtf="TERM=xterm-256color wtf"

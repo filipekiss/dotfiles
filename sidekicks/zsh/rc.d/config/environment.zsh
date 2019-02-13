@@ -34,12 +34,6 @@ unsetopt CHECK_JOBS
 # Disable start (C-s) and stop (C-q) characters
 setopt noflowcontrol
 
-# Allow comments, even in interactive shells
-setopt interactivecomments
-
-# For non-zero exit status
-# setopt printexitvalue
-
 # Expire a duplicate event first when trimming history.
 setopt HIST_EXPIRE_DUPS_FIRST
 
