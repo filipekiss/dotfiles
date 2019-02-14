@@ -13,6 +13,7 @@ function! setup#init() abort
         endif
     endif
     call extensions#install()
+    call extensions#installCleanup(1)
     call setup#pathSettings()
     call setup#overrides()
     call setup#load('settings')

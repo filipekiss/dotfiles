@@ -26,13 +26,6 @@ endfunction
 function! extensions#end() abort
     unlet g:fck_extensions_installing
     call plug#end()
-    if (exists('g:fck_queued_installation'))
-        unlet g:fck_queued_installation
-        augroup MyVimPlug
-            autocmd!
-            autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-        augroup END
-    endif
 endfunction
 
 function! extensions#folderExists(extension, ...) abort
@@ -56,6 +49,21 @@ function! extensions#install() abort
     call extensions#installFrom($VIMHOME . '/' . s:VIM_EXTENSIONS_FOLDER_NAME . '/*.vim')
     call extensions#installFrom($VIMHOME . '/' . s:VIM_EXTENSIONS_FOLDER_NAME . '/local/*.vim')
     call extensions#end()
+endfunction
+
+function! extensions#installCleanup(...) abort
+    let s:setAutocommand = get(a:, 0, 0)
+    if (exists('g:fck_queued_installation'))
+        unlet g:fck_queued_installation
+        if (s:setAutocommand)
+            augroup MyVimPlug
+                autocmd!
+                autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+            augroup END
+        else
+            execute 'PlugInstall --sync | source $MYVIMRC'
+        endif
+    endif
 endfunction
 
 function! extensions#installFrom(extensions_path) abort
@@ -121,4 +129,9 @@ function! extensions#loadExtension(extension, ...) abort
     if !extensions#folderExists(a:extension, s:options)
         let g:fck_queued_installation = 1
     endif
+endfunction
+
+function! extensions#reload() abort
+    call extensions#install()
+    call extensions#installCleanup()
 endfunction
