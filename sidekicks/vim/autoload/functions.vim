@@ -32,7 +32,7 @@ function! functions#displayLineNumbers(mode) abort
         set nonumber
         set norelativenumber
     else
-        if (a:mode == 'n')
+        if (a:mode == 'i')
             set number
             set norelativenumber
         else
