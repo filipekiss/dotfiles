@@ -18,11 +18,12 @@ endif
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_completionPreferTextEdit = 1
 let g:LanguageClient_serverCommands = {}
+let g:LanguageClient_diagnosticsEnable = 0
 
 let s:LSP_CONFIG = {
       \'javascript-typescript-stdio': {
       \    'command': ['javascript-typescript-stdio'],
-      \    'language': ['javascript', 'javascript.jsx', 'typescript']
+      \    'language': ['javascript', 'javascript.jsx', 'typescript', 'typescript.tsx']
       \  },
       \}
 

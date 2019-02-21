@@ -87,6 +87,9 @@ let g:ale_fixers = {
             \ 'typescript': [
             \   'prettier',
             \ ],
+            \ 'typescript.tsx': [
+            \ 'prettier'
+            \ ],
             \ 'json': [
             \   'prettier',
             \ ],
