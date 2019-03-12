@@ -10,7 +10,7 @@ if extensions#isMissing('ultisnips', 'UltiSnips.vim')
     finish
 endif
 
-let g:UltiSnipsExpandTrigger = '<Plug>(ultisnips_expand)'
+let g:UltiSnipsExpandTrigger = '<C-U>'
 let g:UltiSnipsJumpForwardTrigger = '<Plug>(ultisnips_expand)'
 let g:UltiSnipsJumpBackwardTrigger = '<Plug>(ultisnips_backward)'
 let g:UltiSnipsListSnippets = '<Plug>(ultisnips_list)'
