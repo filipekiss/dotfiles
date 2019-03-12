@@ -51,7 +51,7 @@ if (( $+commands[rg] )); then
 else
     alias -g G='|grep -i '
 fi
-if (( $+comands[xargs] )); then
+if (( $+commands[xargs] )); then
     alias -g X='| xargs'
 fi
 

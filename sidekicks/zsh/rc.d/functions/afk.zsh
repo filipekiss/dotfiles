@@ -5,12 +5,12 @@
 function _macos_afk() {
   local app_name
   app_name="ScreenSaverEngine.app"
-  local sierra_screensaver_location
-  sierra_screensaver_location="/System/Library/Frameworks/ScreenSaver.framework/Versions/A/Resources/${app_name}"
-  # On macOS Sierra, the screensaver has to be acessed directly. On other versions, just try to open
-  # the app by name
-  if [[ -f $sierra_screensaver_location ]]; then
-    /usr/bin/open -W ${sierra_screensaver_location} && _welcome_back
+  local screensaver_script
+  screensaver_script="/System/Library/CoreServices/${app_name}/Contents/MacOS/ScreenSaverEngine"
+  # Check if we're able to call the script directly. Otherwise, try to open as
+  # a normal app
+  if [[ -f $screensaver_script ]]; then
+    ${screensaver_script} && _welcome_back
   else
     /usr/bin/open -W -a $app_name && _welcome_back
   fi
