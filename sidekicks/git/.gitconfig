@@ -34,6 +34,7 @@
     discard = checkout --
     # Diff minified files
     dm = diff --patch-with-stat --word-diff-regex=.
+    fix-last = commit --fixup=HEAD
     gr = log --graph --full-history --all --color --decorate
     ici = commit --allow-empty -m \":tada: Initial Commit\" --no-verify
     ignored = ls-files --others -i --exclude-standard

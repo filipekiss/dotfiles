@@ -47,6 +47,7 @@ tags
 .tags
 .tags.*
 *.tags
+.notags
 .local.vim
 Session.vim
 *.swp
