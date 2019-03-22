@@ -20,6 +20,7 @@ brew 'stow'
 brew 'transcrypt'
 brew 'zsh'
 brew 'aria2', ARGS: ['with-libssh2']
+brew 'bat'
 brew 'curl'
 brew 'diff-so-fancy'
 brew 'direnv'

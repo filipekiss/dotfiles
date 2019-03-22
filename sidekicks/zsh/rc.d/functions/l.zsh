@@ -2,7 +2,11 @@ unalias l 2> /dev/null
 
 l(){
   if [[ $# -eq 1 && -f $1 ]]; then
-      less "$1"
+      if (( $+commands[bat] )); then
+          bat "$1"
+      else
+          less "$1"
+      fi
       return
   fi
   if (( $+commands[exa] )); then
