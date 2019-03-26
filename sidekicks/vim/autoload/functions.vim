@@ -136,3 +136,26 @@ function! functions#ExecuteMacroOverVisualRange()
     echo '@'.getcmdline()
     execute ":'<,'>normal @".nr2char(getchar())
 endfunction
+
+function! functions#EditSnippets(bang, ...)
+
+    let s:type = get(a:, 1, &filetype)
+
+    if (s:type ==# '')
+        let s:type = &filetype
+    endif
+
+    if (s:type ==# '')
+        echom 'No filetype passed or detected'
+        return
+    endif
+
+    let s:file = expand($HOME) . '/.dotfiles/sidekicks/vim/ultisnips/' . s:type . '.snippets'
+
+    let s:mode = 'vs'
+    if winwidth(0) <= 2 * (&tw ? &tw : 80)
+        let s:mode = 'sp'
+    endif
+
+    execute ':'.s:mode.' '.escape(s:file, ' ')
+endfunction

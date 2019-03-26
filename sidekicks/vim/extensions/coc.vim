@@ -3,13 +3,14 @@ scriptencoding utf-8
 
 let s:coc_extensions = [
             \ 'coc-css',
+            \ 'coc-emmet',
             \ 'coc-highlight',
             \ 'coc-html',
             \ 'coc-json',
             \ 'coc-omni',
+            \ 'coc-snippets',
             \ 'coc-tag',
             \ 'coc-tsserver',
-            \ 'coc-ultisnips',
             \ ]
 
 function! s:coc_hook(info) abort
@@ -56,6 +57,9 @@ nmap <silent> gr <Plug>(coc-references)
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
+" Expand snippets
+vmap <TAB> <Plug>(coc-snippets-select)
+
 function! s:show_documentation()
     if &filetype == 'vim'
         execute 'h '.expand('<cword>')
@@ -96,5 +100,11 @@ function! coc#after() abort
     call coc#config('highlight', {
                 \ 'colors': 1,
                 \ 'disableLanguages': ['vim']
+                \ })
+
+    call coc#config('emmet', {
+                \ 'includeLanguages': {
+                    \ 'php.html': 'html'
+                    \ }
                 \ })
 endfunction

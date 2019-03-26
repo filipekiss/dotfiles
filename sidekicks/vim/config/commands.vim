@@ -26,3 +26,8 @@ command! WS w !sudo tee %
 " ┃ Format Json using Python's Json Tool ┃
 " ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 command! FormatJSON %!python -m json.tool
+
+" ┌━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┐
+" │ Edit Snippets for a give filetype │
+" └━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┘
+command! -bang -nargs=? EditSnippets :call functions#EditSnippets(<q-bang>, <q-args>)
