@@ -22,6 +22,11 @@ if (( $+commands[ranger] )); then
     alias r=ranger
 fi
 
+## Hub Alias
+if (( $+commands[hub] )); then
+    alias git=hub
+fi
+
 ## File Download
 if (( $+commands[aria2c] )); then
   alias get='aria2c --continue --remote-time --file-allocation=none'
