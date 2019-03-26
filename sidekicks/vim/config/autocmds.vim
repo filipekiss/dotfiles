@@ -23,15 +23,15 @@ augroup MyAutoCmds
     " Strip trailing whitespace when saving files.
     autocmd BufWritePre * if functions#should_strip_whitespace() | call functions#Preserve("%s/\\s\\+$//e") | endif
     " Decide if will show line number, relative line numbers or nothing
-    autocmd InsertLeave,WinEnter * call functions#displayLineNumbers('n')
-    autocmd InsertEnter,WinLeave * call functions#displayLineNumbers('i')
+    autocmd InsertLeave,BufAdd * call functions#displayLineNumbers('n')
+    autocmd InsertEnter * call functions#displayLineNumbers('i')
 
     " Enable backup for crontab files
     autocmd FileType crontab setlocal bkc=yes
 
     " Update cd for current window
-    autocmd BufEnter * call functions#SetProjectDir()
-    autocmd BufEnter * call setup#overrides()
+    autocmd BufAdd,BufEnter * call functions#SetProjectDir()
+    autocmd BufAdd,BufEnter * call setup#overrides()
 augroup END
 
 augroup javascript_folding
