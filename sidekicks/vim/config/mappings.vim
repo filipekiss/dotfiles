@@ -150,9 +150,8 @@ xnoremap @ :<C-u>call functions#ExecuteMacroOverVisualRange()<CR>
 " https://www.reddit.com/r/vim/comments/3y2mgt/do_you_have_any_minor_customizationsmappings_that/cya0x04)
 vnoremap . :norm.<CR>
 
-" Use <Leader>y and <Leader>p to use the 0 register automatically (Avoid yanking replaced line)
-vnoremap <Leader>y "0y
-vnoremap <Leader>p "0p
+" Don't overwrite register on paste
+xnoremap p "_dP
 
 " Save and Reload current file
 nnoremap <Leader>R :w<CR> :source % \| echom "Reloaded " . expand("%") <CR>
