@@ -107,4 +107,7 @@ function! coc#after() abort
                     \ 'php.html': 'html'
                     \ }
                 \ })
+    call coc#config('snippets', {
+                \ 'ultisnip.directories': ['ultisnips']
+                \ })
 endfunction
