@@ -159,3 +159,7 @@ function! functions#EditSnippets(bang, ...)
 
     execute ':'.s:mode.' '.escape(s:file, ' ')
 endfunction
+
+function! functions#openMarkdownPreview() abort
+    call system('open file://' . expand('%:p'))
+endfunction
