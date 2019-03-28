@@ -40,9 +40,9 @@
     ignored = ls-files --others -i --exclude-standard
     last = "log -1 -p"
     latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
-    lg = log --all --color --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit
-    l  = log --abbrev-commit --oneline
-	lon = log --oneline --name-only
+    lg = log --all --color=always --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit --date=auto:human
+    l  = log --color=always --abbrev-commit --oneline
+    lon = log --color=always --oneline --name-only
     unmerged = branch --no-merged
     merged = branch --merged
     ours = "!f() { git checkout --ours $@ && git add $@; }; f"
@@ -61,7 +61,7 @@
     unstage = reset HEAD
     update-submodules = "!git submodule -q foreach git pull -q origin master"
     van = add -vAn
-    w = whatchanged  --pretty=format:\"%C(blue)%h %Creset- %C(green)(%cr) %C(cyan)<%aN> %Creset%aE %C(magenta)%d %n %C(yellow)%s %n%Creset\" --date=short
+    w = whatchanged  --pretty=format:\"%C(blue)%h %Creset- %C(green)(%cr) %C(cyan)<%aN> %Creset%aE %C(magenta)%d %n %C(yellow)%s %n%Creset\" --date=auto:human
     wip = rebase -i @{u}
     who = shortlog -sne
     wipe = !git reset --hard HEAD && git clean -fd
