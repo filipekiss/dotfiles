@@ -3,8 +3,6 @@
 # Taps
 tap 'homebrew/bundle'
 tap 'homebrew/services'
-tap 'caskroom/cask'
-tap 'caskroom/versions'
 tap 'universal-ctags/universal-ctags'
 
 # Brews
