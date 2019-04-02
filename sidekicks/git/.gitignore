@@ -68,3 +68,4 @@ npm-debug.log*
 .mx-start
 .envrc
 *.bkp
+.prettierignore
