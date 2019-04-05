@@ -175,7 +175,7 @@ nnoremap zC :foldc! \| .,+1foldc!<CR>
 nnoremap <silent> <Plug>WrapInBox :normal! 0Wi│ A │"lyy"lp0wr└lv$r━$r┘^"lyyk"lPWr┌l$r┐<cr> :silent! call repeat#set("\<Plug>WrapInBox")<CR>
 nmap <silent> <leader>box <Plug>WrapInBox
 " of course, we can also unbox the comment
-nnoremap <silent> <Plug>UnwrapFromBox :normal! 0W2x$xxjddkkdd<cr> :silent! call repeat#set("\<Plug>UnwrapFromBox")<CR>
+nnoremap <silent> <Plug>UnwrapFromBox :normal! 0W2x$xxjddkkddk<cr> :silent! call repeat#set("\<Plug>UnwrapFromBox")<CR>
 nmap <silent> <leader>unbox <Plug>UnwrapFromBox
 " and a rebox so I can edit the text inside (and I'm lazy)
 nmap <silent> <leader>rebox <Plug>UnwrapFromBox<Plug>WrapInBox

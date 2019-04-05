@@ -93,10 +93,6 @@ function! coc#after() abort
                 \ 'displayByAle': 1
                 \ })
 
-    call coc#config('coc.source.omni', {
-                \ 'filetypes': ['php'],
-                \ })
-
     call coc#config('highlight', {
                 \ 'colors': 1,
                 \ 'disableLanguages': ['vim']
@@ -104,7 +100,7 @@ function! coc#after() abort
 
     call coc#config('emmet', {
                 \ 'includeLanguages': {
-                    \ 'php.html': 'html'
+                    \ 'php': 'html'
                     \ }
                 \ })
     call coc#config('snippets', {
