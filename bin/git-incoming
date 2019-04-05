@@ -5,6 +5,9 @@ _parse_arguments() {
     do
         arg="$1"
         case "$arg" in
+            --submodules)
+                _fetch_submodules="--recurse-submodules"
+                ;;
             --force)
                 _force_fetch="yes"
                 ;;
@@ -31,7 +34,7 @@ _fetch_origin_if_needed() {
     _next_fetch=$((_last_fetch + _cache_duration))
     [[ ${_current_time} -ge ${_next_fetch} ]] && _should_fetch_remote="yes"
     if [[ -n ${_should_fetch_remote} || -n ${_force_fetch} ]]; then
-        git fetch ${_tracking_remote} && git config gitincoming.lastFetch $(date +%s)
+        git fetch ${_fetch_submodules:-"--no-recurse-submodules"} ${_tracking_remote} && git config gitincoming.lastFetch $(date +%s)
     fi
 }
 
