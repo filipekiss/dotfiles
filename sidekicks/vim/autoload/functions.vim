@@ -151,15 +151,31 @@ function! functions#EditSnippets(bang, ...)
     endif
 
     let s:file = expand($HOME) . '/.dotfiles/sidekicks/vim/ultisnips/' . s:type . '.snippets'
+    call EditFile(s:file)
+endfunction
 
+function! functions#openMarkdownPreview() abort
+    call system('open file://' . expand('%:p'))
+endfunction
+
+function! functions#EditExtension(bang, ...)
+
+    let s:name = get(a:, 1, &filetype)
+
+    if (s:name ==# '')
+        echoe "Provide a name for the extension"
+        return
+    endif
+
+    let s:file = expand($HOME) . '/.dotfiles/sidekicks/vim/extensions/' . s:name . '.vim'
+    call EditFile(s:file)
+endfunction
+
+function! EditFile(file) abort
     let s:mode = 'vs'
     if winwidth(0) <= 2 * (&tw ? &tw : 80)
         let s:mode = 'sp'
     endif
 
-    execute ':'.s:mode.' '.escape(s:file, ' ')
-endfunction
-
-function! functions#openMarkdownPreview() abort
-    call system('open file://' . expand('%:p'))
+    execute ':'.s:mode.' '.escape(a:file, ' ')
 endfunction
