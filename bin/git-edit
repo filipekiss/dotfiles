@@ -1,0 +1,22 @@
+#!/bin/sh
+# Usage: git-edit [conflicted|staged|edited|commited]
+
+main() {
+    local action="$1"
+    case $action in
+        conflict|conflicts|conflicted)
+            $EDITOR $(git diff --name-only --diff-filter=U)
+            ;;
+        commited)
+            $EDITOR $(git diff HEAD^ --name-only --diff-filter=ACMR)
+            ;;
+        staged)
+            $EDITOR $(git diff --staged --name-only --diff-filter=ACMR)
+            ;;
+        edited)
+            $EDITOR $(git diff HEAD --name-only --diff-filter=ACMR)
+            ;;
+    esac
+}
+
+main $@
