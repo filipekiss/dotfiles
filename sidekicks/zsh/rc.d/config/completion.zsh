@@ -43,6 +43,10 @@ unsetopt CASE_GLOB
 # Then when completion is requested again, remove the first match and insert the second match, etc.
 unsetopt MENU_COMPLETE
 
+# Pass bad arguments directly to commands, so ZSH won't complain
+# https://github.com/robbyrussell/oh-my-zsh/issues/449#issuecomment-6973326
+unsetopt NOMATCH
+
 #
 # completion module options
 #
