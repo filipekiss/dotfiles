@@ -32,7 +32,7 @@ function! functions#displayLineNumbers(mode) abort
         set nonumber
         set norelativenumber
     else
-        if (a:mode == 'i')
+        if (a:mode ==? 'i')
             set number
             set norelativenumber
         else
@@ -123,7 +123,7 @@ endfunction
 function! AppendModeline()
     let l:modeline = printf(' %s: set ts=%d sw=%d tw=%d ft=%s %set :',
                 \  'vim', &tabstop, &shiftwidth, &textwidth, &filetype, &expandtab ? '' : 'no')
-    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+    let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
     call append(0, l:modeline)
 endfunction
 
@@ -163,7 +163,7 @@ function! functions#EditExtension(bang, ...)
     let s:name = get(a:, 1, &filetype)
 
     if (s:name ==# '')
-        echoe "Provide a name for the extension"
+        echoe 'Provide a name for the extension'
         return
     endif
 
@@ -173,7 +173,7 @@ endfunction
 
 function! EditFile(file) abort
     let s:mode = 'vs'
-    if winwidth(0) <= 2 * (&tw ? &tw : 80)
+    if winwidth(0) <= 2 * (&textwidth ? &textwidth : 80)
         let s:mode = 'sp'
     endif
 

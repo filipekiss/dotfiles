@@ -1,3 +1,4 @@
+scriptencoding utf-8
 " ┏━━━━━━━━━━━━━━━━━━━━━━━┓
 " ┃ Vim Specific Settings ┃
 " ┠━━━━━━━━━━━━━━━━━━━━━━━┸━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -41,7 +42,9 @@ else
     if has('nvim')
         " Configure where to write the ShaDa file
         execute "set shada=!,'100,<500,:10000,/10000,s10,h,n".$VIMHOME.'/tmp/main.shada'
-        autocmd CursorHold,FocusGained,FocusLost * rshada|wshada          " read and write shada files
+        augroup ShadaAutocmd
+            autocmd CursorHold,FocusGained,FocusLost * rshada|wshada          " read and write shada files
+        augroup END
     else
         " Configure where to write viminfo file
         execute "set viminfo=!,'100,<500,:10000,/10000,s10,h,n".$VIMHOME.'/tmp/viminfo'

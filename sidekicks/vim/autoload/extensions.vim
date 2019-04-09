@@ -5,8 +5,8 @@ let s:VIM_EXTENSIONS_FOLDER_NAME = 'extensions'
 
 function! extensions#after() abort
     for file in split(glob($VIMHOME . '/' . s:VIM_EXTENSIONS_FOLDER_NAME . '/*.vim'), '\n')
-        let s:after_function_name = fnamemodify(file, ':t:r') . "#after"
-        if exists("*" . s:after_function_name)
+        let s:after_function_name = fnamemodify(file, ':t:r') . '#after'
+        if exists('*' . s:after_function_name)
             call call(s:after_function_name, [])
         endif
     endfor
@@ -86,7 +86,7 @@ function! extensions#installPlug() abort
 endfunction
 
 function! extensions#isLoaded(extension_name) abort
-    return &rtp =~ a:extension_name
+    return &runtimepath =~ a:extension_name
 endfunction
 
 " How to use this function:
@@ -119,7 +119,7 @@ function! extensions#isInstalling() abort
 endfunction
 
 function! extensions#isMissing(...) abort
-    let s:isMissing = !call("extensions#isInstalled", a:000)
+    let s:isMissing = !call('extensions#isInstalled', a:000)
     return s:isMissing
 endfunction
 
