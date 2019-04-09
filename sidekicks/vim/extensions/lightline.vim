@@ -22,12 +22,14 @@ let s:left_status = [
 let s:right_status =[
             \ [ 'lineinfo' ],
             \ [ 'fileformat', 'fileencoding', 'filetype' ] ,
-            \ ['linter_ok', 'linter_warnings', 'linter_errors'] ]
+            \ ['linter_ok', 'linter_warnings', 'linter_errors'],
+            \ ]
 
 let g:lightline.component_expand = {
             \ 'linter_warnings': 'ale#StatuslineLinterWarnings',
             \ 'linter_errors': 'ale#StatuslineLinterErrors',
-            \ 'linter_ok': 'ale#StatuslineLinterOK'
+            \ 'linter_ok': 'ale#StatuslineLinterOK',
+            \ 'filename': 'FilenamePrefix',
             \ }
 
 let g:lightline.component_type = {
@@ -47,10 +49,6 @@ let g:lightline.inactive = {
 let g:lightline.tabline = {
             \ 'left': [ [ 'tabs' ] ],
             \ 'right': [ [ 'close' ] ] }
-
-let g:lightline.component_expand = {
-            \ 'filename': 'FilenamePrefix'
-\ }
 
 function! FilenamePrefix()
     " Get path without filename

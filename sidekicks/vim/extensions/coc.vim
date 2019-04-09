@@ -44,9 +44,6 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -61,7 +58,7 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 vmap <TAB> <Plug>(coc-snippets-select)
 
 function! s:show_documentation()
-    if &filetype == 'vim'
+    if &filetype ==# 'vim'
         execute 'h '.expand('<cword>')
     else
         call CocAction('doHover')

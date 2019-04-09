@@ -55,7 +55,7 @@ let g:ale_sign_warning = g:ale_sign_error
 let g:ale_sign_style_error  = '●'
 let g:ale_sign_style_warning  = g:ale_sign_error
 let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
-let g:ale_echo_msg_format = '%severity% %linter% -> [%code%] -> %s'
+let g:ale_echo_msg_format = '%severity% %linter% %code%: %s'
 let g:ale_javascript_eslint_suppress_missing_config = 1
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_javascript_eslint_use_global = 1
@@ -70,8 +70,8 @@ augroup PrettierTW
 augroup end
 
 let g:ale_linters = {
-            \ 'javascript': ['eslint', 'flow'],
-            \ 'typescript': ['eslint', 'tsserver'],
+            \ 'javascript': ['eslint'],
+            \ 'typescript': ['eslint'],
             \ 'vim': ['vint'],
             \ 'markdown': ['alex'],
             \}
@@ -82,7 +82,6 @@ let g:ale_fixers = {
             \ ],
             \ 'javascript': [
             \   'prettier',
-            \   'eslint',
             \ ],
             \ 'typescript': [
             \   'prettier',
@@ -120,6 +119,9 @@ let g:ale_pattern_options = {
             \}
 
 function! ale#StatuslineLinterWarnings() abort
+    if g:ale_is_linting == 1
+        return ''
+    endif
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
@@ -127,6 +129,9 @@ function! ale#StatuslineLinterWarnings() abort
 endfunction
 
 function! ale#StatuslineLinterErrors() abort
+    if g:ale_is_linting == 1
+        return ''
+    endif
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
@@ -137,7 +142,8 @@ function! ale#StatuslineLinterOK() abort
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
-    return l:counts.total == 0 ? '✓' : ''
+    let l:is_ok = l:counts.total == 0 ? '✓' : ''
+    return g:ale_is_linting == 1 ? '…' : l:is_ok
 endfunction
 
 if extensions#isInstalled('lightline.vim', 'lightline.vim')
@@ -154,3 +160,9 @@ command! ALEDisableFixers       let g:ale_fix_on_save=0
 command! ALEEnableFixers        let g:ale_fix_on_save=1
 command! ALEDisableFixersBuffer let b:ale_fix_on_save=0
 command! ALEEnableFixersBuffer  let b:ale_fix_on_save=0
+
+" Use <leader>l to lint the current file
+nmap <silent> <leader>l :ALELint<CR>
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> ]c :ALENextWrap<CR>
+nmap <silent> [c :ALEPreviousWrap<CR>
