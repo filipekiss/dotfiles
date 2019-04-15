@@ -98,6 +98,9 @@ let g:ale_fixers = {
             \ 'scss': [
             \   'prettier',
             \ ],
+            \ 'html': [
+            \ 'prettier',
+            \ ],
             \ 'graphql': ['prettier'],
             \}
 
