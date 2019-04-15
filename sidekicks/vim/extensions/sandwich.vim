@@ -3,7 +3,7 @@
 scriptencoding utf-8
 
 if extensions#isInstalling()
-    call extensions#loadExtension('https://github.com/machakann/vim-sandwich')
+    call extensions#loadExtension('https://github.com/filipekiss/vim-sandwich')
     finish
 endif
 
