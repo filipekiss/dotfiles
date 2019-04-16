@@ -33,7 +33,11 @@ function! extensions#folderExists(extension, ...) abort
     let s:plugged_path = s:VIM_PLUG_FOLDER . '/' . s:repo_name
     let s:options = get(a:, 1, {})
     let s:extension_path = get(s:options, 'dir', s:plugged_path)
-    return !empty(glob(s:extension_path))
+    let s:extension_exists = !empty(glob(s:extension_path))
+    if (! s:extension_exists)
+        return !empty(glob(a:extension))
+    endif
+    return s:extension_exists
 endfunction
 
 function! extensions#If(cond, ...) abort
