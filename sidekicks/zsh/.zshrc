@@ -16,8 +16,8 @@ source ${ZPLUGIN_PATH}/bin/zplugin.zsh
 zplugin ice compile"(pure|async).zsh" src"pure.zsh" pick"async.zsh"
 zplugin light "filipekiss/pure"
 
-zplugin ice "filipekiss/z" pick"z.sh"
-zplugin light "filipekiss/z"
+zplugin ice "skywind3000/z.lua"  src"z.lua.plugin.zsh"
+zplugin light "skywind3000/z.lua"
 
 zplugin light "zsh-users/zsh-history-substring-search"
 

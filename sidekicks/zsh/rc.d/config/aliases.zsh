@@ -11,7 +11,7 @@ alias mv="${aliases[mv]:-mv} -iv"
 alias ping="${aliases[ping]:-ping} -c 4"
 alias pubkey='cat $HOME/.ssh/id_rsa.pub'
 alias rm="${aliases[rm]:-rm} -i"
-alias rsync="${aliases[rsync]:-rsync} -rpltDv"
+alias rsync="${aliases[rsync]:-rsync} -rpltDv --filter=':- .gitignore'"
 alias type="${aliases[type]:-type} -a"
 alias dots="cd ${DOTFILES:-${HOME}/.dotfiles}"
 alias getPath='echo $PATH | tr -s ":" "\n"'
