@@ -158,6 +158,7 @@ set wildignore+=*.orig                                                    " …m
 set wildignore+=*.rbc,*.rbo,*.gem                                         " …compiled stuff from Ruby
 set wildignore+=*/vendor/*,*/.bundle/*,*/.sass-cache/*                    " …vendor files
 set wildignore+=*/node_modules/*                                          " …JavaScript modules
+set wildignore+=package-lock.json                                         " …package-lock.json
 
 " ┏━━━━━━━━━━━━━┓
 " ┃ Text Format ┃
@@ -181,6 +182,7 @@ endif
 set formatoptions+=n                                                      " …smart auto-indenting inside numbered lists
 set formatoptions+=r                                                      " …insert current comment leader when entering new-line in insert mode
 set formatoptions+=1                                                      " …try to break lines before one letter words instead of after
+set iskeyword+=:                                                          " …add : as part of keyword, so I can use my snippets
 
 " ┏━━━━━━━━━━━┓
 " ┃ Searching ┃
