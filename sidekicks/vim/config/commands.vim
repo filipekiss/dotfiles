@@ -42,3 +42,8 @@ command! -bang -nargs=? EditExtension :call functions#EditExtension(<q-bang>, <q
 " │ Reload and install new extensions │
 " └━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┘
 command! ReloadExtensions :call extensions#reload()
+
+" ┌━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┐
+" │ Run prettier on the current file │
+" └━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┘
+command! Prettier :silent !prettier --write %
