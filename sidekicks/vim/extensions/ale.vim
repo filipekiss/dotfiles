@@ -43,8 +43,8 @@ endfunction
 
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_enter = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_sign_error = '⨉'
 let g:ale_open_list = 0
@@ -58,8 +58,6 @@ let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
 let g:ale_echo_msg_format = '%severity% %linter% %code%: %s'
 let g:ale_javascript_eslint_suppress_missing_config = 1
 let g:ale_javascript_eslint_suppress_eslintignore = 1
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_prettier_use_global = 1
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_linters_explicit = 1
 
@@ -70,8 +68,8 @@ augroup PrettierTW
 augroup end
 
 let g:ale_linters = {
-            \ 'javascript': ['eslint'],
-            \ 'typescript': ['eslint'],
+            \ 'javascript': ['eslint', 'xo'],
+            \ 'typescript': ['eslint', 'xo'],
             \ 'vim': ['vint'],
             \ 'markdown': ['alex'],
             \}
@@ -145,8 +143,14 @@ function! ale#StatuslineLinterOK() abort
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
-    let l:is_ok = l:counts.total == 0 ? '✓' : ''
-    return g:ale_is_linting == 1 ? '…' : l:is_ok
+    let l:is_ok = l:counts.total == 0 ? '🆗' : ''
+    if (g:ale_is_linting)
+        return '🔧'
+    endif
+    if (g:ale_is_fixing)
+        return '🎨'
+    endif
+    return l:is_ok
 endfunction
 
 if extensions#isInstalled('lightline.vim', 'lightline.vim')
@@ -154,6 +158,8 @@ if extensions#isInstalled('lightline.vim', 'lightline.vim')
         autocmd!
         autocmd User ALELintPre let g:ale_is_linting = 1 | call lightline#update()
         autocmd User ALELintPost let g:ale_is_linting = 0 | call lightline#update()
+        autocmd User ALEFixPre let g:ale_is_fixing = 1 | call lightline#update()
+        autocmd User ALEFixPost let g:ale_is_fixing = 0 | call lightline#update()
     augroup end
 endif
 
@@ -166,6 +172,8 @@ command! ALEEnableFixersBuffer  let b:ale_fix_on_save=0
 
 " Use <leader>l to lint the current file
 nmap <silent> <leader>l :ALELint<CR>
+" Use <leader>f to fix the current file
+nmap <silent> <leader>f :ALEFix<CR>
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> ]c :ALENextWrap<CR>
 nmap <silent> [c :ALEPreviousWrap<CR>

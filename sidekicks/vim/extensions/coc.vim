@@ -7,11 +7,11 @@ let s:coc_extensions = [
             \ 'coc-highlight',
             \ 'coc-html',
             \ 'coc-json',
-            \ 'coc-omni',
-            \ 'coc-snippets',
-            \ 'coc-tag',
+            \ 'coc-lists',
             \ 'coc-tsserver',
+            \ 'coc-ultisnips',
             \ ]
+
 
 function! s:coc_hook(info) abort
     call coc#util#install()
@@ -19,9 +19,9 @@ function! s:coc_hook(info) abort
 endfunction
 
 if extensions#isInstalling()
-    call extensions#loadExtension('https://github.com/neoclide/coc.nvim', { 'tag': '*', 'do': function('s:coc_hook') })
     call extensions#loadExtension('https://github.com/Shougo/neco-vim')
     call extensions#loadExtension('https://github.com/neoclide/coc-neco')
+    call extensions#loadExtension('https://github.com/neoclide/coc.nvim', { 'tag': '*', 'do': function('s:coc_hook') })
     finish
 endif
 
@@ -46,19 +46,36 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 
 " Remap keys for gotos
+" gd - go to definition of word under cursor
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K for show documentation in preview window
+" Use K or gh for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+
+" List errors
+nnoremap <silent> <leader>cl :<C-u>CocList locationlist<cr>
+
+" list commands available in tsserver (and others)
+nnoremap <silent> <leader>cc :<C-u>CocList commands<cr>
+
+" restart when tsserver gets wonky
+nnoremap <silent> <leader>cR :<C-u>CocRestart<CR>
+
+" manage extensions
+nnoremap <silent> <leader>cx :<C-u>CocList --normal extensions<cr>
+
+" rename the current word in the cursor
+nmap <leader>cr  <Plug>(coc-rename)
 
 " Expand snippets
 vmap <TAB> <Plug>(coc-snippets-select)
 
 function! s:show_documentation()
-    if &filetype ==# 'vim'
+    if (&filetype ==# 'vim' || &filetype ==# 'help')
         execute 'h '.expand('<cword>')
     else
         call CocAction('doHover')
@@ -70,6 +87,7 @@ augroup COC_SIGNATURE
     autocmd!
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup end
 
 function! coc#after() abort
@@ -87,7 +105,8 @@ function! coc#after() abort
                 \ 'warningSign': '●',
                 \ 'infoSign': '!',
                 \ 'hintSign': '!',
-                \ 'displayByAle': 1
+                \ 'displayByAle': 1,
+                \ 'locationlist': 1,
                 \ })
 
     call coc#config('highlight', {
