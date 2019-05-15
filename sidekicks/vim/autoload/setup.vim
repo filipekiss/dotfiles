@@ -17,11 +17,11 @@ function! setup#init() abort
     call setup#pathSettings()
     call setup#overrides()
     call setup#load('settings')
-    call setup#load('colors')
     call setup#load('commands')
     call setup#load('mappings')
     call setup#load('autocmds')
     call extensions#configure()
+    call setup#load('colors')
 endfunction
 
 function! setup#load(file) abort
