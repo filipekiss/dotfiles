@@ -22,12 +22,10 @@ PACKAGES=(
 )
 
 for package in "${PACKAGES[@]}"; do
-    if (( $+commands[yarn] )); then
-        yarn global add "$package"
-    elif (( $+commands[npm] )); then
+    if (( $+commands[npm] )); then
         npm install --global "$package"
     else
-        e_error "Install yarn or npm before continuing" && exit 1
+        e_error "Install npm before continuing" && exit 1
     fi
 done
 
