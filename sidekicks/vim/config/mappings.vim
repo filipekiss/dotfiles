@@ -153,6 +153,12 @@ vnoremap . :norm.<CR>
 " Don't overwrite register on paste
 xnoremap p "_dP
 
+" Slugify word under cursor
+nnoremap <silent> <Plug>SlugifyNormal ciw<C-R>=Slugify(getreg('"'))<CR> :silent! call repeat#set("\<Plug>SlugifyNormal")<CR>
+vnoremap <silent> <Plug>SlugifyVisual c<C-R>=Slugify(getreg('"'))<CR> :silent! call repeat#set("\<Plug>SlugifyVisual")<CR>
+nmap <silent> <leader>s <Plug>SlugifyNormal
+vmap <silent> <leader>s <Plug>SlugifyVisual
+
 " Save and Reload current file
 nnoremap <Leader>R :w<CR> :source % \| echom "Reloaded " . expand("%") <CR>
 
