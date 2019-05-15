@@ -13,6 +13,12 @@ endif
 
 
 let g:lightline = get(g:, 'lightline', {})
+
+let g:lightline.enable = {
+            \ 'statusline': 1,
+            \ 'tabline': 1
+            \ }
+
 let s:left_status = [
             \ ['mode'],
             \ [ 'filename', 'readonly', 'modified' ] ]
@@ -58,6 +64,8 @@ function! FilenamePrefix()
     " Format
     let l:dimmedColor='%#LighlineMiddle_normal#'
     let l:normalColor='%#LightlineLeft_normal_0_1#'
+    let l:dimmedColor=''
+    let l:normalColor=''
     " Get current filename
     let l:fileName=expand('%:t')
 
@@ -86,3 +94,12 @@ augroup LightLineUpdate
     autocmd!
     autocmd BufEnter * call lightline#update()
 augroup END
+
+command! LightlineReload call LightlineReload()
+
+function! LightlineReload()
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+
