@@ -87,7 +87,7 @@ function! FilenamePrefix()
 endfunction
 
 if extensions#isInstalled('falcon')
-    let g:lightline.colorscheme = 'falcon'
+    let g:lightline.colorscheme = 'nighthawk'
 endif
 
 augroup LightLineUpdate
