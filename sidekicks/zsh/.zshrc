@@ -31,11 +31,11 @@ zplugin ice wait"0" lucid atinit"zpcompinit; zpcdreplay"
 zplugin light "zdharma/fast-syntax-highlighting"
 
 
-zplugin ice lucid blockf wait'[[ -n ${ZLAST_COMMANDS[(r)dock*]} ]]'
-zplugin light "docker/cli"
+zplugin ice as"completion"
+zplugin snippet https://github.com/docker/cli/tree/master/contrib/completion/zsh/_docker
 
-zplugin ice lucid blockf wait'[[ -n ${ZLAST_COMMANDS[(r)docker-*]} ]]'
-zplugin light "docker/compose"
+zplugin ice as"completion"
+zplugin snippet https://github.com/docker/compose/blob/master/contrib/completion/zsh/_docker-compose
 
 zplugin ice lucid wait'[[ -n ${ZLAST_COMMANDS[(r)zshe*]} ]]'
 zplugin light "filipekiss/zshero"
