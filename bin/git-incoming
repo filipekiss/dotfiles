@@ -11,6 +11,12 @@ _parse_arguments() {
             --force)
                 _force_fetch="yes"
                 ;;
+            -*)
+                _git_options="${_git_options:-} $1"
+                ;;
+            --*)
+                _git_options="${_git_options:-} $1"
+                ;;
             *)
                 ;;
         esac
@@ -43,10 +49,10 @@ _show_log() {
     local actionName=${binaryName#git-}
     case "$actionName" in
         incoming)
-            git log ..${_tracking_remote}/${_tracking_remote_branch_name}
+            git log ${_git_options:-} ..${_tracking_remote}/${_tracking_remote_branch_name}
             ;;
         outgoing)
-            git log ${_tracking_remote}/${_tracking_remote_branch_name}..
+            git log ${_git_options:-} ${_tracking_remote}/${_tracking_remote_branch_name}..
             ;;
     esac
 }
