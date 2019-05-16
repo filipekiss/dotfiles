@@ -1,0 +1,17 @@
+{
+    "suggest.noselect": false,
+    "suggest.autoTrigger": "always",
+    "suggest.maxCompleteItemCount": 20,
+    "coc.preferences.colorSupport": true,
+    "diagnostic.errorSign": "×",
+    "diagnostic.warningSign": "●",
+    "diagnostic.infoSign": "!",
+    "diagnostic.hintSign": "!",
+    "diagnostic.displayByAle": true,
+    "diagnostic.locationlist": true,
+    "highlight.colors.enable": true,
+    "highlight.disableLanguages": ["vim"],
+    "emmet.includeLanguages": {
+        "php": "html"
+    }
+}

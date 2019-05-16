@@ -145,7 +145,7 @@ function! ale#StatuslineLinterOK() abort
     let l:all_non_errors = l:counts.total - l:all_errors
     let l:is_ok = l:counts.total == 0 ? '🆗' : ''
     if (g:ale_is_linting)
-        return '🔧'
+        return '🔬'
     endif
     if (g:ale_is_fixing)
         return '🎨'

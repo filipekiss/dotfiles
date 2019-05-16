@@ -89,37 +89,3 @@ augroup COC_SIGNATURE
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
     autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup end
-
-function! coc#after() abort
-    call coc#config('coc.preferences', {
-                \ 'colorSupport': 1,
-                \ })
-
-    call coc#config('suggest', {
-                \ 'noselect': 0,
-                \ 'autoTrigger': 'always'
-                \ })
-
-    call coc#config('diagnostic', {
-                \ 'errorSign': '×',
-                \ 'warningSign': '●',
-                \ 'infoSign': '!',
-                \ 'hintSign': '!',
-                \ 'displayByAle': 1,
-                \ 'locationlist': 1,
-                \ })
-
-    call coc#config('highlight', {
-                \ 'colors': 1,
-                \ 'disableLanguages': ['vim']
-                \ })
-
-    call coc#config('emmet', {
-                \ 'includeLanguages': {
-                    \ 'php': 'html'
-                    \ }
-                \ })
-    call coc#config('snippets', {
-                \ 'ultisnip.directories': ['ultisnips']
-                \ })
-endfunction
