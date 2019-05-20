@@ -39,6 +39,8 @@ brew 'neovim', ARGS: ['HEAD']
 brew 'node'
 brew 'ruby'
 brew 'ripgrep'
+brew 'shellcheck'
+brew 'shfmt'
 brew 'ssh-copy-id'
 brew 'tidy-html5'
 brew 'tldr'
