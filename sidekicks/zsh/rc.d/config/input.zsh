@@ -65,6 +65,17 @@ if [[ -n "${key_info[BackTab]}" ]]; then
   bindkey "${key_info[BackTab]}" reverse-menu-complete
 fi
 
+# Use ! in normal mode to edit the current line
+# Use a custom widget so my editor is always $GIT_EDITOR, that waits for the
+# editor
+function nvr-edit-command-line() {
+    autoload -Uz edit-command-line
+    zle -N edit-command-line
+    VISUAL=$GIT_EDITOR edit-command-line
+}
+zle -N nvr-edit-command-line
+bindkey -M vicmd '!'  nvr-edit-command-line
+
 # Automatically expand ... to ../..
 double-dot-expand() {
   if [[ ${LBUFFER} == *.. ]]; then
