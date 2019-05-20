@@ -1,7 +1,7 @@
 {
     "suggest.noselect": false,
     "suggest.autoTrigger": "always",
-    "suggest.maxCompleteItemCount": 20,
+    "suggest.maxCompleteItemCount": 10,
     "coc.preferences.colorSupport": true,
     "diagnostic.errorSign": "×",
     "diagnostic.warningSign": "●",

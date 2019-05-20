@@ -55,7 +55,10 @@ let g:ale_sign_warning = g:ale_sign_error
 let g:ale_sign_style_error  = '●'
 let g:ale_sign_style_warning  = g:ale_sign_error
 let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
-let g:ale_echo_msg_format = '%severity% %linter% %code%: %s'
+let g:ale_echo_msg_format = '%linter%%severity%% (code)% - %s'
+let g:ale_echo_msg_error_str = '⨉'
+let g:ale_echo_msg_info_str = '●'
+let g:ale_echo_msg_warning_str = '!'
 let g:ale_javascript_eslint_suppress_missing_config = 1
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_javascript_prettier_use_local_config = 1
@@ -72,6 +75,8 @@ let g:ale_linters = {
             \ 'typescript': ['eslint', 'xo'],
             \ 'vim': ['vint'],
             \ 'markdown': ['alex'],
+            \ 'sh': ['shellcheck'],
+            \ 'bash': ['shellcheck'],
             \}
 
 let g:ale_fixers = {
@@ -100,6 +105,12 @@ let g:ale_fixers = {
             \ 'prettier',
             \ ],
             \ 'graphql': ['prettier'],
+            \ 'sh' : [
+            \ 'shfmt'
+            \ ],
+            \ 'bash' : [
+            \ 'shfmt'
+            \ ],
             \}
 
 " Don't auto fix (format) files inside `node_modules`, minified files and jquery (for legacy codebases)
