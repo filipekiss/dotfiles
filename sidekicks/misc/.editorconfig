@@ -25,6 +25,10 @@ insert_final_newline = false
 indent_style = tab
 indent_size = 4
 
+# JavaScript and TypeScript
+[*.{js,jsx,ts,tsx}]
+indent_size = 2
+
 # Python
 [*.{py,rst}]
 indent_style = space

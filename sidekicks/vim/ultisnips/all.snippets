@@ -1,132 +1,135 @@
-snippet :d "Apr 01, 2008" i
+# See pythonx/fcksnippets.py
+global !p
+from fcksnippets import get_comment_format
+commentChars = get_comment_format()
+firstLineComment = commentChars[0]
+middleLineComment = commentChars[1]
+if commentChars[2] != commentChars[0]:
+    endLineComment = commentChars[2]
+else:
+    endLineComment = ""
+endglobal
+
+snippet cc "Comment"
+`!p snip.rv = firstLineComment` $0 `!p snip.rv = endLineComment`
+endsnippet
+
+snippet d "Apr 01, 2008"
 `date "+%b %e, %Y"`
 endsnippet
 
-snippet :dd "Sun, Apr 01" i
+snippet dd "Sun, Apr 01"
 `date "+%a, %b %e"`
 endsnippet
 
-snippet :date "Apr 01, 2008" i
-`date "+%b %e, %Y"`
-endsnippet
-
-snippet :date "Sun, Apr 01" i
-`date "+%a, %b %e"`
-endsnippet
-
-snippet :date "April 01, 2008" i
+snippet date "April 01, 2008"
 `date "+%B %e, %Y"`
 endsnippet
 
-snippet :date "2008-04-01" i
+snippet date "2008-04-01"
 `date "+%Y-%m-%d"`
 endsnippet
 
-snippet :date "2008-04-01 08:40" i
+snippet date "2008-04-01 08:40"
 `date "+%Y-%m-%d %R"`
 endsnippet
 
-snippet :dt "2008-04-01 08:40" i
+snippet dt "2008-04-01 08:40"
 `date "+%Y-%m-%d %R"`
 endsnippet
 
-snippet :datetime "2008-04-01 08:40" i
+snippet datetime "2008-04-01 08:40"
 `date "+%Y-%m-%d %R"`
 endsnippet
 
-snippet :date "2008-04-01T08:40" i
+snippet date "2008-04-01T08:40"
 `date "+%FT%R:%S"`
 endsnippet
 
-snippet :time "08:40" i
+snippet time "08:40"
 `date "+%R"`
 endsnippet
 
-snippet :bang "Shebang for scripts definitions" b
+snippet bang "Shebang for scripts definitions" b
 #!/usr/bin/env ${1:sh}
 
 $0
 endsnippet
 
-snippet :shead "Header for scripts and small bins" b
-
-${1:Project Name}
-------------------------------------------------------------------------------
-
-Description
------------
-${2:Description of the project}
-------------------------------------------------------------------------------
-
-Authors
--------
-${3}
-------------------------------------------------------------------------------
+snippet shead "Header for scripts and small bins" b
+`!p snip.rv = firstLineComment` ${1:Project Name}
+`!p snip.rv = middleLineComment` ------------------------------------------------------------------------------
+`!p snip.rv = middleLineComment`
+`!p snip.rv = middleLineComment` Description
+`!p snip.rv = middleLineComment` -----------
+`!p snip.rv = middleLineComment` ${2:Description of the project}
+`!p snip.rv = middleLineComment` ------------------------------------------------------------------------------
+`!p snip.rv = middleLineComment`
+`!p snip.rv = middleLineComment` Authors
+`!p snip.rv = middleLineComment` -------
+`!p snip.rv = middleLineComment` ${3}
+`!p snip.rv = middleLineComment` ------------------------------------------------------------------------------ `!p snip.rv = endLineComment`
 endsnippet
 
-snippet :aut "author for scripts, readmes etc"
-${1:Name} ${2:<${3:user@email.com}>} ${4:http://${5:github.com/${6:username}}}
+snippet aut "author for scripts, readmes etc"
+`!p snip.rv = firstLineComment` ${1:Name} ${2:<${3:user@email.com}>} ${4:http://${5:github.com/${6:username}}} `!p snip.rv = endLineComment`
 endsnippet
 
-snippet :banner "Ascii banner"
-# ------------------------------------------------------------------------------
+snippet banner "Ascii banner"
+`!p snip.rv = firstLineComment` ------------------------------------------------------------------------------ `!p snip.rv = endLineComment`
 ${1:${VISUAL}}
-# ------------------------------------------------------------------------------
+`!p snip.rv = firstLineComment` ------------------------------------------------------------------------------ `!p snip.rv = endLineComment`
 $0
 endsnippet
 
-snippet :hr "same line separator used on banner"
-# ------------------------------------------------------------------------------
+snippet hr "same line separator used on banner"
+`!p snip.rv = firstLineComment` ------------------------------------------------------------------------------ `!p snip.rv = endLineComment`
 endsnippet
 
-snippet :cmd "⌘" i
+snippet cmd "⌘"
 ⌘
 endsnippet
 
-snippet :alt "⌥" i
+snippet alt "⌥"
 ⌥
 endsnippet
 
-snippet :opt "⌥" i
+snippet opt "⌥"
 ⌥
 endsnippet
 
-snippet :shift "⇧" i
+snippet shift "⇧"
 ⇧
 endsnippet
 
-snippet :esc "⎋" i
+snippet esc "⎋"
 ⎋
 endsnippet
 
-snippet :caps "⇪" i
+snippet caps "⇪"
 ⇪
 endsnippet
 
-snippet :return "⏎" i
+snippet return "⏎"
 ⏎
 endsnippet
 
-snippet :del "⌫" i
+snippet del "⌫"
 ⌫
 endsnippet
 
-snippet :tab "⇥" i
+snippet tab "⇥"
 ⇥
 endsnippet
 
-snippet :check "✓" i
-✓
+snippet mode "Vim Mode Line" b
+`!p snip.rv = firstLineComment` vim:ft=${1}:
 endsnippet
 
-snippet :mode "Vim Mode Line" b
-# vim:ft=${1}:
-endsnippet
-
-snippet :mit "MIT license" b
+snippet mit "MIT license"
 The MIT License (MIT)
 
-Copyright (c) `date +"%Y"` ${1:`echo ${FULL_NAME:-${GIT_AUTHOR_NAME:-}}`}
+Copyright (c) `date +"%Y"` ${1:`echo ${FULL_NAME:-${GITHUB_AUTHOR_NAME:-}}`}
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -147,21 +150,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 endsnippet
 
-snippet :vimfold "Add fold comment markers" b
-${1:Fold title} ---------------------------------------- {{{
+snippet vimfold "Add fold comment markers" b
+`!p snip.rv = firstLineComment` ${1:Fold title} ---------------------------------------- {{{ `!p snip.rv = endLineComment`
 
 ${0:${VISUAL}}
 
-}}} ---------------------------------------- $1
+`!p snip.rv = firstLineComment` }}} ---------------------------------------- $1 `!p snip.rv = endLineComment`
 endsnippet
 
-snippet :todo "Add a todo with date and github user" b
-@TODO: ${1:Do something} (`date +"%d-%m-%y %R"`${2: - `echo $GITHUB_USER`})
-$0
+snippet todo "Add a todo with date and github user" b
+`!p snip.rv = firstLineComment` @TODO: ${1:Do something} (`date +"%d-%m-%y %R"`${2: - `echo $GITHUBUSER`}) `!p snip.rv = endLineComment`
+`!p snip.rv = firstLineComment` $0 `!p snip.rv = endLineComment`
 endsnippet
 
-snippet :sign "Add a signature to be used in  comments or such"
-${1:`echo ${FULLNAME:-Your Name}`} - ${2:`echo ${EMAIL:-email@domain.com}`} (`date +"%Y-%m-%d %R"`)
+snippet sign "Add a signature to be used in  comments or such"
+`!p snip.rv = firstLineComment` ${1:`echo ${FULLNAME:-Your Name}`} - ${2:`echo ${EMAIL:-email@domain.com}`} (`date +"%Y-%m-%d %R"`) `!p snip.rv = endLineComment`
 endsnippet
 
 # vim:ft=snippets:
