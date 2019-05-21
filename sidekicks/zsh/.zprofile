@@ -12,15 +12,18 @@
 typeset -gU cdpath fpath manpath path
 
 fpath=(
-    ${ZDOTDIR:-${HOME}}/rc.d/completion(N-/)
+    ${ZDOTDIR:-${HOME}/.dotfiles/sidekicks/zsh}/rc.d/functions(N-/)
+    ${ZDOTDIR:-${HOME}/.dotfiles/sidekicks/zsh}/rc.d/completion(N-/)
     /usr/local/share/zsh/site-functions(N-/)
     $fpath
 )
 
+autoload -Uz ${ZDOTDIR:-${HOME}/.dotfiles/sidekicks/zsh}/rc.d/functions/**/*(N:t)
+
 # Get the original manpath, then modify it.
 (( $+commands[manpath] )) && MANPATH="`manpath`"
 manpath=(
-    ${HOMEBREW_ROOT:-/usr/local}/opt/coreutils/libexec/gnuman(N-/)
+    ${HOMEBREW_ROOT:-/usr/local}/opt/*/libexec/gnuman(N-/)
     "$manpath[@]"
 )
 

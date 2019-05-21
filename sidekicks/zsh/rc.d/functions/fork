@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 unalias fork 2>/dev/null
 
 function fork() {
@@ -27,3 +28,4 @@ function fork() {
   hub fork
 }
 
+fork "$@"

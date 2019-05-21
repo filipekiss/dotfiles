@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 function todo () {
     typeset -a _rg_options
     typeset -a _rg_args
@@ -43,3 +44,5 @@ function todo () {
         echo "Install ripgrep"
     fi
 }
+
+todo "$@"

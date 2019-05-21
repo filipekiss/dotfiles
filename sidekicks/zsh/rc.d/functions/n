@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # Alias npm to n
 
 # Exit if npm is not installed
@@ -15,3 +16,5 @@ function n() {
 
 # Ensure n is completed like npm
 compdef n=npm
+
+n "$@"

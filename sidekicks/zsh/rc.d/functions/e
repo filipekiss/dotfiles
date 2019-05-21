@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # Editor Wrapper to support neovim-remote
 
 # If not inside TMUX, just alias e to EDITOR, no need to all this roundabouts
@@ -61,3 +62,5 @@ export NVIM_LISTEN_ADDRESS="/tmp/nvimsocket-${__current_tmux_session}-${__curren
 export EDITOR="nvr"
 export VISUAL=$EDITOR
 export GIT_EDITOR="$EDITOR --remote-wait-silent -s --servername=$NVIM_LISTEN_ADDRESS"
+
+e "$@"

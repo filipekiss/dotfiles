@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 unalias l 2> /dev/null
 
 l(){
@@ -30,3 +31,5 @@ l(){
       }'
   fi
 }
+
+l "$@"

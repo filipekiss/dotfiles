@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # Make sure my aliases and functions work when sudoing
 
 unalias sudo 2>/dev/null
@@ -29,3 +30,5 @@ function sudo() {
 }
 
 compdef sudo=sudo
+
+sudo "$@"

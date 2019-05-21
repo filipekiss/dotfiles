@@ -47,7 +47,6 @@ zplugin light "filipekiss/zshero"
 DOTFILES_BIN=$(command -v dotfiles)
 if [[ -n $DOTFILES_BIN ]]; then
   source $DOTFILES_BIN "source"
-  for func (${ZDOTDIR}/rc.d/functions/*.zsh) source $func
 fi
 
 # ------------------------------------------------------------

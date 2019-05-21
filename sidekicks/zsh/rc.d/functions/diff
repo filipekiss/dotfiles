@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # diff-so-fancy no index wrapper
 #
 (( $+commands[diff-so-fancy] )) || return 0
@@ -16,6 +17,7 @@ function diff() {
   fi
 }
 
-# Autocomplete as if typing `brew cask`
+# Autocomplete with files list
 compdef '_files' diff
 
+diff "$@"

@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # See http://transfer.sh/ and https://gist.github.com/nl5887/a511f172d3fb3cd0e42d#file-transfer-sh
 #
 # USAGE: transfer <file>
@@ -50,3 +51,5 @@ transfer() {
     # cleanup
     rm -f $tmpfile
 }
+
+transfer "$@"

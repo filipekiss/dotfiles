@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # Alias for `brew install`
 #
 # No arguments will work as `brew ls`. Otherwise will behave as `brew install`
@@ -16,3 +17,5 @@ else
 
 # Autocomplete as if typing `brew cask`. This only works on macos
 is_macos && compdef '_brew_install' cast
+
+cast "$@"

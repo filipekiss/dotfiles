@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # Use rm to remove a link and it's target
 unalias rml 2>/dev/null
 
@@ -20,3 +21,5 @@ function rml() {
 
 # Ensure rml is completed like rm
 compdef rml=rm
+
+rml "$@"

@@ -1,4 +1,7 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 function groot() {
     repoRoot=$(git rev-parse --show-toplevel)
     builtin cd $repoRoot
 }
+
+groot "$@"

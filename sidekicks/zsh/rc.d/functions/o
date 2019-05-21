@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # No arguments: `open .`
 # With arguments: acts like `open`
 
@@ -21,3 +22,5 @@ function o {
 
 # Complete o like open
 compdef o=open
+
+o "$@"

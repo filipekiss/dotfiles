@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # Alias for `brew cask`
 #
 # No arguments will work as `brew cask list`. Otherwise will behave as `brew cask`
@@ -18,3 +19,5 @@ function cask() {
 
 # Autocomplete as if typing `brew cask`
 compdef '_brew_cask' cask
+
+cask "$@"

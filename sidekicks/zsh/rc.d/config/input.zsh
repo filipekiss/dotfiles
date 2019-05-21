@@ -110,6 +110,8 @@ zle-line-finish() {
 zle -N zle-line-init
 zle -N zle-line-finish
 
+for widget (${ZDOTDIR:-${HOME}/.dotfiles/sidekicks/zsh}/rc.d/widgets/*.zsh) source $widget
+
 # Ensure no delay when changing modes
 export KEYTIMEOUT=1
 

@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 function theme() {
   VIMSPECTR="$HOME/.vimspectr-shell"
   VSRC="$HOME/.vsrc"
@@ -25,3 +26,5 @@ function theme() {
     echo "Theme $theme_name not found."
   fi
 }
+
+theme "$@"

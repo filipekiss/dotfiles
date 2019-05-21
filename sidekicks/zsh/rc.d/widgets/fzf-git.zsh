@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 #
 # http://junegunn.kr/2016/07/fzf-git/
 #

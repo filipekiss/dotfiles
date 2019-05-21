@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # Alias git to g
 
 # Exit if git is not installed
@@ -35,3 +36,5 @@ last_commit_info() {
 
 # Ensure g is completed like git
 compdef g=git
+
+g "$@"

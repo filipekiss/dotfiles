@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 swap() {
     local _can_swap_paths
     [[ $# -eq 2 ]] && _can_swap_paths=1
@@ -20,3 +21,5 @@ swap() {
     command mv /tmp/${_path_left} ${_path_right}
     [[ -z $(ls $_tmp_path) ]] && command rm -rf ${_tmp_path} || return 0
 }
+
+swap "$@"

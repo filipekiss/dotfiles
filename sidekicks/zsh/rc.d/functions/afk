@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # simple afk command to invoke screensaver from CLI.
 
 
@@ -10,7 +11,7 @@ function _macos_afk() {
   # Check if we're able to call the script directly. Otherwise, try to open as
   # a normal app
   if [[ -f $screensaver_script ]]; then
-    ${screensaver_script} && _welcome_back
+    ${screensaver_script} 2>/dev/null && _welcome_back
   else
     /usr/bin/open -W -a $app_name && _welcome_back
   fi
@@ -53,3 +54,5 @@ function afk() {
     if is_macos; then; _macos_afk; fi;
     if is_linux; then; _linux_afk; fi;
 }
+
+afk

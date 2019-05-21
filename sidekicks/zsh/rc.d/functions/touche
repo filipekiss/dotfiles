@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 function touche() {
     if [[ -z "$1" ]]; then
         echo "USAGE: touche path/to/new/file.ext"
@@ -9,3 +10,5 @@ function touche() {
     [[ ! -f $filePath ]] && (touch $filePath && echo "Created ${filePath}. Opening using '${EDITOR}'" || (echo "Error creating ${filePath:t}. Aborting…" && exit 1))
     $EDITOR $filePath
 }
+
+touche "$@"

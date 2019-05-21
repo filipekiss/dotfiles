@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # Alias yarn to y
 
 # Exit if yarn is not installed
@@ -15,3 +16,5 @@ function y() {
 
 # Ensure y is completed like yarn
 compdef y=yarn
+
+y "$@"

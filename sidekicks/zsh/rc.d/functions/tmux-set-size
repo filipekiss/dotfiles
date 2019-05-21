@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 function tmux-set-size() {
     local size="$1"
     local direction="-${2:-R}"
@@ -24,3 +25,5 @@ function tmux-set-size() {
     fi
     tmux resize-pane ${direction} ${finalSize}
 }
+
+tmux-set-size "$@"

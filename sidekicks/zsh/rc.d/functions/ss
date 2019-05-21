@@ -1,3 +1,4 @@
+#  vim: set ts=4 sw=4 tw=80 ft=zsh et :
 # macOS Only
 is_macos || return 0
 
@@ -22,3 +23,5 @@ function ss(){
     e_info "Screenshots will be saved on ${BLUE}${SCREENSHOT_PATH/#$HOME/~}${RESET} from now on"
 }
 
+
+ss "$@"
