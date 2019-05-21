@@ -11,36 +11,6 @@ if extensions#isMissing('ale')
     finish
 endif
 
-function! s:prettierSettings(...)
-    let s:prettierDefaultOptions = {
-                \ 'tab-width': '4',
-                \ 'single-quote': 1,
-                \ 'use-tabs': 0,
-                \ 'trailing-comma': 'es5',
-                \ 'arrow-parens': 'always',
-                \ 'no-bracket-spacing': 1,
-                \ 'prose-wrap': 'always',
-                \ 'no-editorconfig': 1,
-                \ 'config-precedence': 'prefer-file',
-                \ 'print-width': &textwidth
-                \ }
-    let a:newOptions = get(a:, 1, {})
-    let s:prettierFinalOptions = extend(s:prettierDefaultOptions, a:newOptions)
-    let s:cliOptions=[]
-    for s:pKey in keys(s:prettierDefaultOptions)
-        let s:optionValue=s:prettierDefaultOptions[s:pKey]
-        if s:optionValue ==# '0'
-            continue
-        endif
-        call add(s:cliOptions, '--'.s:pKey)
-        if s:optionValue !=# '1'
-            call add(s:cliOptions,  s:optionValue)
-        endif
-        let s:optionValue = ''
-    endfor
-    return join(s:cliOptions, ' ')
-endfunction
-
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_insert_leave = 1
@@ -63,12 +33,6 @@ let g:ale_javascript_eslint_suppress_missing_config = 1
 let g:ale_javascript_eslint_suppress_eslintignore = 1
 let g:ale_javascript_prettier_use_local_config = 1
 let g:ale_linters_explicit = 1
-
-let g:ale_javascript_prettier_options = s:prettierSettings({'print-width': &textwidth})
-augroup PrettierTW
-    autocmd!
-    autocmd OptionSet textwidth let g:ale_javascript_prettier_options = s:prettierSettings({'print-width': &textwidth})
-augroup end
 
 let g:ale_linters = {
             \ 'javascript': ['eslint', 'xo'],
