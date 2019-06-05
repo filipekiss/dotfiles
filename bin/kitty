@@ -1,4 +1,0 @@
-#!/usr/bin/env zsh
-
-KITTY_LOCATION="${KITTY_LOCATION:-/Applications/kitty.app/Contents/MacOS/kitty}"
-exec $KITTY_LOCATION "$@"
