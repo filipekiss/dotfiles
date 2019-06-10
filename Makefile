@@ -9,9 +9,6 @@ brew:
 python:
 	-@zsh ./scripts/python-packages.zsh
 
-private:
-	-@zsh ./scripts/transcrypt-config.zsh
-
 node:
 	-@zsh ./scripts/node-packages.zsh
 
