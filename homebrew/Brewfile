@@ -4,31 +4,30 @@
 tap 'homebrew/bundle'
 tap 'homebrew/services'
 tap 'universal-ctags/universal-ctags'
+tap 'jason0x43/homebrew-neovim-nightly'
 
 # Brews
-brew 'git', ARGS: ['without-completions']
+brew 'git'
 brew 'gcc'
 brew 'awk'
 brew 'python'
 brew 'python@2'
 brew 'icu4c'
 brew 'coreutils'
-brew 'findutils', ARGS: ['with-default-names']
+brew 'findutils'
 brew 'stow'
-brew 'transcrypt'
 brew 'zsh'
-brew 'aria2', ARGS: ['with-libssh2']
+brew 'aria2'
 brew 'bat'
 brew 'curl'
 brew 'diff-so-fancy'
 brew 'direnv'
-brew 'docker-compose', ARGS: ['without-docker', 'without-docker-machine']
 brew 'fd'
 brew 'ffmpeg'
 brew 'fzf'
-brew 'gnu-sed', ARGS: ['with-default-names']
+brew 'gnu-sed'
 brew 'gnupg2'
-brew 'grep', ARGS: ['with-default-names']
+brew 'grep'
 brew 'htop'
 brew 'highlight'
 brew 'hub'
@@ -45,45 +44,33 @@ brew 'ssh-copy-id'
 brew 'tidy-html5'
 brew 'tldr'
 brew 'tmux'
-brew 'transcrypt'
 brew 'tree'
 brew 'unrar'
-brew 'vim', ARGS: ['with-lua', 'with-python3', 'with-override-system-vi']
+brew 'vim'
 brew 'wget'
 brew 'yarn'
 brew 'youtube-dl'
-brew 'awscli'
 brew 'editorconfig'
 brew 'exa'
-brew 'mas'
-brew 'universal-ctags', ARGS: ['HEAD']
+brew 'universal-ctags/universal-ctags/universal-ctags', ARGS: ['HEAD']
 
 # Casks
 cask '1password6'
-cask 'discord'
-cask 'docker'
 cask 'dropbox'
-cask 'firefox'
+cask 'firefox-developer-edition'
 cask 'google-chrome'
-cask 'itau'
 cask 'iterm2-nightly'
-cask 'karabiner-elements'
 cask 'keka'
 cask 'keybase'
 cask 'launchbar'
 cask 'macdown'
-cask 'polymail'
+cask 'neovim-nightly'
 cask 'qlstephen'
 cask 'quicklook-json'
-cask 'sequel-pro'
-cask 'setapp'
-cask 'skitch'
-cask 'spotify'
-cask 'ynab'
 
 # Mac App Store
-mas 'Denied', id: 909257784
-mas 'Magnet', id: 441258766
-mas 'Relax', id: 1440712920
-mas 'Telegram', id: 747648890
-mas 'Tweetbot', id: 557168941
+#mas 'Denied', id: 909257784
+#mas 'Magnet', id: 441258766
+#mas 'Relax', id: 1440712920
+#mas 'Telegram', id: 747648890
+#mas 'Tweetbot', id: 557168941
