@@ -86,28 +86,25 @@ LINE_BREAK="\n"
 
 # OS detection
 function is_macos() {
+    unsetopt casematch
     [[ "$OSTYPE" =~ ^darwin ]] || return 1
 }
 
 function is_linux() {
+    unsetopt casematch
     [[ "$OSTYPE" =~ ^linux ]] || return 1
 }
 
 
-# simple function to test if we have access to other functions
-# I use this in a few scripts, like scripts/python.zsh
-function has_dotfiles_function() {
-    echo "" || return 1
-}
 # If this file was being sourced, exit now.
 [[ "$1" == "source" ]] && return
-#
+
 # Where the magic happens.
 DOTFILES="${DOTFILES:-${HOME}/.dotfiles}"
 
 # Test if this script was run via the "dotfiles" bin script (vs. via curl/wget)
 function is_dotfiles_bin() {
-    [[ -d $DOTFILES && $SCRIPT_NAME == $DOTFILES_BINARY_NAME ]] || return 1
+  [[ "$(basename $0 2>/dev/null)" == dotfiles ]] || return 1
 }
 
 function get_os() {
