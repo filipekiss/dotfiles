@@ -1,5 +1,6 @@
-(( ! $+functions[has_dotfiles_function] )) && [[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
-(( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
+e_error() {
+    echo "✖ $@"
+}
 
 PACKAGES=(
     "alex"
@@ -16,7 +17,6 @@ PACKAGES=(
     "vscode-json-languageserver"
     "javascript-typescript-langserver"
     "jscpd"
-    "neovim"
     "prettier"
     "tern"
 )
