@@ -24,13 +24,14 @@
     assume = update-index --assume-unchanged
     assumed = "!git ls-files -v | grep ^h | cut -c 3-"
     br = branch
+    brs = branch --sort=-committerdate --verbose --format='%(HEAD) %(color:red)%(objectname:short)%(color:reset) - %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) - %(color:green)(%(committerdate:relative))%(color:reset) %(color:blue)<%(authorname)>%(color:reset)'
     branch-name = rev-parse --abbrev-ref HEAD
     changelog = log --reverse --no-merges --format='* %s'
     ci = commit
     co = checkout
     conflict = diff --name-only --diff-filter=U
     count = rev-list --count
-    current = "!git branch-name"
+    current = symbolic-ref --short HEAD
     d = diff --patch-with-stat
     dc = diff --patch-with-stat --staged
     discard = checkout --
@@ -55,22 +56,21 @@
     rbs = rebase --skip
     rci = commit --amend --no-edit
     root = rev-parse --show-toplevel
-    st = status -sb
     tags = tag -l
     theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
     unassume = update-index --no-assume-unchanged
     unpushed = log @{u}..
-    unstage = reset HEAD
+    unstage = reset HEAD --
     update-submodules = "!git submodule -q foreach git pull -q origin master"
     van = add -vAn
     w = whatchanged  --pretty=format:\"%C(blue)%h %Creset- %C(green)(%cr) %C(cyan)<%aN> %Creset%aE %C(magenta)%d %n %C(yellow)%s %n%Creset\" --date=auto:human
     wip = rebase -i @{u}
     who = shortlog -sne
-    wipe = !git reset --hard HEAD && git clean -fd
+    wipe = reset --hard HEAD
     ctags = !~/.dotfiles/sidekicks/git/hooks/utils/ctags
-	unpushed-branches = log --branches --not --remotes --no-walk --decorate --oneline
-	ff = merge --ff-only
-	undo-last = reset head~
+    unpushed-branches = log --branches --not --remotes --no-walk --decorate --oneline
+    ff = merge --ff-only
+    undo-last = reset head~
 
 ; --
 ; UI
