@@ -14,7 +14,7 @@ function _run_global_hooks() {
         # abort the rest of the process. Pass the result of find to xargs and run, for each result,
         # once, hence the -L 1. Since I use mainly ZSH, I've written this for ZSH and portability is
         # not my main concern, but fell free to improve
-        find ${~hooks_folder} -type f -or -type l -print0 | xargs -0 -L 1 -Ihook zsh "hook" $@ || exit 1
+        find ${~hooks_folder} -type f,l -print0 | xargs -0 -L 1 -Ihook zsh "hook" $@ || exit 1
     fi
 }
 

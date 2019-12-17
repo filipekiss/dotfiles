@@ -14,19 +14,19 @@ RESET='\033[0m'
 validate_tba() {
     local MESSAGE="The files below have TBA markers in them"
     FILES_TO_CHECK=($(command git --no-pager diff --diff-filter=d --cached --name-only))
-    OFFENDING_FILES=$(grep -El ".{0,40}TBA.{0,40}" $FILES_TO_CHECK 2>/dev/null)
+    OFFENDING_FILES=$(grep -El ".{0,40}\[TBA\].{0,40}" $FILES_TO_CHECK 2>/dev/null)
     if [[ -n $OFFENDING_FILES ]]; then
         echo -n "⚠️  ${RED}ATTENTION${RESET} ⚠️"
         echo "  ${YELLOW}${MESSAGE}${RESET}"
         has_errors=1
         for offending_file in $OFFENDING_FILES; do
             echo "${CYAN}${offending_file}"
-        done;
+        done
     fi
 }
 
 main() {
-	has_errors=0
+    has_errors=0
     [[ -z $GIT_ROOT ]] && GIT_ROOT=$(git rev-parse --show-toplevel)
     validate_tba
     [[ $has_errors -gt 0 ]] && return 1
