@@ -1,9 +1,23 @@
 # based on ~/.macos — https://mths.be/macos
 # macOS-only stuff. Abort if not macOS.
-(( ! $+functions[has_dotfiles_function] )) && [[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
-(( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
-is_macos || return 1
+main(){
+    unsetopt casematch
+    # [[ "$OSTYPE" =~ ^darwin ]] || return 1
 
+    e_info(){
+        echo "→ $@"
+    }
+
+e_header(){
+    echo
+    echo "== $@ =="
+    echo
+}
+
+e_success(){
+echo
+echo "✔ $@"
+}
 
 e_info 'Close any open System Preferences panes, to prevent them from overriding'
 e_info 'settings we’re about to change'
@@ -22,14 +36,14 @@ e_header "General UI/UX"
 
 # Set computer name (as done via System Preferences → Sharing)
 #
-e_info "Type in the machine name"
-vared -p '  Machine Name:' -c machine_name
-sudo scutil --set ComputerName "${machine_name}"
-(( ! $+functions[regexp-replace] )) && autoload -U regexp-replace
-regexp-replace machine_name '[^a-zA-Z0-9.-]' '-'
-sudo scutil --set HostName "${machine_name:l}"
-sudo scutil --set LocalHostName "${machine_name:l}"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${machine_name:l}"
+# e_info "Type in the machine name"
+# vared -p '  Machine Name:' -c machine_name
+# sudo scutil --set ComputerName "${machine_name}"
+# (( ! $+functions[regexp-replace] )) && autoload -U regexp-replace
+# regexp-replace machine_name '[^a-zA-Z0-9.-]' '-'
+# sudo scutil --set HostName "${machine_name:l}"
+# sudo scutil --set LocalHostName "${machine_name:l}"
+# sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "${machine_name:l}"
 
 e_info 'Set standby delay to 24 hours (default is 1 hour)'
 sudo pmset -a standbydelay 86400
@@ -38,7 +52,7 @@ sudo pmset -a standbydelay 86400
 # sudo nvram SystemAudioVolume=" "
 
 e_info 'Disable transparency in the menu bar and elsewhere'
-defaults write com.apple.universalaccess reduceTransparency -bool true
+# defaults write com.apple.universalaccess reduceTransparency -bool true
 
 e_info 'Hide your desktop'
 defaults write com.apple.finder CreateDesktop -bool false
@@ -49,13 +63,13 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool true
 e_info 'Menu bar: hide the Time Machine icons'
 # To view what you can hide and show just run `ls -la /System/Library/CoreServices/Menu\ Extras`
 defaults -currentHost write dontAutoLoad -array \
-	"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
+"/System/Library/CoreServices/Menu Extras/TimeMachine.menu" \
 # Which items to show
 defaults write com.apple.systemuiserver menuExtras -array \
-	"/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
-	"/System/Library/CoreServices/Menu Extras/AirPort.menu" \
-	"/System/Library/CoreServices/Menu Extras/Battery.menu" \
-	"/System/Library/CoreServices/Menu Extras/Clock.menu"
+    "/System/Library/CoreServices/Menu Extras/Bluetooth.menu" \
+    "/System/Library/CoreServices/Menu Extras/AirPort.menu" \
+    "/System/Library/CoreServices/Menu Extras/Battery.menu" \
+    "/System/Library/CoreServices/Menu Extras/Clock.menu"
 
 e_info 'Set highlight color to yellow'
 defaults write NSGlobalDomain AppleHighlightColor -string "1.000000 0.937255 0.690196"
@@ -75,37 +89,37 @@ defaults write NSGlobalDomain NSUseAnimatedFocusRing -bool false
 #defaults write NSGlobalDomain NSScrollAnimationEnabled -bool false
 
 e_info 'Increase window resize speed for Cocoa applications'
-defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+    defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 
-e_info 'Expand save panel by default'
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+    e_info 'Expand save panel by default'
+    defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+    defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 
-e_info 'Expand print panel by default'
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
+    e_info 'Expand print panel by default'
+    defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+    defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-e_info 'Save to disk (not to iCloud) by default'
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+    e_info 'Save to disk (not to iCloud) by default'
+    defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
-e_info 'Automatically quit printer app once the print jobs complete'
-defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+    e_info 'Automatically quit printer app once the print jobs complete'
+    defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-e_info 'Disable the “Are you sure you want to open this application?” dialog'
-defaults write com.apple.LaunchServices LSQuarantine -bool false
+    e_info 'Disable the “Are you sure you want to open this application?” dialog'
+    defaults write com.apple.LaunchServices LSQuarantine -bool false
 
-e_info 'Remove duplicates in the “Open With” menu (also see `lscleanup` alias)'
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
+    e_info 'Remove duplicates in the “Open With” menu'
+    /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
 
-e_info 'Display ASCII control characters using caret notation in standard text views'
-e_info 'Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`'
-defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
+    e_info 'Display ASCII control characters using caret notation in standard text views'
+    e_info 'Try e.g. `cd /tmp; unidecode "\x{0000}" > cc.txt; open -e cc.txt`'
+    defaults write NSGlobalDomain NSTextShowsControlCharacters -bool true
 
-e_info 'Disable Resume system-wide'
-defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
+    e_info 'Disable Resume system-wide'
+    defaults write com.apple.systempreferences NSQuitAlwaysKeepsWindows -bool false
 
-e_info 'Disable automatic termination of inactive apps'
-defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+    e_info 'Disable automatic termination of inactive apps'
+    defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 
 # Disable the crash reporter
 #defaults write com.apple.CrashReporter DialogType -string "none"
@@ -123,10 +137,10 @@ e_info 'in the login window'
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
 
 e_info 'Restart automatically if the computer freezes'
-sudo systemsetup -setrestartfreeze on
+    sudo systemsetup -setrestartfreeze on
 
-e_info 'Never go into computer sleep mode'
-sudo systemsetup -setcomputersleep Off > /dev/null
+    e_info 'Never go into computer sleep mode'
+    sudo systemsetup -setcomputersleep Off > /dev/null
 
 # Disable Notification Center and remove the menu bar icon
 # launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist 2> /dev/null
@@ -189,34 +203,34 @@ e_info 'Increase sound quality for Bluetooth headphones/headsets'
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 e_info 'Enable full keyboard access for all controls'
-e_info '(e.g. enable Tab in modal dialogs)'
-defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
+    e_info '(e.g. enable Tab in modal dialogs)'
+    defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
 
-e_info 'Use scroll gesture with the Ctrl (^) modifier key to zoom'
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-e_info 'Follow the keyboard focus while zoomed in'
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+    e_info 'Use scroll gesture with the Ctrl (^) modifier key to zoom'
+    defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+    defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+    e_info 'Follow the keyboard focus while zoomed in'
+        defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
-e_info 'Disable press-and-hold for keys in favor of key repeat'
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
+        e_info 'Disable press-and-hold for keys in favor of key repeat'
+            defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
-e_info 'Set a keyboard repeat rate'
-defaults write NSGlobalDomain KeyRepeat -int 5
-defaults write NSGlobalDomain InitialKeyRepeat -int 25
+            e_info 'Set a keyboard repeat rate'
+            defaults write NSGlobalDomain KeyRepeat -int 5
+            defaults write NSGlobalDomain InitialKeyRepeat -int 25
 
-e_info 'Set language and text formats'
-e_info 'You can set this on your mac via pref pane and use defaults read NSGlobalDomain AppleLanguages -array to read the values'
-defaults write NSGlobalDomain AppleLanguages -array "en-BR" "pt-BR"
-defaults write NSGlobalDomain AppleLocale -string "en_BR@currency=BRL"
-defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
-defaults write NSGlobalDomain AppleMetricUnits -bool true
+            e_info 'Set language and text formats'
+            e_info 'You can set this on your mac via pref pane and use defaults read NSGlobalDomain AppleLanguages -array to read the values'
+            defaults write NSGlobalDomain AppleLanguages -array "en-BR" "pt-BR"
+            defaults write NSGlobalDomain AppleLocale -string "en_BR@currency=BRL"
+            defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+            defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-e_info 'Show language menu in the top right corner of the boot screen'
-sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
+            e_info 'Show language menu in the top right corner of the boot screen'
+            sudo defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
 
-e_info 'Set the timezone; see `sudo systemsetup -listtimezones` for other values'
-sudo systemsetup -settimezone "America/Sao_Paulo" > /dev/null
+            e_info 'Set the timezone; see `sudo systemsetup -listtimezones` for other values'
+                sudo systemsetup -settimezone "America/Sao_Paulo" > /dev/null
 
 # Stop iTunes from responding to the keyboard media keys
 #launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
@@ -262,63 +276,63 @@ defaults write com.apple.finder DisableAllAnimations -bool true
 
 e_info 'Set Home Folder as the default location for new Finder windows'
 # For other paths, use `PfLo` and `file:///full/path/here/`
-defaults write com.apple.finder NewWindowTarget -string "PfHm"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+    defaults write com.apple.finder NewWindowTarget -string "PfHm"
+    defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
-e_info 'Show icons for hard drives, servers, and removable media on the desktop'
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+    e_info 'Show icons for hard drives, servers, and removable media on the desktop'
+        defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+        defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+        defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+        defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
-e_info 'Finder: show hidden files by default'
-defaults write com.apple.finder AppleShowAllFiles -bool true
+        e_info 'Finder: show hidden files by default'
+        defaults write com.apple.finder AppleShowAllFiles -bool true
 
-e_info 'Finder: show all filename extensions'
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+        e_info 'Finder: show all filename extensions'
+        defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
-e_info 'Finder: show status bar'
-defaults write com.apple.finder ShowStatusBar -bool true
+        e_info 'Finder: show status bar'
+        defaults write com.apple.finder ShowStatusBar -bool true
 
-e_info 'Finder: show path bar'
-defaults write com.apple.finder ShowPathbar -bool true
+        e_info 'Finder: show path bar'
+        defaults write com.apple.finder ShowPathbar -bool true
 
-e_info 'Display full POSIX path as Finder window title'
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+        e_info 'Display full POSIX path as Finder window title'
+        defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
-e_info 'Keep folders on top when sorting by name'
-defaults write com.apple.finder _FXSortFoldersFirst -bool true
+        e_info 'Keep folders on top when sorting by name'
+        defaults write com.apple.finder _FXSortFoldersFirst -bool true
 
-e_info 'When performing a search, search the current folder by default'
-defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+        e_info 'When performing a search, search the current folder by default'
+        defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
-e_info 'Disable the warning when changing a file extension'
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+        e_info 'Disable the warning when changing a file extension'
+        defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-e_info 'Enable spring loading for directories'
-defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+        e_info 'Enable spring loading for directories'
+            defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 
-e_info 'Remove the spring loading delay for directories'
-defaults write NSGlobalDomain com.apple.springing.delay -float 0
+            e_info 'Remove the spring loading delay for directories'
+                defaults write NSGlobalDomain com.apple.springing.delay -float 0
 
-e_info 'Avoid creating .DS_Store files on network or USB volumes'
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+                e_info 'Avoid creating .DS_Store files on network or USB volumes'
+                defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+                defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
 
-e_info 'Disable disk image verification'
-defaults write com.apple.frameworks.diskimages skip-verify -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
+                e_info 'Disable disk image verification'
+                defaults write com.apple.frameworks.diskimages skip-verify -bool true
+                defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
+                defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
 
-e_info 'Automatically open a new Finder window when a volume is mounted'
-defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
-defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
-defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
+                e_info 'Automatically open a new Finder window when a volume is mounted'
+                defaults write com.apple.frameworks.diskimages auto-open-ro-root -bool true
+                defaults write com.apple.frameworks.diskimages auto-open-rw-root -bool true
+                defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
-e_info 'Show item info near icons on the desktop and in other icon views'
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+                e_info 'Show item info near icons on the desktop and in other icon views'
+                /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+                /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+                /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
 
 # Show item info to the right of the icons on the desktop
 # /usr/libexec/PlistBuddy -c "Set DesktopViewSettings:IconViewSettings:labelOnBottom false" ~/Library/Preferences/com.apple.finder.plist
@@ -329,24 +343,24 @@ e_info 'Enable snap-to-grid for icons on the desktop and in other icon views'
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 
 e_info 'Increase grid spacing for icons on the desktop and in other icon views'
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" ~/Library/Preferences/com.apple.finder.plist
 
-e_info 'Increase the size of icons on the desktop and in other icon views'
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+    e_info 'Increase the size of icons on the desktop and in other icon views'
+    /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
+    /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" ~/Library/Preferences/com.apple.finder.plist
 
-e_info 'Use list view in all Finder windows by default'
-# Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
-defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+    e_info 'Use list view in all Finder windows by default'
+    # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
+        defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-e_info 'Disable the warning before emptying the Trash'
-defaults write com.apple.finder WarnOnEmptyTrash -bool false
+        e_info 'Disable the warning before emptying the Trash'
+        defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
-e_info 'Enable AirDrop over Ethernet and on unsupported Macs running Lion'
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+        e_info 'Enable AirDrop over Ethernet and on unsupported Macs running Lion'
+        defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
 # Enable the MacBook Air SuperDrive on any Mac
 # sudo nvram boot-args="mbasd=1"
@@ -364,9 +378,9 @@ file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
 e_info 'Expand the following File Info panes:'
 e_info '“General”, “Open with”, and “Sharing & Permissions”'
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
-	General -bool true \
-	OpenWith -bool true \
-	Privileges -bool true
+General -bool true \
+OpenWith -bool true \
+Privileges -bool true
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
@@ -386,10 +400,10 @@ e_info 'Dont minimize windows into their application’s icon'
 defaults write com.apple.dock minimize-to-application -bool false
 
 e_info 'Enable spring loading for all Dock items'
-defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
+    defaults write com.apple.dock enable-spring-load-actions-on-all-items -bool true
 
-e_info 'Show indicator lights for open applications in the Dock'
-defaults write com.apple.dock show-process-indicators -bool true
+    e_info 'Show indicator lights for open applications in the Dock'
+        defaults write com.apple.dock show-process-indicators -bool true
 
 # Wipe all (default) app icons from the Dock
 # This is only really useful when setting up a new Mac, or if you don’t use
@@ -506,29 +520,29 @@ e_info 'Hide Safari’s sidebar in Top Sites'
 defaults write com.apple.Safari ShowSidebarInTopSites -bool false
 
 e_info 'Disable Safari’s thumbnail cache for History and Top Sites'
-defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
+    defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
 
-e_info 'Enable Safari’s debug menu'
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+    e_info 'Enable Safari’s debug menu'
+    defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 
-e_info 'Make Safari’s search banners default to Contains instead of Starts With'
-defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
+    e_info 'Make Safari’s search banners default to Contains instead of Starts With'
+    defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
 
-e_info 'Remove useless icons from Safari’s bookmarks bar'
-defaults write com.apple.Safari ProxiesInBookmarksBar "()"
+    e_info 'Remove useless icons from Safari’s bookmarks bar'
+    defaults write com.apple.Safari ProxiesInBookmarksBar "()"
 
-e_info 'Enable the Develop menu and the Web Inspector in Safari'
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+    e_info 'Enable the Develop menu and the Web Inspector in Safari'
+    defaults write com.apple.Safari IncludeDevelopMenu -bool true
+    defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+    defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 
-e_info 'Add a context menu item for showing the Web Inspector in web views'
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+    e_info 'Add a context menu item for showing the Web Inspector in web views'
+        defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
-e_info 'Enable continuous spellchecking'
-defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
-e_info 'Disable auto-correct'
-defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false
+        e_info 'Enable continuous spellchecking'
+        defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
+        e_info 'Disable auto-correct'
+        defaults write com.apple.Safari WebAutomaticSpellingCorrectionEnabled -bool false
 
 # Disable AutoFill
 # defaults write com.apple.Safari AutoFillFromAddressBook -bool false
@@ -601,41 +615,41 @@ e_info 'Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.'
 sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 # Change indexing order and disable some search results
 # Yosemite-specific search results (remove them if you are using macOS 10.9 or older):
-# 	MENU_DEFINITION
-# 	MENU_CONVERSION
-# 	MENU_EXPRESSION
-# 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
-# 	MENU_WEBSEARCH             (send search queries to Apple)
-# 	MENU_OTHER
-# defaults write com.apple.spotlight orderedItems -array \
-# 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
-# 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
-# 	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
-# 	'{"enabled" = 1;"name" = "PDF";}' \
-# 	'{"enabled" = 1;"name" = "FONTS";}' \
-# 	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
-# 	'{"enabled" = 0;"name" = "MESSAGES";}' \
-# 	'{"enabled" = 0;"name" = "CONTACT";}' \
-# 	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
-# 	'{"enabled" = 0;"name" = "IMAGES";}' \
-# 	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
-# 	'{"enabled" = 0;"name" = "MUSIC";}' \
-# 	'{"enabled" = 0;"name" = "MOVIES";}' \
-# 	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
-# 	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
-# 	'{"enabled" = 0;"name" = "SOURCE";}' \
-# 	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
-# 	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
-# 	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
-# 	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
-# 	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
-# 	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
-e_info 'Load new settings before rebuilding the index'
-killall mds > /dev/null 2>&1
-e_info 'Make sure indexing is enabled for the main volume'
-sudo mdutil -i on / > /dev/null
-e_info 'Rebuild the index from scratch'
-sudo mdutil -E / > /dev/null
+    # 	MENU_DEFINITION
+    # 	MENU_CONVERSION
+    # 	MENU_EXPRESSION
+    # 	MENU_SPOTLIGHT_SUGGESTIONS (send search queries to Apple)
+    # 	MENU_WEBSEARCH             (send search queries to Apple)
+    # 	MENU_OTHER
+    # defaults write com.apple.spotlight orderedItems -array \
+    # 	'{"enabled" = 1;"name" = "APPLICATIONS";}' \
+    # 	'{"enabled" = 1;"name" = "SYSTEM_PREFS";}' \
+    # 	'{"enabled" = 1;"name" = "DIRECTORIES";}' \
+    # 	'{"enabled" = 1;"name" = "PDF";}' \
+    # 	'{"enabled" = 1;"name" = "FONTS";}' \
+    # 	'{"enabled" = 0;"name" = "DOCUMENTS";}' \
+    # 	'{"enabled" = 0;"name" = "MESSAGES";}' \
+    # 	'{"enabled" = 0;"name" = "CONTACT";}' \
+    # 	'{"enabled" = 0;"name" = "EVENT_TODO";}' \
+    # 	'{"enabled" = 0;"name" = "IMAGES";}' \
+    # 	'{"enabled" = 0;"name" = "BOOKMARKS";}' \
+    # 	'{"enabled" = 0;"name" = "MUSIC";}' \
+    # 	'{"enabled" = 0;"name" = "MOVIES";}' \
+    # 	'{"enabled" = 0;"name" = "PRESENTATIONS";}' \
+    # 	'{"enabled" = 0;"name" = "SPREADSHEETS";}' \
+    # 	'{"enabled" = 0;"name" = "SOURCE";}' \
+    # 	'{"enabled" = 0;"name" = "MENU_DEFINITION";}' \
+    # 	'{"enabled" = 0;"name" = "MENU_OTHER";}' \
+    # 	'{"enabled" = 0;"name" = "MENU_CONVERSION";}' \
+    # 	'{"enabled" = 0;"name" = "MENU_EXPRESSION";}' \
+    # 	'{"enabled" = 0;"name" = "MENU_WEBSEARCH";}' \
+    # 	'{"enabled" = 0;"name" = "MENU_SPOTLIGHT_SUGGESTIONS";}'
+    e_info 'Load new settings before rebuilding the index'
+    killall mds > /dev/null 2>&1
+    e_info 'Make sure indexing is enabled for the main volume'
+        sudo mdutil -i on / > /dev/null
+        e_info 'Rebuild the index from scratch'
+        sudo mdutil -E / > /dev/null
 
 ###############################################################################
 # Terminal                                                                    #
@@ -862,25 +876,25 @@ defaults write com.crowdcafe.windowmagnet expandWindowSouthWestComboKey -dict ke
 e_info "Killing affected applications"
 
 for app in "Activity Monitor" \
-	"Address Book" \
-	"Calendar" \
-	"cfprefsd" \
-	"Contacts" \
-	"Dock" \
-	"Finder" \
-	"Google Chrome Canary" \
-	"Google Chrome" \
-	"Mail" \
-	"Magnet" \
-	"Messages" \
-	"Opera" \
-	"Photos" \
-	"Safari" \
-	"SystemUIServer" \
-	"Transmission" \
-	"Tweetbot" \
-	"iCal"; do
-	killall "${app}" &> /dev/null
+"Address Book" \
+"Calendar" \
+"cfprefsd" \
+"Contacts" \
+"Dock" \
+"Finder" \
+"Google Chrome Canary" \
+"Google Chrome" \
+"Mail" \
+"Magnet" \
+"Messages" \
+"Opera" \
+"Photos" \
+"Safari" \
+"SystemUIServer" \
+"Transmission" \
+"Tweetbot" \
+"iCal"; do
+    killall "${app}" &> /dev/null
 done
 
 # Only kill the Terminal.app if it's not the current app being used to run this script
@@ -891,3 +905,5 @@ else
 fi
 
 e_success "${RESET}Done. Note that some of these changes require a logout/restart to take effect."
+
+}
