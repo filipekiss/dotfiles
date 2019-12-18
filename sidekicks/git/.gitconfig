@@ -126,8 +126,8 @@
 ; pick a5bce56 [Filipe K..] Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
 [rebase]
     instructionFormat = [%<(10,trunc)%aN] %<(30,trunc)%s [%<(28,ltrunc)%cD]
-	autosquash = true
-	autoStash = true
+    autosquash = true
+    autoStash = true
 
 ; -------------------
 ; Git System Settings
@@ -140,13 +140,14 @@
     editor = $EDITOR
     whitespace = trailing-space,space-before-tab ; Git will check for whitespace at $ and mixed spaces and tabs
     hooksPath = ~/.dotfiles/sidekicks/git/hooks
-	eol = lf
+    eol = lf
+    pager = diff-so-fancy | less --tabs=4 -RFX
 
 ; --------------
 ; Best Practices
 ; --------------
 [tag]
-	forceSignAnnotated = true ; Always force annotated tags to be gpg signed
+    forceSignAnnotated = true ; Always force annotated tags to be gpg signed
 
 [commit]
     gpgsign = true ; always sign the commit with the gpg key
@@ -166,8 +167,8 @@
 [merge]
     stat = true ; show diffstat after every merge
     log = 1000 ; append commit messages to merge message
-	renormalize = true
-	tool = fugitive
+    renormalize = true
+    tool = fugitive
 
 [pull]
     rebase = true ; rebase by default
@@ -177,7 +178,7 @@
     mnemonicprefix = true ; git diff uses mnemonics (<i>ndex, <w>ork tree…) instead of a/b notation
     colorMoved = zebra ; show moved hunks in two different colors
     algorithm = histogram ; histogram is kinda faster than the default
-	tool = fugitive
+    tool = fugitive
 
 ; Record resolved conflicts
 ; -------------------------
@@ -246,20 +247,20 @@
     insteadOf = https://bitbucket.org/
     pushInsteadOf = https://bitbucket.org
 [diff "plist"]
-	textconv = plutil -convert xml1 -o -
+    textconv = plutil -convert xml1 -o -
 [filter "spabs"]
-	clean = expand -t 4
-	smudge = expand -t 4
-	required = true
+    clean = expand -t 4
+    smudge = expand -t 4
+    required = true
 [filter "tabace"]
-	clean = unexpand -t 4
-	smudge = unexpand -t 4
-	required = true
+    clean = unexpand -t 4
+    smudge = unexpand -t 4
+    required = true
 [submodule]
-	recurse = true
+    recurse = true
 [log]
-	mailmap = true
-	date = local
+    mailmap = true
+    date = local
 
 [mergetool "fugitive"]
     cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c \"wincmd H | wincmd =\"
@@ -267,9 +268,11 @@
 [difftool "fugitive"]
     cmd = nvr -s -d $LOCAL $REMOTE -c \"wincmd H | wincmd =\"
 [difftool]
-	prompt = false
+    prompt = false
 [mergetool]
-	prompt = false
+    prompt = false
 
 [status]
-	showUntrackedFiles = all
+    showUntrackedFiles = all
+[protocol]
+    version = 2
