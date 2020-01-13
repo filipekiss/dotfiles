@@ -71,6 +71,7 @@
     unpushed-branches = log --branches --not --remotes --no-walk --decorate --oneline
     ff = merge --ff-only
     undo-last = reset head~
+    list-submodules = !git config --file .gitmodules --get-regexp path | awk '{ print $2 }'
 
 ; --
 ; UI
