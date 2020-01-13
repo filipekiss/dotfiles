@@ -46,6 +46,7 @@ brew "ruby" # Powerful, clean, object-oriented scripting language
 brew "shellcheck" # Static analysis and lint tool, for (ba)sh scripts
 brew "shfmt" # Autoformat shell script source code
 brew "ssh-copy-id" # Add a public key to a remote machine's authorized_keys file
+brew "starship" # prompt written in rust https://starship.rs/
 brew "stow" # Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "tldr" # Simplified and community-driven man pages
 brew "tmux" # Terminal multiplexer

@@ -1,0 +1,42 @@
+[git_branch]
+symbol = " "
+
+[git_commit]
+disabled = false
+commit_hash_length = 8
+style = "bold purple"
+
+[git_status]
+conflicted = " "
+ahead = " "
+behind = " "
+diverged = " "
+untracked = " "
+staged.value = " "
+stashed = " "
+modified= " "
+renamed = " "
+deleted= " "
+prefix = ""
+suffix = ""
+style = "blue"
+
+[package]
+symbol = " "
+
+[nodejs]
+symbol = " "
+disabled = false
+
+[battery]
+full_symbol = " "
+charging_symbol = " "
+discharging_symbol = " "
+
+[[battery.display]]  # "bold red" style when capacity is between 0% and 10%
+threshold = 10
+style = "bold red"
+
+[[battery.display]]  # "bold yellow" style when capacity is between 10% and 30%
+threshold = 30
+style = "bold yellow"
