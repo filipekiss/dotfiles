@@ -2531,7 +2531,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>2050 447 700 622 1440 104 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 1920 1080 0 0 1920 1080 </string>
+	<string>1680 599 650 451 1680 -30 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 0 1920 1080 0 0 1920 1080 </string>
 	<key>NeverWarnAboutMeta</key>
@@ -4050,14 +4050,14 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {1920, 1080}}</string>
+		<string>{{1680, -30}, {1920, 1080}}</string>
 		<key>topLeft</key>
-		<string>{941, 747}</string>
+		<string>{1949, 565}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>F812D241-52DF-48DD-AF79-4BE8DEB09068</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>76</integer>
+	<integer>88</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -4867,7 +4867,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-11-28T11:07:02Z</date>
+	<date>2020-01-08T09:31:14Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -4893,7 +4893,7 @@
 	<key>UseBorder</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
-	<false/>
+	<true/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WordCharacters</key>
