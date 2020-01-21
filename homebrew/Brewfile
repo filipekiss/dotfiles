@@ -62,7 +62,6 @@ brew "youtube-dl" # Download YouTube videos from the command-line
 brew "zsh" # UNIX shell (command interpreter)
 cask "aerial"
 cask "brave-browser"
-cask "docker"
 cask "figma"
 cask "firefox-developer-edition"
 cask "font-ibm-plex"
