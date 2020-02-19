@@ -39,7 +39,8 @@
     dm = diff --patch-with-stat --word-diff-regex=.
     fix-last = commit --fixup=HEAD --no-verify
     gr = log --graph --full-history --all --color --decorate
-    ici = commit --allow-empty -m \":tada: Initial Commit\" --no-verify
+    hash = rev-parse --short HEAD
+    ici = commit --allow-empty -m \"chore: initial commit\" --no-verify
     ignored = ls-files --others -i --exclude-standard
     last = "log -1 -p"
     latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
@@ -142,7 +143,6 @@
     whitespace = trailing-space,space-before-tab ; Git will check for whitespace at $ and mixed spaces and tabs
     hooksPath = ~/.dotfiles/sidekicks/git/hooks
     eol = lf
-    pager = diff-so-fancy | less --tabs=4 -RFX
 
 ; --------------
 ; Best Practices
