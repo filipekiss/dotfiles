@@ -43,13 +43,14 @@
     ici = commit --allow-empty -m \"chore: initial commit\" --no-verify
     ignored = ls-files --others -i --exclude-standard
     last = "log -1 -p"
-    latest-tag = "!git describe --tags `git rev-list --tags --max-count=1`"
+    latest-tag = log --no-walk --tags
     lg = log --all --color=always --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit --date=auto:human
     l  = log --color=always --abbrev-commit --oneline
     lon = log --color=always --oneline --name-only
     unmerged = branch --no-merged
     merged = branch --merged
     ours = "!f() { git checkout --ours $@ && git add $@; }; f"
+    pr = pull-request
     ps = push --set-upstream
     purr = pull --rebase
     rba = rebase --abort
@@ -57,7 +58,7 @@
     rbs = rebase --skip
     rci = commit --amend --no-edit
     root = rev-parse --show-toplevel
-    tags = tag -l
+    tags = log --no-walk --tags
     theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
     unassume = update-index --no-assume-unchanged
     unpushed = log @{u}..
