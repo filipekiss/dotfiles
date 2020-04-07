@@ -23,7 +23,7 @@ function _run_local_hooks() {
     local hookname="$1"
     shift
     if [ -f "${GIT_DIR}/hooks/${hookname}" ]; then
-        exec ${GIT_DIR}/hooks/${hookname} || exit 1
+        exec ${GIT_DIR}/hooks/${hookname} $@ || exit 1
     fi
     exit 0
 }

@@ -51,6 +51,7 @@ brew "stow" # Organize software neatly under a single directory tree (e.g. /usr/
 brew "tldr" # Simplified and community-driven man pages
 brew "tmux" # Terminal multiplexer
 brew "transcrypt" # Configure transparent encryption of files in a Git repo
+brew "utf8proc" # Required for emoji support on tmux
 brew "tree" # Display directories as trees (with optional color/HTML output)
 brew "universal-ctags/universal-ctags/universal-ctags", args: ["HEAD", "with-jansson"] # Maintained ctags implementation
 brew "unrar" # Extract, view, and test RAR archives

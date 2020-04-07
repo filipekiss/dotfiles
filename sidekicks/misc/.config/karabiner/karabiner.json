@@ -153,16 +153,7 @@
                     },
                     "ignore": false,
                     "manipulate_caps_lock_led": true,
-                    "simple_modifications": [
-                        {
-                            "from": {
-                                "key_code": "keypad_period"
-                            },
-                            "to": {
-                                "key_code": "comma"
-                            }
-                        }
-                    ]
+                    "simple_modifications": []
                 },
                 {
                     "disable_built_in_keyboard_if_exists": false,

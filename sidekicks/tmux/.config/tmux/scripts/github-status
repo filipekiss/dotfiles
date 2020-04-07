@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+
+GITHUB_STATUS=$(curl -sS https://kctbh9vrtdwd.statuspage.io/api/v2/status.json | jq -r '.status.indicator')
+
+case $GITHUB_STATUS in
+major)
+  STATUS="#[fg=red] #[fg=default]"
+  ;;
+minor)
+  STATUS="#[fg=yellow] #[fg=default]"
+  ;;
+*)
+  STATUS="#[fg=green] #[fg=default]"
+  ;;
+esac
+
+printf "%s" $STATUS;
+

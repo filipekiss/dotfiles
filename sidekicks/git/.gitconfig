@@ -4,6 +4,7 @@
 [user]
     name = Filipe Kiss
     useConfigOnly = true
+	email = hello@filipekiss.com.br
 
 [github]
     user = filipekiss
@@ -118,6 +119,7 @@
 [pager]
     diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
     show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
+    stash = false
 
 ; Disable a few of Git help messages
 [advice]
@@ -138,7 +140,6 @@
 [core]
     excludesfile = ~/.dotfiles/sidekicks/git/.gitignore
     filemode = false
-    mergeoptions = --no-edit
     untrackedCache = true ; https://news.ycombinator.com/item?id=11388479
     editor = $EDITOR
     whitespace = trailing-space,space-before-tab ; Git will check for whitespace at $ and mixed spaces and tabs
@@ -170,7 +171,7 @@
     stat = true ; show diffstat after every merge
     log = 1000 ; append commit messages to merge message
     renormalize = true
-    tool = fugitive
+	tool = fugitive
 
 [pull]
     rebase = true ; rebase by default
@@ -265,7 +266,7 @@
     date = local
 
 [mergetool "fugitive"]
-    cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c \"wincmd H | wincmd =\"
+	cmd = nvr -s -d $LOCAL $BASE $REMOTE $MERGED -c \"wincmd H | wincmd =\"
 
 [difftool "fugitive"]
     cmd = nvr -s -d $LOCAL $REMOTE -c \"wincmd H | wincmd =\"
@@ -278,3 +279,10 @@
     showUntrackedFiles = all
 [protocol]
     version = 2
+[emojiPrefixer]
+	enabled = no
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process

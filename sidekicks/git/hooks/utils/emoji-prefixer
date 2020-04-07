@@ -67,6 +67,8 @@ function validate_emoji_selector() {
 }
 
 [[ -t 1 ]] || exit 0
+GIT_EMOJI_PREFIXER_ENABLED=$(git config --get emojiPrefixer.enabled)
+[[ ${GIT_EMOJI_PREFIXER_ENABLED:-"no"} == "no" ]] && exit 0
 REPO_PATH=$(git rev-parse --show-toplevel)
 [[ -e ${REPO_PATH}/.git/rebase-merge ]] && echo "Rebase/Merge detected. Skipping prefix selector" && exit 0
 validate_emoji_selector

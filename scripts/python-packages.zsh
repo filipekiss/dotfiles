@@ -1,5 +1,6 @@
 PACKAGES=(
      "setuptools"
+     "neovim-remote"
      "pip"
      "pygments"
      "python-language-server[all]"
@@ -12,5 +13,5 @@ PACKAGES=(
 
 for package in "${PACKAGES[@]}"; do
     [[ $package == "pip" ]] && FLAGS="--upgrade" || FLAGS="--user"
-    pip3 install "$FLAGS" "$package"
+    pip install "$FLAGS" "$package"
 done;

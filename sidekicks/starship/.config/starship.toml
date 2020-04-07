@@ -24,6 +24,9 @@ style = "blue"
 [package]
 symbol = " "
 
+[ruby]
+disabled=true
+
 [nodejs]
 symbol = " "
 disabled = false
