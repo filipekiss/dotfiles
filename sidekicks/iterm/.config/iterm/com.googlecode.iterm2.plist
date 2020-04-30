@@ -1148,11 +1148,11 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSColorPanelMode</key>
-	<string>1</string>
+	<string>3</string>
 	<key>NSColorPickerPreferredRGBEntryMode</key>
 	<integer>2</integer>
 	<key>NSColorPickerSlidersDefaults</key>
-	<string>1</string>
+	<string>3</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/.config/nvim/plugged/falcon/iterm2</string>
 	<key>NSNavLastUserSetHideExtensionButtonState</key>
@@ -1171,8 +1171,8 @@
 	<false/>
 	<key>NSSplitView Subview Frames NSColorPanelSplitView</key>
 	<array>
-		<string>0.000000, 0.000000, 224.000000, 215.000000, NO, NO</string>
-		<string>0.000000, 216.000000, 224.000000, 43.000000, NO, NO</string>
+		<string>0.000000, 0.000000, 224.000000, 251.000000, NO, NO</string>
+		<string>0.000000, 252.000000, 224.000000, 43.000000, NO, NO</string>
 	</array>
 	<key>NSTableView Columns v2 KeyBingingTable</key>
 	<data>
@@ -1203,13 +1203,13 @@
 		<integer>1</integer>
 	</dict>
 	<key>NSWindow Frame NSColorPanel</key>
-	<string>823 393 224 232 0 0 1920 1080 </string>
+	<string>707 345 224 232 0 0 1680 1050 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>2440 683 400 129 1680 -30 1920 1080 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>2050 447 700 622 1440 104 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>-1920 -30 1920 1080 -1920 -30 1920 1080 </string>
+	<string>-62 1050 1920 1080 -62 1050 1920 1080 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>0 0 1920 1080 0 0 1920 1080 </string>
 	<key>NeverWarnAboutMeta</key>
@@ -1963,7 +1963,7 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
-		<string>3.3.7</string>
+		<string>3.3.20190802-nightly</string>
 		<string>3.3.5</string>
 		<string>3.3.20190721-nightly</string>
 		<string>3.3.20190715-nightly</string>
@@ -1977,11 +1977,11 @@
 		<string>3.3.6</string>
 		<string>3.3.8</string>
 		<string>3.3.4</string>
-		<string>3.3.2</string>
 		<string>3.3.20190801-nightly</string>
+		<string>3.3.2</string>
 		<string>3.3.9</string>
-		<string>3.3.20190802-nightly</string>
 		<string>3.3.0</string>
+		<string>3.3.7</string>
 	</array>
 	<key>NoSyncBFPFavorites</key>
 	<array>
@@ -1996,16 +1996,16 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{-1920, -30}, {1920, 1080}}</string>
+		<string>{{0, 0}, {1680, 1050}}</string>
 		<key>topLeft</key>
-		<string>{-1779, 860}</string>
+		<string>{269, 595}</string>
 	</dict>
 	<key>NoSyncHaveUsedCopyMode</key>
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>F812D241-52DF-48DD-AF79-4BE8DEB09068</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>134</integer>
+	<integer>153</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2754,6 +2754,8 @@
 	<real>583690824.26205206</real>
 	<key>OptionClickMovesCursor</key>
 	<false/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PerPaneBackgroundImage</key>
 	<true/>
 	<key>PointerActions</key>
@@ -2804,7 +2806,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-03-11T16:45:12Z</date>
+	<date>2020-04-18T17:13:57Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -2812,7 +2814,7 @@
 	<key>SeparateStatusBarsPerPane</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<true/>
+	<false/>
 	<key>ShowNewOutputIndicator</key>
 	<false/>
 	<key>ShowPaneTitles</key>
