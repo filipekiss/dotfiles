@@ -1,7 +1,6 @@
 PACKAGES=(
      "setuptools"
      "neovim-remote"
-     "pip"
      "pygments"
      "python-language-server[all]"
      "typing"

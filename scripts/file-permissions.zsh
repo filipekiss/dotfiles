@@ -1,6 +1,3 @@
-(( ! $+functions[has_dotfiles_function] )) && [[ -e $HOME/.dotfiles/bin/dotfiles ]] && source $HOME/.dotfiles/bin/dotfiles "source"
-(( ! $+functions[has_dotfiles_function] )) && echo "Something went wrong. Try again" && exit 1
-
 function update_ssh_permissions() {
   e_info "Setting ~/.ssh folders to 0700"
   find $HOME/.ssh -exec chmod -v 0700 {} \;
