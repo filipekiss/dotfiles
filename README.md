@@ -1,11 +1,9 @@
-# .dotfiles
+# .dotfiles (legacy)
+
+> These are my old dotfiles. I've kept them here so I (or you) can consult them
+whenever I please, but these configuration files won't be updated anymore.
 
 ![screenshot]
-
-![GitHub release](https://img.shields.io/github/release/filipekiss/dotfiles.svg?colorA=D3869B&colorB=8F3F71&style=flat-square)
-![Github commits (since latest release)](https://img.shields.io/github/commits-since/filipekiss/dotfiles/latest.svg?colorA=D3869B&colorB=8F3F71&style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/filipekiss/dotfiles.svg?colorA=D3869B&colorB=8F3F71&style=flat-square)
-![Github Commits Last Year](https://img.shields.io/github/commit-activity/y/filipekiss/dotfiles.svg?colorA=D3869B&colorB=8F3F71&style=flat-square)
 
 # What's in the box?
 
