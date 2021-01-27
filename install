@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# https://wickedchicken.github.io/post/macos-nix-setup/
+# https://dev.to/louy2/installing-nix-on-macos-catalina-2acb
+install_package_manager_macos() {
+    xcode-select --install 2>/dev/null # Command Line Tools stuff, brought to you by macOS
+
+    if !(command -v nix-build >/dev/null); then
+        echo "nix-build not found. Installing…"
+        # Install nix
+        true | sh <(curl -L https://nixos.org/nix/install) --darwin-use-unencrypted-nix-store-volume
+        # Source nix binaries to $PATH
+        source "$HOME/.nix-profile/etc/profile.d/nix.sh"
+    fi
+
+    if command -v nix-build >/dev/null; then
+        if command -v darwin-rebuild >/dev/null; then
+            echo "nix-darwin already installed"
+        else
+            echo "nix-darwin not found. Installing…"
+            nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
+            ./result/bin/darwin-installer
+            # source the installed configuration
+            [ -f /etc/static/bashrc ] && source /etc/static/bashrc
+        fi
+    else
+        echo "Please, restart your shell and install Nix Darwin https://github.com/LnL7/nix-darwin"
+        exit 1
+    fi
+
+    if command -v nix-env >/dev/null; then
+        echo "Installing nixFlakes…"
+        nix-env -iA nixpkgs.nixFlakes
+    else
+        echo "nix-env is not available. Check your nix installation and try again"
+        exit 1
+    fi
+}
+
+# Run in this order to install it
+install_package_manager_macos
