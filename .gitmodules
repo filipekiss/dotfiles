@@ -6,7 +6,3 @@
 	path = sidekicks/keys
 	url = keybase://private/filipekiss/private-keys
 	branch = master
-[submodule ".zshero"]
-	path = .zshero
-	url = https://github.com/filipekiss/zshero
-	branch = master
