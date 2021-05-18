@@ -1,35 +1,6 @@
-[git_branch]
-symbol = " "
-
-[git_commit]
-disabled = false
-commit_hash_length = 8
-style = "bold purple"
-
-[git_status]
-conflicted = " "
-ahead = " "
-behind = " "
-diverged = " "
-untracked = " "
-staged.value = " "
-stashed = " "
-modified= " "
-renamed = " "
-deleted= " "
-prefix = ""
-suffix = ""
-style = "blue"
-
-[package]
-symbol = " "
-
-[ruby]
-disabled=true
-
-[nodejs]
-symbol = " "
-disabled = false
+[aws]
+symbol = "  "
+disabled = true
 
 [battery]
 full_symbol = " "
@@ -43,3 +14,85 @@ style = "bold red"
 [[battery.display]]  # "bold yellow" style when capacity is between 10% and 30%
 threshold = 30
 style = "bold yellow"
+
+[conda]
+symbol = " "
+
+[docker]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[git_commit]
+disabled = false
+commit_hash_length = 8
+style = "bold blue"
+only_detached = false
+format = '[\($hash\)]($style)'
+
+[git_status]
+conflicted = ""
+ahead = ""
+behind = ""
+diverged = ""
+untracked = ""
+staged.value = ""
+stashed = ""
+modified= ""
+renamed = ""
+deleted= ""
+style = "blue"
+format='([ $all_status$ahead_behind ]($style))'
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[php]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+disabled=true
+
+[rust]
+symbol = " "
+
+[terraform]
+disabled = true

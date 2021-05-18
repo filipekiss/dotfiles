@@ -70,3 +70,16 @@ npm-debug.log*
 *.bkp
 .prettierignore
 *.patch.dev
+
+# zsh       #
+#############
+*.zwc
+*.zwc.old
+*zcompdump*
+.zcalc_history
+
+
+# Java #
+########
+.classpath
+.project
