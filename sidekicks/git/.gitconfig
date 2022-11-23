@@ -44,7 +44,7 @@
     ici = commit --allow-empty -m \"chore: initial commit\" --no-verify
     ignored = ls-files --others -i --exclude-standard
     last = "log -1 -p"
-    latest-tag = log --no-walk --tags
+    latest-tag = log --no-walk --tags -1
     lg = log --all --color=always --graph --pretty=format:'%Cblue%h%Creset -%C(yellow)%d%Creset %C(white)%s%C(reset)%Cgreen(%cr) %C(bold blue)<%an [%G?]>%Creset' --abbrev-commit --date=auto:human
     l  = log --color=always --abbrev-commit --oneline
     lon = log --color=always --oneline --name-only
@@ -75,6 +75,7 @@
     ff = merge --ff-only
     undo-last = reset head~
     list-submodules = !git config --file .gitmodules --get-regexp path | awk '{ print $2 }'
+    recover-rejected-commit = "!f() { git commit -e --file=$(git rev-parse --git-dir)/COMMIT_EDITMSG; }; f"
 
 ; --
 ; UI
@@ -117,8 +118,6 @@
     prompt = blue italic
 
 [pager]
-    diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
-    show = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified|renamed): '
     stash = false
 
 ; Disable a few of Git help messages
@@ -126,6 +125,7 @@
     statusHints = false ; Disable "how to stage/unstage/add" hints
     pushNonFastForward = false ; Disable fast-forward advice (Still show the push was rejected)
     waitingForEditor = false ; Disable the "hint... waiting for your editor" message
+    skippedCherryPicks = false ; Disable message saying commit has been cherry-picked onto the upstream
 
 ; This will format the text when rebasing interactively like the example below:
 ; pick a5bce56 [Filipe K..] Ensure socket is valid .. [.. 4 Jan 2018 17:06:55 -0200]
@@ -141,10 +141,10 @@
     excludesfile = ~/.dotfiles/sidekicks/git/.gitignore
     filemode = false
     untrackedCache = true ; https://news.ycombinator.com/item?id=11388479
-    editor = $EDITOR
     whitespace = trailing-space,space-before-tab ; Git will check for whitespace at $ and mixed spaces and tabs
     hooksPath = ~/.dotfiles/sidekicks/git/hooks
     eol = lf
+    pager = delta
 
 ; --------------
 ; Best Practices
@@ -171,7 +171,8 @@
     stat = true ; show diffstat after every merge
     log = 1000 ; append commit messages to merge message
     renormalize = true
-	tool = fugitive
+    tool = fugitive
+    conflictstyle = diff3
 
 [pull]
     rebase = true ; rebase by default
@@ -286,3 +287,5 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
+[init]
+	defaultBranch = main
