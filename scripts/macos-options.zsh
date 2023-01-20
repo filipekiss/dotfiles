@@ -446,6 +446,9 @@ defaults write com.apple.dock orientation -string left
 e_info 'Make Dock icons of hidden applications translucent'
 defaults write com.apple.dock showhidden -bool true
 
+e_info 'Show App Switcher in all displays'
+defaults write com.apple.Dock appswitcher-all-displays -bool true
+
 # Disable the Launchpad gesture (pinch with thumb and three fingers)
 #defaults write com.apple.dock showLaunchpadGestureEnabled -int 0
 
