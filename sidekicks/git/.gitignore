@@ -32,7 +32,6 @@ Thumbs.db
 ###########
 .sass-cache/
 .grunt/
-node_modules/
 .gems/
 .bundle/
 elm-stuff/
@@ -40,15 +39,9 @@ log/
 tmp/
 dump/
 
-# vim       #
+# nvim      #
 #############
 *.un~
-tags
-.tags
-.tags.*
-*.tags
-.notags
-.local.vim
 Session.vim
 *.swp
 *.add.spl
@@ -57,16 +50,20 @@ Session.vim
 *.vim-rplugin~
 .netrwhist
 undodir/
-.gutctags
+.purrpleconf.json
+
+# Node      #
+#############
+node_modules/
+npm-debug.log*
+.prettierignore
+.eslintcache
 
 # Stuff     #
 #############
-npm-debug.log*
-*.pyo
+*.py
 *.pyc
-*.map
-.mx-start
+*.map 
 .envrc
 *.bkp
-.prettierignore
-*.patch.dev
+*.patch

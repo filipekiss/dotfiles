@@ -17,8 +17,6 @@
 
 
 [alias]
-    ahead = outgoing
-    behind = incoming
     a = add -v
     amend = commit --amend -C HEAD
     ap = add -p
@@ -33,6 +31,7 @@
     conflict = diff --name-only --diff-filter=U
     count = rev-list --count
     current = symbolic-ref --short HEAD
+    current-commit = show -s --format="%H"
     d = diff --patch-with-stat
     dc = diff --patch-with-stat --staged
     discard = checkout --
@@ -138,7 +137,7 @@
 ; Git System Settings
 ; -------------------
 [core]
-    excludesfile = ~/.dotfiles/sidekicks/git/.gitignore
+    excludesfile = ~/.gitignore-global
     filemode = false
     untrackedCache = true ; https://news.ycombinator.com/item?id=11388479
     whitespace = trailing-space,space-before-tab ; Git will check for whitespace at $ and mixed spaces and tabs
@@ -171,7 +170,6 @@
     stat = true ; show diffstat after every merge
     log = 1000 ; append commit messages to merge message
     renormalize = true
-    tool = fugitive
     conflictstyle = diff3
 
 [pull]
@@ -180,9 +178,8 @@
 [diff]
     renames = copies ; allow git to do basic copy/rename detection
     mnemonicprefix = true ; git diff uses mnemonics (<i>ndex, <w>ork tree…) instead of a/b notation
-    colorMoved = zebra ; show moved hunks in two different colors
+    colorMoved = default 
     algorithm = histogram ; histogram is kinda faster than the default
-    tool = fugitive
 
 ; Record resolved conflicts
 ; -------------------------
@@ -197,6 +194,7 @@
 ; URL shorthands
 [url "git@github.com:"]
     insteadOf     = gh:
+		insteadOf = https://github.com/
     pushInsteadOf = github:
     pushInsteadOf = git://github.com/
 
@@ -289,3 +287,8 @@
 	process = git-lfs filter-process
 [init]
 	defaultBranch = main
+
+[delta]
+	navigate = true
+[gitbutler]
+	signCommits = true
